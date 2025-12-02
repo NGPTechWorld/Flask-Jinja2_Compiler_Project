@@ -1,8 +1,8 @@
-parser grammar pythonParser;
+parser grammar PythonParser;
 
 // Import tokens from the lexer grammar
 options {
-tokenVocab = pythonLexer;
+tokenVocab = PythonLexer;
 }
 
 
@@ -28,7 +28,7 @@ statement
 // For Loop
 //------------------------------------------------------------
 forStatement
-: FOR targetList IN iterable COLON NEWLINE body (else_block)?
+: FOR targetList IN iterable COLON NEWLINE block (else_block)?
 ;
 
 iterable
@@ -41,20 +41,14 @@ callExpression
 ;
 
 else_block
-: ELSE COLON NEWLINE body
+: ELSE COLON NEWLINE block
 ;
-
-body
-:INDENT statement+ DEDENT
-;
-
-
 
 //------------------------------------------------------------
 // If / Elif / Else Statements
 //------------------------------------------------------------
 ifStatement
-: IF condition COLON block (elifStatement)* (elseStatement)?
+: IF condition COLON NEWLINE block (elifStatement)* (elseStatement)?
 ;
 
 elifStatement
