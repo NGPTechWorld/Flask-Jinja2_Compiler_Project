@@ -1,4 +1,4 @@
-lexer grammar PythonLexer;
+lexer grammar pythonLexer;
 
 //============================================================
 // Python Lexer with INDENT/DEDENT, Variables, JSON, and If
@@ -67,9 +67,6 @@ IN           : 'in';
 RANGE        : 'range';
 CONTINUE     : 'continue';
 BREAK        : 'break';
-DEF          : 'def';
-RETURN       : 'return';
-
 //============================================================
 // Fragments for escape sequences and exponents
 //============================================================
@@ -87,9 +84,6 @@ LPAREN       : '(';
 RPAREN       : ')';
 COLON        : ':';
 COMMA        : ',';
-ARROW        : '->';
-POWER        : '**';
-AT           : '@';
 
 //============================================================
 // Identifiers
@@ -120,7 +114,7 @@ GTE     : '>=';
 // Whitespace & Newlines
 //============================================================
 NEWLINE      : ('\r'? '\n')+ ;
-WS           : [ \t\r\n]+ -> skip ;
+//WS           : [ \t\r\n]+ -> skip ;
 
 //============================================================
 // Comments (Python)
