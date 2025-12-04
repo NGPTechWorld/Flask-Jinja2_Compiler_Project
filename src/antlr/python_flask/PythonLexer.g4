@@ -1,4 +1,4 @@
-lexer grammar pythonLexer;
+lexer grammar PythonLexer;
 
 //============================================================
 // Python Lexer with INDENT/DEDENT, Variables, JSON, and If
@@ -7,16 +7,23 @@ lexer grammar pythonLexer;
 //-------------------------------
 // Java members for INDENT/DEDENT handling
 //-------------------------------
-@lexer::members {
-    java.util.Stack<Integer> indents = new java.util.Stack<>();
-    boolean atStartOfLine = true;
-    java.util.LinkedList<Token> pendingTokens = new java.util.LinkedList<>();
+@header {
+import antlr.python_flask.IndentationHelper;
+}
+@members {
+    IndentationHelper helper = new IndentationHelper();
 
-    /** Helper method to create a token */
-    private Token commonToken(int type, String text) {
-        int start = getCharIndex() - text.length();
-        int stop = getCharIndex() - 1;
-        return new CommonToken(this._tokenFactorySourcePair, type, DEFAULT_TOKEN_CHANNEL, start, stop);
+    @Override
+    public Token nextToken() {
+        if (!helper.getPendingTokens().isEmpty())
+            return helper.getPendingTokens().poll();
+
+        Token next = super.nextToken();
+
+        if (next.getType() == EOF)
+            return helper.handleEOF((CommonToken) next, this);
+
+        return next;
     }
 }
 
@@ -24,27 +31,12 @@ lexer grammar pythonLexer;
 // INDENT / DEDENT Rules
 //============================================================
 
-// Handles indentation at the start of a line
-INDENT
-    : {atStartOfLine}? [ ]+ {
-        int spaces = getText().length();
-        if (indents.isEmpty() || spaces > indents.peek()) {
-            indents.push(spaces);
-            pendingTokens.add(commonToken(INDENT, getText()));
-        }
-        atStartOfLine = false;
-    }
-    -> skip
-;
+NEWLINE
+         : ('\r'? '\n')  { helper.handleNewline(this); }
+         ;
 
-// Handles dedentation at the start of a line
-DEDENT
-    : {atStartOfLine && !indents.isEmpty()}? {
-        int previous = indents.pop();
-        pendingTokens.add(commonToken(DEDENT, ""));
-    }
-    -> skip
-;
+INDENT  : ;
+DEDENT  : ;
 
 //============================================================
 // Literals
@@ -67,6 +59,9 @@ IN           : 'in';
 RANGE        : 'range';
 CONTINUE     : 'continue';
 BREAK        : 'break';
+DEF          : 'def';
+RETURN       : 'return';
+
 //============================================================
 // Fragments for escape sequences and exponents
 //============================================================
@@ -84,6 +79,9 @@ LPAREN       : '(';
 RPAREN       : ')';
 COLON        : ':';
 COMMA        : ',';
+ARROW        : '->';
+POWER        : '**';
+AT           : '@';
 
 //============================================================
 // Identifiers
@@ -113,8 +111,10 @@ GTE     : '>=';
 //============================================================
 // Whitespace & Newlines
 //============================================================
-NEWLINE      : ('\r'? '\n')+ ;
-//WS           : [ \t\r\n]+ -> skip ;
+// WS : [ \t]+ -> skip;
+//WS
+//    : [ \t]+ -> channel(HIDDEN)
+//    ;
 
 //============================================================
 // Comments (Python)
