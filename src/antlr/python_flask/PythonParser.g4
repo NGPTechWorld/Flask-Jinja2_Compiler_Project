@@ -1,216 +1,215 @@
 parser grammar PythonParser;
 
 options {
-    tokenVocab = PythonLexer;
+tokenVocab = PythonLexer;
 }
 
 //------------------------------------------------------------
 // Entry Point
 //------------------------------------------------------------
 program
-    : statement*
-    ;
+: statement* EOF
+;
 
 //------------------------------------------------------------
 // Statements
 //------------------------------------------------------------
 statement
-    : assignmentStatement
-    | ifStatement
-    | forStatement
-    | funcdef
-    | NEWLINE
+: simpleStatement
+| compoundStatement
+;
+
+simpleStatement
+: assignmentStatement
+| importStatement
+| globalStatement
+| passStatement
+| returnStatement
+| expressionList? NEWLINE
+;
+
+compoundStatement
+: ifStatement
+| forStatement
+| funcdef
+| classDef
+;
+
+returnStatement
+    : RETURN (expressionList)? NEWLINE
     ;
+
+importStatement
+: IMPORT importItem (COMMA importItem)* NEWLINE
+| FROM importModule IMPORT importItem (COMMA importItem)* NEWLINE
+;
+
+importItem
+: IDENTIFIER (AS IDENTIFIER)?
+;
+
+importModule
+: IDENTIFIER (DOT IDENTIFIER)*
+;
+
+globalStatement
+: GLOBAL IDENTIFIER (COMMA IDENTIFIER)* NEWLINE
+;
+
+passStatement
+: PASS NEWLINE
+;
+
+// MODIFIED: Class Definition (basic)
+classDef
+: CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON NEWLINE body
+;
+
+body
+//: INDENT simpleStatement DEDENT
+: INDENT statement+ DEDENT
+;
 
 //------------------------------------------------------------
 // Function Definition
 //------------------------------------------------------------
 funcdef
-    :  DEF IDENTIFIER LPAREN parameters? RPAREN (ARROW test)? COLON NEWLINE func_body
-    ;
+: decorators? DEF IDENTIFIER LPAREN parameters? RPAREN (ARROW expression)? COLON body
+;
 
-//// Decorators (optional)
-//decorators
-//    : decorator+
-//    ;
-//
-//decorator
-//    : AT IDENTIFIER (LPAREN (expression (COMMA expression)*)? RPAREN)? NEWLINE
-//    ;
+// MODIFIED: Decorators
+decorators
+: decorator+
+;
+
+decorator
+: AT dottedName (LPAREN arglist? RPAREN)? NEWLINE
+;
+
+dottedName
+: IDENTIFIER (DOT IDENTIFIER)*
+;
 
 // Parameter list
 parameters
-    : param (COMMA param)* (COMMA)?  // allow trailing comma
-    ;
+: param (COMMA param)* (COMMA)?
+;
 
 // Single parameter (positional / default / *args / **kwargs)
 param
-    : IDENTIFIER (EQUAL test)?    // a or a=default
-    | STAR IDENTIFIER             // *args
-    | POWER IDENTIFIER            // **kwargs
-    ;
-
-// Function body
-func_body
-    : simpleStatement
-    | INDENT (statement | returnStatement)+ DEDENT
-    ;
-
-// Simple single-line statement
-simpleStatement
-    : statement
-    ;
-
-// Return statement
-returnStatement
-    : RETURN (expressionList)? NEWLINE
-    ;
-// Test expression (used for defaults and return type)
-test
-    : expression
-    ;
+: IDENTIFIER (EQUAL expression)?
+| STAR IDENTIFIER
+| POWER IDENTIFIER
+;
 
 //------------------------------------------------------------
 // For Loop
 //------------------------------------------------------------
 forStatement
-    : FOR targetList IN iterable COLON NEWLINE body (else_block)?
-    | expression FOR targetList IN iterable
-    ;
-
-iterable
-    : expression
-    | callExpression
-    ;
-
-callExpression
-    : RANGE LPAREN (expression (COMMA expression)*)? RPAREN
-    ;
-
-else_block
-    : ELSE COLON NEWLINE body
-    ;
-
-body
-    : INDENT statement+ DEDENT
-    ;
+: FOR targetList IN expressionList COLON body
+;
 
 //------------------------------------------------------------
 // If / Elif / Else Statements
 //------------------------------------------------------------
 ifStatement
-    : IF condition COLON block (elifStatement)* (elseStatement)?
-    ;
-
-elifStatement
-    : ELIF condition COLON block
-    ;
-
-elseStatement
-    : ELSE COLON block
-    ;
-
-//------------------------------------------------------------
-// Condition: single expression with optional comparison
-//------------------------------------------------------------
-condition
-    : expression (compOperator expression)?
-    ;
-
-compOperator
-    : EQ
-    | NEQ
-    | LT
-    | LTE
-    | GT
-    | GTE
-    ;
-
-//------------------------------------------------------------
-// Block of statements (Python style)
-//------------------------------------------------------------
-block
-    : INDENT statement+ DEDENT
-    ;
+: IF expression COLON body (ELIF expression COLON body)* (ELSE COLON body)?
+;
 
 //------------------------------------------------------------
 // Assignment Statements
 //------------------------------------------------------------
 assignmentStatement
-    : targetList EQUAL expressionList
-    | targetList augmentedAssignment expression
-    ;
+: targetList (augmentedAssignment | EQUAL) expressionList NEWLINE
+;
 
-//------------------------------------------------------------
-// JSON Support
-//------------------------------------------------------------
-object
-    : LKB (keyValue (COMMA keyValue)*)? RKB
-    ;
-
-keyValue
-    : STRING COLON value
-    ;
-
-array
-    : LSB (value (COMMA value)*)? RSB
-    ;
-
-value
-    : DOUBLE
-    | INT
-    | STRING
-    | object
-    | array
-    | TRUE
-    | FALSE
-    | NULL
-    | IDENTIFIER
-    ;
-
-//------------------------------------------------------------
 // Targets
-//------------------------------------------------------------
 targetList
-    : target (COMMA target)*
-    ;
+: target (COMMA target)*
+;
 
 target
-    : IDENTIFIER
-    ;
+: IDENTIFIER
+| target LSB expression RSB // e.g., my_list[0] = 5
+| target DOT IDENTIFIER // e.g., my_obj.attr = 5
+;
 
-//------------------------------------------------------------
-// Expressions
-//------------------------------------------------------------
+// Expression lists
 expressionList
-    : expression (COMMA expression)*
-    ;
+: expression (COMMA expression)*
+;
 
-expression
-    : atom
-    | expression STAR expression
-    | expression DIV expression
-    | expression PLUS expression
-    | expression MINUS expression
-    ;
-
-//------------------------------------------------------------
-// Atomic values
-//------------------------------------------------------------
-atom
-    : INT
-    | STRING
-    | IDENTIFIER
-    | object
-    | array
-    ;
-
-//------------------------------------------------------------
 // Augmented assignments
-//------------------------------------------------------------
 augmentedAssignment
-    : PLUS_EQUAL
-    | MINUS_EQUAL
-    | STAR_EQUAL
-    | DIV_EQUAL
-    ;
+: PLUS_EQUAL
+| MINUS_EQUAL
+| STAR_EQUAL
+| DIV_EQUAL
+| MOD_EQUAL
+;
+
+//============================================================
+// EXPRESSIONS (Major Refactor)
+//================================================------------
+// This is the top-level expression rule
+expression
+: expression IS expression # IsExpression
+| expression ISNOT expression # IsNotExpression
+| expression (EQ | NEQ | LT | LTE | GT | GTE) expression # ComparisonExpression
+| expression (AND | OR) expression # LogicalExpression
+| NOT expression # NotExpression
+| expression (PLUS | MINUS) expression # AddSubExpression
+| expression (STAR | DIV | MOD) expression # MulDivModExpression
+| POWER expression # PowerExpression
+| atomExpression # AtomExpressionAt
+;
+
+// This handles calls, subscripts, and attribute access
+atomExpression
+: atom (trailer)*  // example: request.form.get('name')
+;
+
+trailer
+: LPAREN arglist? RPAREN # CallTrailer   // example: ('name')
+| LSB expression RSB # SubscriptTrailer // example: [i] or ['name']
+| DOT IDENTIFIER # AttributeTrailer     // example: .get or .form
+;
+
+// Atomic values
+atom
+: LPAREN expressionList? RPAREN
+| LKB keyValueList? RKB // Dictionary literal
+| LSB expressionList? RSB // List literal
+| literal
+;
+
+// List of key-value pairs for dictionaries
+keyValueList
+: keyValue (COMMA keyValue)* COMMA?
+;
+
+keyValue
+: expression COLON expression
+;
+
+// Literals
+literal
+: INT
+| DOUBLE
+| STRING
+| FSTRING
+| TRUE
+| FALSE
+| NULL
+| IDENTIFIER
+;
+
+// Argument list for function calls
+arglist
+: argument (COMMA argument)* COMMA?
+;
+
+argument
+: (IDENTIFIER EQUAL)? expression
+| POWER expression
+;
