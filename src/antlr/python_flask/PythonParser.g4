@@ -1,5 +1,8 @@
 parser grammar PythonParser;
 
+@header {
+package antlr.python_flask.generated;
+}
 // Import tokens from the lexer grammar
 options {
 tokenVocab = PythonLexer;
@@ -28,7 +31,7 @@ statement
 // For Loop
 //------------------------------------------------------------
 forStatement
-: FOR targetList IN iterable COLON NEWLINE block (else_block)?
+: FOR targetList IN iterable COLON  block (else_block)?
 ;
 
 iterable
@@ -41,14 +44,14 @@ callExpression
 ;
 
 else_block
-: ELSE COLON NEWLINE block
+: ELSE COLON  block
 ;
 
 //------------------------------------------------------------
 // If / Elif / Else Statements
 //------------------------------------------------------------
 ifStatement
-: IF condition COLON NEWLINE block (elifStatement)* (elseStatement)?
+: IF condition COLON  block (elifStatement)* (elseStatement)?
 ;
 
 elifStatement

@@ -8,22 +8,27 @@ lexer grammar PythonLexer;
 // Java members for INDENT/DEDENT handling
 //-------------------------------
 @header {
-import antlr.python_flask.IndentationHelper;
+package antlr.python_flask.generated;
+
+import antlr.python_flask.DenterHelper;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.CommonToken;
 }
 @members {
-    IndentationHelper helper = new IndentationHelper();
+    private final DenterHelper denter = new DenterHelper(
+        NEWLINE,
+        PythonParser.INDENT,
+        PythonParser.DEDENT
+    ) {
+        @Override
+        protected Token pullToken() {
+            return PythonLexer.super.nextToken();
+        }
+    };
 
     @Override
     public Token nextToken() {
-        if (!helper.getPendingTokens().isEmpty())
-            return helper.getPendingTokens().poll();
-
-        Token next = super.nextToken();
-
-        if (next.getType() == EOF)
-            return helper.handleEOF((CommonToken) next, this);
-
-        return next;
+        return denter.nextToken();
     }
 }
 
@@ -33,12 +38,12 @@ import antlr.python_flask.IndentationHelper;
 //============================================================
 
 NEWLINE
-         : ('\r'? '\n')  { helper.handleNewline(this); }
-         ;
+    :   ('\r'? '\n') [ \t]*
+    ;
 
 INDENT  : ;
 DEDENT  : ;
-
+WS      : [ \t]+ -> skip;
 //============================================================
 // Literals
 //============================================================
@@ -77,7 +82,7 @@ LPAREN       : '(';
 RPAREN       : ')';
 COLON        : ':';
 COMMA        : ',';
-
+SEMI         : ';';
 //============================================================
 // Identifiers
 //============================================================
