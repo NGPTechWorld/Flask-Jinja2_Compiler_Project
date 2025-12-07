@@ -12,7 +12,10 @@ import java.util.Arrays;
 
 public class MainTest {
     public static void main(String[] args) throws Exception {
+        runPythonAndFlask();
+    }
 
+    public static void runPythonAndFlask() throws Exception {
         String code = Files.readString(Paths.get("src/code.txt"));
 
         PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
@@ -37,7 +40,6 @@ public class MainTest {
 
         System.out.println(tree.toStringTree(parser));
         printPrettyTree(tree, parser, 0);
-
     }
 
     public static void printPrettyTree(ParseTree tree, PythonParser parser, int indent) {
