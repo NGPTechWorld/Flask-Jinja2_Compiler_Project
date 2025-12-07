@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate ANTLR Python Parser",
+      "type": "shell",
+      "command": "java -jar ./lib/antlr-4.13.2-complete.jar -Dlanguage=Java -visitor -listener -o ./src/antlr/python_flask/generated ./src/antlr/python_flask/PythonParser.g4 ./src/antlr/python_flask/PythonLexer.g4",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate ANTLR HTML & CSS & JINJA2 Parser",
+      "type": "shell",
+      "command": "java -jar ./lib/antlr-4.13.2-complete.jar -Dlanguage=Java -visitor -listener -o ./src/antlr/html_css_jinja2/generated ./src/antlr/html_css_jinja2/HtmlCssJinja2Parser.g4 ./src/antlr/html_css_jinja2/HtmlCssJinja2Lexer.g4",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build & Run Java ANTLR",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        ".\\lib\\build_run.ps1"
+      ],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

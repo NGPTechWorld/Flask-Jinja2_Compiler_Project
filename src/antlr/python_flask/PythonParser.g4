@@ -1,5 +1,6 @@
 parser grammar PythonParser;
 
+// Import tokens from the lexer grammar
 options {
 tokenVocab = PythonLexer;
 }
