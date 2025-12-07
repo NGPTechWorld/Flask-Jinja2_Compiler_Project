@@ -44,15 +44,19 @@ NEWLINE
 INDENT  : ;
 DEDENT  : ;
 WS      : [ \t]+ -> skip;
+
 //============================================================
 // Literals
 //============================================================
 INT          : '0' | [1-9][0-9]* ;
 DOUBLE       : '-'? INT '.' [0-9]+ EXP? ;
-STRING       : '"' (~["\\] | ESC)* '"';
-TRUE         : 'true';
-FALSE        : 'false';
-NULL         : 'null';
+STRING       : '"' (~["\\] | ESC)* '"' | '\'' (~['\\] | ESC)* '\'';
+TRUE         : 'True';
+FALSE        : 'False';
+NULL         : 'None';
+
+// NEW: F-String support (simplified)
+FSTRING      : 'f"' (~["\\] | ESC)* '"';
 
 //============================================================
 // Keywords
@@ -65,6 +69,19 @@ IN           : 'in';
 RANGE        : 'range';
 CONTINUE     : 'continue';
 BREAK        : 'break';
+DEF          : 'def';
+RETURN       : 'return';
+IMPORT       : 'import';
+FROM         : 'from';
+AS           : 'as';
+GLOBAL       : 'global';
+IS           : 'is';
+AND          : 'and';
+OR           : 'or';
+NOT          : 'not';
+PASS         : 'pass';
+CLASS        : 'class';
+
 //============================================================
 // Fragments for escape sequences and exponents
 //============================================================
@@ -72,7 +89,7 @@ fragment ESC : '\\' [bfnrt"\\];
 fragment EXP : [Ee] [+\-]?[0-9]+ ;
 
 //============================================================
-// Brackets, comma, colon
+// Brackets, comma, colon, dot
 //============================================================
 LKB          : '{';
 RKB          : '}';
@@ -82,7 +99,11 @@ LPAREN       : '(';
 RPAREN       : ')';
 COLON        : ':';
 COMMA        : ',';
-SEMI         : ';';
+ARROW        : '->';
+POWER        : '**';
+AT           : '@';
+DOT          : '.';
+
 //============================================================
 // Identifiers
 //============================================================
@@ -96,10 +117,12 @@ PLUS         : '+' ;
 MINUS        : '-' ;
 STAR         : '*' ;
 DIV          : '/' ;
+MOD          : '%' ;
 PLUS_EQUAL   : '+=' ;
 MINUS_EQUAL  : '-=' ;
 STAR_EQUAL   : '*=' ;
 DIV_EQUAL    : '/=' ;
+MOD_EQUAL    : '%=';
 
 EQ      : '==';
 NEQ     : '!=';
@@ -107,14 +130,7 @@ LT      : '<';
 LTE     : '<=';
 GT      : '>';
 GTE     : '>=';
-
-//============================================================
-// Whitespace & Newlines
-//============================================================
-// WS : [ \t]+ -> skip;
-//WS
-//    : [ \t]+ -> channel(HIDDEN)
-//    ;
+ISNOT   : 'is not';
 
 //============================================================
 // Comments (Python)
