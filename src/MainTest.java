@@ -3,8 +3,12 @@ import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Lexer;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.python_flask.generated.PythonLexer;
 import antlr.python_flask.generated.PythonParser;
+import ast.html_css_jinja2.AstNode;
+import visitor.html_css_jinja2.BuildAstVisitor;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,8 +16,9 @@ import java.util.Arrays;
 
 public class MainTest {
     public static void main(String[] args) throws Exception {
-        runPythonAndFlask();
+        // runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
+        runANTLR_HTML_CSS_JINJA2_AST();
     }
 
     public static void runPythonAndFlask() throws Exception {
@@ -42,6 +47,7 @@ public class MainTest {
         System.out.println(tree.toStringTree(parser));
         printPrettyTreePython(tree, parser, 0);
     }
+
     public static void runANTLR_HTML_CSS_JINJA2() throws Exception {
         String code = Files.readString(Paths.get("src/code.txt"));
 
@@ -69,6 +75,22 @@ public class MainTest {
         printPrettyTreeHTML(tree, parser, 0);
     }
 
+    public static void runANTLR_HTML_CSS_JINJA2_AST() throws Exception {
+        String code = Files.readString(Paths.get("src/code.txt"));
+
+        HtmlCssJinja2Lexer lexer = new HtmlCssJinja2Lexer(CharStreams.fromString(code));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        HtmlCssJinja2Parser parser = new HtmlCssJinja2Parser(tokens);
+
+        ParseTree tree = parser.htmlDocument();
+
+        BuildAstVisitor visitor = new BuildAstVisitor();
+        AstNode ast = visitor.visit(tree);
+
+        System.out.println("=== AST (JSON STYLE) ===");
+        System.out.println(ast.toJson());
+    }
+
     public static void printPrettyTreePython(ParseTree tree, PythonParser parser, int indent) {
         String indentStr = " ".repeat(indent);
         if (tree.getChildCount() == 0) {
@@ -81,6 +103,7 @@ public class MainTest {
             printPrettyTreePython(tree.getChild(i), parser, indent + 2);
         }
     }
+
     public static void printPrettyTreeHTML(ParseTree tree, HtmlCssJinja2Parser parser, int indent) {
         String indentStr = " ".repeat(indent);
         if (tree.getChildCount() == 0) {
