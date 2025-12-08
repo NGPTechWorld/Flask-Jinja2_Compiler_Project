@@ -1,5 +1,9 @@
 lexer grammar HtmlCssJinja2Lexer;
 
+@header {
+    package antlr.html_css_jinja2.generated;
+}
+
 HTML_COMMENT: '<!--' .*? '-->';
 
 DTD: '<!' .*? '>'; // Document Type Definitions

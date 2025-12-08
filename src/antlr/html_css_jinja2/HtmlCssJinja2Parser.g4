@@ -1,5 +1,9 @@
 parser grammar HtmlCssJinja2Parser;
 
+@header {
+    package antlr.html_css_jinja2.generated;
+}
+
 options {
     tokenVocab = HtmlCssJinja2Lexer;
 }

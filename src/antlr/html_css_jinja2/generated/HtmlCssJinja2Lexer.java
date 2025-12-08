@@ -1,4 +1,6 @@
 // Generated from ./src/antlr/html_css_jinja2/HtmlCssJinja2Lexer.g4 by ANTLR 4.13.2
+package antlr.html_css_jinja2.generated;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
