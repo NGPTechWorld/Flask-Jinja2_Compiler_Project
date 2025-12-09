@@ -2983,29 +2983,140 @@ public class PythonParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LiteralContext extends ParserRuleContext {
-		public TerminalNode INT() { return getToken(PythonParser.INT, 0); }
-		public TerminalNode DOUBLE() { return getToken(PythonParser.DOUBLE, 0); }
-		public TerminalNode STRING() { return getToken(PythonParser.STRING, 0); }
-		public TerminalNode FSTRING() { return getToken(PythonParser.FSTRING, 0); }
-		public TerminalNode TRUE() { return getToken(PythonParser.TRUE, 0); }
-		public TerminalNode FALSE() { return getToken(PythonParser.FALSE, 0); }
-		public TerminalNode NULL() { return getToken(PythonParser.NULL, 0); }
-		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
 		public LiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_literal; }
+	 
+		public LiteralContext() { }
+		public void copyFrom(LiteralContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class StringLiteralContext extends LiteralContext {
+		public TerminalNode STRING() { return getToken(PythonParser.STRING, 0); }
+		public StringLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterLiteral(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterStringLiteral(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitLiteral(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitStringLiteral(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitLiteral(this);
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitStringLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class BooleanLiteralContext extends LiteralContext {
+		public TerminalNode TRUE() { return getToken(PythonParser.TRUE, 0); }
+		public TerminalNode FALSE() { return getToken(PythonParser.FALSE, 0); }
+		public BooleanLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterBooleanLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitBooleanLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitBooleanLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FStringLiteralContext extends LiteralContext {
+		public TerminalNode FSTRING() { return getToken(PythonParser.FSTRING, 0); }
+		public FStringLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterFStringLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitFStringLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitFStringLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IdentifierLiteralContext extends LiteralContext {
+		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
+		public IdentifierLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterIdentifierLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitIdentifierLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitIdentifierLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IntLiteralContext extends LiteralContext {
+		public TerminalNode INT() { return getToken(PythonParser.INT, 0); }
+		public IntLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterIntLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitIntLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitIntLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class DoubleLiteralContext extends LiteralContext {
+		public TerminalNode DOUBLE() { return getToken(PythonParser.DOUBLE, 0); }
+		public DoubleLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterDoubleLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitDoubleLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitDoubleLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NullLiteralContext extends LiteralContext {
+		public TerminalNode NULL() { return getToken(PythonParser.NULL, 0); }
+		public NullLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterNullLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitNullLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitNullLiteral(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3013,20 +3124,76 @@ public class PythonParser extends Parser {
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
 		enterRule(_localctx, 62, RULE_literal);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(392);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 17592186048480L) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(400);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case INT:
+				_localctx = new IntLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(392);
+				match(INT);
+				}
+				break;
+			case DOUBLE:
+				_localctx = new DoubleLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(393);
+				match(DOUBLE);
+				}
+				break;
+			case STRING:
+				_localctx = new StringLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(394);
+				match(STRING);
+				}
+				break;
+			case FSTRING:
+				_localctx = new FStringLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(395);
+				match(FSTRING);
+				}
+				break;
+			case TRUE:
+				_localctx = new BooleanLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(396);
+				match(TRUE);
+				}
+				break;
+			case FALSE:
+				_localctx = new BooleanLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(397);
+				match(FALSE);
+				}
+				break;
+			case NULL:
+				_localctx = new NullLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(398);
+				match(NULL);
+				}
+				break;
+			case IDENTIFIER:
+				_localctx = new IdentifierLiteralContext(_localctx);
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(399);
+				match(IDENTIFIER);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -3079,32 +3246,32 @@ public class PythonParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(394);
+			setState(402);
 			argument();
-			setState(399);
+			setState(407);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,45,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,46,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(395);
+					setState(403);
 					match(COMMA);
-					setState(396);
+					setState(404);
 					argument();
 					}
 					} 
 				}
-				setState(401);
+				setState(409);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,45,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,46,_ctx);
 			}
-			setState(403);
+			setState(411);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(402);
+				setState(410);
 				match(COMMA);
 				}
 			}
@@ -3153,34 +3320,34 @@ public class PythonParser extends Parser {
 		ArgumentContext _localctx = new ArgumentContext(_ctx, getState());
 		enterRule(_localctx, 66, RULE_argument);
 		try {
-			setState(412);
+			setState(420);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,48,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,49,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(407);
+				setState(415);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,48,_ctx) ) {
 				case 1:
 					{
-					setState(405);
+					setState(413);
 					match(IDENTIFIER);
-					setState(406);
+					setState(414);
 					match(EQUAL);
 					}
 					break;
 				}
-				setState(409);
+				setState(417);
 				expression(0);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(410);
+				setState(418);
 				match(POWER);
-				setState(411);
+				setState(419);
 				expression(0);
 				}
 				break;
@@ -3234,7 +3401,7 @@ public class PythonParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001?\u019f\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001?\u01a7\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -3295,12 +3462,13 @@ public class PythonParser extends Parser {
 		"\u001c\u0001\u001c\u0001\u001c\u0003\u001c\u0178\b\u001c\u0001\u001d\u0001"+
 		"\u001d\u0001\u001d\u0005\u001d\u017d\b\u001d\n\u001d\f\u001d\u0180\t\u001d"+
 		"\u0001\u001d\u0003\u001d\u0183\b\u001d\u0001\u001e\u0001\u001e\u0001\u001e"+
-		"\u0001\u001e\u0001\u001f\u0001\u001f\u0001 \u0001 \u0001 \u0005 \u018e"+
-		"\b \n \f \u0191\t \u0001 \u0003 \u0194\b \u0001!\u0001!\u0003!\u0198\b"+
-		"!\u0001!\u0001!\u0001!\u0003!\u019d\b!\u0001!\u0000\u0002,2\"\u0000\u0002"+
-		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e"+
-		" \"$&(*,.02468:<>@B\u0000\u0006\u0001\u000037\u0001\u00008=\u0001\u0000"+
-		"\u001b\u001c\u0001\u0000./\u0001\u000002\u0002\u0000\u0005\u000b,,\u01bc"+
+		"\u0001\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f"+
+		"\u0001\u001f\u0001\u001f\u0001\u001f\u0003\u001f\u0191\b\u001f\u0001 "+
+		"\u0001 \u0001 \u0005 \u0196\b \n \f \u0199\t \u0001 \u0003 \u019c\b \u0001"+
+		"!\u0001!\u0003!\u01a0\b!\u0001!\u0001!\u0001!\u0003!\u01a5\b!\u0001!\u0000"+
+		"\u0002,2\"\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016"+
+		"\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@B\u0000\u0005\u0001\u000037"+
+		"\u0001\u00008=\u0001\u0000\u001b\u001c\u0001\u0000./\u0001\u000002\u01cb"+
 		"\u0000G\u0001\u0000\u0000\u0000\u0002N\u0001\u0000\u0000\u0000\u0004Y"+
 		"\u0001\u0000\u0000\u0000\u0006_\u0001\u0000\u0000\u0000\ba\u0001\u0000"+
 		"\u0000\u0000\n\u007f\u0001\u0000\u0000\u0000\f\u0081\u0001\u0000\u0000"+
@@ -3315,7 +3483,7 @@ public class PythonParser extends Parser {
 		"0\u0132\u0001\u0000\u0000\u00002\u013a\u0001\u0000\u0000\u00004\u0153"+
 		"\u0001\u0000\u0000\u00006\u0165\u0001\u0000\u0000\u00008\u0177\u0001\u0000"+
 		"\u0000\u0000:\u0179\u0001\u0000\u0000\u0000<\u0184\u0001\u0000\u0000\u0000"+
-		">\u0188\u0001\u0000\u0000\u0000@\u018a\u0001\u0000\u0000\u0000B\u019c"+
+		">\u0190\u0001\u0000\u0000\u0000@\u0192\u0001\u0000\u0000\u0000B\u01a4"+
 		"\u0001\u0000\u0000\u0000DF\u0003\u0002\u0001\u0000ED\u0001\u0000\u0000"+
 		"\u0000FI\u0001\u0000\u0000\u0000GE\u0001\u0000\u0000\u0000GH\u0001\u0000"+
 		"\u0000\u0000HJ\u0001\u0000\u0000\u0000IG\u0001\u0000\u0000\u0000JK\u0005"+
@@ -3488,22 +3656,30 @@ public class PythonParser extends Parser {
 		"\u0005\'\u0000\u0000\u0182\u0181\u0001\u0000\u0000\u0000\u0182\u0183\u0001"+
 		"\u0000\u0000\u0000\u0183;\u0001\u0000\u0000\u0000\u0184\u0185\u00032\u0019"+
 		"\u0000\u0185\u0186\u0005&\u0000\u0000\u0186\u0187\u00032\u0019\u0000\u0187"+
-		"=\u0001\u0000\u0000\u0000\u0188\u0189\u0007\u0005\u0000\u0000\u0189?\u0001"+
-		"\u0000\u0000\u0000\u018a\u018f\u0003B!\u0000\u018b\u018c\u0005\'\u0000"+
-		"\u0000\u018c\u018e\u0003B!\u0000\u018d\u018b\u0001\u0000\u0000\u0000\u018e"+
-		"\u0191\u0001\u0000\u0000\u0000\u018f\u018d\u0001\u0000\u0000\u0000\u018f"+
-		"\u0190\u0001\u0000\u0000\u0000\u0190\u0193\u0001\u0000\u0000\u0000\u0191"+
-		"\u018f\u0001\u0000\u0000\u0000\u0192\u0194\u0005\'\u0000\u0000\u0193\u0192"+
-		"\u0001\u0000\u0000\u0000\u0193\u0194\u0001\u0000\u0000\u0000\u0194A\u0001"+
-		"\u0000\u0000\u0000\u0195\u0196\u0005,\u0000\u0000\u0196\u0198\u0005-\u0000"+
-		"\u0000\u0197\u0195\u0001\u0000\u0000\u0000\u0197\u0198\u0001\u0000\u0000"+
-		"\u0000\u0198\u0199\u0001\u0000\u0000\u0000\u0199\u019d\u00032\u0019\u0000"+
-		"\u019a\u019b\u0005)\u0000\u0000\u019b\u019d\u00032\u0019\u0000\u019c\u0197"+
-		"\u0001\u0000\u0000\u0000\u019c\u019a\u0001\u0000\u0000\u0000\u019dC\u0001"+
-		"\u0000\u0000\u00001GNVY_cmz\u007f\u0084\u008b\u0094\u00a0\u00a3\u00ad"+
-		"\u00b2\u00b8\u00bd\u00c5\u00cb\u00ce\u00d7\u00df\u00e3\u00e8\u00ee\u0102"+
-		"\u0108\u010d\u0117\u0125\u0127\u012f\u013a\u014e\u0150\u0157\u015c\u0165"+
-		"\u0169\u016e\u0173\u0177\u017e\u0182\u018f\u0193\u0197\u019c";
+		"=\u0001\u0000\u0000\u0000\u0188\u0191\u0005\u0005\u0000\u0000\u0189\u0191"+
+		"\u0005\u0006\u0000\u0000\u018a\u0191\u0005\u0007\u0000\u0000\u018b\u0191"+
+		"\u0005\u000b\u0000\u0000\u018c\u0191\u0005\b\u0000\u0000\u018d\u0191\u0005"+
+		"\t\u0000\u0000\u018e\u0191\u0005\n\u0000\u0000\u018f\u0191\u0005,\u0000"+
+		"\u0000\u0190\u0188\u0001\u0000\u0000\u0000\u0190\u0189\u0001\u0000\u0000"+
+		"\u0000\u0190\u018a\u0001\u0000\u0000\u0000\u0190\u018b\u0001\u0000\u0000"+
+		"\u0000\u0190\u018c\u0001\u0000\u0000\u0000\u0190\u018d\u0001\u0000\u0000"+
+		"\u0000\u0190\u018e\u0001\u0000\u0000\u0000\u0190\u018f\u0001\u0000\u0000"+
+		"\u0000\u0191?\u0001\u0000\u0000\u0000\u0192\u0197\u0003B!\u0000\u0193"+
+		"\u0194\u0005\'\u0000\u0000\u0194\u0196\u0003B!\u0000\u0195\u0193\u0001"+
+		"\u0000\u0000\u0000\u0196\u0199\u0001\u0000\u0000\u0000\u0197\u0195\u0001"+
+		"\u0000\u0000\u0000\u0197\u0198\u0001\u0000\u0000\u0000\u0198\u019b\u0001"+
+		"\u0000\u0000\u0000\u0199\u0197\u0001\u0000\u0000\u0000\u019a\u019c\u0005"+
+		"\'\u0000\u0000\u019b\u019a\u0001\u0000\u0000\u0000\u019b\u019c\u0001\u0000"+
+		"\u0000\u0000\u019cA\u0001\u0000\u0000\u0000\u019d\u019e\u0005,\u0000\u0000"+
+		"\u019e\u01a0\u0005-\u0000\u0000\u019f\u019d\u0001\u0000\u0000\u0000\u019f"+
+		"\u01a0\u0001\u0000\u0000\u0000\u01a0\u01a1\u0001\u0000\u0000\u0000\u01a1"+
+		"\u01a5\u00032\u0019\u0000\u01a2\u01a3\u0005)\u0000\u0000\u01a3\u01a5\u0003"+
+		"2\u0019\u0000\u01a4\u019f\u0001\u0000\u0000\u0000\u01a4\u01a2\u0001\u0000"+
+		"\u0000\u0000\u01a5C\u0001\u0000\u0000\u00002GNVY_cmz\u007f\u0084\u008b"+
+		"\u0094\u00a0\u00a3\u00ad\u00b2\u00b8\u00bd\u00c5\u00cb\u00ce\u00d7\u00df"+
+		"\u00e3\u00e8\u00ee\u0102\u0108\u010d\u0117\u0125\u0127\u012f\u013a\u014e"+
+		"\u0150\u0157\u015c\u0165\u0169\u016e\u0173\u0177\u017e\u0182\u0190\u0197"+
+		"\u019b\u019f\u01a4";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

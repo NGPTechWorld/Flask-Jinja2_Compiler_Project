@@ -444,15 +444,89 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitKeyValue(PythonParser.KeyValueContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#literal}.
+	 * Enter a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteral(PythonParser.LiteralContext ctx);
+	void enterIntLiteral(PythonParser.IntLiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PythonParser#literal}.
+	 * Exit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteral(PythonParser.LiteralContext ctx);
+	void exitIntLiteral(PythonParser.IntLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DoubleLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleLiteral(PythonParser.DoubleLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DoubleLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleLiteral(PythonParser.DoubleLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringLiteral(PythonParser.StringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringLiteral(PythonParser.StringLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FStringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterFStringLiteral(PythonParser.FStringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FStringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitFStringLiteral(PythonParser.FStringLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanLiteral(PythonParser.BooleanLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanLiteral(PythonParser.BooleanLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NullLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterNullLiteral(PythonParser.NullLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NullLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitNullLiteral(PythonParser.NullLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IdentifierLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifierLiteral(PythonParser.IdentifierLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IdentifierLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifierLiteral(PythonParser.IdentifierLiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#arglist}.
 	 * @param ctx the parse tree

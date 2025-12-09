@@ -1,5 +1,9 @@
 parser grammar PythonParser;
 
+@header {
+package antlr.python_flask.generated;
+}
+
 // Import tokens from the lexer grammar
 options {
 tokenVocab = PythonLexer;
@@ -195,14 +199,14 @@ keyValue
 
 // Literals
 literal
-: INT
-| DOUBLE
-| STRING
-| FSTRING
-| TRUE
-| FALSE
-| NULL
-| IDENTIFIER
+: INT              #IntLiteral
+| DOUBLE           #DoubleLiteral
+| STRING           #StringLiteral
+| FSTRING          #FStringLiteral
+| TRUE             #BooleanLiteral
+| FALSE            #BooleanLiteral
+| NULL             #NullLiteral
+| IDENTIFIER       #IdentifierLiteral
 ;
 
 // Argument list for function calls

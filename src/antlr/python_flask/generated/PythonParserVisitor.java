@@ -271,11 +271,54 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKeyValue(PythonParser.KeyValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#literal}.
+	 * Visit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteral(PythonParser.LiteralContext ctx);
+	T visitIntLiteral(PythonParser.IntLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoubleLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleLiteral(PythonParser.DoubleLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLiteral(PythonParser.StringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FStringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFStringLiteral(PythonParser.FStringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanLiteral(PythonParser.BooleanLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NullLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNullLiteral(PythonParser.NullLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IdentifierLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifierLiteral(PythonParser.IdentifierLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#arglist}.
 	 * @param ctx the parse tree
