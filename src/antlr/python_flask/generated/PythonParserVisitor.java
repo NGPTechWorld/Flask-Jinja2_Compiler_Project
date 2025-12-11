@@ -1,5 +1,4 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
-
 package antlr.python_flask.generated;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -253,11 +252,33 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttributeTrailer(PythonParser.AttributeTrailerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#atom}.
+	 * Visit a parse tree produced by the {@code ParenAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtom(PythonParser.AtomContext ctx);
+	T visitParenAtom(PythonParser.ParenAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DictAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDictAtom(PythonParser.DictAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListAtom(PythonParser.ListAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LiteralAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralAtom(PythonParser.LiteralAtomContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#keyValueList}.
 	 * @param ctx the parse tree

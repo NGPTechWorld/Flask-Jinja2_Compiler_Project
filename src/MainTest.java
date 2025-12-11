@@ -36,8 +36,11 @@ public class MainTest {
         ParseTree tree = parser.program();
         System.out.println(tree.toStringTree(parser));
 
-        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-        viewer.open();
+       new Thread(() -> {
+    TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
+    viewer.open();
+}).start();
+
 
         System.out.println(tree.toStringTree(parser));
         printPrettyTreePython(tree, parser, 0);

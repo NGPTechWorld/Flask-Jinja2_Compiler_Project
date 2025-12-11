@@ -1,6 +1,6 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
-
 package antlr.python_flask.generated;
+
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -2718,36 +2718,99 @@ public class PythonParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class AtomContext extends ParserRuleContext {
-		public TerminalNode LPAREN() { return getToken(PythonParser.LPAREN, 0); }
-		public TerminalNode RPAREN() { return getToken(PythonParser.RPAREN, 0); }
-		public ExpressionListContext expressionList() {
-			return getRuleContext(ExpressionListContext.class,0);
+		public AtomContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
+		@Override public int getRuleIndex() { return RULE_atom; }
+	 
+		public AtomContext() { }
+		public void copyFrom(AtomContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class DictAtomContext extends AtomContext {
 		public TerminalNode LKB() { return getToken(PythonParser.LKB, 0); }
 		public TerminalNode RKB() { return getToken(PythonParser.RKB, 0); }
 		public KeyValueListContext keyValueList() {
 			return getRuleContext(KeyValueListContext.class,0);
 		}
-		public TerminalNode LSB() { return getToken(PythonParser.LSB, 0); }
-		public TerminalNode RSB() { return getToken(PythonParser.RSB, 0); }
-		public LiteralContext literal() {
-			return getRuleContext(LiteralContext.class,0);
-		}
-		public AtomContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_atom; }
+		public DictAtomContext(AtomContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterAtom(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterDictAtom(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitAtom(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitDictAtom(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitAtom(this);
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitDictAtom(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ListAtomContext extends AtomContext {
+		public TerminalNode LSB() { return getToken(PythonParser.LSB, 0); }
+		public TerminalNode RSB() { return getToken(PythonParser.RSB, 0); }
+		public ExpressionListContext expressionList() {
+			return getRuleContext(ExpressionListContext.class,0);
+		}
+		public ListAtomContext(AtomContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterListAtom(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitListAtom(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitListAtom(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ParenAtomContext extends AtomContext {
+		public TerminalNode LPAREN() { return getToken(PythonParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(PythonParser.RPAREN, 0); }
+		public ExpressionListContext expressionList() {
+			return getRuleContext(ExpressionListContext.class,0);
+		}
+		public ParenAtomContext(AtomContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterParenAtom(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitParenAtom(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitParenAtom(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class LiteralAtomContext extends AtomContext {
+		public LiteralContext literal() {
+			return getRuleContext(LiteralContext.class,0);
+		}
+		public LiteralAtomContext(AtomContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterLiteralAtom(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitLiteralAtom(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitLiteralAtom(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2761,6 +2824,7 @@ public class PythonParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPAREN:
+				_localctx = new ParenAtomContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(359);
@@ -2780,6 +2844,7 @@ public class PythonParser extends Parser {
 				}
 				break;
 			case LKB:
+				_localctx = new DictAtomContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(364);
@@ -2799,6 +2864,7 @@ public class PythonParser extends Parser {
 				}
 				break;
 			case LSB:
+				_localctx = new ListAtomContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(369);
@@ -2825,6 +2891,7 @@ public class PythonParser extends Parser {
 			case NULL:
 			case FSTRING:
 			case IDENTIFIER:
+				_localctx = new LiteralAtomContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(374);

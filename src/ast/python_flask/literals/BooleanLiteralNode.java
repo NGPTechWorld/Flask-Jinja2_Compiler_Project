@@ -1,8 +1,8 @@
 package ast.python_flask.literals;
 
-import ast.BaseNode;
+import ast.python_flask.LiteralNode;
 
-public class BooleanLiteralNode extends BaseNode{
+public class BooleanLiteralNode extends LiteralNode {
     public Boolean value;
     
     public BooleanLiteralNode(Boolean value, int line) {

@@ -1,8 +1,8 @@
 package ast.python_flask.literals;
 
-import ast.BaseNode;
+import ast.python_flask.LiteralNode;
 
-public class FStringLiteralNode extends BaseNode{
+public class FStringLiteralNode extends LiteralNode {
     public String value;
     
     public FStringLiteralNode(String value, int line) {

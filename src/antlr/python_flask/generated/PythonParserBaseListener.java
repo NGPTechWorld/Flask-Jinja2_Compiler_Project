@@ -1,7 +1,5 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
-
 package antlr.python_flask.generated;
-
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -475,13 +473,49 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtom(PythonParser.AtomContext ctx) { }
+	@Override public void enterParenAtom(PythonParser.ParenAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtom(PythonParser.AtomContext ctx) { }
+	@Override public void exitParenAtom(PythonParser.ParenAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDictAtom(PythonParser.DictAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDictAtom(PythonParser.DictAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListAtom(PythonParser.ListAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListAtom(PythonParser.ListAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLiteralAtom(PythonParser.LiteralAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteralAtom(PythonParser.LiteralAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

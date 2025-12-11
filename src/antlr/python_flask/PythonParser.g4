@@ -1,9 +1,5 @@
 parser grammar PythonParser;
 
-@header {
-package antlr.python_flask.generated;
-}
-
 // Import tokens from the lexer grammar
 options {
 tokenVocab = PythonLexer;
@@ -182,11 +178,12 @@ trailer
 
 // Atomic values
 atom
-: LPAREN expressionList? RPAREN
-| LKB keyValueList? RKB // Dictionary literal
-| LSB expressionList? RSB // List literal
-| literal
+: LPAREN expressionList? RPAREN      #ParenAtom
+| LKB keyValueList? RKB              #DictAtom
+| LSB expressionList? RSB            #ListAtom
+| literal                            #LiteralAtom
 ;
+
 
 // List of key-value pairs for dictionaries
 keyValueList

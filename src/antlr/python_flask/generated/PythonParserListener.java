@@ -1,5 +1,4 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
-
 package antlr.python_flask.generated;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -414,15 +413,53 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitAttributeTrailer(PythonParser.AttributeTrailerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#atom}.
+	 * Enter a parse tree produced by the {@code ParenAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtom(PythonParser.AtomContext ctx);
+	void enterParenAtom(PythonParser.ParenAtomContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PythonParser#atom}.
+	 * Exit a parse tree produced by the {@code ParenAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtom(PythonParser.AtomContext ctx);
+	void exitParenAtom(PythonParser.ParenAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DictAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void enterDictAtom(PythonParser.DictAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DictAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void exitDictAtom(PythonParser.DictAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ListAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void enterListAtom(PythonParser.ListAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ListAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void exitListAtom(PythonParser.ListAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LiteralAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteralAtom(PythonParser.LiteralAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LiteralAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteralAtom(PythonParser.LiteralAtomContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#keyValueList}.
 	 * @param ctx the parse tree

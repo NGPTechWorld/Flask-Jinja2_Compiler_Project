@@ -1,5 +1,4 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
-
 package antlr.python_flask.generated;
 
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
@@ -286,7 +285,28 @@ public class PythonParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAtom(PythonParser.AtomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitParenAtom(PythonParser.ParenAtomContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitDictAtom(PythonParser.DictAtomContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitListAtom(PythonParser.ListAtomContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLiteralAtom(PythonParser.LiteralAtomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

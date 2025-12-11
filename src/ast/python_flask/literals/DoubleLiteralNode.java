@@ -1,8 +1,8 @@
 package ast.python_flask.literals;
 
-import ast.BaseNode;
+import ast.python_flask.LiteralNode;
 
-public class DoubleLiteralNode extends BaseNode{
+public class DoubleLiteralNode extends LiteralNode {
     public double value;
     
     public DoubleLiteralNode(double value, int line) {

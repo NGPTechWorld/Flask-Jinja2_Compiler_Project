@@ -1,8 +1,8 @@
 package ast.python_flask.literals;
 
-import ast.BaseNode;
+import ast.python_flask.LiteralNode;
 
-public class IdentifierLiteralNode extends BaseNode {
+public class IdentifierLiteralNode extends LiteralNode  {
     public String name;
 
     public IdentifierLiteralNode(String name, int line) {

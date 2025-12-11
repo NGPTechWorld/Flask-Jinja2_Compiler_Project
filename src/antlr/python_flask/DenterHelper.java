@@ -3,6 +3,8 @@ package antlr.python_flask;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.Token;
 
+import antlr.python_flask.generated.PythonLexer;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Queue;
@@ -16,29 +18,90 @@ public abstract class DenterHelper {
     private boolean reachedEof;
     private EofHandler eofHandler = new StandardEofHandler();
 
+    // Track bracket nesting to disable indentation inside JSON / dict / list
+    private int parenCount = 0;
+    private int braceCount = 0;
+    private int bracketCount = 0;
+
+    private boolean inBracketedBlock() {
+        return parenCount > 0 || braceCount > 0 || bracketCount > 0;
+    }
+
     protected DenterHelper(int nlToken, int indentToken, int dedentToken) {
         this.nlToken = nlToken;
         this.indentToken = indentToken;
         this.dedentToken = dedentToken;
     }
 
+    // public Token nextToken() {
+    // initIfFirstRun();
+    // Token t = dentsBuffer.isEmpty()
+    // ? pullToken()
+    // : dentsBuffer.remove();
+    // if (reachedEof) {
+    // return t;
+    // }
+    // final Token r;
+    // if (t.getType() == nlToken) {
+    // r = handleNewlineToken(t);
+    // } else if (t.getType() == Token.EOF) {
+    // r = eofHandler.apply(t);
+
+    // } else {
+    // r = t;
+    // }
+    // return r;
+    // }
+
     public Token nextToken() {
         initIfFirstRun();
+
         Token t = dentsBuffer.isEmpty()
                 ? pullToken()
                 : dentsBuffer.remove();
+
+        // EOF
         if (reachedEof) {
             return t;
         }
+
+        // Track brackets BEFORE doing indentation logic
+        switch (t.getType()) {
+            case PythonLexer.LPAREN:
+                parenCount++;
+                break;
+            case PythonLexer.RPAREN:
+                parenCount--;
+                break;
+            case PythonLexer.LKB: // {
+                braceCount++;
+                break;
+            case PythonLexer.RKB: // }
+                braceCount--;
+                break;
+            case PythonLexer.LSB: // [
+                bracketCount++;
+                break;
+            case PythonLexer.RSB: // ]
+                bracketCount--;
+                break;
+        }
+
+        // If inside JSON/dict/list/parentheses → ignore indentation completely
+        if (inBracketedBlock()) {
+            return t;
+        }
+
+        // Normal Denter behavior
         final Token r;
         if (t.getType() == nlToken) {
             r = handleNewlineToken(t);
         } else if (t.getType() == Token.EOF) {
             r = eofHandler.apply(t);
-
         } else {
             r = t;
         }
+
         return r;
     }
 
@@ -51,13 +114,13 @@ public abstract class DenterHelper {
     private void initIfFirstRun() {
         if (indentations.isEmpty()) {
             indentations.push(0);
-            // First invocation. Look for the first non-NL. Enqueue it, and possibly an indentation if that non-NL
+            // First invocation. Look for the first non-NL. Enqueue it, and possibly an
+            // indentation if that non-NL
             // token doesn't start at char 0.
             Token firstRealToken;
             do {
                 firstRealToken = pullToken();
-            }
-            while(firstRealToken.getType() == nlToken);
+            } while (firstRealToken.getType() == nlToken);
 
             if (firstRealToken.getCharPositionInLine() > 0) {
                 indentations.push(firstRealToken.getCharPositionInLine());
@@ -102,7 +165,8 @@ public abstract class DenterHelper {
         @Override
         public Token apply(Token t) {
             Token r;
-            // when we reach EOF, unwind all indentations. If there aren't any, insert a NL. This lets the grammar treat
+            // when we reach EOF, unwind all indentations. If there aren't any, insert a NL.
+            // This lets the grammar treat
             // un-indented expressions as just being NL-terminated, rather than NL|EOF.
             if (indentations.isEmpty()) {
                 r = createToken(nlToken, t);
@@ -134,21 +198,24 @@ public abstract class DenterHelper {
 
     /**
      * Returns a DEDENT token, and also queues up additional DEDENTS as necessary.
-     * @param targetIndent the "size" of the indentation (number of spaces) by the end
-     * @param copyFrom the triggering token
+     * 
+     * @param targetIndent the "size" of the indentation (number of spaces) by the
+     *                     end
+     * @param copyFrom     the triggering token
      * @return a DEDENT token
      */
     private Token unwindTo(int targetIndent, Token copyFrom) {
         assert dentsBuffer.isEmpty() : dentsBuffer;
         dentsBuffer.add(createToken(nlToken, copyFrom));
-        // To make things easier, we'll queue up ALL of the dedents, and then pop off the first one.
+        // To make things easier, we'll queue up ALL of the dedents, and then pop off
+        // the first one.
         // For example, here's how some text is analyzed:
         //
-        //  Text          :  Indentation  :  Action         : Indents Deque
-        //  [ baseline ]  :  0            :  nothing        : [0]
-        //  [   foo    ]  :  2            :  INDENT         : [0, 2]
-        //  [    bar   ]  :  3            :  INDENT         : [0, 2, 3]
-        //  [ baz      ]  :  0            :  DEDENT x2      : [0]
+        // Text : Indentation : Action : Indents Deque
+        // [ baseline ] : 0 : nothing : [0]
+        // [ foo ] : 2 : INDENT : [0, 2]
+        // [ bar ] : 3 : INDENT : [0, 2, 3]
+        // [ baz ] : 0 : DEDENT x2 : [0]
 
         while (true) {
             int prevIndent = indentations.pop();
