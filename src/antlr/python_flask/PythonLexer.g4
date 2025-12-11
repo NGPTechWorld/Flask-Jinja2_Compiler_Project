@@ -55,9 +55,9 @@ NULL         : 'None';
 
 // F-String support (simplified)
 FSTRING
-: 'f"' (~["\\] | ESC | '{' | '}')* '"'
-| 'f\'' (~['\\] | ESC | '{' | '}')* '\''
-;
+    : 'f"' ( ~["\\{}] | ESC | '{' IDENTIFIER '}' )* '"'
+    | 'f\'' ( ~['\\{}] | ESC | '{' IDENTIFIER '}' )* '\''
+    ;
 
 //============================================================
 // Keywords
@@ -82,8 +82,6 @@ OR           : 'or';
 NOT          : 'not';
 PASS         : 'pass';
 CLASS        : 'class';
-
-
 
 //============================================================
 // Fragments for escape sequences and exponents

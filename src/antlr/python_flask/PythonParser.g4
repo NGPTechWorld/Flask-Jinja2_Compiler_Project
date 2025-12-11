@@ -107,7 +107,7 @@ param
 // For Loop
 //------------------------------------------------------------
 forStatement
-: FOR targetList IN expressionList COLON body
+: FOR targetList IN atomExpression COLON body
 ;
 
 //------------------------------------------------------------

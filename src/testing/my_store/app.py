@@ -3,29 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 app = Flask(__name__)
 
 
-products = [
-    {
-        "id": 1,
-        "name": "لابتوب Dell XPS 15",
-        "price": 450,
-        "image": "/static/images/image1.jpg",
-        "description": "لابتوب عالي الأداء بشاشة كريستالية واضحة ومعالج قوي، مثالي للمهام الإبداعية والعمل."
-    },
-    {
-        "id": 2,
-        "name": "هاتف iPhone 15 Pro",
-        "price": 520,
-        "image": "/static/images/image2.jpg",
-        "description": "أحدث هاتف من آبل بكاميرا احترافية وتصميم من التيتانيوم وأداء لا مثيل له."
-    },
-    {
-        "id": 3,
-        "name": "سماعات Sony WH-1000XM5",
-        "price": 120,
-        "image": "/static/images/image3.jpg",
-        "description": "سماعات لاسلكية تقدم إلغاء ضوضاء استثنائي وجودة صوت فائقة لتجربة استماع غامرة."
-    }
-]
+products = [{"id": 1,"name": "لابتوب Dell XPS 15","price": 450,"image": "/static/images/image1.jpg","description": "لابتوب عالي الأداء بشاشة كريستالية واضحة ومعالج قوي، مثالي للمهام الإبداعية والعمل."},{"id": 2,"name": "هاتف iPhone 15 Pro","price": 520,"image": "/static/images/image2.jpg","description": "أحدث هاتف من آبل بكاميرا احترافية وتصميم من التيتانيوم وأداء لا مثيل له."},{"id": 3,"name": "سماعات Sony WH-1000XM5","price": 120,"image": "/static/images/image3.jpg","description": "سماعات لاسلكية تقدم إلغاء ضوضاء استثنائي وجودة صوت فائقة لتجربة استماع غامرة."}]
 
 last_id = 3
 
@@ -71,13 +49,7 @@ def add_product():
         last_id += 1
 
         # إنشاء المنتج الجديد
-        new_product = {
-            "id": last_id,
-            "name": name,
-            "price": price,
-            "image": image,
-            "description": description
-        }
+        new_product = {"id": last_id,"name": name,"price": price,"image": image,"description": description}
 
         products.append(new_product)
 
