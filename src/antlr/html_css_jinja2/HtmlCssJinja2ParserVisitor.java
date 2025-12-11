@@ -88,6 +88,405 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtmlCommentRule(HtmlCssJinja2Parser.HtmlCommentRuleContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Jinja2Comments}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2Comments(HtmlCssJinja2Parser.Jinja2CommentsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2Expressions}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2Expressions(HtmlCssJinja2Parser.Jinja2ExpressionsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2Statements}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2Statements(HtmlCssJinja2Parser.Jinja2StatementsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ExpressionsBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ExpressionsBody(HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ExprContentRule}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ExprContentRule(HtmlCssJinja2Parser.Jinja2ExprContentRuleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2NotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2NotExpression(HtmlCssJinja2Parser.Jinja2NotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2AddSubExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2AddSubExpression(HtmlCssJinja2Parser.Jinja2AddSubExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IsNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IsNotExpression(HtmlCssJinja2Parser.Jinja2IsNotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2AtomExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2AtomExpression(HtmlCssJinja2Parser.Jinja2AtomExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2MulDivModExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2MulDivModExpression(HtmlCssJinja2Parser.Jinja2MulDivModExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2LogicalExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ComparisonExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2AtomExpressionBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtomExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2AtomExpressionBody(HtmlCssJinja2Parser.Jinja2AtomExpressionBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2CallTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2CallTrailer(HtmlCssJinja2Parser.Jinja2CallTrailerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2SubscriptTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2SubscriptTrailer(HtmlCssJinja2Parser.Jinja2SubscriptTrailerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2AttributeTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2AttributeTrailer(HtmlCssJinja2Parser.Jinja2AttributeTrailerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ParenthesizedAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ParenthesizedAtom(HtmlCssJinja2Parser.Jinja2ParenthesizedAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ListAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ListAtom(HtmlCssJinja2Parser.Jinja2ListAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2LiteralAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2LiteralAtom(HtmlCssJinja2Parser.Jinja2LiteralAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IntLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IntLiteral(HtmlCssJinja2Parser.Jinja2IntLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2DoubleLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2DoubleLiteral(HtmlCssJinja2Parser.Jinja2DoubleLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StringLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StringLiteral(HtmlCssJinja2Parser.Jinja2StringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2TrueLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2TrueLiteral(HtmlCssJinja2Parser.Jinja2TrueLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2FalseLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2FalseLiteral(HtmlCssJinja2Parser.Jinja2FalseLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2NullLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2NullLiteral(HtmlCssJinja2Parser.Jinja2NullLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IdLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IdLiteral(HtmlCssJinja2Parser.Jinja2IdLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2FunctionArg}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2FunctionArg(HtmlCssJinja2Parser.Jinja2FunctionArgContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ForBlock}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ForBlock(HtmlCssJinja2Parser.Jinja2ForBlockContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IfBlock}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IfBlock(HtmlCssJinja2Parser.Jinja2IfBlockContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ForBlockBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaForBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ForBlockBody(HtmlCssJinja2Parser.Jinja2ForBlockBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2ForStatement}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaForStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2ForStatement(HtmlCssJinja2Parser.Jinja2ForStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IfBlockBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaIfBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IfBlockBody(HtmlCssJinja2Parser.Jinja2IfBlockBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtIsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtIsExpression(HtmlCssJinja2Parser.Jinja2StmtIsExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtAddSubExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtAddSubExpression(HtmlCssJinja2Parser.Jinja2StmtAddSubExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtNotExpression(HtmlCssJinja2Parser.Jinja2StmtNotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtComparisonExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtComparisonExpression(HtmlCssJinja2Parser.Jinja2StmtComparisonExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtLogicalExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtLogicalExpression(HtmlCssJinja2Parser.Jinja2StmtLogicalExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtAtomExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtAtomExpression(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtMulDivModExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtMulDivModExpression(HtmlCssJinja2Parser.Jinja2StmtMulDivModExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtIsNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtIsNotExpression(HtmlCssJinja2Parser.Jinja2StmtIsNotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtAtomExpressionBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtomExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtAtomExpressionBody(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtCallTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtCallTrailer(HtmlCssJinja2Parser.Jinja2StmtCallTrailerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtSubscriptTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtSubscriptTrailer(HtmlCssJinja2Parser.Jinja2StmtSubscriptTrailerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtAttributeTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtAttributeTrailer(HtmlCssJinja2Parser.Jinja2StmtAttributeTrailerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtParenthesizedAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtParenthesizedAtom(HtmlCssJinja2Parser.Jinja2StmtParenthesizedAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtListAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtListAtom(HtmlCssJinja2Parser.Jinja2StmtListAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtLiteralAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtLiteralAtom(HtmlCssJinja2Parser.Jinja2StmtLiteralAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtIntLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtIntLiteral(HtmlCssJinja2Parser.Jinja2StmtIntLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtDoubleLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtDoubleLiteral(HtmlCssJinja2Parser.Jinja2StmtDoubleLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtStringLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtStringLiteral(HtmlCssJinja2Parser.Jinja2StmtStringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtTrueLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtTrueLiteral(HtmlCssJinja2Parser.Jinja2StmtTrueLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtFalseLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtFalseLiteral(HtmlCssJinja2Parser.Jinja2StmtFalseLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtNullLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtNullLiteral(HtmlCssJinja2Parser.Jinja2StmtNullLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtIdLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtIdLiteral(HtmlCssJinja2Parser.Jinja2StmtIdLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2StmtFunctionArg}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2TemplateContent}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code StyleBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#style}.
 	 * @param ctx the parse tree
@@ -165,11 +564,12 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCssMediaExpressions(HtmlCssJinja2Parser.CssMediaExpressionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link HtmlCssJinja2Parser#selectorGroup}.
+	 * Visit a parse tree produced by the {@code CssSelectorGroupBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#selectorGroup}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSelectorGroup(HtmlCssJinja2Parser.SelectorGroupContext ctx);
+	T visitCssSelectorGroupBody(HtmlCssJinja2Parser.CssSelectorGroupBodyContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CssSelectorGroup}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#selector}.
@@ -501,28 +901,28 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	T visitCssNestedCalcExpression(HtmlCssJinja2Parser.CssNestedCalcExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CssIdentifier}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCssIdentifier(HtmlCssJinja2Parser.CssIdentifierContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CssMediaOnly}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCssMediaOnly(HtmlCssJinja2Parser.CssMediaOnlyContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CssNot}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCssNot(HtmlCssJinja2Parser.CssNotContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CssAnd}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
