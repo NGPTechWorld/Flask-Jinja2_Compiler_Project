@@ -148,6 +148,690 @@ public class HtmlCssJinja2ParserBaseListener implements HtmlCssJinja2ParserListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterJinja2Comments(HtmlCssJinja2Parser.Jinja2CommentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2Comments(HtmlCssJinja2Parser.Jinja2CommentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2Expressions(HtmlCssJinja2Parser.Jinja2ExpressionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2Expressions(HtmlCssJinja2Parser.Jinja2ExpressionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2Statements(HtmlCssJinja2Parser.Jinja2StatementsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2Statements(HtmlCssJinja2Parser.Jinja2StatementsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ExpressionsBody(HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ExpressionsBody(HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ExprContentRule(HtmlCssJinja2Parser.Jinja2ExprContentRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ExprContentRule(HtmlCssJinja2Parser.Jinja2ExprContentRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2NotExpression(HtmlCssJinja2Parser.Jinja2NotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2NotExpression(HtmlCssJinja2Parser.Jinja2NotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2AddSubExpression(HtmlCssJinja2Parser.Jinja2AddSubExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2AddSubExpression(HtmlCssJinja2Parser.Jinja2AddSubExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IsNotExpression(HtmlCssJinja2Parser.Jinja2IsNotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IsNotExpression(HtmlCssJinja2Parser.Jinja2IsNotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2AtomExpression(HtmlCssJinja2Parser.Jinja2AtomExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2AtomExpression(HtmlCssJinja2Parser.Jinja2AtomExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2MulDivModExpression(HtmlCssJinja2Parser.Jinja2MulDivModExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2MulDivModExpression(HtmlCssJinja2Parser.Jinja2MulDivModExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2AtomExpressionBody(HtmlCssJinja2Parser.Jinja2AtomExpressionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2AtomExpressionBody(HtmlCssJinja2Parser.Jinja2AtomExpressionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2CallTrailer(HtmlCssJinja2Parser.Jinja2CallTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2CallTrailer(HtmlCssJinja2Parser.Jinja2CallTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2SubscriptTrailer(HtmlCssJinja2Parser.Jinja2SubscriptTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2SubscriptTrailer(HtmlCssJinja2Parser.Jinja2SubscriptTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2AttributeTrailer(HtmlCssJinja2Parser.Jinja2AttributeTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2AttributeTrailer(HtmlCssJinja2Parser.Jinja2AttributeTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ParenthesizedAtom(HtmlCssJinja2Parser.Jinja2ParenthesizedAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ParenthesizedAtom(HtmlCssJinja2Parser.Jinja2ParenthesizedAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ListAtom(HtmlCssJinja2Parser.Jinja2ListAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ListAtom(HtmlCssJinja2Parser.Jinja2ListAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2LiteralAtom(HtmlCssJinja2Parser.Jinja2LiteralAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2LiteralAtom(HtmlCssJinja2Parser.Jinja2LiteralAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IntLiteral(HtmlCssJinja2Parser.Jinja2IntLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IntLiteral(HtmlCssJinja2Parser.Jinja2IntLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2DoubleLiteral(HtmlCssJinja2Parser.Jinja2DoubleLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2DoubleLiteral(HtmlCssJinja2Parser.Jinja2DoubleLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StringLiteral(HtmlCssJinja2Parser.Jinja2StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StringLiteral(HtmlCssJinja2Parser.Jinja2StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2TrueLiteral(HtmlCssJinja2Parser.Jinja2TrueLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2TrueLiteral(HtmlCssJinja2Parser.Jinja2TrueLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2FalseLiteral(HtmlCssJinja2Parser.Jinja2FalseLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2FalseLiteral(HtmlCssJinja2Parser.Jinja2FalseLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2NullLiteral(HtmlCssJinja2Parser.Jinja2NullLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2NullLiteral(HtmlCssJinja2Parser.Jinja2NullLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IdLiteral(HtmlCssJinja2Parser.Jinja2IdLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IdLiteral(HtmlCssJinja2Parser.Jinja2IdLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2FunctionArg(HtmlCssJinja2Parser.Jinja2FunctionArgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2FunctionArg(HtmlCssJinja2Parser.Jinja2FunctionArgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ForBlock(HtmlCssJinja2Parser.Jinja2ForBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ForBlock(HtmlCssJinja2Parser.Jinja2ForBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IfBlock(HtmlCssJinja2Parser.Jinja2IfBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IfBlock(HtmlCssJinja2Parser.Jinja2IfBlockContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ForBlockBody(HtmlCssJinja2Parser.Jinja2ForBlockBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ForBlockBody(HtmlCssJinja2Parser.Jinja2ForBlockBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2ForStatement(HtmlCssJinja2Parser.Jinja2ForStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2ForStatement(HtmlCssJinja2Parser.Jinja2ForStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IfBlockBody(HtmlCssJinja2Parser.Jinja2IfBlockBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IfBlockBody(HtmlCssJinja2Parser.Jinja2IfBlockBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtIsExpression(HtmlCssJinja2Parser.Jinja2StmtIsExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtIsExpression(HtmlCssJinja2Parser.Jinja2StmtIsExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtAddSubExpression(HtmlCssJinja2Parser.Jinja2StmtAddSubExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtAddSubExpression(HtmlCssJinja2Parser.Jinja2StmtAddSubExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtNotExpression(HtmlCssJinja2Parser.Jinja2StmtNotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtNotExpression(HtmlCssJinja2Parser.Jinja2StmtNotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtComparisonExpression(HtmlCssJinja2Parser.Jinja2StmtComparisonExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtComparisonExpression(HtmlCssJinja2Parser.Jinja2StmtComparisonExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtLogicalExpression(HtmlCssJinja2Parser.Jinja2StmtLogicalExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtLogicalExpression(HtmlCssJinja2Parser.Jinja2StmtLogicalExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtAtomExpression(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtAtomExpression(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtMulDivModExpression(HtmlCssJinja2Parser.Jinja2StmtMulDivModExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtMulDivModExpression(HtmlCssJinja2Parser.Jinja2StmtMulDivModExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtIsNotExpression(HtmlCssJinja2Parser.Jinja2StmtIsNotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtIsNotExpression(HtmlCssJinja2Parser.Jinja2StmtIsNotExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtAtomExpressionBody(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtAtomExpressionBody(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtCallTrailer(HtmlCssJinja2Parser.Jinja2StmtCallTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtCallTrailer(HtmlCssJinja2Parser.Jinja2StmtCallTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtSubscriptTrailer(HtmlCssJinja2Parser.Jinja2StmtSubscriptTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtSubscriptTrailer(HtmlCssJinja2Parser.Jinja2StmtSubscriptTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtAttributeTrailer(HtmlCssJinja2Parser.Jinja2StmtAttributeTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtAttributeTrailer(HtmlCssJinja2Parser.Jinja2StmtAttributeTrailerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtParenthesizedAtom(HtmlCssJinja2Parser.Jinja2StmtParenthesizedAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtParenthesizedAtom(HtmlCssJinja2Parser.Jinja2StmtParenthesizedAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtListAtom(HtmlCssJinja2Parser.Jinja2StmtListAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtListAtom(HtmlCssJinja2Parser.Jinja2StmtListAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtLiteralAtom(HtmlCssJinja2Parser.Jinja2StmtLiteralAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtLiteralAtom(HtmlCssJinja2Parser.Jinja2StmtLiteralAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtIntLiteral(HtmlCssJinja2Parser.Jinja2StmtIntLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtIntLiteral(HtmlCssJinja2Parser.Jinja2StmtIntLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtDoubleLiteral(HtmlCssJinja2Parser.Jinja2StmtDoubleLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtDoubleLiteral(HtmlCssJinja2Parser.Jinja2StmtDoubleLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtStringLiteral(HtmlCssJinja2Parser.Jinja2StmtStringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtStringLiteral(HtmlCssJinja2Parser.Jinja2StmtStringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtTrueLiteral(HtmlCssJinja2Parser.Jinja2StmtTrueLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtTrueLiteral(HtmlCssJinja2Parser.Jinja2StmtTrueLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtFalseLiteral(HtmlCssJinja2Parser.Jinja2StmtFalseLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtFalseLiteral(HtmlCssJinja2Parser.Jinja2StmtFalseLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtNullLiteral(HtmlCssJinja2Parser.Jinja2StmtNullLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtNullLiteral(HtmlCssJinja2Parser.Jinja2StmtNullLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtIdLiteral(HtmlCssJinja2Parser.Jinja2StmtIdLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtIdLiteral(HtmlCssJinja2Parser.Jinja2StmtIdLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStyleBody(HtmlCssJinja2Parser.StyleBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -280,13 +964,13 @@ public class HtmlCssJinja2ParserBaseListener implements HtmlCssJinja2ParserListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelectorGroup(HtmlCssJinja2Parser.SelectorGroupContext ctx) { }
+	@Override public void enterCssSelectorGroupBody(HtmlCssJinja2Parser.CssSelectorGroupBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelectorGroup(HtmlCssJinja2Parser.SelectorGroupContext ctx) { }
+	@Override public void exitCssSelectorGroupBody(HtmlCssJinja2Parser.CssSelectorGroupBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
