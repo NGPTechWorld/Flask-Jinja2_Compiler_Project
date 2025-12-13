@@ -1,7 +1,5 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
-
 package antlr.python_flask.generated;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -59,6 +57,26 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReturnStatement(PythonParser.ReturnStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#breakStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBreakStatement(PythonParser.BreakStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#breakStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBreakStatement(PythonParser.BreakStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#continueStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterContinueStatement(PythonParser.ContinueStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#continueStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitContinueStatement(PythonParser.ContinueStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#importStatement}.
 	 * @param ctx the parse tree
@@ -259,6 +277,36 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAugmentedAssignment(PythonParser.AugmentedAssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#comprehension}.
+	 * @param ctx the parse tree
+	 */
+	void enterComprehension(PythonParser.ComprehensionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#comprehension}.
+	 * @param ctx the parse tree
+	 */
+	void exitComprehension(PythonParser.ComprehensionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#comp_for}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp_for(PythonParser.Comp_forContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#comp_for}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp_for(PythonParser.Comp_forContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PythonParser#comp_if}.
+	 * @param ctx the parse tree
+	 */
+	void enterComp_if(PythonParser.Comp_ifContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#comp_if}.
+	 * @param ctx the parse tree
+	 */
+	void exitComp_if(PythonParser.Comp_ifContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link PythonParser#expression}.

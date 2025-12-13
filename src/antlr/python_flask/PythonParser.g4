@@ -26,6 +26,8 @@ simpleStatement
 | globalStatement
 | passStatement
 | returnStatement
+| breakStatement
+| continueStatement
 | expressionList? NEWLINE
 ;
 
@@ -37,8 +39,16 @@ compoundStatement
 ;
 
 returnStatement
-    : RETURN (expressionList)? NEWLINE
-    ;
+: RETURN (expressionList)? NEWLINE
+;
+
+breakStatement
+:  BREAK NEWLINE
+;
+
+continueStatement
+: CONTINUE NEWLINE
+;
 
 importStatement
 : IMPORT importItem (COMMA importItem)* NEWLINE
@@ -61,13 +71,12 @@ passStatement
 : PASS NEWLINE
 ;
 
-// MODIFIED: Class Definition (basic)
+// Class Definition (basic)
 classDef
 : CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON NEWLINE body
 ;
 
 body
-//: INDENT simpleStatement DEDENT
 : INDENT statement+ DEDENT
 ;
 
@@ -78,7 +87,7 @@ funcdef
 : decorators? DEF IDENTIFIER LPAREN parameters? RPAREN (ARROW expression)? COLON body
 ;
 
-// MODIFIED: Decorators
+// Decorators
 decorators
 : decorator+
 ;
@@ -150,8 +159,26 @@ augmentedAssignment
 ;
 
 //============================================================
+// COMPREHENSIONS
+//============================================================
+// for parsing like "p for p in products if ..."
+comprehension
+: expression comp_for (comp_if | comp_for)*
+;
+
+// The 'for' part of a comprehension, e.g., "for p in products"
+comp_for
+: FOR targetList IN expression
+;
+
+// The 'if' part of a comprehension, e.g., "if p['id'] == product_id"
+comp_if
+: IF expression
+;
+
+//============================================================
 // EXPRESSIONS (Major Refactor)
-//================================================------------
+//============================================================
 // This is the top-level expression rule
 expression
 : expression IS expression # IsExpression
