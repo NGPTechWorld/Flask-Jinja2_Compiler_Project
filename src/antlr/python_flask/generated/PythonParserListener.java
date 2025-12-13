@@ -280,36 +280,6 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitAugmentedAssignment(PythonParser.AugmentedAssignmentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#comprehension}.
-	 * @param ctx the parse tree
-	 */
-	void enterComprehension(PythonParser.ComprehensionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PythonParser#comprehension}.
-	 * @param ctx the parse tree
-	 */
-	void exitComprehension(PythonParser.ComprehensionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PythonParser#comp_for}.
-	 * @param ctx the parse tree
-	 */
-	void enterComp_for(PythonParser.Comp_forContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PythonParser#comp_for}.
-	 * @param ctx the parse tree
-	 */
-	void exitComp_for(PythonParser.Comp_forContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PythonParser#comp_if}.
-	 * @param ctx the parse tree
-	 */
-	void enterComp_if(PythonParser.Comp_ifContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PythonParser#comp_if}.
-	 * @param ctx the parse tree
-	 */
-	void exitComp_if(PythonParser.Comp_ifContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree

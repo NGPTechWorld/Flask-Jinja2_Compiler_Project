@@ -75,7 +75,7 @@ passStatement
 
 // Class Definition (basic)
 classDef
-: CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON NEWLINE body
+: CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON body
 ;
 
 body
@@ -158,24 +158,6 @@ augmentedAssignment
 | STAR_EQUAL
 | DIV_EQUAL
 | MOD_EQUAL
-;
-
-//============================================================
-// COMPREHENSIONS
-//============================================================
-// for parsing like "p for p in products if ..."
-comprehension
-: expression comp_for (comp_if | comp_for)*
-;
-
-// The 'for' part of a comprehension, e.g., "for p in products"
-comp_for
-: FOR targetList IN expression
-;
-
-// The 'if' part of a comprehension, e.g., "if p['id'] == product_id"
-comp_if
-: IF expression
 ;
 
 //============================================================

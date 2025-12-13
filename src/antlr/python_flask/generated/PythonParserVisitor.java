@@ -175,24 +175,6 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAugmentedAssignment(PythonParser.AugmentedAssignmentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#comprehension}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComprehension(PythonParser.ComprehensionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PythonParser#comp_for}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComp_for(PythonParser.Comp_forContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PythonParser#comp_if}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComp_if(PythonParser.Comp_ifContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
