@@ -1,5 +1,7 @@
 parser grammar PythonParser;
-
+@header {
+package antlr.python_flask.generated;
+}
 // Import tokens from the lexer grammar
 options {
 tokenVocab = PythonLexer;

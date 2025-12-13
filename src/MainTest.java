@@ -10,9 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import javax.swing.SwingUtilities;
+
 public class MainTest {
     public static void main(String[] args) throws Exception {
-        runPythonAndFlask();
+        SwingUtilities.invokeLater(() -> {
+        new LiveParserViewer().setVisible(true);
+        });
+        // runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
     }
 
@@ -36,15 +41,15 @@ public class MainTest {
         ParseTree tree = parser.program();
         System.out.println(tree.toStringTree(parser));
 
-       new Thread(() -> {
-    TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-    viewer.open();
-}).start();
-
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
+            viewer.open();
+        });
 
         System.out.println(tree.toStringTree(parser));
         printPrettyTreePython(tree, parser, 0);
     }
+
     public static void runANTLR_HTML_CSS_JINJA2() throws Exception {
         String code = Files.readString(Paths.get("src/code.txt"));
 
@@ -84,6 +89,7 @@ public class MainTest {
             printPrettyTreePython(tree.getChild(i), parser, indent + 2);
         }
     }
+
     public static void printPrettyTreeHTML(ParseTree tree, HtmlCssJinja2Parser parser, int indent) {
         String indentStr = " ".repeat(indent);
         if (tree.getChildCount() == 0) {
