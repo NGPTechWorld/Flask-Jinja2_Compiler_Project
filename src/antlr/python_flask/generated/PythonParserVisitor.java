@@ -1,5 +1,7 @@
 // Generated from ./src/antlr/python_flask/PythonParser.g4 by ANTLR 4.13.2
+
 package antlr.python_flask.generated;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -173,24 +175,6 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAugmentedAssignment(PythonParser.AugmentedAssignmentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#comprehension}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComprehension(PythonParser.ComprehensionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PythonParser#comp_for}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComp_for(PythonParser.Comp_forContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link PythonParser#comp_if}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComp_if(PythonParser.Comp_ifContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
@@ -281,11 +265,33 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttributeTrailer(PythonParser.AttributeTrailerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#atom}.
+	 * Visit a parse tree produced by the {@code ParenAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtom(PythonParser.AtomContext ctx);
+	T visitParenAtom(PythonParser.ParenAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DictAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDictAtom(PythonParser.DictAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ListAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListAtom(PythonParser.ListAtomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LiteralAtom}
+	 * labeled alternative in {@link PythonParser#atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralAtom(PythonParser.LiteralAtomContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#keyValueList}.
 	 * @param ctx the parse tree
@@ -299,11 +305,54 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKeyValue(PythonParser.KeyValueContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#literal}.
+	 * Visit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteral(PythonParser.LiteralContext ctx);
+	T visitIntLiteral(PythonParser.IntLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoubleLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleLiteral(PythonParser.DoubleLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLiteral(PythonParser.StringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FStringLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFStringLiteral(PythonParser.FStringLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BooleanLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanLiteral(PythonParser.BooleanLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NullLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNullLiteral(PythonParser.NullLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IdentifierLiteral}
+	 * labeled alternative in {@link PythonParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifierLiteral(PythonParser.IdentifierLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#arglist}.
 	 * @param ctx the parse tree

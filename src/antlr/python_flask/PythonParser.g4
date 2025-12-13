@@ -1,5 +1,7 @@
 parser grammar PythonParser;
-
+@header {
+package antlr.python_flask.generated;
+}
 // Import tokens from the lexer grammar
 options {
 tokenVocab = PythonLexer;
@@ -73,7 +75,7 @@ passStatement
 
 // Class Definition (basic)
 classDef
-: CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON NEWLINE body
+: CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON body
 ;
 
 body
@@ -159,24 +161,6 @@ augmentedAssignment
 ;
 
 //============================================================
-// COMPREHENSIONS
-//============================================================
-// for parsing like "p for p in products if ..."
-comprehension
-: expression comp_for (comp_if | comp_for)*
-;
-
-// The 'for' part of a comprehension, e.g., "for p in products"
-comp_for
-: FOR targetList IN expression
-;
-
-// The 'if' part of a comprehension, e.g., "if p['id'] == product_id"
-comp_if
-: IF expression
-;
-
-//============================================================
 // EXPRESSIONS (Major Refactor)
 //============================================================
 // This is the top-level expression rule
@@ -205,11 +189,12 @@ trailer
 
 // Atomic values
 atom
-: LPAREN expressionList? RPAREN
-| LKB keyValueList? RKB // Dictionary literal
-| LSB expressionList? RSB // List literal
-| literal
+: LPAREN expressionList? RPAREN      #ParenAtom
+| LKB keyValueList? RKB              #DictAtom
+| LSB expressionList? RSB            #ListAtom
+| literal                            #LiteralAtom
 ;
+
 
 // List of key-value pairs for dictionaries
 keyValueList
@@ -222,14 +207,14 @@ keyValue
 
 // Literals
 literal
-: INT
-| DOUBLE
-| STRING
-| FSTRING
-| TRUE
-| FALSE
-| NULL
-| IDENTIFIER
+: INT              #IntLiteral
+| DOUBLE           #DoubleLiteral
+| STRING           #StringLiteral
+| FSTRING          #FStringLiteral
+| TRUE             #BooleanLiteral
+| FALSE            #BooleanLiteral
+| NULL             #NullLiteral
+| IDENTIFIER       #IdentifierLiteral
 ;
 
 // Argument list for function calls

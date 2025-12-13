@@ -13,6 +13,7 @@ import antlr.python_flask.DenterHelper;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.CommonToken;
 }
+
 @members {
     private final DenterHelper denter = new DenterHelper(
         NEWLINE,

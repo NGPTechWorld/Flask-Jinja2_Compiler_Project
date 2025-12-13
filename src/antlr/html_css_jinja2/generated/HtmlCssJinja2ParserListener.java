@@ -139,6 +139,690 @@ public interface HtmlCssJinja2ParserListener extends ParseTreeListener {
 	 */
 	void exitHtmlCommentRule(HtmlCssJinja2Parser.HtmlCommentRuleContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Jinja2Comments}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2Comments(HtmlCssJinja2Parser.Jinja2CommentsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2Comments}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2Comments(HtmlCssJinja2Parser.Jinja2CommentsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2Expressions}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2Expressions(HtmlCssJinja2Parser.Jinja2ExpressionsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2Expressions}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2Expressions(HtmlCssJinja2Parser.Jinja2ExpressionsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2Statements}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2Statements(HtmlCssJinja2Parser.Jinja2StatementsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2Statements}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2Statements(HtmlCssJinja2Parser.Jinja2StatementsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ExpressionsBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ExpressionsBody(HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ExpressionsBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ExpressionsBody(HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ExprContentRule}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ExprContentRule(HtmlCssJinja2Parser.Jinja2ExprContentRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ExprContentRule}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ExprContentRule(HtmlCssJinja2Parser.Jinja2ExprContentRuleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2NotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2NotExpression(HtmlCssJinja2Parser.Jinja2NotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2NotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2NotExpression(HtmlCssJinja2Parser.Jinja2NotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2AddSubExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2AddSubExpression(HtmlCssJinja2Parser.Jinja2AddSubExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2AddSubExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2AddSubExpression(HtmlCssJinja2Parser.Jinja2AddSubExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IsNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IsNotExpression(HtmlCssJinja2Parser.Jinja2IsNotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IsNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IsNotExpression(HtmlCssJinja2Parser.Jinja2IsNotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2AtomExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2AtomExpression(HtmlCssJinja2Parser.Jinja2AtomExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2AtomExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2AtomExpression(HtmlCssJinja2Parser.Jinja2AtomExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2MulDivModExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2MulDivModExpression(HtmlCssJinja2Parser.Jinja2MulDivModExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2MulDivModExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2MulDivModExpression(HtmlCssJinja2Parser.Jinja2MulDivModExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2LogicalExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2LogicalExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ComparisonExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ComparisonExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2AtomExpressionBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtomExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2AtomExpressionBody(HtmlCssJinja2Parser.Jinja2AtomExpressionBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2AtomExpressionBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtomExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2AtomExpressionBody(HtmlCssJinja2Parser.Jinja2AtomExpressionBodyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2CallTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2CallTrailer(HtmlCssJinja2Parser.Jinja2CallTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2CallTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2CallTrailer(HtmlCssJinja2Parser.Jinja2CallTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2SubscriptTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2SubscriptTrailer(HtmlCssJinja2Parser.Jinja2SubscriptTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2SubscriptTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2SubscriptTrailer(HtmlCssJinja2Parser.Jinja2SubscriptTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2AttributeTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2AttributeTrailer(HtmlCssJinja2Parser.Jinja2AttributeTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2AttributeTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2AttributeTrailer(HtmlCssJinja2Parser.Jinja2AttributeTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ParenthesizedAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ParenthesizedAtom(HtmlCssJinja2Parser.Jinja2ParenthesizedAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ParenthesizedAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ParenthesizedAtom(HtmlCssJinja2Parser.Jinja2ParenthesizedAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ListAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ListAtom(HtmlCssJinja2Parser.Jinja2ListAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ListAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ListAtom(HtmlCssJinja2Parser.Jinja2ListAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2LiteralAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2LiteralAtom(HtmlCssJinja2Parser.Jinja2LiteralAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2LiteralAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2LiteralAtom(HtmlCssJinja2Parser.Jinja2LiteralAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IntLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IntLiteral(HtmlCssJinja2Parser.Jinja2IntLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IntLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IntLiteral(HtmlCssJinja2Parser.Jinja2IntLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2DoubleLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2DoubleLiteral(HtmlCssJinja2Parser.Jinja2DoubleLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2DoubleLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2DoubleLiteral(HtmlCssJinja2Parser.Jinja2DoubleLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StringLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StringLiteral(HtmlCssJinja2Parser.Jinja2StringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StringLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StringLiteral(HtmlCssJinja2Parser.Jinja2StringLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2TrueLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2TrueLiteral(HtmlCssJinja2Parser.Jinja2TrueLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2TrueLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2TrueLiteral(HtmlCssJinja2Parser.Jinja2TrueLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2FalseLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2FalseLiteral(HtmlCssJinja2Parser.Jinja2FalseLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2FalseLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2FalseLiteral(HtmlCssJinja2Parser.Jinja2FalseLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2NullLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2NullLiteral(HtmlCssJinja2Parser.Jinja2NullLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2NullLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2NullLiteral(HtmlCssJinja2Parser.Jinja2NullLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IdLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IdLiteral(HtmlCssJinja2Parser.Jinja2IdLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IdLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IdLiteral(HtmlCssJinja2Parser.Jinja2IdLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2FunctionArg}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2FunctionArg(HtmlCssJinja2Parser.Jinja2FunctionArgContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2FunctionArg}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2FunctionArg(HtmlCssJinja2Parser.Jinja2FunctionArgContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ForBlock}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ForBlock(HtmlCssJinja2Parser.Jinja2ForBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ForBlock}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ForBlock(HtmlCssJinja2Parser.Jinja2ForBlockContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IfBlock}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IfBlock(HtmlCssJinja2Parser.Jinja2IfBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IfBlock}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IfBlock(HtmlCssJinja2Parser.Jinja2IfBlockContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ForBlockBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaForBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ForBlockBody(HtmlCssJinja2Parser.Jinja2ForBlockBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ForBlockBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaForBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ForBlockBody(HtmlCssJinja2Parser.Jinja2ForBlockBodyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2ForStatement}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaForStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2ForStatement(HtmlCssJinja2Parser.Jinja2ForStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2ForStatement}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaForStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2ForStatement(HtmlCssJinja2Parser.Jinja2ForStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IfBlockBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaIfBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IfBlockBody(HtmlCssJinja2Parser.Jinja2IfBlockBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IfBlockBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaIfBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IfBlockBody(HtmlCssJinja2Parser.Jinja2IfBlockBodyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtIsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtIsExpression(HtmlCssJinja2Parser.Jinja2StmtIsExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtIsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtIsExpression(HtmlCssJinja2Parser.Jinja2StmtIsExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtAddSubExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtAddSubExpression(HtmlCssJinja2Parser.Jinja2StmtAddSubExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtAddSubExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtAddSubExpression(HtmlCssJinja2Parser.Jinja2StmtAddSubExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtNotExpression(HtmlCssJinja2Parser.Jinja2StmtNotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtNotExpression(HtmlCssJinja2Parser.Jinja2StmtNotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtComparisonExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtComparisonExpression(HtmlCssJinja2Parser.Jinja2StmtComparisonExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtComparisonExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtComparisonExpression(HtmlCssJinja2Parser.Jinja2StmtComparisonExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtLogicalExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtLogicalExpression(HtmlCssJinja2Parser.Jinja2StmtLogicalExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtLogicalExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtLogicalExpression(HtmlCssJinja2Parser.Jinja2StmtLogicalExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtAtomExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtAtomExpression(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtAtomExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtAtomExpression(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtMulDivModExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtMulDivModExpression(HtmlCssJinja2Parser.Jinja2StmtMulDivModExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtMulDivModExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtMulDivModExpression(HtmlCssJinja2Parser.Jinja2StmtMulDivModExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtIsNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtIsNotExpression(HtmlCssJinja2Parser.Jinja2StmtIsNotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtIsNotExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtIsNotExpression(HtmlCssJinja2Parser.Jinja2StmtIsNotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtAtomExpressionBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtomExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtAtomExpressionBody(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtAtomExpressionBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtomExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtAtomExpressionBody(HtmlCssJinja2Parser.Jinja2StmtAtomExpressionBodyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtCallTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtCallTrailer(HtmlCssJinja2Parser.Jinja2StmtCallTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtCallTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtCallTrailer(HtmlCssJinja2Parser.Jinja2StmtCallTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtSubscriptTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtSubscriptTrailer(HtmlCssJinja2Parser.Jinja2StmtSubscriptTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtSubscriptTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtSubscriptTrailer(HtmlCssJinja2Parser.Jinja2StmtSubscriptTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtAttributeTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtAttributeTrailer(HtmlCssJinja2Parser.Jinja2StmtAttributeTrailerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtAttributeTrailer}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtTrailer}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtAttributeTrailer(HtmlCssJinja2Parser.Jinja2StmtAttributeTrailerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtParenthesizedAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtParenthesizedAtom(HtmlCssJinja2Parser.Jinja2StmtParenthesizedAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtParenthesizedAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtParenthesizedAtom(HtmlCssJinja2Parser.Jinja2StmtParenthesizedAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtListAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtListAtom(HtmlCssJinja2Parser.Jinja2StmtListAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtListAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtListAtom(HtmlCssJinja2Parser.Jinja2StmtListAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtLiteralAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtLiteralAtom(HtmlCssJinja2Parser.Jinja2StmtLiteralAtomContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtLiteralAtom}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtAtom}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtLiteralAtom(HtmlCssJinja2Parser.Jinja2StmtLiteralAtomContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtIntLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtIntLiteral(HtmlCssJinja2Parser.Jinja2StmtIntLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtIntLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtIntLiteral(HtmlCssJinja2Parser.Jinja2StmtIntLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtDoubleLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtDoubleLiteral(HtmlCssJinja2Parser.Jinja2StmtDoubleLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtDoubleLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtDoubleLiteral(HtmlCssJinja2Parser.Jinja2StmtDoubleLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtStringLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtStringLiteral(HtmlCssJinja2Parser.Jinja2StmtStringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtStringLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtStringLiteral(HtmlCssJinja2Parser.Jinja2StmtStringLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtTrueLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtTrueLiteral(HtmlCssJinja2Parser.Jinja2StmtTrueLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtTrueLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtTrueLiteral(HtmlCssJinja2Parser.Jinja2StmtTrueLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtFalseLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtFalseLiteral(HtmlCssJinja2Parser.Jinja2StmtFalseLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtFalseLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtFalseLiteral(HtmlCssJinja2Parser.Jinja2StmtFalseLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtNullLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtNullLiteral(HtmlCssJinja2Parser.Jinja2StmtNullLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtNullLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtNullLiteral(HtmlCssJinja2Parser.Jinja2StmtNullLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtIdLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtIdLiteral(HtmlCssJinja2Parser.Jinja2StmtIdLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtIdLiteral}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtIdLiteral(HtmlCssJinja2Parser.Jinja2StmtIdLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2StmtFunctionArg}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2StmtFunctionArg}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaStmtArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2TemplateContent}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2TemplateContent}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code StyleBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#style}.
 	 * @param ctx the parse tree
@@ -271,15 +955,17 @@ public interface HtmlCssJinja2ParserListener extends ParseTreeListener {
 	 */
 	void exitCssMediaExpressions(HtmlCssJinja2Parser.CssMediaExpressionsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HtmlCssJinja2Parser#selectorGroup}.
+	 * Enter a parse tree produced by the {@code CssSelectorGroupBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#selectorGroup}.
 	 * @param ctx the parse tree
 	 */
-	void enterSelectorGroup(HtmlCssJinja2Parser.SelectorGroupContext ctx);
+	void enterCssSelectorGroupBody(HtmlCssJinja2Parser.CssSelectorGroupBodyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HtmlCssJinja2Parser#selectorGroup}.
+	 * Exit a parse tree produced by the {@code CssSelectorGroupBody}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#selectorGroup}.
 	 * @param ctx the parse tree
 	 */
-	void exitSelectorGroup(HtmlCssJinja2Parser.SelectorGroupContext ctx);
+	void exitCssSelectorGroupBody(HtmlCssJinja2Parser.CssSelectorGroupBodyContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CssSelectorGroup}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#selector}.
@@ -846,49 +1532,49 @@ public interface HtmlCssJinja2ParserListener extends ParseTreeListener {
 	void exitCssNestedCalcExpression(HtmlCssJinja2Parser.CssNestedCalcExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CssIdentifier}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void enterCssIdentifier(HtmlCssJinja2Parser.CssIdentifierContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code CssIdentifier}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void exitCssIdentifier(HtmlCssJinja2Parser.CssIdentifierContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CssMediaOnly}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void enterCssMediaOnly(HtmlCssJinja2Parser.CssMediaOnlyContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code CssMediaOnly}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void exitCssMediaOnly(HtmlCssJinja2Parser.CssMediaOnlyContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CssNot}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void enterCssNot(HtmlCssJinja2Parser.CssNotContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code CssNot}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void exitCssNot(HtmlCssJinja2Parser.CssNotContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CssAnd}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void enterCssAnd(HtmlCssJinja2Parser.CssAndContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code CssAnd}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#ident}.
+	 * labeled alternative in {@link HtmlCssJinja2Parser#cssIdent}.
 	 * @param ctx the parse tree
 	 */
 	void exitCssAnd(HtmlCssJinja2Parser.CssAndContext ctx);
