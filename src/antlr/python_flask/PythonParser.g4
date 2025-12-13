@@ -202,7 +202,7 @@ keyValueList
 ;
 
 keyValue
-: expression COLON expression
+: STRING COLON expression
 ;
 
 // Literals

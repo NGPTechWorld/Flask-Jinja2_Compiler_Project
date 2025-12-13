@@ -147,6 +147,40 @@ COMMENT : '#' ~[\r\n]* -> skip;
 //    ;
 
 
-//============================================================
-// Json Mode
-//============================================================
+// //============================================================
+// // Nested Mode
+// //============================================================
+// mode NESTED;
+
+// NESTED_WS
+//     : [ \t\r\n]+ -> skip
+//     ;
+
+
+// NESTED_LKB
+//     : '{' -> type(LKB), pushMode(NESTED)
+//     ;
+
+// NESTED_LSB
+//     : '[' -> type(LSB), pushMode(NESTED)
+//     ;
+
+// NESTED_LPAREN
+//     : '(' -> type(LPAREN), pushMode(NESTED)
+//     ;
+
+// NESTED_RKB
+//     : '}' -> type(RKB), popMode
+//     ;
+
+// NESTED_RSB
+//     : ']' -> type(RSB), popMode
+//     ;
+
+// NESTED_RPAREN
+//     : ')' -> type(RPAREN), popMode
+//     ;
+
+// NESTED_OTHER
+//     : . -> channel(DEFAULT_TOKEN_CHANNEL)
+//     ;

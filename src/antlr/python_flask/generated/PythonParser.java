@@ -2965,7 +2965,7 @@ public class PythonParser extends Parser {
 				setState(377);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 35064821841920L) != 0)) {
+				if (_la==STRING) {
 					{
 					setState(376);
 					keyValueList();
@@ -3110,13 +3110,11 @@ public class PythonParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class KeyValueContext extends ParserRuleContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
+		public TerminalNode STRING() { return getToken(PythonParser.STRING, 0); }
 		public TerminalNode COLON() { return getToken(PythonParser.COLON, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
 		public KeyValueContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3143,7 +3141,7 @@ public class PythonParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(399);
-			expression(0);
+			match(STRING);
 			setState(400);
 			match(COLON);
 			setState(401);
@@ -3842,7 +3840,7 @@ public class PythonParser extends Parser {
 		"\u0000\u0000\u018a\u018d\u0001\u0000\u0000\u0000\u018b\u0189\u0001\u0000"+
 		"\u0000\u0000\u018c\u018e\u0005 \u0000\u0000\u018d\u018c\u0001\u0000\u0000"+
 		"\u0000\u018d\u018e\u0001\u0000\u0000\u0000\u018e?\u0001\u0000\u0000\u0000"+
-		"\u018f\u0190\u00036\u001b\u0000\u0190\u0191\u0005\u001f\u0000\u0000\u0191"+
+		"\u018f\u0190\u0005\'\u0000\u0000\u0190\u0191\u0005\u001f\u0000\u0000\u0191"+
 		"\u0192\u00036\u001b\u0000\u0192A\u0001\u0000\u0000\u0000\u0193\u019c\u0005"+
 		"%\u0000\u0000\u0194\u019c\u0005&\u0000\u0000\u0195\u019c\u0005\'\u0000"+
 		"\u0000\u0196\u019c\u0005+\u0000\u0000\u0197\u019c\u0005(\u0000\u0000\u0198"+
