@@ -304,18 +304,6 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitComparisonExpression(PythonParser.ComparisonExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code LogicalExpression}
-	 * labeled alternative in {@link PythonParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalExpression(PythonParser.LogicalExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code LogicalExpression}
-	 * labeled alternative in {@link PythonParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalExpression(PythonParser.LogicalExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code IsNotExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
@@ -352,17 +340,17 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitIsExpression(PythonParser.IsExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code NotExpression}
+	 * Enter a parse tree produced by the {@code AndExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterNotExpression(PythonParser.NotExpressionContext ctx);
+	void enterAndExpression(PythonParser.AndExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code NotExpression}
+	 * Exit a parse tree produced by the {@code AndExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitNotExpression(PythonParser.NotExpressionContext ctx);
+	void exitAndExpression(PythonParser.AndExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AtomExpressionAt}
 	 * labeled alternative in {@link PythonParser#expression}.
@@ -375,6 +363,30 @@ public interface PythonParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtomExpressionAt(PythonParser.AtomExpressionAtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NotExpression}
+	 * labeled alternative in {@link PythonParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotExpression(PythonParser.NotExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NotExpression}
+	 * labeled alternative in {@link PythonParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotExpression(PythonParser.NotExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OrExpression}
+	 * labeled alternative in {@link PythonParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrExpression(PythonParser.OrExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OrExpression}
+	 * labeled alternative in {@link PythonParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrExpression(PythonParser.OrExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code MulDivModExpression}
 	 * labeled alternative in {@link PythonParser#expression}.

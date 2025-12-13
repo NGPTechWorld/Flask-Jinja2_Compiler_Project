@@ -165,15 +165,16 @@ augmentedAssignment
 //============================================================
 // This is the top-level expression rule
 expression
-: expression IS expression # IsExpression
-| expression ISNOT expression # IsNotExpression
-| expression (EQ | NEQ | LT | LTE | GT | GTE) expression # ComparisonExpression
-| expression (AND | OR) expression # LogicalExpression
-| NOT expression # NotExpression
-| expression (PLUS | MINUS) expression # AddSubExpression
+: atomExpression                           # AtomExpressionAt
+| expression POWER expression              # PowerExpression
 | expression (STAR | DIV | MOD) expression # MulDivModExpression
-| POWER expression # PowerExpression
-| atomExpression # AtomExpressionAt
+| expression (PLUS | MINUS) expression     # AddSubExpression
+| expression (EQ | NEQ | LT | LTE | GT | GTE) expression# ComparisonExpression
+| expression IS expression                 # IsExpression
+| expression ISNOT expression              # IsNotExpression
+| NOT expression                           # NotExpression
+| expression AND expression                # AndExpression
+| expression OR expression                 # OrExpression
 ;
 
 // This handles calls, subscripts, and attribute access

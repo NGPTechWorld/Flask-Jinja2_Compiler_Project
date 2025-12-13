@@ -189,13 +189,6 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitComparisonExpression(PythonParser.ComparisonExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code LogicalExpression}
-	 * labeled alternative in {@link PythonParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLogicalExpression(PythonParser.LogicalExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code IsNotExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
@@ -217,12 +210,12 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIsExpression(PythonParser.IsExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NotExpression}
+	 * Visit a parse tree produced by the {@code AndExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNotExpression(PythonParser.NotExpressionContext ctx);
+	T visitAndExpression(PythonParser.AndExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AtomExpressionAt}
 	 * labeled alternative in {@link PythonParser#expression}.
@@ -230,6 +223,20 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtomExpressionAt(PythonParser.AtomExpressionAtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NotExpression}
+	 * labeled alternative in {@link PythonParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotExpression(PythonParser.NotExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OrExpression}
+	 * labeled alternative in {@link PythonParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrExpression(PythonParser.OrExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code MulDivModExpression}
 	 * labeled alternative in {@link PythonParser#expression}.
