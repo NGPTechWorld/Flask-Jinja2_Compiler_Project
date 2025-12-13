@@ -239,5 +239,5 @@ arglist
 
 argument
 : (IDENTIFIER EQUAL)? expression
-| POWER expression
+| POWER expression   
 ;
