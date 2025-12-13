@@ -3,29 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 app = Flask(__name__)
 
 
-products = [
-    {
-        "id": 1,
-        "name": "لابتوب Dell XPS 15",
-        "price": 450,
-        "image": "/static/images/image1.jpg",
-        "description": "لابتوب عالي الأداء بشاشة كريستالية واضحة ومعالج قوي، مثالي للمهام الإبداعية والعمل."
-    },
-    {
-        "id": 2,
-        "name": "هاتف iPhone 15 Pro",
-        "price": 520,
-        "image": "/static/images/image2.jpg",
-        "description": "أحدث هاتف من آبل بكاميرا احترافية وتصميم من التيتانيوم وأداء لا مثيل له."
-    },
-    {
-        "id": 3,
-        "name": "سماعات Sony WH-1000XM5",
-        "price": 120,
-        "image": "/static/images/image3.jpg",
-        "description": "سماعات لاسلكية تقدم إلغاء ضوضاء استثنائي وجودة صوت فائقة لتجربة استماع غامرة."
-    }
-]
+products = [{"id": 1,"name": "لابتوب Dell XPS 15","price": 450,"image": "/static/images/image1.jpg","description": "لابتوب عالي الأداء بشاشة كريستالية واضحة ومعالج قوي، مثالي للمهام الإبداعية والعمل."},{"id": 2,"name": "هاتف iPhone 15 Pro","price": 520,"image": "/static/images/image2.jpg","description": "أحدث هاتف من آبل بكاميرا احترافية وتصميم من التيتانيوم وأداء لا مثيل له."},{"id": 3,"name": "سماعات Sony WH-1000XM5","price": 120,"image": "/static/images/image3.jpg","description": "سماعات لاسلكية تقدم إلغاء ضوضاء استثنائي وجودة صوت فائقة لتجربة استماع غامرة."}]
 
 last_id = 3
 
@@ -33,9 +11,8 @@ last_id = 3
 
 @app.route('/')
 def index():
-    """
-    هذه الدالة مسؤولة عن عرض الصفحة الرئيسية التي تحتوي على قائمة جميع المنتجات.
-    """
+    # هذه الدالة مسؤولة عن عرض الصفحة الرئيسية التي تحتوي على قائمة جميع المنتجات.
+    
     return render_template('products.html', products=products)
 from werkzeug.utils import secure_filename
 import os
@@ -63,7 +40,7 @@ def add_product():
             image_file.save(save_path)
 
             # رابط الصورة لعرضها في واجهة المستخدم
-            image = f'/static/images/{filename}'
+            image = f"/static/images/{filename}"
         else:
             image = '/static/images/default.jpg'  # صورة افتراضية لو ما رفع شي
 
@@ -71,13 +48,7 @@ def add_product():
         last_id += 1
 
         # إنشاء المنتج الجديد
-        new_product = {
-            "id": last_id,
-            "name": name,
-            "price": price,
-            "image": image,
-            "description": description
-        }
+        new_product = {"id": last_id,"name": name,"price": price,"image": image,"description": description}
 
         products.append(new_product)
 
@@ -88,11 +59,14 @@ def add_product():
 # مسار عرض تفاصيل منتج محدد
 @app.route('/product/<int:product_id>')
 def product_details(product_id):
-    """
-    تبحث عن منتج باستخدام الـ ID وتعرض صفحة التفاصيل الخاصة به.
-    """
+    # تبحث عن منتج باستخدام الـ ID وتعرض صفحة التفاصيل الخاصة به.
+    
     # البحث عن المنتج في القائمة
-    product = next((p for p in products if p['id'] == product_id), None)
+    product = None
+    for p in products:
+        if p['id'] == product_id:
+            product = p
+            break
     
     # إذا لم يتم العثور على المنتج، أعد التوجيه للصفحة الرئيسية
     if product is None:
@@ -103,12 +77,15 @@ def product_details(product_id):
 # مسار حذف منتج (يدعم طريقتي POST و DELETE)
 @app.route('/delete-product/<int:product_id>', methods=['POST', 'DELETE'])
 def delete_product(product_id):
-    """
-    تحذف منتجًا من القائمة بناءً على الـ ID.
-    """
+    #    تحذف منتجًا من القائمة بناءً على الـ ID.
+   
     global products
     # البحث عن المنتج وحذفه
-    product_to_delete = next((p for p in products if p['id'] == product_id), None)
+    product_to_delete = None
+    for p in products:
+        if p['id'] == product_id:
+            product_to_delete = p
+            break
     
     if product_to_delete:
         products.remove(product_to_delete)
@@ -122,3 +99,7 @@ def delete_product(product_id):
 if __name__ == '__main__':
     # debug=True يسمح بتحديث التغييرات تلقائيًا وعرض الأخطاء
     app.run(debug=True)
+    
+    
+    
+    
