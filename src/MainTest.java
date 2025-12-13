@@ -17,8 +17,8 @@ import java.util.Arrays;
 public class MainTest {
     public static void main(String[] args) throws Exception {
         // runPythonAndFlask();
-        // runANTLR_HTML_CSS_JINJA2();
-        runANTLR_HTML_CSS_JINJA2_AST();
+        runANTLR_HTML_CSS_JINJA2();
+        // runANTLR_HTML_CSS_JINJA2_AST();
     }
 
     public static void runPythonAndFlask() throws Exception {
@@ -73,6 +73,13 @@ public class MainTest {
 
         System.out.println(tree.toStringTree(parser));
         printPrettyTreeHTML(tree, parser, 0);
+
+
+        BuildAstVisitor visitor = new BuildAstVisitor();
+        AstNode ast = visitor.visit(tree);
+
+        System.out.println("=== AST (JSON STYLE) ===");
+        System.out.println(ast.toJson());
     }
 
     public static void runANTLR_HTML_CSS_JINJA2_AST() throws Exception {
