@@ -9,7 +9,8 @@ public class PassStatementNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "pass";
+    public String toString(int indent) {
+        return super.toString(indent) + "pass";
     }
+
 }

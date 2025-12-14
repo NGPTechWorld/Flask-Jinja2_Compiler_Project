@@ -1,23 +1,19 @@
 package ast.python_flask.simple_statement.import_stat;
 
+import java.util.List;
 import ast.BaseNode;
 
-public class ImportModule extends BaseNode{
-    public String idLeft,idRight;
+public class ImportModule extends BaseNode {
 
-    public ImportModule( int line, String idLeft,String idRight) {
-        super("ImportItem", line);
-        this.idLeft=idLeft;
-        this.idRight=idRight;
+    public List<String> parts;
+
+    public ImportModule(int line, List<String> parts) {
+        super("ImportModule", line);
+        this.parts = parts;
     }
-     public ImportModule( int line, String idLeft) {
-        super("ImportItem", line);
-        this.idLeft=idLeft;
-        this.idRight=null;
+
+    @Override
+    public String toString(int indent) {
+        return String.join(".", parts);
     }
-    //  @Override
-    //  public String toString() {
-    //     return "(line "+line+") "+name+" "+idLeft+ idRight != null?"."+idRight:"";
-    //  }
-    
 }

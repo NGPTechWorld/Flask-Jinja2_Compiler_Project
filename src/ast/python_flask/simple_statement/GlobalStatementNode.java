@@ -13,8 +13,7 @@ public class GlobalStatementNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "global " + String.join(", ", names);
+    public String toString(int indent) {
+        return super.toString(indent) + "global " + String.join(", ", names);
     }
-
 }

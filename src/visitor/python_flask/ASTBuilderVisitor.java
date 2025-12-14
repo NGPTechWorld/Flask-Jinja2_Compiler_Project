@@ -1,5 +1,7 @@
 package visitor.python_flask;
 
+import java.util.List;
+
 import antlr.python_flask.generated.*;
 import ast.BaseNode;
 import ast.python_flask.ProgramNode;
@@ -9,6 +11,7 @@ import ast.python_flask.simple_statement.ContinueStatementNode;
 import ast.python_flask.simple_statement.GlobalStatementNode;
 import ast.python_flask.simple_statement.PassStatementNode;
 import ast.python_flask.simple_statement.import_stat.ImportItem;
+import ast.python_flask.simple_statement.import_stat.ImportModule;
 import ast.python_flask.simple_statement.import_stat.ImportStatementNode;
 
 public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
@@ -51,17 +54,31 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
     @Override
     public BaseNode visitImportStatement(PythonParser.ImportStatementContext ctx) {
         ImportStatementNode node = new ImportStatementNode(ctx.getStart().getLine());
+
+        // from module
         if (ctx.importModule() != null) {
-            node.fromModule = ctx.importModule().getText();
+            List<String> parts = ctx.importModule()
+                    .IDENTIFIER()
+                    .stream()
+                    .map(t -> t.getText())
+                    .toList();
+
+            node.fromModule = new ImportModule(
+                    ctx.importModule().getStart().getLine(),
+                    parts);
         }
+
+        // import items
         for (var i : ctx.importItem()) {
             node.addImportItem(
                     new ImportItem(
                             i.getStart().getLine(),
                             i.IDENTIFIER(0).getText(),
-                            i.IDENTIFIER().size() > 1 ? i.IDENTIFIER(1).getText() : null));
-
+                            i.IDENTIFIER().size() > 1
+                                    ? i.IDENTIFIER(1).getText()
+                                    : null));
         }
+
         return node;
     }
 

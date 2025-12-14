@@ -13,7 +13,7 @@ public class ReturnStatementNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "return "+value;
+    public String toString(int indent) {
+        return super.toString(indent) + "return "+value;
     }
 }

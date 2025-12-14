@@ -7,7 +7,7 @@ import ast.python_flask.StatementNode;
 
 public class ImportStatementNode extends StatementNode {
     public List<ImportItem> items = new ArrayList<>();
-    public String fromModule;
+    public ImportModule fromModule;
 
     public ImportStatementNode(int line) {
         super("ImportStatement", line);
@@ -18,8 +18,8 @@ public class ImportStatementNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(super.toString());
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
 
         if (fromModule != null) {
             sb.append("from ").append(fromModule).append(" import ");
@@ -28,7 +28,7 @@ public class ImportStatementNode extends StatementNode {
         }
 
         for (int i = 0; i < items.size(); i++) {
-            sb.append(items.get(i).toString());
+            sb.append(items.get(i).toString(indent));
             if (i < items.size() - 1)
                 sb.append(", ");
         }

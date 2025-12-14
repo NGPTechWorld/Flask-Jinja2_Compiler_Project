@@ -9,7 +9,8 @@ public class ContinueStatementNode extends StatementNode {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "continue";
+    public String toString(int indent) {
+        return super.toString(indent) + "continue";
     }
+
 }
