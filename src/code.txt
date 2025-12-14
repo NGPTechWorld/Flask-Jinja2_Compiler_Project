@@ -1,10 +1,4 @@
-products = [
-    {
-        "id": 1,
-        "name": "hasan"
-    },
-    {
-        "id": 2,
-        "name": "hadi"
-    }
-]
+import os
+global x, y
+pass
+break

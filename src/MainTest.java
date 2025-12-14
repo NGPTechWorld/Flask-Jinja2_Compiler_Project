@@ -6,7 +6,9 @@ import org.antlr.v4.runtime.tree.*;
 import antlr.python_flask.generated.PythonLexer;
 import antlr.python_flask.generated.PythonParser;
 import ast.BaseNode;
-import ast.python_flask.ASTBuilder;
+import ast.python_flask.ProgramNode;
+import visitor.python_flask.ASTBuilderVisitor;
+import visitor.python_flask.ASTPrinter;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,11 +18,12 @@ import javax.swing.SwingUtilities;
 
 public class MainTest {
     public static void main(String[] args) throws Exception {
-        SwingUtilities.invokeLater(() -> {
-        new LiveParserViewer().setVisible(true);
-        });
+        // SwingUtilities.invokeLater(() -> {
+        //     new LiveParserViewer().setVisible(true);
+        // });
         // runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
+        runPythonAndFlaskAST();
     }
 
     public static void runPythonAndFlask() throws Exception {
@@ -105,8 +108,7 @@ public class MainTest {
         }
     }
 
-
-     public static void runAntlrPythonAndFlask() throws Exception {
+    public static void runPythonAndFlaskAST() throws Exception {
         String code = Files.readString(Paths.get("src/code.txt"));
 
         PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
@@ -115,10 +117,9 @@ public class MainTest {
 
         ParseTree tree = parser.program();
 
-        ASTBuilder visitor = new ASTBuilder();
-        BaseNode ast = visitor.visit(tree);
-
-        System.out.println("=== AST (JSON STYLE) ===");
-       // System.out.println(ast.toJson());
+        ASTBuilderVisitor visitor = new ASTBuilderVisitor();
+        ProgramNode ast = (ProgramNode) visitor.visit(tree);
+         System.out.println("=== AST (JSON STYLE) ===");
+        ASTPrinter.print(ast, 0);
     }
 }
