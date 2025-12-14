@@ -5,6 +5,8 @@ import org.antlr.v4.runtime.tree.*;
 
 import antlr.python_flask.generated.PythonLexer;
 import antlr.python_flask.generated.PythonParser;
+import ast.BaseNode;
+import ast.python_flask.ASTBuilder;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -103,4 +105,20 @@ public class MainTest {
         }
     }
 
+
+     public static void runAntlrPythonAndFlask() throws Exception {
+        String code = Files.readString(Paths.get("src/code.txt"));
+
+        PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        PythonParser parser = new PythonParser(tokens);
+
+        ParseTree tree = parser.program();
+
+        ASTBuilder visitor = new ASTBuilder();
+        BaseNode ast = visitor.visit(tree);
+
+        System.out.println("=== AST (JSON STYLE) ===");
+       // System.out.println(ast.toJson());
+    }
 }
