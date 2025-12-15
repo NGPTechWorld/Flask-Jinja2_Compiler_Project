@@ -99,5 +99,3 @@ def delete_product(product_id):
 if __name__ == '__main__':
     # debug=True يسمح بتحديث التغييرات تلقائيًا وعرض الأخطاء
     app.run(debug=True)
-    
-    
