@@ -17,12 +17,10 @@ public class CallTrailerNode extends TrailerNode {
     
      @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent));
-         sb.append("(");
+        StringBuilder sb = new StringBuilder(super.toString(indent)+"()");
         for (var arg : arguments) {
-            sb.append(arg.toString(indent + 2));
+            sb.append("\n").append(arg.toString(indent + 2));
         }
-         sb.append(")");
         return sb.toString();
     }
 }

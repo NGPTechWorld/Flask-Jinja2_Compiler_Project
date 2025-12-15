@@ -6,57 +6,26 @@ import java.util.List;
 import org.antlr.v4.runtime.misc.Pair;
 
 import antlr.python_flask.generated.*;
-import antlr.python_flask.generated.PythonParser.AtomExpressionContext;
-import antlr.python_flask.generated.PythonParser.BooleanLiteralContext;
-import antlr.python_flask.generated.PythonParser.DictAtomContext;
-import antlr.python_flask.generated.PythonParser.DoubleLiteralContext;
-import antlr.python_flask.generated.PythonParser.FStringLiteralContext;
-import antlr.python_flask.generated.PythonParser.IdentifierLiteralContext;
-import antlr.python_flask.generated.PythonParser.IntLiteralContext;
-import antlr.python_flask.generated.PythonParser.ListAtomContext;
-import antlr.python_flask.generated.PythonParser.LiteralAtomContext;
-import antlr.python_flask.generated.PythonParser.NullLiteralContext;
-import antlr.python_flask.generated.PythonParser.ParenAtomContext;
-import antlr.python_flask.generated.PythonParser.StringLiteralContext;
+import antlr.python_flask.generated.PythonParser.*;
 import ast.BaseNode;
-import ast.python_flask.ProgramNode;
-import ast.python_flask.StatementNode;
-import ast.python_flask.literal.BooleanLiteralExpression;
-import ast.python_flask.literal.DoubleLiteralExpression;
-import ast.python_flask.literal.FStringLiteralExpression;
-import ast.python_flask.literal.IdentifierExpression;
-import ast.python_flask.literal.IntLiteralExpression;
-import ast.python_flask.literal.NullLiteralExpression;
-import ast.python_flask.literal.StringLiteralExpression;
-import ast.python_flask.simple_statement.BreakStatementNode;
-import ast.python_flask.simple_statement.ContinueStatementNode;
-import ast.python_flask.simple_statement.GlobalStatementNode;
-import ast.python_flask.simple_statement.PassStatementNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionStatementNode;
-import ast.python_flask.simple_statement.expression_stat.atom.DictAtomNode;
-import ast.python_flask.simple_statement.expression_stat.atom.ListAtomNode;
-import ast.python_flask.simple_statement.expression_stat.atom.ParenAtomNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.AddSubExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.AndExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.AtomExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.ComparisonExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.IsExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.IsNotExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.MulDivModExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.NotExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.OrExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.PowerExpressionNode;
+import ast.python_flask.*;
+import ast.python_flask.literal.*;
+import ast.python_flask.simple_statement.*;
+import ast.python_flask.simple_statement.expression_stat.*;
+import ast.python_flask.simple_statement.expression_stat.argument.ArgumentNode;
+import ast.python_flask.simple_statement.expression_stat.atom.*;
+import ast.python_flask.simple_statement.expression_stat.expressions.*;
+import ast.python_flask.simple_statement.expression_stat.trailer.AttributeTrailerNode;
+import ast.python_flask.simple_statement.expression_stat.trailer.CallTrailerNode;
+import ast.python_flask.simple_statement.expression_stat.trailer.SubscriptTrailerNode;
 import ast.python_flask.simple_statement.expression_stat.trailer.TrailerNode;
-import ast.python_flask.simple_statement.import_stat.ImportItem;
-import ast.python_flask.simple_statement.import_stat.ImportModule;
-import ast.python_flask.simple_statement.import_stat.ImportStatementNode;
+import ast.python_flask.simple_statement.import_stat.*;
 
 public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
-//============================================================
-//  Program
-//============================================================
+    // ============================================================
+    // Program
+    // ============================================================
     @Override
     public BaseNode visitProgram(PythonParser.ProgramContext ctx) {
         ProgramNode program = new ProgramNode(1);
@@ -66,9 +35,10 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return program;
     }
-//============================================================
-//  Simple Statement
-//============================================================
+
+    // ============================================================
+    // Simple Statement
+    // ============================================================
     @Override
     public BaseNode visitSimpleStatement(PythonParser.SimpleStatementContext ctx) {
         if (ctx.expressionList() != null) {
@@ -82,30 +52,34 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return super.visitSimpleStatement(ctx);
     }
-//============================================================
-//  Pass Statement
-//============================================================
+
+    // ============================================================
+    // Pass Statement
+    // ============================================================
     @Override
     public BaseNode visitPassStatement(PythonParser.PassStatementContext ctx) {
         return new PassStatementNode(ctx.PASS().getSymbol().getLine());
     }
-//============================================================
-//  Continue Statement
-//============================================================
+
+    // ============================================================
+    // Continue Statement
+    // ============================================================
     @Override
     public BaseNode visitContinueStatement(PythonParser.ContinueStatementContext ctx) {
         return new ContinueStatementNode(ctx.CONTINUE().getSymbol().getLine());
     }
-//============================================================
-//  Break Statement
-//============================================================
+
+    // ============================================================
+    // Break Statement
+    // ============================================================
     @Override
     public BaseNode visitBreakStatement(PythonParser.BreakStatementContext ctx) {
         return new BreakStatementNode(ctx.BREAK().getSymbol().getLine());
     }
-//============================================================
-//  Global Statement
-//============================================================
+
+    // ============================================================
+    // Global Statement
+    // ============================================================
     @Override
     public BaseNode visitGlobalStatement(PythonParser.GlobalStatementContext ctx) {
         int line = ctx.GLOBAL().getSymbol().getLine();
@@ -116,9 +90,10 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         return new GlobalStatementNode(line, names);
     }
-//============================================================
-//  Import Statement
-//============================================================
+
+    // ============================================================
+    // Import Statement
+    // ============================================================
     @Override
     public BaseNode visitImportStatement(PythonParser.ImportStatementContext ctx) {
         ImportStatementNode node = new ImportStatementNode(ctx.getStart().getLine());
@@ -147,9 +122,10 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         return node;
     }
-//============================================================
-//  Atom Expression
-//============================================================
+
+    // ============================================================
+    // Atom Expression
+    // ============================================================
     @Override
     public BaseNode visitAtomExpressionAt(PythonParser.AtomExpressionAtContext ctx) {
         return visit(ctx.atomExpression());
@@ -211,9 +187,58 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return node;
     }
-//============================================================
-//  Expressions
-//============================================================
+
+    // Trailer
+    @Override
+    public BaseNode visitAttributeTrailer(AttributeTrailerContext ctx) {
+        int line = ctx.getStart().getLine();
+        IdentifierExpression identifierExpression = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        return new AttributeTrailerNode(line, identifierExpression);
+    }
+
+    @Override
+    public BaseNode visitSubscriptTrailer(SubscriptTrailerContext ctx) {
+        int line = ctx.getStart().getLine();
+        return new SubscriptTrailerNode(line, (ExpressionNode) visit(ctx.expression()));
+    }
+
+    @Override
+    public BaseNode visitCallTrailer(CallTrailerContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<ExpressionNode> arguments = new ArrayList<>();
+        if (ctx.arglist() != null) {
+            for (var argCtx : ctx.arglist().argument()) {
+                arguments.add((ArgumentNode) visit(argCtx));
+            }
+        }
+        return new CallTrailerNode(line, arguments);
+    }
+
+    @Override
+    public BaseNode visitArgument(PythonParser.ArgumentContext ctx) {
+        int line = ctx.getStart().getLine();
+        // **kwargs
+        if (ctx.POWER() != null) {
+            return new ArgumentNode(
+                    line,
+                    (ExpressionNode) visit(ctx.expression()));
+        }
+        // positional or keyword
+        IdentifierExpression identifierExpression  = null;
+        if (ctx.IDENTIFIER() != null) {
+             identifierExpression = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        }
+        return new ArgumentNode(
+                line,
+                identifierExpression,
+                (ExpressionNode) visit(ctx.expression()));
+    }
+
+    // ============================================================
+    // Expressions
+    // ============================================================
     @Override
     public BaseNode visitPowerExpression(PythonParser.PowerExpressionContext ctx) {
         return new PowerExpressionNode(
@@ -287,9 +312,10 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1)));
     }
-//============================================================
-//  Literal
-//============================================================
+
+    // ============================================================
+    // Literal
+    // ============================================================
     @Override
     public BaseNode visitIntLiteral(IntLiteralContext ctx) {
         int line = ctx.getStart().getLine();

@@ -13,8 +13,8 @@ public class SubscriptTrailerNode extends TrailerNode {
 
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent));
-        sb.append("[").append(exp.toString(indent + 2)).append("]");
+        StringBuilder sb = new StringBuilder(super.toString(indent)+"[]");
+        sb.append("\n").append(exp.toString(indent + 2));
         return sb.toString();
     }
 }

@@ -30,9 +30,9 @@ public class AtomExpressionNode extends ExpressionNode {
         if(atom != null){
             sb.append(atom.toString(indent+2));
         }else{
-            sb.append(identifier +" ");
+            sb.append("\n").append(identifier.toString(indent+2));
             for(TrailerNode t : trailers){
-                sb.append(t.toString(indent+2));
+                sb.append("\n").append(t.toString(indent+2));
             }
         }
         return sb.toString();
