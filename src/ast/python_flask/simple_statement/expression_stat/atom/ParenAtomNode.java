@@ -17,7 +17,7 @@ public class ParenAtomNode extends AtomNode {
     
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent));
+        StringBuilder sb = new StringBuilder(super.toString(indent)+"()");
         if (expressions != null) {
             for (var e : expressions)
                 sb.append("\n").append(e.toString(indent + 4));

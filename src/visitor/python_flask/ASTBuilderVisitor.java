@@ -3,13 +3,18 @@ package visitor.python_flask;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.v4.runtime.misc.Pair;
+
 import antlr.python_flask.generated.*;
 import antlr.python_flask.generated.PythonParser.AtomExpressionContext;
 import antlr.python_flask.generated.PythonParser.BooleanLiteralContext;
+import antlr.python_flask.generated.PythonParser.DictAtomContext;
 import antlr.python_flask.generated.PythonParser.DoubleLiteralContext;
 import antlr.python_flask.generated.PythonParser.FStringLiteralContext;
 import antlr.python_flask.generated.PythonParser.IdentifierLiteralContext;
 import antlr.python_flask.generated.PythonParser.IntLiteralContext;
+import antlr.python_flask.generated.PythonParser.ListAtomContext;
+import antlr.python_flask.generated.PythonParser.LiteralAtomContext;
 import antlr.python_flask.generated.PythonParser.NullLiteralContext;
 import antlr.python_flask.generated.PythonParser.ParenAtomContext;
 import antlr.python_flask.generated.PythonParser.StringLiteralContext;
@@ -29,6 +34,8 @@ import ast.python_flask.simple_statement.GlobalStatementNode;
 import ast.python_flask.simple_statement.PassStatementNode;
 import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
 import ast.python_flask.simple_statement.expression_stat.ExpressionStatementNode;
+import ast.python_flask.simple_statement.expression_stat.atom.DictAtomNode;
+import ast.python_flask.simple_statement.expression_stat.atom.ListAtomNode;
 import ast.python_flask.simple_statement.expression_stat.atom.ParenAtomNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.AddSubExpressionNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.AndExpressionNode;
@@ -161,6 +168,33 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         if (ctx.expressionList() != null) {
             for (var exp : ctx.expressionList().expression()) {
                 node.expressions.add((ExpressionNode) visit(exp));
+            }
+        }
+        return node;
+    }
+
+    @Override
+    public BaseNode visitListAtom(ListAtomContext ctx) {
+        int line = ctx.getStart().getLine();
+        ListAtomNode node = new ListAtomNode(line, new ArrayList<>());
+        if (ctx.expressionList() != null) {
+            for (var exp : ctx.expressionList().expression()) {
+                node.elements.add((ExpressionNode) visit(exp));
+            }
+        }
+        return node;
+    }
+
+    @Override
+    public BaseNode visitDictAtom(DictAtomContext ctx) {
+        int line = ctx.getStart().getLine();
+        DictAtomNode node = new DictAtomNode(line);
+
+        if (ctx.keyValueList() != null) {
+            for (var kv : ctx.keyValueList().keyValue()) {
+                ExpressionNode key = (ExpressionNode) visit(kv.expression(0));
+                ExpressionNode value = (ExpressionNode) visit(kv.expression(1));
+                node.entries.add(new Pair<>(key, value));
             }
         }
         return node;

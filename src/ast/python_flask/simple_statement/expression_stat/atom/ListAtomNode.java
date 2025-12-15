@@ -16,13 +16,11 @@ public class ListAtomNode extends AtomNode {
     
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent));
-        sb.append("[ ");
+        StringBuilder sb = new StringBuilder(super.toString(indent)+"[]");
         if (elements != null) {
             for (var e : elements)
-                sb.append(e.toString(indent + 2));
+                sb.append("\n").append(e.toString(indent + 4));
         }
-        sb.append(" ]");
         return sb.toString();
     }
 }
