@@ -13,6 +13,6 @@ public class IdentifierExpression extends ExpressionNode {
 
     @Override
     public String toString(int indent) {
-        return name;
+        return super.toString(indent)+ name;
     }
 }

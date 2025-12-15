@@ -13,6 +13,6 @@ public class DoubleLiteralExpression extends ExpressionNode {
 
     @Override
     public String toString(int indent) {
-        return String.valueOf(value);
+        return super.toString(indent)+String.valueOf(value);
     }
 }

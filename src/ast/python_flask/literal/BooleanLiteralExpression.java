@@ -13,6 +13,6 @@ public class BooleanLiteralExpression extends ExpressionNode {
 
     @Override
     public String toString(int indent) {
-        return value ? "True" : "False";
+        return super.toString(indent) + (value ? "True" : "False");
     }
 }

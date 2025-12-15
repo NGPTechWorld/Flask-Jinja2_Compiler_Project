@@ -10,6 +10,6 @@ public class NullLiteralExpression extends ExpressionNode {
 
     @Override
     public String toString(int indent) {
-        return "null";
+        return super.toString(indent)+"null";
     }
 }

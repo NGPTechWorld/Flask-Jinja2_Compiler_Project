@@ -13,6 +13,6 @@ public class StringLiteralExpression extends ExpressionNode {
 
     @Override
     public String toString(int indent) {
-        return "\"" + value + "\"";
+        return super.toString(indent)+"\"" + value + "\"";
     }
 }

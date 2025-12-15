@@ -20,6 +20,6 @@ public class BinaryExpressionNode extends ExpressionNode {
 
     @Override
     public String toString(int indent) {
-        return super.toString(indent)+ left.toString(0) + " " + operator + " " +"\n"+ right.toString(indent+2);
+        return super.toString(indent) + operator +"\n" +left.toString(indent+2) +"\n" + right.toString(indent+2);
     }
 }
