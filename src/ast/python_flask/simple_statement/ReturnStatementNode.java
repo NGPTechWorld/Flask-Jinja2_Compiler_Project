@@ -1,7 +1,7 @@
 package ast.python_flask.simple_statement;
 
-import ast.python_flask.ExpressionNode;
 import ast.python_flask.StatementNode;
+import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
 
 public class ReturnStatementNode extends StatementNode {
 

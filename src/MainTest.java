@@ -119,7 +119,8 @@ public class MainTest {
 
         ASTBuilderVisitor visitor = new ASTBuilderVisitor();
         ProgramNode ast = (ProgramNode) visitor.visit(tree);
-         System.out.println("=== AST (JSON STYLE) ===");
+        System.out.println("=== AST (JSON STYLE) ===");
         ASTPrinter.print(ast, 0);
     }
+
 }
