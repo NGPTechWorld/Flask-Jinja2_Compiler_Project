@@ -13,14 +13,16 @@ public class ListAtomNode extends AtomNode {
         super("ListAtom", line);
         this.elements = elements;
     }
-    
+
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent)+"[]");
-        if (elements != null) {
-            for (var e : elements)
-                sb.append("\n").append(e.toString(indent + 4));
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append("\n").append(" ".repeat(indent + 2)).append("[");
+        for (var e : elements) {
+            sb.append("\n").append(e.toString(indent + 4));
         }
+        sb.append("\n").append(" ".repeat(indent + 2)).append("]");
         return sb.toString();
     }
+
 }

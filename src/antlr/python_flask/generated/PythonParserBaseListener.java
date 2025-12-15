@@ -307,13 +307,37 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTarget(PythonParser.TargetContext ctx) { }
+	@Override public void enterVarTarget(PythonParser.VarTargetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTarget(PythonParser.TargetContext ctx) { }
+	@Override public void exitVarTarget(PythonParser.VarTargetContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubscriptTarget(PythonParser.SubscriptTargetContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubscriptTarget(PythonParser.SubscriptTargetContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAttributeTarget(PythonParser.AttributeTargetContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAttributeTarget(PythonParser.AttributeTargetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

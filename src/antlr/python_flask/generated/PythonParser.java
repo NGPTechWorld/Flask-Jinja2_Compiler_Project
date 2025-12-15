@@ -1960,7 +1960,36 @@ public class PythonParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class TargetContext extends ParserRuleContext {
+		public TargetContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_target; }
+	 
+		public TargetContext() { }
+		public void copyFrom(TargetContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class VarTargetContext extends TargetContext {
 		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
+		public VarTargetContext(TargetContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterVarTarget(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitVarTarget(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitVarTarget(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class SubscriptTargetContext extends TargetContext {
 		public TargetContext target() {
 			return getRuleContext(TargetContext.class,0);
 		}
@@ -1969,22 +1998,40 @@ public class PythonParser extends Parser {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode RSB() { return getToken(PythonParser.RSB, 0); }
-		public TerminalNode DOT() { return getToken(PythonParser.DOT, 0); }
-		public TargetContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_target; }
+		public SubscriptTargetContext(TargetContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterTarget(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterSubscriptTarget(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitTarget(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitSubscriptTarget(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitTarget(this);
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitSubscriptTarget(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class AttributeTargetContext extends TargetContext {
+		public TargetContext target() {
+			return getRuleContext(TargetContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(PythonParser.DOT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
+		public AttributeTargetContext(TargetContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterAttributeTarget(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitAttributeTarget(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitAttributeTarget(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2005,6 +2052,10 @@ public class PythonParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new VarTargetContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(294);
 			match(IDENTIFIER);
 			}
@@ -2022,7 +2073,7 @@ public class PythonParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
 					case 1:
 						{
-						_localctx = new TargetContext(_parentctx, _parentState);
+						_localctx = new SubscriptTargetContext(new TargetContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_target);
 						setState(296);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -2036,7 +2087,7 @@ public class PythonParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new TargetContext(_parentctx, _parentState);
+						_localctx = new AttributeTargetContext(new TargetContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_target);
 						setState(301);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");

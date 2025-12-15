@@ -1,4 +1,4 @@
-package ast.python_flask.simple_statement.expression_stat.argument;
+package ast.python_flask.argument;
 
 import ast.python_flask.literal.IdentifierExpression;
 import ast.python_flask.simple_statement.expression_stat.ExpressionNode;

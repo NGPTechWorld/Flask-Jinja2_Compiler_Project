@@ -157,11 +157,26 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTargetList(PythonParser.TargetListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#target}.
+	 * Visit a parse tree produced by the {@code VarTarget}
+	 * labeled alternative in {@link PythonParser#target}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTarget(PythonParser.TargetContext ctx);
+	T visitVarTarget(PythonParser.VarTargetContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SubscriptTarget}
+	 * labeled alternative in {@link PythonParser#target}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubscriptTarget(PythonParser.SubscriptTargetContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AttributeTarget}
+	 * labeled alternative in {@link PythonParser#target}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAttributeTarget(PythonParser.AttributeTargetContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#expressionList}.
 	 * @param ctx the parse tree

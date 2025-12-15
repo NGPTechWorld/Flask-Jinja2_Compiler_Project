@@ -9,10 +9,16 @@ import antlr.python_flask.generated.*;
 import antlr.python_flask.generated.PythonParser.*;
 import ast.BaseNode;
 import ast.python_flask.*;
+import ast.python_flask.argument.ArgumentNode;
 import ast.python_flask.literal.*;
 import ast.python_flask.simple_statement.*;
+import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
+import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
+import ast.python_flask.simple_statement.assignment_stat.TargetNode;
+import ast.python_flask.simple_statement.assignment_stat.target.AttributeTargetNode;
+import ast.python_flask.simple_statement.assignment_stat.target.SubscriptTargetNode;
+import ast.python_flask.simple_statement.assignment_stat.target.VarTargetNode;
 import ast.python_flask.simple_statement.expression_stat.*;
-import ast.python_flask.simple_statement.expression_stat.argument.ArgumentNode;
 import ast.python_flask.simple_statement.expression_stat.atom.*;
 import ast.python_flask.simple_statement.expression_stat.expressions.*;
 import ast.python_flask.simple_statement.expression_stat.trailer.AttributeTrailerNode;
@@ -124,6 +130,62 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
     }
 
     // ============================================================
+    // Assignment Statement
+    // ============================================================
+    @Override
+    public BaseNode visitAssignmentStatement(PythonParser.AssignmentStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<TargetNode> targets = new ArrayList<>();
+        for (var t : ctx.targetList().target()) {
+            targets.add((TargetNode) visit(t));
+        }
+        AssignmentOperator operator;
+        if (ctx.augmentedAssignment() != null) {
+            operator = switch (ctx.augmentedAssignment().getText()) {
+                case "+=" -> AssignmentOperator.ADD_ASSIGN;
+                case "-=" -> AssignmentOperator.SUB_ASSIGN;
+                case "*=" -> AssignmentOperator.MUL_ASSIGN;
+                case "/=" -> AssignmentOperator.DIV_ASSIGN;
+                case "%=" -> AssignmentOperator.MOD_ASSIGN;
+                default -> throw new RuntimeException("Unknown augmented assignment");
+            };
+        } else {
+            operator = AssignmentOperator.ASSIGN;
+        }
+        List<ExpressionNode> values = new ArrayList<>();
+        for (var e : ctx.expressionList().expression()) {
+            values.add((ExpressionNode) visit(e));
+        }
+        return new AssignmentStatementNode(line, targets, operator, values);
+    }
+
+    // Target
+    @Override
+    public BaseNode visitSubscriptTarget(PythonParser.SubscriptTargetContext ctx) {
+        int line = ctx.getStart().getLine();
+        TargetNode base = (TargetNode) visit(ctx.target());
+        ExpressionNode index = (ExpressionNode) visit(ctx.expression());
+        return new SubscriptTargetNode(line, index, base);
+    }
+
+    @Override
+    public BaseNode visitAttributeTarget(PythonParser.AttributeTargetContext ctx) {
+        int line = ctx.getStart().getLine();
+        TargetNode base = (TargetNode) visit(ctx.target());
+        IdentifierExpression attr = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        return new AttributeTargetNode(line, attr, base);
+    }
+
+    @Override
+    public BaseNode visitVarTarget(PythonParser.VarTargetContext ctx) {
+        int line = ctx.getStart().getLine();
+        return new VarTargetNode(
+                line,
+                new IdentifierExpression(line, ctx.IDENTIFIER().getText()));
+    }
+
+    // ============================================================
     // Atom Expression
     // ============================================================
     @Override
@@ -225,10 +287,10 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                     (ExpressionNode) visit(ctx.expression()));
         }
         // positional or keyword
-        IdentifierExpression identifierExpression  = null;
+        IdentifierExpression identifierExpression = null;
         if (ctx.IDENTIFIER() != null) {
-             identifierExpression = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
-                ctx.IDENTIFIER().getText());
+            identifierExpression = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
+                    ctx.IDENTIFIER().getText());
         }
         return new ArgumentNode(
                 line,
