@@ -54,7 +54,9 @@ import ast.python_flask.simple_statement.import_stat.ImportStatementNode;
 
 public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
-    // Program
+//============================================================
+//  Program
+//============================================================
     @Override
     public BaseNode visitProgram(PythonParser.ProgramContext ctx) {
         ProgramNode program = new ProgramNode(1);
@@ -64,7 +66,9 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return program;
     }
-
+//============================================================
+//  Simple Statement
+//============================================================
     @Override
     public BaseNode visitSimpleStatement(PythonParser.SimpleStatementContext ctx) {
         if (ctx.expressionList() != null) {
@@ -78,22 +82,30 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return super.visitSimpleStatement(ctx);
     }
-
+//============================================================
+//  Pass Statement
+//============================================================
     @Override
     public BaseNode visitPassStatement(PythonParser.PassStatementContext ctx) {
         return new PassStatementNode(ctx.PASS().getSymbol().getLine());
     }
-
+//============================================================
+//  Continue Statement
+//============================================================
     @Override
     public BaseNode visitContinueStatement(PythonParser.ContinueStatementContext ctx) {
         return new ContinueStatementNode(ctx.CONTINUE().getSymbol().getLine());
     }
-
+//============================================================
+//  Break Statement
+//============================================================
     @Override
     public BaseNode visitBreakStatement(PythonParser.BreakStatementContext ctx) {
         return new BreakStatementNode(ctx.BREAK().getSymbol().getLine());
     }
-
+//============================================================
+//  Global Statement
+//============================================================
     @Override
     public BaseNode visitGlobalStatement(PythonParser.GlobalStatementContext ctx) {
         int line = ctx.GLOBAL().getSymbol().getLine();
@@ -104,11 +116,12 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         return new GlobalStatementNode(line, names);
     }
-
+//============================================================
+//  Import Statement
+//============================================================
     @Override
     public BaseNode visitImportStatement(PythonParser.ImportStatementContext ctx) {
         ImportStatementNode node = new ImportStatementNode(ctx.getStart().getLine());
-
         // from module
         if (ctx.importModule() != null) {
             List<String> parts = ctx.importModule()
@@ -121,7 +134,6 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                     ctx.importModule().getStart().getLine(),
                     parts);
         }
-
         // import items
         for (var i : ctx.importItem()) {
             node.addImportItem(
@@ -135,9 +147,9 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         return node;
     }
-
-    // Expression
-
+//============================================================
+//  Atom Expression
+//============================================================
     @Override
     public BaseNode visitAtomExpressionAt(PythonParser.AtomExpressionAtContext ctx) {
         return visit(ctx.atomExpression());
@@ -199,7 +211,9 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return node;
     }
-
+//============================================================
+//  Expressions
+//============================================================
     @Override
     public BaseNode visitPowerExpression(PythonParser.PowerExpressionContext ctx) {
         return new PowerExpressionNode(
@@ -273,8 +287,9 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                 (ExpressionNode) visit(ctx.expression(0)),
                 (ExpressionNode) visit(ctx.expression(1)));
     }
-
-    // literal
+//============================================================
+//  Literal
+//============================================================
     @Override
     public BaseNode visitIntLiteral(IntLiteralContext ctx) {
         int line = ctx.getStart().getLine();
