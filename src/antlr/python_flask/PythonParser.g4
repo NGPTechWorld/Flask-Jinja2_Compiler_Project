@@ -179,7 +179,8 @@ expression
 
 // This handles calls, subscripts, and attribute access
 atomExpression
-: atom (trailer)*  // example: request.form.get('name')
+: atom 
+| IDENTIFIER (trailer)*  // example: request.form.get('name')
 ;
 
 trailer
