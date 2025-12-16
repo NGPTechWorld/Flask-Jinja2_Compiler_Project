@@ -23,7 +23,7 @@ public class MainTest {
         // });
         // runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
-        runPythonAndFlaskAST();
+       runPythonAndFlaskAST();
     }
 
     public static void runPythonAndFlask() throws Exception {

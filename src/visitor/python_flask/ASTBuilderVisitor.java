@@ -37,7 +37,10 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         ProgramNode program = new ProgramNode(1);
 
         for (var stmt : ctx.statement()) {
-            program.addStatement((StatementNode) visit(stmt));
+            BaseNode node = visit(stmt);
+            if (node != null) {
+                program.addStatement((StatementNode) node);
+            }
         }
         return program;
     }
@@ -95,6 +98,20 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                 .toList();
 
         return new GlobalStatementNode(line, names);
+    }
+
+    // ============================================================
+    // Return Statement
+    // ============================================================
+    @Override
+    public BaseNode visitReturnStatement(ReturnStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<ExpressionNode> values = new ArrayList<>();
+        if (ctx.expressionList() != null)
+            for (var e : ctx.expressionList().expression()) {
+                values.add((ExpressionNode) visit(e));
+            }
+        return new ReturnStatementNode(line, values);
     }
 
     // ============================================================

@@ -38,10 +38,8 @@ public class ImportItem extends BaseNode{
      public String toString(int indent) {
         StringBuilder sb = new StringBuilder("\n"+super.toString(indent+2));
         sb.append(idLeft);
-
         if(idRight !=null){
         sb.append(" as ").append(idRight);
-        
         }
         return sb.toString() ;
      }
