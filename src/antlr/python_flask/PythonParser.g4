@@ -202,7 +202,7 @@ atom
 // Done! 😎
 // List of key-value pairs for dictionaries
 keyValueList
-: keyValue (COMMA keyValue)* COMMA?
+:NEWLINE* keyValue (COMMA NEWLINE* keyValue)* COMMA? NEWLINE*
 ;
 // Done! 😎
 keyValue
