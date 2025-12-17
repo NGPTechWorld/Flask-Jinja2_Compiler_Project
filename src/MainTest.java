@@ -23,7 +23,7 @@ public class MainTest {
         // });
         // runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
-        runPythonAndFlaskAST();
+       runPythonAndFlaskAST();
     }
 
     public static void runPythonAndFlask() throws Exception {
@@ -119,7 +119,8 @@ public class MainTest {
 
         ASTBuilderVisitor visitor = new ASTBuilderVisitor();
         ProgramNode ast = (ProgramNode) visitor.visit(tree);
-         System.out.println("=== AST (JSON STYLE) ===");
+        System.out.println("=== AST (JSON STYLE) ===");
         ASTPrinter.print(ast, 0);
     }
+
 }

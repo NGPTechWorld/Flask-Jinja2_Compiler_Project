@@ -1,4 +1,19 @@
-import Flask, render_template, request, redirect, url_for, jsonify
-global x, y
-pass
-break
+#import Flask, render_template, request, redirect, url_for, jsonify
+#global x, y
+#pass
+#break
+#mohamad
+#(x + 1) * 5 + (8-5)
+#[5,11,"ngp"]
+{
+    "name":5+6,
+    "h":"s"
+}
+#mohamad.age.name
+#mohamad.age['api']
+#mohamad(x+u)
+#mohamad(x=5,y=1)
+#mohamad(**x)
+
+#obj.arr[i].x += a + 1
+#return

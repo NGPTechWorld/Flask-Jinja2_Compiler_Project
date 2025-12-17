@@ -250,15 +250,41 @@ public interface PythonParserListener extends ParseTreeListener {
 	 */
 	void exitTargetList(PythonParser.TargetListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link PythonParser#target}.
+	 * Enter a parse tree produced by the {@code VarTarget}
+	 * labeled alternative in {@link PythonParser#target}.
 	 * @param ctx the parse tree
 	 */
-	void enterTarget(PythonParser.TargetContext ctx);
+	void enterVarTarget(PythonParser.VarTargetContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link PythonParser#target}.
+	 * Exit a parse tree produced by the {@code VarTarget}
+	 * labeled alternative in {@link PythonParser#target}.
 	 * @param ctx the parse tree
 	 */
-	void exitTarget(PythonParser.TargetContext ctx);
+	void exitVarTarget(PythonParser.VarTargetContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SubscriptTarget}
+	 * labeled alternative in {@link PythonParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubscriptTarget(PythonParser.SubscriptTargetContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SubscriptTarget}
+	 * labeled alternative in {@link PythonParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubscriptTarget(PythonParser.SubscriptTargetContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AttributeTarget}
+	 * labeled alternative in {@link PythonParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void enterAttributeTarget(PythonParser.AttributeTargetContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AttributeTarget}
+	 * labeled alternative in {@link PythonParser#target}.
+	 * @param ctx the parse tree
+	 */
+	void exitAttributeTarget(PythonParser.AttributeTargetContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PythonParser#expressionList}.
 	 * @param ctx the parse tree
