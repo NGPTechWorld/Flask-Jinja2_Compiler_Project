@@ -5,7 +5,7 @@ import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
 
 public class ArgumentNode extends ExpressionNode {
 
-    public IdentifierExpression name; // optional
+    public IdentifierExpression name;
     public ExpressionNode value;
     public boolean isPower;
 

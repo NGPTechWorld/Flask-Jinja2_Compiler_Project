@@ -6,5 +6,4 @@ public abstract class StatementNode extends BaseNode {
     public StatementNode(String name, int line) {
         super(name, line);
     }
-    
 }

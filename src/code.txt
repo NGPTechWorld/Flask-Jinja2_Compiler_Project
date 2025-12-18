@@ -5,10 +5,10 @@
 #mohamad
 #(x + 1) * 5 + (8-5)
 #[5,11,"ngp"]
-{
-    "name":5+6,
-    "h":"s"
-}
+#{
+#    "name":5+6,
+#    "h":"s"
+#}
 #mohamad.age.name
 #mohamad.age['api']
 #mohamad(x+u)
@@ -17,3 +17,6 @@
 
 #obj.arr[i].x += a + 1
 #return
+
+class h(A,N):
+  x=5

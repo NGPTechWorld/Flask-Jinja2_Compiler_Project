@@ -10,6 +10,8 @@ import antlr.python_flask.generated.PythonParser.*;
 import ast.BaseNode;
 import ast.python_flask.*;
 import ast.python_flask.argument.ArgumentNode;
+import ast.python_flask.compound_statement.BodyNode;
+import ast.python_flask.compound_statement.ClassDefintionNode;
 import ast.python_flask.literal.*;
 import ast.python_flask.simple_statement.*;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
@@ -45,6 +47,41 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         return program;
     }
 
+    // ============================================================
+    // Compound Statement
+    // ============================================================
+    @Override
+    public BaseNode visitCompoundStatement(CompoundStatementContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public BaseNode visitClassDef(ClassDefContext ctx) {
+        int line = ctx.getStart().getLine();
+        IdentifierExpression nameClass = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        List<ExpressionNode> arguments = new ArrayList<>();
+        if (ctx.arglist() != null) {
+            for (var argCtx : ctx.arglist().argument()) {
+                arguments.add((ArgumentNode) visit(argCtx));
+            }
+        }
+        BodyNode bodyNode=(BodyNode) visit(ctx.body());
+        return new ClassDefintionNode(line,nameClass, arguments, bodyNode);
+    }
+
+    @Override
+    public BaseNode visitBody(BodyContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<StatementNode> statements = new ArrayList<>();
+        for (var stmt : ctx.statement()) {
+            BaseNode node = visit(stmt);
+            if (node != null) {
+                statements.add((StatementNode) node);
+            }
+        }
+        return new BodyNode(line, statements);
+    }
     // ============================================================
     // Simple Statement
     // ============================================================
