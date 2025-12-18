@@ -12,6 +12,8 @@ import ast.python_flask.*;
 import ast.python_flask.argument.ArgumentNode;
 import ast.python_flask.compound_statement.BodyNode;
 import ast.python_flask.compound_statement.ClassDefintionNode;
+import ast.python_flask.compound_statement.ForStatementNode;
+import ast.python_flask.compound_statement.IfStatementNode;
 import ast.python_flask.literal.*;
 import ast.python_flask.simple_statement.*;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
@@ -55,6 +57,9 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         return visitChildren(ctx);
     }
 
+    // ============================================================
+    // Class Defintion
+    // ============================================================
     @Override
     public BaseNode visitClassDef(ClassDefContext ctx) {
         int line = ctx.getStart().getLine();
@@ -66,8 +71,8 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                 arguments.add((ArgumentNode) visit(argCtx));
             }
         }
-        BodyNode bodyNode=(BodyNode) visit(ctx.body());
-        return new ClassDefintionNode(line,nameClass, arguments, bodyNode);
+        BodyNode bodyNode = (BodyNode) visit(ctx.body());
+        return new ClassDefintionNode(line, nameClass, arguments, bodyNode);
     }
 
     @Override
@@ -82,6 +87,47 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
         return new BodyNode(line, statements);
     }
+
+    // ============================================================
+    // If Statement
+    // ============================================================
+    @Override
+    public BaseNode visitIfStatement(IfStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+
+        ExpressionNode ifCondition = (ExpressionNode) visit(ctx.expression(0));
+        BodyNode bodyIf = (BodyNode) visit(ctx.body(0));
+
+        List<Pair<ExpressionNode, BodyNode>> elseIfStat = new ArrayList<>();
+
+        int elifCount = ctx.ELIF().size();
+        for (int i = 0; i < elifCount; i++) {
+            ExpressionNode cond = (ExpressionNode) visit(ctx.expression(i + 1));
+            BodyNode body = (BodyNode) visit(ctx.body(i + 1));
+            elseIfStat.add(new Pair<>(cond, body));
+        }
+
+        BodyNode bodyElse = null;
+        if (ctx.ELSE() != null) {
+            bodyElse = (BodyNode) visit(ctx.body(ctx.body().size() - 1));
+        }
+
+        return new IfStatementNode(line, ifCondition, bodyIf, elseIfStat, bodyElse);
+    }
+
+    @Override
+    public BaseNode visitForStatement(PythonParser.ForStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<TargetNode> targets = new ArrayList<>();
+        for (var t : ctx.targetList().target()) {
+            targets.add((TargetNode) visit(t));
+        }
+        ExpressionNode iterable = (ExpressionNode) visit(ctx.atomExpression());
+        BodyNode body = (BodyNode) visit(ctx.body());
+
+        return new ForStatementNode(line, targets, iterable, body);
+    }
+
     // ============================================================
     // Simple Statement
     // ============================================================

@@ -72,12 +72,12 @@ globalStatement
 passStatement
 : PASS NEWLINE
 ;
-
+// Done! 😎
 // Class Definition (basic)
 classDef
 : CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON body
 ;
-
+// Done! 😎
 body
 : INDENT statement+ DEDENT
 ;
@@ -117,6 +117,7 @@ param
 //------------------------------------------------------------
 // For Loop
 //------------------------------------------------------------
+// Done! 😎
 forStatement
 : FOR targetList IN atomExpression COLON body
 ;
@@ -124,6 +125,7 @@ forStatement
 //------------------------------------------------------------
 // If / Elif / Else Statements
 //------------------------------------------------------------
+// Done! 😎
 ifStatement
 : IF expression COLON body (ELIF expression COLON body)* (ELSE COLON body)?
 ;
