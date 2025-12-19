@@ -38,6 +38,7 @@ simpleStatement
 compoundStatement
 : ifStatement
 | forStatement
+| whileStatement
 | funcdef
 | classDef
 ;
@@ -125,6 +126,10 @@ param
 // Done! 😎
 forStatement
 : FOR targetList IN expressionList COLON body
+;
+
+whileStatement
+: WHILE expression COLON body
 ;
 
 //------------------------------------------------------------

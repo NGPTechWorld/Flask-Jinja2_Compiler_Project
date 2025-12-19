@@ -25,7 +25,12 @@
 #            product = p
 #           break
 
-for i in a + b:
-for i in x * 2:
-for i in func(3) and cond:
-    pass
+#for i in a + b:
+#for i in x * 2:
+#for i in func(3) and cond:
+#    pass
+
+i = 0
+while i < 5:
+    print(i)
+    i += 1

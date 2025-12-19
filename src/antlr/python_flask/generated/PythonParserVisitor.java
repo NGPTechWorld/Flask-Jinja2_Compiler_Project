@@ -154,6 +154,12 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitForStatement(PythonParser.ForStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#whileStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatement(PythonParser.WhileStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

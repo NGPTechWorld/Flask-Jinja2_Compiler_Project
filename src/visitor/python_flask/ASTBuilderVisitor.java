@@ -14,6 +14,7 @@ import ast.python_flask.compound_statement.BodyNode;
 import ast.python_flask.compound_statement.ClassDefintionNode;
 import ast.python_flask.compound_statement.ForStatementNode;
 import ast.python_flask.compound_statement.IfStatementNode;
+import ast.python_flask.compound_statement.WhileStatementNode;
 import ast.python_flask.compound_statement.function_defintion.DecoratorNode;
 import ast.python_flask.compound_statement.function_defintion.FunctionDefNode;
 import ast.python_flask.compound_statement.function_defintion.param.KwVarArgParamNode;
@@ -141,6 +142,19 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
     }
 
     // ============================================================
+    // While loob Statement
+    // ============================================================
+    @Override
+    public BaseNode visitWhileStatement(WhileStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+
+        ExpressionNode iterable = (ExpressionNode) visit(ctx.expression());
+        BodyNode body = (BodyNode) visit(ctx.body());
+
+        return new WhileStatementNode(line, iterable, body);
+    }
+
+    // ============================================================
     // Function Defintion
     // ============================================================
     @Override
@@ -162,7 +176,7 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         if (ctx.expression() != null) {
             node.returnType = (ExpressionNode) visit(ctx.expression());
         }
-        node.body =  (BodyNode) visit(ctx.body());
+        node.body = (BodyNode) visit(ctx.body());
         return node;
     }
 
