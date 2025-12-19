@@ -10,6 +10,7 @@ tokenVocab = PythonLexer;
 //------------------------------------------------------------
 // Entry Point
 //------------------------------------------------------------
+// Done! 😎
 program
 : statement* EOF
 ;
@@ -17,6 +18,7 @@ program
 //------------------------------------------------------------
 // Statements
 //------------------------------------------------------------
+// Done! 😎
 statement
 : simpleStatement
 | compoundStatement
@@ -85,33 +87,36 @@ body
 //------------------------------------------------------------
 // Function Definition
 //------------------------------------------------------------
+// Done! 😎
 funcdef
 : decorators? DEF IDENTIFIER LPAREN parameters? RPAREN (ARROW expression)? COLON body
 ;
-
+// Done! 😎
 // Decorators
 decorators
 : decorator+
 ;
-
+// Done! 😎
 decorator
 : AT dottedName (LPAREN arglist? RPAREN)? NEWLINE
 ;
-
+// Done! 😎
 dottedName
 : IDENTIFIER (DOT IDENTIFIER)*
 ;
 
 // Parameter list
+// Done! 😎
 parameters
 : param (COMMA param)* (COMMA)?
 ;
 
 // Single parameter (positional / default / *args / **kwargs)
+// Done! 😎
 param
-: IDENTIFIER (EQUAL expression)?
-| STAR IDENTIFIER
-| POWER IDENTIFIER
+: IDENTIFIER (EQUAL expression)?   #NormalParam
+| STAR IDENTIFIER                  #VarArgParam
+| POWER IDENTIFIER                #KwVarArgParam
 ;
 
 //------------------------------------------------------------

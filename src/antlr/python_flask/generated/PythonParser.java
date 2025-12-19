@@ -1555,28 +1555,73 @@ public class PythonParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParamContext extends ParserRuleContext {
+		public ParamContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_param; }
+	 
+		public ParamContext() { }
+		public void copyFrom(ParamContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class KwVarArgParamContext extends ParamContext {
+		public TerminalNode POWER() { return getToken(PythonParser.POWER, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
+		public KwVarArgParamContext(ParamContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterKwVarArgParam(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitKwVarArgParam(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitKwVarArgParam(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class VarArgParamContext extends ParamContext {
+		public TerminalNode STAR() { return getToken(PythonParser.STAR, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
+		public VarArgParamContext(ParamContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterVarArgParam(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitVarArgParam(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitVarArgParam(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NormalParamContext extends ParamContext {
 		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
 		public TerminalNode EQUAL() { return getToken(PythonParser.EQUAL, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public TerminalNode STAR() { return getToken(PythonParser.STAR, 0); }
-		public TerminalNode POWER() { return getToken(PythonParser.POWER, 0); }
-		public ParamContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_param; }
+		public NormalParamContext(ParamContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterParam(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).enterNormalParam(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitParam(this);
+			if ( listener instanceof PythonParserListener ) ((PythonParserListener)listener).exitNormalParam(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitParam(this);
+			if ( visitor instanceof PythonParserVisitor ) return ((PythonParserVisitor<? extends T>)visitor).visitNormalParam(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1590,6 +1635,7 @@ public class PythonParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
+				_localctx = new NormalParamContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(240);
@@ -1609,6 +1655,7 @@ public class PythonParser extends Parser {
 				}
 				break;
 			case STAR:
+				_localctx = new VarArgParamContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(245);
@@ -1618,6 +1665,7 @@ public class PythonParser extends Parser {
 				}
 				break;
 			case POWER:
+				_localctx = new KwVarArgParamContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(247);

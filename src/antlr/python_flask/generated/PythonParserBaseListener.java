@@ -247,13 +247,37 @@ public class PythonParserBaseListener implements PythonParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParam(PythonParser.ParamContext ctx) { }
+	@Override public void enterNormalParam(PythonParser.NormalParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParam(PythonParser.ParamContext ctx) { }
+	@Override public void exitNormalParam(PythonParser.NormalParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarArgParam(PythonParser.VarArgParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarArgParam(PythonParser.VarArgParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterKwVarArgParam(PythonParser.KwVarArgParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKwVarArgParam(PythonParser.KwVarArgParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

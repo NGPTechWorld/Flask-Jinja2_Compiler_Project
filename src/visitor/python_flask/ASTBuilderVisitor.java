@@ -14,6 +14,12 @@ import ast.python_flask.compound_statement.BodyNode;
 import ast.python_flask.compound_statement.ClassDefintionNode;
 import ast.python_flask.compound_statement.ForStatementNode;
 import ast.python_flask.compound_statement.IfStatementNode;
+import ast.python_flask.compound_statement.function_defintion.DecoratorNode;
+import ast.python_flask.compound_statement.function_defintion.FunctionDefNode;
+import ast.python_flask.compound_statement.function_defintion.param.KwVarArgParamNode;
+import ast.python_flask.compound_statement.function_defintion.param.NormalParamNode;
+import ast.python_flask.compound_statement.function_defintion.param.ParamNode;
+import ast.python_flask.compound_statement.function_defintion.param.VarArgParamNode;
 import ast.python_flask.literal.*;
 import ast.python_flask.simple_statement.*;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
@@ -115,6 +121,9 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         return new IfStatementNode(line, ifCondition, bodyIf, elseIfStat, bodyElse);
     }
 
+    // ============================================================
+    // For loob Statement
+    // ============================================================
     @Override
     public BaseNode visitForStatement(PythonParser.ForStatementContext ctx) {
         int line = ctx.getStart().getLine();
@@ -126,6 +135,76 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         BodyNode body = (BodyNode) visit(ctx.body());
 
         return new ForStatementNode(line, targets, iterable, body);
+    }
+
+    // ============================================================
+    // Function Defintion
+    // ============================================================
+    @Override
+    public BaseNode visitFuncdef(FuncdefContext ctx) {
+        FunctionDefNode node = new FunctionDefNode(ctx.getStart().getLine());
+        if (ctx.decorators() != null) {
+            for (var dec : ctx.decorators().decorator()) {
+                node.decorators.add((DecoratorNode) visit(dec));
+            }
+        }
+        node.name = new IdentifierExpression(
+                ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        if (ctx.parameters() != null) {
+            for (var p : ctx.parameters().param()) {
+                node.parameters.add((ParamNode) visit(p));
+            }
+        }
+        if (ctx.expression() != null) {
+            node.returnType = (ExpressionNode) visit(ctx.expression());
+        }
+        node.body =  (BodyNode) visit(ctx.body());
+        return node;
+    }
+
+    @Override
+    public BaseNode visitDecorator(DecoratorContext ctx) {
+        DecoratorNode node = new DecoratorNode(ctx.getStart().getLine());
+        for (var id : ctx.dottedName().IDENTIFIER()) {
+            node.path.add(new IdentifierExpression(id.getSymbol().getLine(),
+                    id.getText()));
+        }
+        if (ctx.arglist() != null) {
+            node.arguments = new ArrayList<>();
+            for (var a : ctx.arglist().argument()) {
+                node.arguments.add((ArgumentNode) visit(a));
+            }
+        }
+        return node;
+    }
+
+    // Params
+    @Override
+    public BaseNode visitNormalParam(PythonParser.NormalParamContext ctx) {
+        IdentifierExpression id = new IdentifierExpression(ctx.start.getLine(), ctx.IDENTIFIER().getText());
+        ExpressionNode defaultValue = null;
+        if (ctx.expression() != null) {
+            defaultValue = (ExpressionNode) visit(ctx.expression());
+        }
+        return new NormalParamNode(
+                ctx.start.getLine(),
+                id,
+                defaultValue);
+    }
+
+    @Override
+    public BaseNode visitVarArgParam(PythonParser.VarArgParamContext ctx) {
+        return new VarArgParamNode(
+                ctx.start.getLine(),
+                new IdentifierExpression(ctx.start.getLine(), ctx.IDENTIFIER().getText()));
+    }
+
+    @Override
+    public BaseNode visitKwVarArgParam(PythonParser.KwVarArgParamContext ctx) {
+        return new KwVarArgParamNode(
+                ctx.start.getLine(),
+                new IdentifierExpression(ctx.start.getLine(), ctx.IDENTIFIER().getText()));
     }
 
     // ============================================================
