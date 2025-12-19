@@ -1696,8 +1696,8 @@ public class PythonParser extends Parser {
 			return getRuleContext(TargetListContext.class,0);
 		}
 		public TerminalNode IN() { return getToken(PythonParser.IN, 0); }
-		public AtomExpressionContext atomExpression() {
-			return getRuleContext(AtomExpressionContext.class,0);
+		public ExpressionListContext expressionList() {
+			return getRuleContext(ExpressionListContext.class,0);
 		}
 		public TerminalNode COLON() { return getToken(PythonParser.COLON, 0); }
 		public BodyContext body() {
@@ -1735,7 +1735,7 @@ public class PythonParser extends Parser {
 			setState(253);
 			match(IN);
 			setState(254);
-			atomExpression();
+			expressionList();
 			setState(255);
 			match(COLON);
 			setState(256);
@@ -3971,7 +3971,7 @@ public class PythonParser extends Parser {
 		"\u0000\u0000\u00f9\u00f5\u0001\u0000\u0000\u0000\u00f9\u00f7\u0001\u0000"+
 		"\u0000\u0000\u00fa\'\u0001\u0000\u0000\u0000\u00fb\u00fc\u0005\b\u0000"+
 		"\u0000\u00fc\u00fd\u0003.\u0017\u0000\u00fd\u00fe\u0005\t\u0000\u0000"+
-		"\u00fe\u00ff\u00038\u001c\u0000\u00ff\u0100\u0005\u001f\u0000\u0000\u0100"+
+		"\u00fe\u00ff\u00032\u0019\u0000\u00ff\u0100\u0005\u001f\u0000\u0000\u0100"+
 		"\u0101\u0003\u001a\r\u0000\u0101)\u0001\u0000\u0000\u0000\u0102\u0103"+
 		"\u0005\u0005\u0000\u0000\u0103\u0104\u00036\u001b\u0000\u0104\u0105\u0005"+
 		"\u001f\u0000\u0000\u0105\u010d\u0003\u001a\r\u0000\u0106\u0107\u0005\u0006"+

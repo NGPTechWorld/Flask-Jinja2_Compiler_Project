@@ -124,7 +124,7 @@ param
 //------------------------------------------------------------
 // Done! 😎
 forStatement
-: FOR targetList IN atomExpression COLON body
+: FOR targetList IN expressionList COLON body
 ;
 
 //------------------------------------------------------------

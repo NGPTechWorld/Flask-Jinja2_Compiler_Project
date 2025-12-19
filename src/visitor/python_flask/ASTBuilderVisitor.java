@@ -131,10 +131,13 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         for (var t : ctx.targetList().target()) {
             targets.add((TargetNode) visit(t));
         }
-        ExpressionNode iterable = (ExpressionNode) visit(ctx.atomExpression());
+        List<ExpressionNode> iterables = new ArrayList<>();
+        for (var e : ctx.expressionList().expression()) {
+            iterables.add((ExpressionNode) visit(e));
+        }
         BodyNode body = (BodyNode) visit(ctx.body());
 
-        return new ForStatementNode(line, targets, iterable, body);
+        return new ForStatementNode(line, targets, iterables, body);
     }
 
     // ============================================================

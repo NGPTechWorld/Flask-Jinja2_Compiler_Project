@@ -7,26 +7,29 @@ import ast.python_flask.StatementNode;
 import ast.python_flask.simple_statement.assignment_stat.TargetNode;
 import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
 
-public class ForStatementNode extends StatementNode{
+public class ForStatementNode extends StatementNode {
     public List<TargetNode> targets = new ArrayList<>();
-    public ExpressionNode iterable;
+    public List<ExpressionNode> iterables = new ArrayList<>();
     public BodyNode body;
 
-    public ForStatementNode(int line,List<TargetNode> targets,ExpressionNode iterable, BodyNode body) {
+    public ForStatementNode(int line, List<TargetNode> targets, List<ExpressionNode> iterables, BodyNode body) {
         super("ForStatement", line);
-        this.targets=targets;
-        this.iterable=iterable;
-        this.body=body;
+        this.targets = targets;
+        this.iterables = iterables;
+        this.body = body;
     }
 
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent)+"for");
+        StringBuilder sb = new StringBuilder(super.toString(indent) + "for");
         for (var t : targets) {
             sb.append("\n").append(t.toString(indent + 2));
         }
         sb.append("\n").append(" ".repeat(indent + 2)).append("in");
-        sb.append("\n").append(iterable.toString(indent + 4));
+        for (var iterable : iterables) {
+            sb.append("\n").append(iterable.toString(indent + 4));
+
+        }
         sb.append("\n").append(body.toString(indent + 2));
         return sb.toString();
     }
