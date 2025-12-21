@@ -1,8 +1,6 @@
 package ast.python_flask.literal;
 
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
-
-public class IdentifierExpression extends ExpressionNode {
+public class IdentifierExpression extends LiteralNode {
 
     public String name;
 

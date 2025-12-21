@@ -446,6 +446,12 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         return node;
     }
 
+    @Override
+    public BaseNode visitLiteralAtom(LiteralAtomContext ctx) {
+         int line = ctx.getStart().getLine();
+         LiteralNode literal = (LiteralNode) visit(ctx.literal());
+        return new LiteralAtomNode(line, literal);
+    }
     // Trailer
     @Override
     public BaseNode visitAttributeTrailer(AttributeTrailerContext ctx) {

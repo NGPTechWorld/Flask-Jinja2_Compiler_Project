@@ -30,7 +30,23 @@
 #for i in func(3) and cond:
 #    pass
 
-i = 0
-while i < 5:
-    print(i)
-    i += 1
+#i = 0
+#while i < 5:
+#    print(i)
+#    i += 1
+from math import sqrt, pow
+
+x = 10
+y = 5
+z = [1, 2, 3]
+
+for i in z:
+    x += i * 2
+    if x > 15:
+        y = y + x
+
+def add(a, b):
+    return a + b
+
+result = add(x, y)
+print(result)
