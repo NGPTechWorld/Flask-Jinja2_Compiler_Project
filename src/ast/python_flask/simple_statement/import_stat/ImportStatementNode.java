@@ -29,8 +29,6 @@ public class ImportStatementNode extends StatementNode {
 
         for (int i = 0; i < items.size(); i++) {
             sb.append(items.get(i).toString(indent));
-            if (i < items.size() - 1)
-                sb.append(", ");
         }
         return sb.toString();
     }

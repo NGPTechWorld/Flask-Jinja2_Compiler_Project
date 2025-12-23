@@ -11,13 +11,13 @@ public class CallTrailerNode extends TrailerNode {
 
     public CallTrailerNode(int line, List<ExpressionNode> arguments) {
         super("CallTrailer", line);
-          if (arguments != null)
+        if (arguments != null)
             this.arguments = arguments;
     }
-    
-     @Override
+
+    @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent)+"()");
+        StringBuilder sb = new StringBuilder(super.toString(indent) + "()");
         for (var arg : arguments) {
             sb.append("\n").append(arg.toString(indent + 2));
         }

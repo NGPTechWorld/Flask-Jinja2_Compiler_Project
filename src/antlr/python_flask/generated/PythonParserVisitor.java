@@ -127,17 +127,38 @@ public interface PythonParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameters(PythonParser.ParametersContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link PythonParser#param}.
+	 * Visit a parse tree produced by the {@code NormalParam}
+	 * labeled alternative in {@link PythonParser#param}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParam(PythonParser.ParamContext ctx);
+	T visitNormalParam(PythonParser.NormalParamContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VarArgParam}
+	 * labeled alternative in {@link PythonParser#param}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarArgParam(PythonParser.VarArgParamContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code KwVarArgParam}
+	 * labeled alternative in {@link PythonParser#param}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKwVarArgParam(PythonParser.KwVarArgParamContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#forStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitForStatement(PythonParser.ForStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#whileStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatement(PythonParser.WhileStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link PythonParser#ifStatement}.
 	 * @param ctx the parse tree

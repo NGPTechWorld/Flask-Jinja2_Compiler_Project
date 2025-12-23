@@ -1,8 +1,6 @@
 package ast.python_flask.literal;
 
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
-
-public class DoubleLiteralExpression extends ExpressionNode {
+public class DoubleLiteralExpression extends LiteralNode {
 
     public double value;
 

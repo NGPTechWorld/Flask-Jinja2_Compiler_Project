@@ -5,13 +5,13 @@ import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
 
 public class ArgumentNode extends ExpressionNode {
 
-    public IdentifierExpression name; // optional
+    public IdentifierExpression nameArg;
     public ExpressionNode value;
     public boolean isPower;
 
-    public ArgumentNode(int line, IdentifierExpression name, ExpressionNode value) {
+    public ArgumentNode(int line, IdentifierExpression nameArg, ExpressionNode value) {
         super("Argument", line);
-        this.name = name;
+        this.nameArg = nameArg;
         this.value = value;
         this.isPower = false;
     }
@@ -25,8 +25,8 @@ public class ArgumentNode extends ExpressionNode {
     @Override
     public String toString(int indent) {
         StringBuilder sb = new StringBuilder(super.toString(indent));
-        if (name != null)
-            sb.append("\n").append(name.toString(indent+2)).append(" =");
+        if (nameArg != null)
+            sb.append("\n").append(nameArg.toString(indent+2)).append(" =");
         if (isPower)
             sb.append("**");
         sb.append("\n").append(value.toString(indent + 2));

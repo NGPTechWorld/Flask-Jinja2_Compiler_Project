@@ -10,6 +10,17 @@ import antlr.python_flask.generated.PythonParser.*;
 import ast.BaseNode;
 import ast.python_flask.*;
 import ast.python_flask.argument.ArgumentNode;
+import ast.python_flask.compound_statement.BodyNode;
+import ast.python_flask.compound_statement.ClassDefintionNode;
+import ast.python_flask.compound_statement.ForStatementNode;
+import ast.python_flask.compound_statement.IfStatementNode;
+import ast.python_flask.compound_statement.WhileStatementNode;
+import ast.python_flask.compound_statement.function_defintion.DecoratorNode;
+import ast.python_flask.compound_statement.function_defintion.FunctionDefNode;
+import ast.python_flask.compound_statement.function_defintion.param.KwVarArgParamNode;
+import ast.python_flask.compound_statement.function_defintion.param.NormalParamNode;
+import ast.python_flask.compound_statement.function_defintion.param.ParamNode;
+import ast.python_flask.compound_statement.function_defintion.param.VarArgParamNode;
 import ast.python_flask.literal.*;
 import ast.python_flask.simple_statement.*;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
@@ -43,6 +54,174 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
             }
         }
         return program;
+    }
+
+    // ============================================================
+    // Compound Statement
+    // ============================================================
+    @Override
+    public BaseNode visitCompoundStatement(CompoundStatementContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    // ============================================================
+    // Class Defintion
+    // ============================================================
+    @Override
+    public BaseNode visitClassDef(ClassDefContext ctx) {
+        int line = ctx.getStart().getLine();
+        IdentifierExpression nameClass = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        List<ExpressionNode> arguments = new ArrayList<>();
+        if (ctx.arglist() != null) {
+            for (var argCtx : ctx.arglist().argument()) {
+                arguments.add((ArgumentNode) visit(argCtx));
+            }
+        }
+        BodyNode bodyNode = (BodyNode) visit(ctx.body());
+        return new ClassDefintionNode(line, nameClass, arguments, bodyNode);
+    }
+
+    @Override
+    public BaseNode visitBody(BodyContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<StatementNode> statements = new ArrayList<>();
+        for (var stmt : ctx.statement()) {
+            BaseNode node = visit(stmt);
+            if (node != null) {
+                statements.add((StatementNode) node);
+            }
+        }
+        return new BodyNode(line, statements);
+    }
+
+    // ============================================================
+    // If Statement
+    // ============================================================
+    @Override
+    public BaseNode visitIfStatement(IfStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+
+        ExpressionNode ifCondition = (ExpressionNode) visit(ctx.expression(0));
+        BodyNode bodyIf = (BodyNode) visit(ctx.body(0));
+
+        List<Pair<ExpressionNode, BodyNode>> elseIfStat = new ArrayList<>();
+
+        int elifCount = ctx.ELIF().size();
+        for (int i = 0; i < elifCount; i++) {
+            ExpressionNode cond = (ExpressionNode) visit(ctx.expression(i + 1));
+            BodyNode body = (BodyNode) visit(ctx.body(i + 1));
+            elseIfStat.add(new Pair<>(cond, body));
+        }
+
+        BodyNode bodyElse = null;
+        if (ctx.ELSE() != null) {
+            bodyElse = (BodyNode) visit(ctx.body(ctx.body().size() - 1));
+        }
+
+        return new IfStatementNode(line, ifCondition, bodyIf, elseIfStat, bodyElse);
+    }
+
+    // ============================================================
+    // For loob Statement
+    // ============================================================
+    @Override
+    public BaseNode visitForStatement(PythonParser.ForStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+        List<TargetNode> targets = new ArrayList<>();
+        for (var t : ctx.targetList().target()) {
+            targets.add((TargetNode) visit(t));
+        }
+        List<ExpressionNode> iterables = new ArrayList<>();
+        for (var e : ctx.expressionList().expression()) {
+            iterables.add((ExpressionNode) visit(e));
+        }
+        BodyNode body = (BodyNode) visit(ctx.body());
+
+        return new ForStatementNode(line, targets, iterables, body);
+    }
+
+    // ============================================================
+    // While loob Statement
+    // ============================================================
+    @Override
+    public BaseNode visitWhileStatement(WhileStatementContext ctx) {
+        int line = ctx.getStart().getLine();
+
+        ExpressionNode iterable = (ExpressionNode) visit(ctx.expression());
+        BodyNode body = (BodyNode) visit(ctx.body());
+
+        return new WhileStatementNode(line, iterable, body);
+    }
+
+    // ============================================================
+    // Function Defintion
+    // ============================================================
+    @Override
+    public BaseNode visitFuncdef(FuncdefContext ctx) {
+        FunctionDefNode node = new FunctionDefNode(ctx.getStart().getLine());
+        if (ctx.decorators() != null) {
+            for (var dec : ctx.decorators().decorator()) {
+                node.decorators.add((DecoratorNode) visit(dec));
+            }
+        }
+        node.name = new IdentifierExpression(
+                ctx.IDENTIFIER().getSymbol().getLine(),
+                ctx.IDENTIFIER().getText());
+        if (ctx.parameters() != null) {
+            for (var p : ctx.parameters().param()) {
+                node.parameters.add((ParamNode) visit(p));
+            }
+        }
+        if (ctx.expression() != null) {
+            node.returnType = (ExpressionNode) visit(ctx.expression());
+        }
+        node.body = (BodyNode) visit(ctx.body());
+        return node;
+    }
+
+    @Override
+    public BaseNode visitDecorator(DecoratorContext ctx) {
+        DecoratorNode node = new DecoratorNode(ctx.getStart().getLine());
+        for (var id : ctx.dottedName().IDENTIFIER()) {
+            node.path.add(new IdentifierExpression(id.getSymbol().getLine(),
+                    id.getText()));
+        }
+        if (ctx.arglist() != null) {
+            node.arguments = new ArrayList<>();
+            for (var a : ctx.arglist().argument()) {
+                node.arguments.add((ArgumentNode) visit(a));
+            }
+        }
+        return node;
+    }
+
+    // Params
+    @Override
+    public BaseNode visitNormalParam(PythonParser.NormalParamContext ctx) {
+        IdentifierExpression id = new IdentifierExpression(ctx.start.getLine(), ctx.IDENTIFIER().getText());
+        ExpressionNode defaultValue = null;
+        if (ctx.expression() != null) {
+            defaultValue = (ExpressionNode) visit(ctx.expression());
+        }
+        return new NormalParamNode(
+                ctx.start.getLine(),
+                id,
+                defaultValue);
+    }
+
+    @Override
+    public BaseNode visitVarArgParam(PythonParser.VarArgParamContext ctx) {
+        return new VarArgParamNode(
+                ctx.start.getLine(),
+                new IdentifierExpression(ctx.start.getLine(), ctx.IDENTIFIER().getText()));
+    }
+
+    @Override
+    public BaseNode visitKwVarArgParam(PythonParser.KwVarArgParamContext ctx) {
+        return new KwVarArgParamNode(
+                ctx.start.getLine(),
+                new IdentifierExpression(ctx.start.getLine(), ctx.IDENTIFIER().getText()));
     }
 
     // ============================================================
@@ -267,6 +446,12 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
         return node;
     }
 
+    @Override
+    public BaseNode visitLiteralAtom(LiteralAtomContext ctx) {
+         int line = ctx.getStart().getLine();
+         LiteralNode literal = (LiteralNode) visit(ctx.literal());
+        return new LiteralAtomNode(line, literal);
+    }
     // Trailer
     @Override
     public BaseNode visitAttributeTrailer(AttributeTrailerContext ctx) {

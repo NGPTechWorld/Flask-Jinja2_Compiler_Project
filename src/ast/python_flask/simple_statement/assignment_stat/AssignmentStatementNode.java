@@ -25,7 +25,7 @@ public class AssignmentStatementNode extends StatementNode {
 
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent));
+        StringBuilder sb = new StringBuilder(super.toString(indent)+operator.getOp());
         for (var t : targets) {
             sb.append("\n").append(t.toString(indent + 2));
         }
