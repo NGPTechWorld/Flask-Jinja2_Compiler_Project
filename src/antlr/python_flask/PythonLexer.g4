@@ -67,6 +67,7 @@ OR           : 'or';
 NOT          : 'not';
 PASS         : 'pass';
 CLASS        : 'class';
+WHILE        : 'while';
 
 
 
