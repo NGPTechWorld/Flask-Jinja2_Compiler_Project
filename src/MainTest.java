@@ -7,8 +7,10 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Lexer;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.python_flask.generated.PythonLexer;
 import antlr.python_flask.generated.PythonParser;
-import ast.BaseNode;
+import ast.html_css_jinja2.TemplateProgramNode;
 import ast.python_flask.ProgramNode;
+import visitor.html_css_jinja2.ASTBuilderVisitor2;
+import visitor.html_css_jinja2.ASTPrinter2;
 import visitor.python_flask.ASTBuilderVisitor;
 import visitor.python_flask.ASTPrinter;
 
@@ -21,11 +23,12 @@ import javax.swing.SwingUtilities;
 public class MainTest {
     public static void main(String[] args) throws Exception {
         // SwingUtilities.invokeLater(() -> {
-        //     new LiveParserViewer().setVisible(true);
+        // new LiveParserViewer().setVisible(true);
         // });
         // runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
-       runPythonAndFlaskAST();
+        // runPythonAndFlaskAST();
+        runANTLR_HTML_CSS_JINJA2_AST();
     }
 
     public static void runPythonAndFlask() throws Exception {
@@ -123,6 +126,20 @@ public class MainTest {
         ProgramNode ast = (ProgramNode) visitor.visit(tree);
         System.out.println("=== AST (JSON STYLE) ===");
         ASTPrinter.print(ast, 0);
+    }
+
+    public static void runANTLR_HTML_CSS_JINJA2_AST() throws Exception {
+        String code = Files.readString(Paths.get("src/code.txt"));
+
+        HtmlCssJinja2Lexer lexer = new HtmlCssJinja2Lexer(CharStreams.fromString(code));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        HtmlCssJinja2Parser parser = new HtmlCssJinja2Parser(tokens);
+
+        ParseTree tree = parser.htmlDocument();
+        ASTBuilderVisitor2 visitor = new ASTBuilderVisitor2();
+        TemplateProgramNode ast = (TemplateProgramNode) visitor.visit(tree);
+        System.out.println("=== AST (JSON STYLE) ===");
+        ASTPrinter2.print(ast, 0);
     }
 
 }
