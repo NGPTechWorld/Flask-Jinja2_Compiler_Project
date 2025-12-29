@@ -20,7 +20,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitHtmlDocumentRule(HtmlDocumentRuleContext ctx) {
         TemplateProgramNode program = new TemplateProgramNode(ctx.getStart().getLine());
-        System.out.println(ctx.getChildCount());
         for (var child : ctx.children) {
             BaseNode node = visit(child);
             if (node != null) {
@@ -32,50 +31,70 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlElementsRule(HtmlElementsRuleContext ctx) {
-        HtmlElementNode htmlElementNode = new HtmlElementNode(ctx.getText(), ctx.getStart().getLine());
-        return htmlElementNode;
+
+        for (var child : ctx.children) {
+            BaseNode node = visit(child);
+            if (node != null) {
+                return node;
+            }
+        }
+        return null;
     }
 
     @Override
     public BaseNode visitHtmlOpeningClosingTag(HtmlOpeningClosingTagContext ctx) {
-        // TODO Auto-generated method stub
-        return super.visitHtmlOpeningClosingTag(ctx);
+        String tagName = ctx.TAG_NAME(0).getText();
+        HtmlElementNode element = new HtmlElementNode(tagName, ctx.getStart().getLine());
+
+        if (ctx.htmlContent() != null) {
+            for (var child : ctx.htmlContent().children) {
+                BaseNode node = visit(child);
+                if (node != null) {
+                    element.children.add(node);
+                }
+            }
+        }
+
+        return element;
     }
 
-    @Override
-    public BaseNode visitStyleElement(StyleElementContext ctx) {
-        // TODO Auto-generated method stub
-        return super.visitStyleElement(ctx);
-    }
+    // @Override
+    // public BaseNode visitStyleElement(StyleElementContext ctx) {
+    // // TODO Auto-generated method stub
+    // System.out.println("visitStyleElement");
+    // return super.visitStyleElement(ctx);
+    // }
 
     @Override
     public BaseNode visitHtmlContentRule(HtmlContentRuleContext ctx) {
-        return super.visitHtmlContentRule(ctx);
+        for (var child : ctx.children) {
+            visit(child);
+        }
+        return null;
     }
 
     @Override
     public BaseNode visitHtmlTextData(HtmlTextDataContext ctx) {
-        HtmlTextNode htmlTextNode = new HtmlTextNode(ctx.getStart().getLine());
-        System.out.println(ctx.getChildCount());
-        return super.visitHtmlTextData(ctx);
+        return new HtmlTextNode(
+                ctx.getText(), ctx.getStart().getLine());
     }
 
+    // Ignore
     @Override
     public BaseNode visitHtmlWhitespaceData(HtmlWhitespaceDataContext ctx) {
-        // TODO Auto-generated method stub
-        return super.visitHtmlWhitespaceData(ctx);
+        return null;
     }
 
+    // Ignore
     @Override
     public BaseNode visitHtmlMiscComment(HtmlMiscCommentContext ctx) {
-        // TODO Auto-generated method stub
-        return super.visitHtmlMiscComment(ctx);
+        return null;
     }
 
+    // Ignore
     @Override
     public BaseNode visitHtmlMiscWhitespace(HtmlMiscWhitespaceContext ctx) {
-        // TODO Auto-generated method stub
-        return super.visitHtmlMiscWhitespace(ctx);
+        return null;
     }
 
 }
