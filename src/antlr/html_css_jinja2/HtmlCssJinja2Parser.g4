@@ -113,7 +113,7 @@ jinjaStatement
 
 jinjaForBlock
     : JINJA2_OPEN_STMT jinjaForStatement JINJA2_CLOSE_STMT templateContent
-        (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT templateContent)?
+       (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT templateContent)?
         JINJA2_OPEN_STMT JINJA2_STMT_ENDFOR JINJA2_CLOSE_STMT         #Jinja2ForBlockBody
     ;
 

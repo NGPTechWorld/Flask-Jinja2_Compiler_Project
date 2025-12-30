@@ -2,26 +2,7 @@ package ast.python_flask.simple_statement.import_stat;
 
 import ast.BaseNode;
 
-// public class ImportItem extends BaseNode {
-
-//     public String identifier;
-//     public String alias;      
-
-//     public ImportItem(int line, String identifier, String alias) {
-//         super("ImportItem", line);
-//         this.identifier = identifier;
-//         this.alias = alias;
-//     }
-
-//     @Override
-//     public String toString(int indent) {
-//         if (alias != null)
-//             return identifier + " as " + alias;
-//         return identifier;
-//     }
-// }
-
-public class ImportItem extends BaseNode{
+public class ImportItem extends BaseNode {
     public String idLeft,idRight;
 
     public ImportItem( int line, String idLeft,String idRight) {

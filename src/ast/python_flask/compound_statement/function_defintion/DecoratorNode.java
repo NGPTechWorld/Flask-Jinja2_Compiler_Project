@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ast.BaseNode;
-import ast.python_flask.argument.ArgumentNode;
-import ast.python_flask.literal.IdentifierExpression;
+import ast.python_flask.expressions_roles.ArgumentNode;
+import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 
 public class DecoratorNode extends BaseNode {
 
