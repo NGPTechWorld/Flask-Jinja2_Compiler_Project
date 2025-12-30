@@ -51,11 +51,12 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlOpeningClosingTag(HtmlOpeningClosingTagContext ctx) {
+        // * Option A <img> - <br> are HtmlElement
+        // * and <img /> are closing tags
         String tagName = ctx.TAG_NAME(0).getText();
 
-        boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null || isVoidElement(tagName);
+        boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null;
 
-       
         HtmlElementNode element = new HtmlElementNode(tagName, selfClosing, ctx.getStart().getLine());
 
         // attributes
@@ -63,7 +64,8 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
             HtmlAttributeNode attr = (HtmlAttributeNode) visit(attrCtx);
             element.addAttribute(attr);
         }
-        // children ONLY if not self closing
+
+        // children only if not self-closing
         if (!selfClosing && ctx.htmlContent() != null) {
             for (var child : ctx.htmlContent().children) {
                 BaseNode node = visit(child);
@@ -74,6 +76,33 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         }
 
         return element;
+
+        // * Option B <img> - <br> or <img /> are closing tags
+        // String tagName = ctx.TAG_NAME(0).getText();
+
+        // boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null ||
+        // isVoidElement(tagName);
+
+        // HtmlElementNode element = new HtmlElementNode(tagName, selfClosing,
+        // ctx.getStart().getLine());
+
+        // // attributes
+        // for (HtmlCssJinja2Parser.HtmlAttributeContext attrCtx : ctx.htmlAttribute())
+        // {
+        // HtmlAttributeNode attr = (HtmlAttributeNode) visit(attrCtx);
+        // element.addAttribute(attr);
+        // }
+        // // children ONLY if not self closing
+        // if (!selfClosing && ctx.htmlContent() != null) {
+        // for (var child : ctx.htmlContent().children) {
+        // BaseNode node = visit(child);
+        // if (node != null) {
+        // element.children.add(node);
+        // }
+        // }
+        // }
+
+        // return element;
     }
 
     // @Override
@@ -141,6 +170,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! Helper
+    // This is used to detect the selfclosing tags
+    // for example : <img />
+    // or <br>
     private static final Set<String> VOID_ELEMENTS = Set.of(
             "area", "base", "br", "col", "embed", "hr",
             "img", "input", "link", "meta", "param",
