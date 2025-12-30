@@ -51,10 +51,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlOpeningClosingTag(HtmlOpeningClosingTagContext ctx) {
-        // * Option A <img> - <br> are HtmlElement
-        // * and <img /> are closing tags
-        String tagName = ctx.TAG_NAME(0).getText();
 
+        //*  Option C Fix to make it except our example code
+        String tagName = ctx.TAG_NAME(0).getText();
         boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null;
 
         HtmlElementNode element = new HtmlElementNode(tagName, selfClosing, ctx.getStart().getLine());
@@ -62,20 +61,74 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         // attributes
         for (HtmlCssJinja2Parser.HtmlAttributeContext attrCtx : ctx.htmlAttribute()) {
             HtmlAttributeNode attr = (HtmlAttributeNode) visit(attrCtx);
-            element.addAttribute(attr);
+            if (attr != null) {
+                element.addAttribute(attr);
+            }
         }
 
-        // children only if not self-closing
+        // children
         if (!selfClosing && ctx.htmlContent() != null) {
-            for (var child : ctx.htmlContent().children) {
-                BaseNode node = visit(child);
-                if (node != null) {
+
+            HtmlContentRuleContext content = (HtmlContentRuleContext) ctx.htmlContent();
+
+            // text
+            for (var textCtx : content.htmlCharData()) {
+                BaseNode node = visit(textCtx);
+                if (node != null)
                     element.children.add(node);
-                }
+            }
+
+            // elements
+            for (var elemCtx : content.htmlElement()) {
+                BaseNode node = visit(elemCtx);
+                if (node != null)
+                    element.children.add(node);
+            }
+
+            // comments
+            for (var commentCtx : content.htmlComment()) {
+                BaseNode node = visit(commentCtx);
+                if (node != null)
+                    element.children.add(node);
+            }
+
+            // jinja
+            for (var jinjaCtx : content.jinjaBlock()) {
+                BaseNode node = visit(jinjaCtx);
+                if (node != null)
+                    element.children.add(node);
             }
         }
 
         return element;
+
+        // // * Option A <img> - <br> are HtmlElement
+        // // * and <img /> are closing tags
+        // String tagName = ctx.TAG_NAME(0).getText();
+
+        // boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null;
+
+        // HtmlElementNode element = new HtmlElementNode(tagName, selfClosing,
+        // ctx.getStart().getLine());
+
+        // // attributes
+        // for (HtmlCssJinja2Parser.HtmlAttributeContext attrCtx : ctx.htmlAttribute())
+        // {
+        // HtmlAttributeNode attr = (HtmlAttributeNode) visit(attrCtx);
+        // element.addAttribute(attr);
+        // }
+
+        // // children only if not self-closing
+        // if (!selfClosing && ctx.htmlContent() != null) {
+        // for (var child : ctx.htmlContent().children) {
+        // BaseNode node = visit(child);
+        // if (node != null) {
+        // element.children.add(node);
+        // }
+        // }
+        // }
+
+        // return element;
 
         // * Option B <img> - <br> or <img /> are closing tags
         // String tagName = ctx.TAG_NAME(0).getText();
