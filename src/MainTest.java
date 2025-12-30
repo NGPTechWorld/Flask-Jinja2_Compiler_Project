@@ -7,7 +7,7 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Lexer;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.python_flask.generated.PythonLexer;
 import antlr.python_flask.generated.PythonParser;
-import ast.html_css_jinja2.TemplateProgramNode;
+import ast.html_css_jinja2.HtmlDocumentRule;
 import ast.python_flask.ProgramNode;
 import visitor.html_css_jinja2.ASTBuilderVisitor2;
 import visitor.html_css_jinja2.ASTPrinter2;
@@ -137,8 +137,8 @@ public class MainTest {
 
         ParseTree tree = parser.htmlDocument();
         ASTBuilderVisitor2 visitor = new ASTBuilderVisitor2();
-        TemplateProgramNode ast = (TemplateProgramNode) visitor.visit(tree);
-        System.out.println("=== AST (JSON STYLE) ===");
+        HtmlDocumentRule ast = (HtmlDocumentRule) visitor.visit(tree);
+        System.out.println(" === AST === ");
         ASTPrinter2.print(ast, 0);
     }
 
