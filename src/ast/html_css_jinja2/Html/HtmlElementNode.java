@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ast.BaseNode;
-import ast.html_css_jinja2.helper.HtmlElementsJinjaBlockTemplate;
+import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 
 public class HtmlElementNode extends HtmlElementsJinjaBlockTemplate {
     public String tagName;

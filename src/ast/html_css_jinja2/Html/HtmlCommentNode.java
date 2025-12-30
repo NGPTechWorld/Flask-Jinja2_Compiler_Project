@@ -1,9 +1,7 @@
-package ast.html_css_jinja2.Html.nothandled;
-// package ast.html_css_jinja2.Html;
+package ast.html_css_jinja2.Html;
 
-import ast.html_css_jinja2.Html.HtmlNode;
+import ast.html_css_jinja2.Html.helper_abstract.HtmlNode;
 
-// //! @Osama_Zerkawi Check if we need this or ingnore it
 public class HtmlCommentNode extends HtmlNode {
     public String content;
 

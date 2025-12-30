@@ -1,5 +1,7 @@
 package ast.html_css_jinja2.Html;
 
+import ast.html_css_jinja2.Html.helper_abstract.HtmlNode;
+
 public class HtmlAttributeNode extends HtmlNode {
     public String name;
     public String value;

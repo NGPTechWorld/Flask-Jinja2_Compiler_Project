@@ -18,10 +18,10 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.StyleElementContext;
 import ast.BaseNode;
 import ast.html_css_jinja2.HtmlDocumentRule;
 import ast.html_css_jinja2.Html.HtmlAttributeNode;
+import ast.html_css_jinja2.Html.HtmlCommentNode;
 import ast.html_css_jinja2.Html.HtmlElementNode;
 import ast.html_css_jinja2.Html.HtmlTextNode;
-import ast.html_css_jinja2.Html.nothandled.HtmlCommentNode;
-import ast.html_css_jinja2.helper.HtmlElementsJinjaBlockTemplate;
+import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
 
@@ -114,6 +114,8 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlContentRule(HtmlContentRuleContext ctx) {
+        // Here It doesn't need HtmlContentRule
+        // Instead we just need to iterate over it's children
         for (var child : ctx.children) {
             visit(child);
         }

@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.helper;
+package ast.html_css_jinja2.helper_abstract;
 
 import ast.BaseNode;
 

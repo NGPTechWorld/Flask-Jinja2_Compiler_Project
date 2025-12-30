@@ -3,7 +3,6 @@ package ast.html_css_jinja2.Html.nothandled;
 
 // import ast.html_css_jinja2.Css.CssStylesheetNode;
 
-// //! @Osama_Zerkawi we this is here not in css and what it's represent
 // public class StyleNode extends HtmlNode {
 
 //     public CssStylesheetNode stylesheet;
