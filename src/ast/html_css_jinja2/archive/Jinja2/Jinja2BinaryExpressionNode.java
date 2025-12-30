@@ -1,3 +1,4 @@
+package ast.html_css_jinja2.archive.Jinja2;
 // package ast.html_css_jinja2.Jinja2;
 
 // public class Jinja2BinaryExpressionNode extends Jinja2Node {

@@ -5,11 +5,11 @@ import java.util.List;
 
 import ast.BaseNode;
 
-public class TemplateProgramNode extends BaseNode {
+public class HtmlDocumentRule extends BaseNode {
     public List<BaseNode> children = new ArrayList<>();
 
-    public TemplateProgramNode(int line) {
-        super("TemplateProgram", line);
+    public HtmlDocumentRule(int line) {
+        super("HtmlDocument", line);
     }
 
     public void addChild(BaseNode node) {

@@ -10,51 +10,55 @@ options {
 
 //! HTML document structure
 
-// TODO htmlDocument
+// DONE htmlDocument
 htmlDocument
     : SEA_WS* DTD? SEA_WS* (htmlElements | jinjaBlock)* EOF            #HtmlDocumentRule
     ;
 
-// TODO htmlElements
+// DONE htmlElements
 htmlElements
     : htmlMisc* htmlElement htmlMisc*                                  #HtmlElementsRule
     ;
 
-// TODO htmlElement
+// DONE htmlElement
+// DONE  HtmlOpeningClosingTag
+// TODO  StyleElement
 htmlElement
     : TAG_OPEN TAG_NAME htmlAttribute* 
     (
     TAG_CLOSE (htmlContent TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE)? 
     | TAG_SLASH_CLOSE
-    )                                                                  #HtmlOpeningClosingTag
-    | style                                                            #StyleElement
+    )                                                                  #HtmlOpeningClosingTag 
+    | style                                                            #StyleElement    
     ;
 
-// TODO htmlContent
+// TODO HtmlContentRule
 htmlContent
-    : (htmlCharData | htmlElement | htmlComment | jinjaBlock)*         #HtmlContentRule
+    : (htmlCharData | htmlElement | htmlComment | jinjaBlock)*         #HtmlContentRule 
     ;
 
-// TODO htmlAttribute
+// DONE htmlAttribute
 htmlAttribute
-    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?                            #HtmlAttributeRule
+    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?                            #HtmlAttributeRule 
     ;
 
-// TODO htmlCharData
+// DONE HtmlTextData
+// DONE HtmlWhitespaceData (Delete)
 htmlCharData
-    : HTML_TEXT                                                        #HtmlTextData
-    | SEA_WS                                                           #HtmlWhitespaceData
+    : HTML_TEXT                                                        #HtmlTextData 
+    | SEA_WS                                                           #HtmlWhitespaceData 
     ;
 
-// TODO htmlMisc
+// DONE HtmlMiscComment (Delete)
+// DONE HtmlMiscWhitespace (Delete)
 htmlMisc // HTML Miscellaneous
-    : htmlComment                                                      #HtmlMiscComment
-    | SEA_WS                                                           #HtmlMiscWhitespace
+    : htmlComment                                                      #HtmlMiscComment 
+    | SEA_WS                                                           #HtmlMiscWhitespace 
     ;
 
-// TODO htmlComment
+// DONE htmlComment
 htmlComment
-    : HTML_COMMENT                                                     #HtmlCommentRule
+    : HTML_COMMENT                                                     #HtmlCommentRule 
     ;
 
 // TODO jinjaBlock

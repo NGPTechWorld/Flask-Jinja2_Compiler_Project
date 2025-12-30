@@ -1,6 +1,11 @@
 package visitor.html_css_jinja2;
 
+import java.util.Set;
+
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2ParserBaseVisitor;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlAttributeRuleContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlCommentRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlContentRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlDocumentRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlElementsRuleContext;
@@ -11,17 +16,21 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlTextDataContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlWhitespaceDataContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.StyleElementContext;
 import ast.BaseNode;
-import ast.html_css_jinja2.TemplateProgramNode;
+import ast.html_css_jinja2.HtmlDocumentRule;
+import ast.html_css_jinja2.Html.HtmlAttributeNode;
 import ast.html_css_jinja2.Html.HtmlElementNode;
 import ast.html_css_jinja2.Html.HtmlTextNode;
+import ast.html_css_jinja2.Html.nothandled.HtmlCommentNode;
+import ast.html_css_jinja2.helper.HtmlElementsJinjaBlockTemplate;
 
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
 
     @Override
     public BaseNode visitHtmlDocumentRule(HtmlDocumentRuleContext ctx) {
-        TemplateProgramNode program = new TemplateProgramNode(ctx.getStart().getLine());
+        HtmlDocumentRule program = new HtmlDocumentRule(ctx.getStart().getLine());
         for (var child : ctx.children) {
-            BaseNode node = visit(child);
+            // visit html elements or jinja block
+            HtmlElementsJinjaBlockTemplate node = (HtmlElementsJinjaBlockTemplate) visit(child);
             if (node != null) {
                 program.addChild(node);
             }
@@ -31,7 +40,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlElementsRule(HtmlElementsRuleContext ctx) {
-
         for (var child : ctx.children) {
             BaseNode node = visit(child);
             if (node != null) {
@@ -44,9 +52,19 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitHtmlOpeningClosingTag(HtmlOpeningClosingTagContext ctx) {
         String tagName = ctx.TAG_NAME(0).getText();
-        HtmlElementNode element = new HtmlElementNode(tagName, ctx.getStart().getLine());
 
-        if (ctx.htmlContent() != null) {
+        boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null || isVoidElement(tagName);
+
+       
+        HtmlElementNode element = new HtmlElementNode(tagName, selfClosing, ctx.getStart().getLine());
+
+        // attributes
+        for (HtmlCssJinja2Parser.HtmlAttributeContext attrCtx : ctx.htmlAttribute()) {
+            HtmlAttributeNode attr = (HtmlAttributeNode) visit(attrCtx);
+            element.addAttribute(attr);
+        }
+        // children ONLY if not self closing
+        if (!selfClosing && ctx.htmlContent() != null) {
             for (var child : ctx.htmlContent().children) {
                 BaseNode node = visit(child);
                 if (node != null) {
@@ -97,4 +115,38 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return null;
     }
 
+    @Override
+    public BaseNode visitHtmlAttributeRule(HtmlAttributeRuleContext ctx) {
+        String attrName = ctx.TAG_NAME().getText();
+        String attrValue = null;
+        if (ctx.ATTVALUE_VALUE() != null) {
+            attrValue = ctx.ATTVALUE_VALUE().getText();
+            attrValue = attrValue.substring(1, attrValue.length() - 1);
+        }
+
+        return new HtmlAttributeNode(ctx.getStart().getLine(), attrName, attrValue);
+
+    }
+
+    @Override
+    public BaseNode visitHtmlCommentRule(HtmlCommentRuleContext ctx) {
+        String text = ctx.getText();
+
+        // Remove <!-- and -->
+        text = text.substring(4, text.length() - 3).trim();
+
+        return new HtmlCommentNode(
+                ctx.getStart().getLine(),
+                text);
+    }
+
+    // ! Helper
+    private static final Set<String> VOID_ELEMENTS = Set.of(
+            "area", "base", "br", "col", "embed", "hr",
+            "img", "input", "link", "meta", "param",
+            "source", "track", "wbr");
+
+    private boolean isVoidElement(String tag) {
+        return VOID_ELEMENTS.contains(tag.toLowerCase());
+    }
 }
