@@ -14,14 +14,16 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlMiscWhitespaceCon
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlOpeningClosingTagContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlTextDataContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlWhitespaceDataContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2CommentsContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.StyleElementContext;
 import ast.BaseNode;
 import ast.html_css_jinja2.HtmlDocumentRule;
-import ast.html_css_jinja2.Html.HtmlAttributeNode;
-import ast.html_css_jinja2.Html.HtmlCommentNode;
-import ast.html_css_jinja2.Html.HtmlElementNode;
-import ast.html_css_jinja2.Html.HtmlTextNode;
 import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
+import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
+import ast.html_css_jinja2.htmlElements.HtmlCommentNode;
+import ast.html_css_jinja2.htmlElements.HtmlElementNode;
+import ast.html_css_jinja2.htmlElements.HtmlTextNode;
+import ast.html_css_jinja2.jinjaBlock.Jinja2Comment;
 
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
 
@@ -52,7 +54,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitHtmlOpeningClosingTag(HtmlOpeningClosingTagContext ctx) {
 
-        //*  Option C Fix to make it except our example code
+        // * Option C Fix to make it except our example code
         String tagName = ctx.TAG_NAME(0).getText();
         boolean selfClosing = ctx.TAG_SLASH_CLOSE() != null;
 
@@ -70,7 +72,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         if (!selfClosing && ctx.htmlContent() != null) {
 
             HtmlContentRuleContext content = (HtmlContentRuleContext) ctx.htmlContent();
-
+            // TODO: Need Abstraction
             // text
             for (var textCtx : content.htmlCharData()) {
                 BaseNode node = visit(textCtx);
@@ -224,7 +226,16 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 text);
     }
 
-    // ! Helper
+    @Override
+    public BaseNode visitJinja2Comments(Jinja2CommentsContext ctx) {
+
+        String text = ctx.getText();
+        text = text.substring(2, text.length() - 2).trim();
+
+        return new Jinja2Comment(ctx.getStart().getLine(), text);
+    }
+
+    // ! Helper for self closing html
     // This is used to detect the selfclosing tags
     // for example : <img />
     // or <br>

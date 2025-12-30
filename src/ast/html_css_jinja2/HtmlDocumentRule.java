@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ast.BaseNode;
+import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 
 public class HtmlDocumentRule extends BaseNode {
-    public List<BaseNode> children = new ArrayList<>();
+    // it was public List<BaseNode> children = new ArrayList<>();
+    public List<HtmlElementsJinjaBlockTemplate> children = new ArrayList<>();
 
     public HtmlDocumentRule(int line) {
         super("HtmlDocument", line);
     }
 
-    public void addChild(BaseNode node) {
+    public void addChild(HtmlElementsJinjaBlockTemplate node) {
         children.add(node);
     }
 

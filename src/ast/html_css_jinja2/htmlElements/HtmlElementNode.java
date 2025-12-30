@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.Html;
+package ast.html_css_jinja2.htmlElements;
 
 import java.util.ArrayList;
 import java.util.List;

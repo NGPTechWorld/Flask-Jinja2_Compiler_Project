@@ -2,8 +2,8 @@ package visitor.html_css_jinja2;
 
 import ast.BaseNode;
 import ast.html_css_jinja2.HtmlDocumentRule;
-import ast.html_css_jinja2.Html.HtmlAttributeNode;
-import ast.html_css_jinja2.Html.HtmlElementNode;
+import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
+import ast.html_css_jinja2.htmlElements.HtmlElementNode;
 
 public class ASTPrinter2 {
 
