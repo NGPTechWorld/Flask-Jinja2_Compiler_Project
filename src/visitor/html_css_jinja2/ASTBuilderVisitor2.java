@@ -15,21 +15,26 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlOpeningClosingTag
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlTextDataContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlWhitespaceDataContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2CommentsContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ExpressionsContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StatementsContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.StyleElementContext;
 import ast.BaseNode;
-import ast.html_css_jinja2.HtmlDocumentRule;
+import ast.html_css_jinja2.HtmlDocumentRuleNode;
 import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
 import ast.html_css_jinja2.htmlElements.HtmlCommentNode;
 import ast.html_css_jinja2.htmlElements.HtmlElementNode;
 import ast.html_css_jinja2.htmlElements.HtmlTextNode;
-import ast.html_css_jinja2.jinjaBlock.Jinja2Comment;
+import ast.html_css_jinja2.jinjaBlock.Jinja2_comment.Jinja2CommentNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.Jinja2ExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.helper_abstract.jinjaStatementNode;
 
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
 
     @Override
     public BaseNode visitHtmlDocumentRule(HtmlDocumentRuleContext ctx) {
-        HtmlDocumentRule program = new HtmlDocumentRule(ctx.getStart().getLine());
+        HtmlDocumentRuleNode program = new HtmlDocumentRuleNode(ctx.getStart().getLine());
         for (var child : ctx.children) {
             // visit html elements or jinja block
             HtmlElementsJinjaBlockTemplate node = (HtmlElementsJinjaBlockTemplate) visit(child);
@@ -228,11 +233,34 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitJinja2Comments(Jinja2CommentsContext ctx) {
-
         String text = ctx.getText();
         text = text.substring(2, text.length() - 2).trim();
+        return new Jinja2CommentNode(ctx.getStart().getLine(), text);
+    }
 
-        return new Jinja2Comment(ctx.getStart().getLine(), text);
+    // Ignore
+    // @Override
+    // public BaseNode visitJinja2Expressions(Jinja2ExpressionsContext ctx) {
+    //     return super.visitJinja2Expressions(ctx);
+    // }
+
+    @Override
+    public BaseNode visitJinja2Statements(Jinja2StatementsContext ctx) {
+        String text = ctx.getText(); // "{% if x %} ... {% endif %}"
+
+        return new jinjaStatementNode(
+                ctx.getStart().getLine(),
+                text);
+    }
+
+    @Override
+    public BaseNode visitJinja2ExpressionsBody(Jinja2ExpressionsBodyContext ctx) {
+        String text = ctx.getText();
+        // TODO I am thinking is there a way to get the data another way
+        text = text.substring(2, text.length() - 2).trim();
+        return new Jinja2ExpressionNode(
+                ctx.getStart().getLine(),
+                text);
     }
 
     // ! Helper for self closing html

@@ -1,7 +1,7 @@
 package visitor.html_css_jinja2;
 
 import ast.BaseNode;
-import ast.html_css_jinja2.HtmlDocumentRule;
+import ast.html_css_jinja2.HtmlDocumentRuleNode;
 import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
 import ast.html_css_jinja2.htmlElements.HtmlElementNode;
 
@@ -13,7 +13,7 @@ public class ASTPrinter2 {
 
         System.out.println(node.toString(indent));
 
-        if (node instanceof HtmlDocumentRule p) {
+        if (node instanceof HtmlDocumentRuleNode p) {
             for (BaseNode child : p.children) {
                 print(child, indent + 2);
             }
