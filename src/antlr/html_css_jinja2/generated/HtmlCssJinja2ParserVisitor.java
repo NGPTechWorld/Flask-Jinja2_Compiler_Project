@@ -167,19 +167,19 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Jinja2IsExpression}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Jinja2ComparisonExpression}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Jinja2AtomExpressionBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtomExpression}.

@@ -1,4 +1,4 @@
-// Generated from ./src/antlr/html_css_jinja2/HtmlCssJinja2Parser.g4 by ANTLR 4.13.2
+// Generated from d:/IT/Fourth Year/First Semester/Compiler/Compiler1Project/src/antlr/html_css_jinja2/HtmlCssJinja2Parser.g4 by ANTLR 4.13.1
 
     package antlr.html_css_jinja2.generated;
 
@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class HtmlCssJinja2Parser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.13.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -217,19 +217,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaBlockContext.class,i);
 		}
 		public HtmlDocumentRuleContext(HtmlDocumentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlDocumentRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlDocumentRule(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlDocumentRule(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlDocumentContext htmlDocument() throws RecognitionException {
@@ -355,19 +342,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(HtmlMiscContext.class,i);
 		}
 		public HtmlElementsRuleContext(HtmlElementsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlElementsRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlElementsRule(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlElementsRule(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlElementsContext htmlElements() throws RecognitionException {
@@ -462,19 +436,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode TAG_SLASH() { return getToken(HtmlCssJinja2Parser.TAG_SLASH, 0); }
 		public HtmlOpeningClosingTagContext(HtmlElementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlOpeningClosingTag(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlOpeningClosingTag(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlOpeningClosingTag(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class StyleElementContext extends HtmlElementContext {
@@ -482,19 +443,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(StyleContext.class,0);
 		}
 		public StyleElementContext(HtmlElementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterStyleElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitStyleElement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitStyleElement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlElementContext htmlElement() throws RecognitionException {
@@ -627,19 +575,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaBlockContext.class,i);
 		}
 		public HtmlContentRuleContext(HtmlContentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlContentRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlContentRule(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlContentRule(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlContentContext htmlContent() throws RecognitionException {
@@ -727,19 +662,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode TAG_EQUALS() { return getToken(HtmlCssJinja2Parser.TAG_EQUALS, 0); }
 		public TerminalNode ATTVALUE_VALUE() { return getToken(HtmlCssJinja2Parser.ATTVALUE_VALUE, 0); }
 		public HtmlAttributeRuleContext(HtmlAttributeContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlAttributeRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlAttributeRule(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlAttributeRule(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlAttributeContext htmlAttribute() throws RecognitionException {
@@ -793,37 +715,11 @@ public class HtmlCssJinja2Parser extends Parser {
 	public static class HtmlWhitespaceDataContext extends HtmlCharDataContext {
 		public TerminalNode SEA_WS() { return getToken(HtmlCssJinja2Parser.SEA_WS, 0); }
 		public HtmlWhitespaceDataContext(HtmlCharDataContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlWhitespaceData(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlWhitespaceData(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlWhitespaceData(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class HtmlTextDataContext extends HtmlCharDataContext {
 		public TerminalNode HTML_TEXT() { return getToken(HtmlCssJinja2Parser.HTML_TEXT, 0); }
 		public HtmlTextDataContext(HtmlCharDataContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlTextData(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlTextData(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlTextData(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlCharDataContext htmlCharData() throws RecognitionException {
@@ -882,37 +778,11 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(HtmlCommentContext.class,0);
 		}
 		public HtmlMiscCommentContext(HtmlMiscContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlMiscComment(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlMiscComment(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlMiscComment(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class HtmlMiscWhitespaceContext extends HtmlMiscContext {
 		public TerminalNode SEA_WS() { return getToken(HtmlCssJinja2Parser.SEA_WS, 0); }
 		public HtmlMiscWhitespaceContext(HtmlMiscContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlMiscWhitespace(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlMiscWhitespace(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlMiscWhitespace(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlMiscContext htmlMisc() throws RecognitionException {
@@ -969,19 +839,6 @@ public class HtmlCssJinja2Parser extends Parser {
 	public static class HtmlCommentRuleContext extends HtmlCommentContext {
 		public TerminalNode HTML_COMMENT() { return getToken(HtmlCssJinja2Parser.HTML_COMMENT, 0); }
 		public HtmlCommentRuleContext(HtmlCommentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterHtmlCommentRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitHtmlCommentRule(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitHtmlCommentRule(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final HtmlCommentContext htmlComment() throws RecognitionException {
@@ -1024,37 +881,11 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStatementContext.class,0);
 		}
 		public Jinja2StatementsContext(JinjaBlockContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2Statements(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2Statements(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2Statements(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2CommentsContext extends JinjaBlockContext {
 		public TerminalNode JINJA2_COMMENT() { return getToken(HtmlCssJinja2Parser.JINJA2_COMMENT, 0); }
 		public Jinja2CommentsContext(JinjaBlockContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2Comments(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2Comments(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2Comments(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2ExpressionsContext extends JinjaBlockContext {
@@ -1062,19 +893,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExpressionContext.class,0);
 		}
 		public Jinja2ExpressionsContext(JinjaBlockContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2Expressions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2Expressions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2Expressions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaBlockContext jinjaBlock() throws RecognitionException {
@@ -1143,19 +961,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprContentContext.class,0);
 		}
 		public Jinja2ExpressionsBodyContext(JinjaExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ExpressionsBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ExpressionsBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ExpressionsBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExpressionContext jinjaExpression() throws RecognitionException {
@@ -1214,19 +1019,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprExpressionContext.class,i);
 		}
 		public Jinja2ExprContentRuleContext(JinjaExprContentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ExprContentRule(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ExprContentRule(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ExprContentRule(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprContentContext jinjaExprContent() throws RecognitionException {
@@ -1285,19 +1077,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprExpressionContext.class,0);
 		}
 		public Jinja2NotExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2NotExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2NotExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2NotExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2AddSubExpressionContext extends JinjaExprExpressionContext {
@@ -1310,19 +1089,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_PLUS() { return getToken(HtmlCssJinja2Parser.JINJA2_PLUS, 0); }
 		public TerminalNode JINJA2_MINUS() { return getToken(HtmlCssJinja2Parser.JINJA2_MINUS, 0); }
 		public Jinja2AddSubExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2AddSubExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2AddSubExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2AddSubExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2IsNotExpressionContext extends JinjaExprExpressionContext {
@@ -1334,19 +1100,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_ISNOT() { return getToken(HtmlCssJinja2Parser.JINJA2_ISNOT, 0); }
 		public Jinja2IsNotExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2IsNotExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2IsNotExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2IsNotExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2AtomExpressionContext extends JinjaExprExpressionContext {
@@ -1354,19 +1107,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprAtomExpressionContext.class,0);
 		}
 		public Jinja2AtomExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2AtomExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2AtomExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2AtomExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2MulDivModExpressionContext extends JinjaExprExpressionContext {
@@ -1380,19 +1120,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_DIV() { return getToken(HtmlCssJinja2Parser.JINJA2_DIV, 0); }
 		public TerminalNode JINJA2_MOD() { return getToken(HtmlCssJinja2Parser.JINJA2_MOD, 0); }
 		public Jinja2MulDivModExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2MulDivModExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2MulDivModExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2MulDivModExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2LogicalExpressionContext extends JinjaExprExpressionContext {
@@ -1405,19 +1132,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_AND() { return getToken(HtmlCssJinja2Parser.JINJA2_AND, 0); }
 		public TerminalNode JINJA2_OR() { return getToken(HtmlCssJinja2Parser.JINJA2_OR, 0); }
 		public Jinja2LogicalExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2LogicalExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2LogicalExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2LogicalExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2ComparisonExpressionContext extends JinjaExprExpressionContext {
@@ -1434,19 +1148,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_GT() { return getToken(HtmlCssJinja2Parser.JINJA2_GT, 0); }
 		public TerminalNode JINJA2_GTE() { return getToken(HtmlCssJinja2Parser.JINJA2_GTE, 0); }
 		public Jinja2ComparisonExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ComparisonExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ComparisonExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ComparisonExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2IsExpressionContext extends JinjaExprExpressionContext {
@@ -1458,19 +1159,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_IS() { return getToken(HtmlCssJinja2Parser.JINJA2_IS, 0); }
 		public Jinja2IsExpressionContext(JinjaExprExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2IsExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2IsExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2IsExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprExpressionContext jinjaExprExpression() throws RecognitionException {
@@ -1684,19 +1372,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprTrailerContext.class,i);
 		}
 		public Jinja2AtomExpressionBodyContext(JinjaExprAtomExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2AtomExpressionBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2AtomExpressionBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2AtomExpressionBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprAtomExpressionContext jinjaExprAtomExpression() throws RecognitionException {
@@ -1765,19 +1440,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.JINJA2_COMMA, i);
 		}
 		public Jinja2CallTrailerContext(JinjaExprTrailerContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2CallTrailer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2CallTrailer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2CallTrailer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2SubscriptTrailerContext extends JinjaExprTrailerContext {
@@ -1787,38 +1449,12 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_RSB() { return getToken(HtmlCssJinja2Parser.JINJA2_RSB, 0); }
 		public Jinja2SubscriptTrailerContext(JinjaExprTrailerContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2SubscriptTrailer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2SubscriptTrailer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2SubscriptTrailer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2AttributeTrailerContext extends JinjaExprTrailerContext {
 		public TerminalNode JINJA2_DOT() { return getToken(HtmlCssJinja2Parser.JINJA2_DOT, 0); }
 		public TerminalNode JINJA2_IDENTIFIER() { return getToken(HtmlCssJinja2Parser.JINJA2_IDENTIFIER, 0); }
 		public Jinja2AttributeTrailerContext(JinjaExprTrailerContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2AttributeTrailer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2AttributeTrailer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2AttributeTrailer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprTrailerContext jinjaExprTrailer() throws RecognitionException {
@@ -1935,19 +1571,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprExpressionContext.class,0);
 		}
 		public Jinja2ParenthesizedAtomContext(JinjaExprAtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ParenthesizedAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ParenthesizedAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ParenthesizedAtom(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2ListAtomContext extends JinjaExprAtomContext {
@@ -1964,19 +1587,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.JINJA2_COMMA, i);
 		}
 		public Jinja2ListAtomContext(JinjaExprAtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ListAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ListAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ListAtom(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2LiteralAtomContext extends JinjaExprAtomContext {
@@ -1984,19 +1594,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaExprLiteralContext.class,0);
 		}
 		public Jinja2LiteralAtomContext(JinjaExprAtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2LiteralAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2LiteralAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2LiteralAtom(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprAtomContext jinjaExprAtom() throws RecognitionException {
@@ -2108,127 +1705,36 @@ public class HtmlCssJinja2Parser extends Parser {
 	public static class Jinja2DoubleLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_DOUBLE() { return getToken(HtmlCssJinja2Parser.JINJA2_DOUBLE, 0); }
 		public Jinja2DoubleLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2DoubleLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2DoubleLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2DoubleLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2NullLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_NULL() { return getToken(HtmlCssJinja2Parser.JINJA2_NULL, 0); }
 		public Jinja2NullLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2NullLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2NullLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2NullLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2IntLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_INT() { return getToken(HtmlCssJinja2Parser.JINJA2_INT, 0); }
 		public Jinja2IntLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2IntLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2IntLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2IntLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2IdLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_IDENTIFIER() { return getToken(HtmlCssJinja2Parser.JINJA2_IDENTIFIER, 0); }
 		public Jinja2IdLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2IdLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2IdLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2IdLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StringLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_STRING() { return getToken(HtmlCssJinja2Parser.JINJA2_STRING, 0); }
 		public Jinja2StringLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StringLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StringLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StringLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2FalseLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_FALSE() { return getToken(HtmlCssJinja2Parser.JINJA2_FALSE, 0); }
 		public Jinja2FalseLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2FalseLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2FalseLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2FalseLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2TrueLiteralContext extends JinjaExprLiteralContext {
 		public TerminalNode JINJA2_TRUE() { return getToken(HtmlCssJinja2Parser.JINJA2_TRUE, 0); }
 		public Jinja2TrueLiteralContext(JinjaExprLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2TrueLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2TrueLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2TrueLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprLiteralContext jinjaExprLiteral() throws RecognitionException {
@@ -2329,19 +1835,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_IDENTIFIER() { return getToken(HtmlCssJinja2Parser.JINJA2_IDENTIFIER, 0); }
 		public TerminalNode JINJA2_EQUAL() { return getToken(HtmlCssJinja2Parser.JINJA2_EQUAL, 0); }
 		public Jinja2FunctionArgContext(JinjaExprArgumentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2FunctionArg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2FunctionArg(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2FunctionArg(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaExprArgumentContext jinjaExprArgument() throws RecognitionException {
@@ -2396,19 +1889,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaForBlockContext.class,0);
 		}
 		public Jinja2ForBlockContext(JinjaStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ForBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ForBlock(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ForBlock(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2IfBlockContext extends JinjaStatementContext {
@@ -2416,19 +1896,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaIfBlockContext.class,0);
 		}
 		public Jinja2IfBlockContext(JinjaStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2IfBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2IfBlock(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2IfBlock(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStatementContext jinjaStatement() throws RecognitionException {
@@ -2501,19 +1968,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_STMT_ENDFOR() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_ENDFOR, 0); }
 		public TerminalNode JINJA2_STMT_ELSE() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_ELSE, 0); }
 		public Jinja2ForBlockBodyContext(JinjaForBlockContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ForBlockBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ForBlockBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ForBlockBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaForBlockContext jinjaForBlock() throws RecognitionException {
@@ -2598,19 +2052,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStmtExpressionContext.class,0);
 		}
 		public Jinja2ForStatementContext(JinjaForStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2ForStatement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2ForStatement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2ForStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaForStatementContext jinjaForStatement() throws RecognitionException {
@@ -2712,19 +2153,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_STMT_ELSE() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_ELSE, 0); }
 		public Jinja2IfBlockBodyContext(JinjaIfBlockContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2IfBlockBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2IfBlockBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2IfBlockBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaIfBlockContext jinjaIfBlock() throws RecognitionException {
@@ -2826,19 +2254,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_STMT_IS() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_IS, 0); }
 		public Jinja2StmtIsExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtIsExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtIsExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtIsExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtAddSubExpressionContext extends JinjaStmtExpressionContext {
@@ -2851,19 +2266,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_STMT_PLUS() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_PLUS, 0); }
 		public TerminalNode JINJA2_STMT_MINUS() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_MINUS, 0); }
 		public Jinja2StmtAddSubExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtAddSubExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtAddSubExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtAddSubExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtNotExpressionContext extends JinjaStmtExpressionContext {
@@ -2872,19 +2274,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStmtExpressionContext.class,0);
 		}
 		public Jinja2StmtNotExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtNotExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtNotExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtNotExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtComparisonExpressionContext extends JinjaStmtExpressionContext {
@@ -2901,19 +2290,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_STMT_GT() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_GT, 0); }
 		public TerminalNode JINJA2_STMT_GTE() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_GTE, 0); }
 		public Jinja2StmtComparisonExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtComparisonExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtComparisonExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtComparisonExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtLogicalExpressionContext extends JinjaStmtExpressionContext {
@@ -2926,19 +2302,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_STMT_AND() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_AND, 0); }
 		public TerminalNode JINJA2_STMT_OR() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_OR, 0); }
 		public Jinja2StmtLogicalExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtLogicalExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtLogicalExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtLogicalExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtAtomExpressionContext extends JinjaStmtExpressionContext {
@@ -2946,19 +2309,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStmtAtomExpressionContext.class,0);
 		}
 		public Jinja2StmtAtomExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtAtomExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtAtomExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtAtomExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtMulDivModExpressionContext extends JinjaStmtExpressionContext {
@@ -2972,19 +2322,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_STMT_DIV() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_DIV, 0); }
 		public TerminalNode JINJA2_STMT_MOD() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_MOD, 0); }
 		public Jinja2StmtMulDivModExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtMulDivModExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtMulDivModExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtMulDivModExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtIsNotExpressionContext extends JinjaStmtExpressionContext {
@@ -2996,19 +2333,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_STMT_ISNOT() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_ISNOT, 0); }
 		public Jinja2StmtIsNotExpressionContext(JinjaStmtExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtIsNotExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtIsNotExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtIsNotExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStmtExpressionContext jinjaStmtExpression() throws RecognitionException {
@@ -3222,19 +2546,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStmtTrailerContext.class,i);
 		}
 		public Jinja2StmtAtomExpressionBodyContext(JinjaStmtAtomExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtAtomExpressionBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtAtomExpressionBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtAtomExpressionBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStmtAtomExpressionContext jinjaStmtAtomExpression() throws RecognitionException {
@@ -3303,19 +2614,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.JINJA2_STMT_COMMA, i);
 		}
 		public Jinja2StmtCallTrailerContext(JinjaStmtTrailerContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtCallTrailer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtCallTrailer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtCallTrailer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtSubscriptTrailerContext extends JinjaStmtTrailerContext {
@@ -3325,38 +2623,12 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode JINJA2_STMT_RSB() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_RSB, 0); }
 		public Jinja2StmtSubscriptTrailerContext(JinjaStmtTrailerContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtSubscriptTrailer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtSubscriptTrailer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtSubscriptTrailer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtAttributeTrailerContext extends JinjaStmtTrailerContext {
 		public TerminalNode JINJA2_STMT_DOT() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_DOT, 0); }
 		public TerminalNode JINJA2_STMT_IDENTIFIER() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_IDENTIFIER, 0); }
 		public Jinja2StmtAttributeTrailerContext(JinjaStmtTrailerContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtAttributeTrailer(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtAttributeTrailer(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtAttributeTrailer(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStmtTrailerContext jinjaStmtTrailer() throws RecognitionException {
@@ -3480,19 +2752,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.JINJA2_STMT_COMMA, i);
 		}
 		public Jinja2StmtListAtomContext(JinjaStmtAtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtListAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtListAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtListAtom(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtParenthesizedAtomContext extends JinjaStmtAtomContext {
@@ -3502,19 +2761,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStmtExpressionContext.class,0);
 		}
 		public Jinja2StmtParenthesizedAtomContext(JinjaStmtAtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtParenthesizedAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtParenthesizedAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtParenthesizedAtom(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtLiteralAtomContext extends JinjaStmtAtomContext {
@@ -3522,19 +2768,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaStmtLiteralContext.class,0);
 		}
 		public Jinja2StmtLiteralAtomContext(JinjaStmtAtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtLiteralAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtLiteralAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtLiteralAtom(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStmtAtomContext jinjaStmtAtom() throws RecognitionException {
@@ -3646,127 +2879,36 @@ public class HtmlCssJinja2Parser extends Parser {
 	public static class Jinja2StmtIntLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_INT() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_INT, 0); }
 		public Jinja2StmtIntLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtIntLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtIntLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtIntLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtStringLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_STRING() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_STRING, 0); }
 		public Jinja2StmtStringLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtStringLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtStringLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtStringLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtIdLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_IDENTIFIER() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_IDENTIFIER, 0); }
 		public Jinja2StmtIdLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtIdLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtIdLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtIdLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtNullLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_NULL() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_NULL, 0); }
 		public Jinja2StmtNullLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtNullLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtNullLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtNullLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtFalseLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_FALSE() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_FALSE, 0); }
 		public Jinja2StmtFalseLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtFalseLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtFalseLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtFalseLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtDoubleLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_DOUBLE() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_DOUBLE, 0); }
 		public Jinja2StmtDoubleLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtDoubleLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtDoubleLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtDoubleLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class Jinja2StmtTrueLiteralContext extends JinjaStmtLiteralContext {
 		public TerminalNode JINJA2_STMT_TRUE() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_TRUE, 0); }
 		public Jinja2StmtTrueLiteralContext(JinjaStmtLiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtTrueLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtTrueLiteral(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtTrueLiteral(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStmtLiteralContext jinjaStmtLiteral() throws RecognitionException {
@@ -3867,19 +3009,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode JINJA2_STMT_IDENTIFIER() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_IDENTIFIER, 0); }
 		public TerminalNode JINJA2_STMT_EQUAL() { return getToken(HtmlCssJinja2Parser.JINJA2_STMT_EQUAL, 0); }
 		public Jinja2StmtFunctionArgContext(JinjaStmtArgumentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2StmtFunctionArg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2StmtFunctionArg(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2StmtFunctionArg(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final JinjaStmtArgumentContext jinjaStmtArgument() throws RecognitionException {
@@ -3955,19 +3084,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(JinjaBlockContext.class,i);
 		}
 		public Jinja2TemplateContentContext(TemplateContentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterJinja2TemplateContent(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitJinja2TemplateContent(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitJinja2TemplateContent(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TemplateContentContext templateContent() throws RecognitionException {
@@ -4057,19 +3173,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode STYLE_CLOSE() { return getToken(HtmlCssJinja2Parser.STYLE_CLOSE, 0); }
 		public StyleBodyContext(StyleContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterStyleBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitStyleBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitStyleBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StyleContext style() throws RecognitionException {
@@ -4131,19 +3234,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(NestedStatementContext.class,i);
 		}
 		public CssStylesheetContext(StylesheetContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssStylesheet(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssStylesheet(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssStylesheet(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StylesheetContext stylesheet() throws RecognitionException {
@@ -4231,19 +3321,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(UrlContext.class,0);
 		}
 		public CssImportWithMediaQueryAndSemicolonContext(ImportsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssImportWithMediaQueryAndSemicolon(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssImportWithMediaQueryAndSemicolon(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssImportWithMediaQueryAndSemicolon(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssImportWithMediaQueryNoSemicolonContext extends ImportsContext {
@@ -4262,19 +3339,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(UrlContext.class,0);
 		}
 		public CssImportWithMediaQueryNoSemicolonContext(ImportsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssImportWithMediaQueryNoSemicolon(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssImportWithMediaQueryNoSemicolon(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssImportWithMediaQueryNoSemicolon(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssImportWithSemicolonContext extends ImportsContext {
@@ -4291,19 +3355,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(UrlContext.class,0);
 		}
 		public CssImportWithSemicolonContext(ImportsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssImportWithSemicolon(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssImportWithSemicolon(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssImportWithSemicolon(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssImportWithoutSemicolonContext extends ImportsContext {
@@ -4319,19 +3370,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(UrlContext.class,0);
 		}
 		public CssImportWithoutSemicolonContext(ImportsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssImportWithoutSemicolon(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssImportWithoutSemicolon(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssImportWithoutSemicolon(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ImportsContext imports() throws RecognitionException {
@@ -4518,19 +3556,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(GroupRuleBodyContext.class,0);
 		}
 		public CssMediaQueriesDefinitionContext(MediaContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaQueriesDefinition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaQueriesDefinition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaQueriesDefinition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MediaContext media() throws RecognitionException {
@@ -4594,19 +3619,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.Comma, i);
 		}
 		public CssMediaQueriesListContext(MediaQueryListContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaQueriesList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaQueriesList(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaQueriesList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MediaQueryListContext mediaQueryList() throws RecognitionException {
@@ -4696,19 +3708,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode MediaOnly() { return getToken(HtmlCssJinja2Parser.MediaOnly, 0); }
 		public TerminalNode Not() { return getToken(HtmlCssJinja2Parser.Not, 0); }
 		public CssMediaQueryTypeAndExpressionsContext(MediaQueryContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaQueryTypeAndExpressions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaQueryTypeAndExpressions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaQueryTypeAndExpressions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssMediaQueryExpressionsContext extends MediaQueryContext {
@@ -4729,19 +3728,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,i);
 		}
 		public CssMediaQueryExpressionsContext(MediaQueryContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaQueryExpressions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaQueryExpressions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaQueryExpressions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MediaQueryContext mediaQuery() throws RecognitionException {
@@ -4881,19 +3867,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public CssMediaExpressionsContext(MediaExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaExpressions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaExpressions(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaExpressions(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MediaExpressionContext mediaExpression() throws RecognitionException {
@@ -4974,19 +3947,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,i);
 		}
 		public CssSelectorGroupBodyContext(SelectorGroupContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssSelectorGroupBody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssSelectorGroupBody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssSelectorGroupBody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SelectorGroupContext selectorGroup() throws RecognitionException {
@@ -5063,19 +4023,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(CombinatorContext.class,i);
 		}
 		public CssSelectorGroupContext(SelectorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssSelectorGroup(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssSelectorGroup(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssSelectorGroup(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SelectorContext selector() throws RecognitionException {
@@ -5140,19 +4087,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssDescendantCombinatorContext(CombinatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDescendantCombinator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDescendantCombinator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDescendantCombinator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssChildCombinatorContext extends CombinatorContext {
@@ -5161,19 +4095,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssChildCombinatorContext(CombinatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssChildCombinator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssChildCombinator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssChildCombinator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssGeneralSiblingCombinatorContext extends CombinatorContext {
@@ -5182,19 +4103,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssGeneralSiblingCombinatorContext(CombinatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssGeneralSiblingCombinator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssGeneralSiblingCombinator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssGeneralSiblingCombinator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssAdjacentSiblingCombinatorContext extends CombinatorContext {
@@ -5203,19 +4111,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssAdjacentSiblingCombinatorContext(CombinatorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssAdjacentSiblingCombinator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssAdjacentSiblingCombinator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssAdjacentSiblingCombinator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CombinatorContext combinator() throws RecognitionException {
@@ -5311,19 +4206,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(PseudoContext.class,i);
 		}
 		public CssCompoundSelectorWithoutTypeContext(SimpleSelectorSequenceContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssCompoundSelectorWithoutType(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssCompoundSelectorWithoutType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssCompoundSelectorWithoutType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssCompoundSelectorWithTypeContext extends SimpleSelectorSequenceContext {
@@ -5350,19 +4232,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(PseudoContext.class,i);
 		}
 		public CssCompoundSelectorWithTypeContext(SimpleSelectorSequenceContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssCompoundSelectorWithType(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssCompoundSelectorWithType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssCompoundSelectorWithType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SimpleSelectorSequenceContext simpleSelectorSequence() throws RecognitionException {
@@ -5512,19 +4381,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(TypeNamespacePrefixContext.class,0);
 		}
 		public CssElementTypeSelectorContext(TypeSelectorContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssElementTypeSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssElementTypeSelector(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssElementTypeSelector(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TypeSelectorContext typeSelector() throws RecognitionException {
@@ -5579,19 +4435,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode Multiply() { return getToken(HtmlCssJinja2Parser.Multiply, 0); }
 		public CssNamespacePrefixContext(TypeNamespacePrefixContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssNamespacePrefix(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssNamespacePrefix(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssNamespacePrefix(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TypeNamespacePrefixContext typeNamespacePrefix() throws RecognitionException {
@@ -5658,19 +4501,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(TypeNamespacePrefixContext.class,0);
 		}
 		public CssUniversalSelectorContext(UniversalContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssUniversalSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssUniversalSelector(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssUniversalSelector(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final UniversalContext universal() throws RecognitionException {
@@ -5724,19 +4554,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(CssIdentContext.class,0);
 		}
 		public CssClassSelectorContext(ClassNameContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssClassSelector(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssClassSelector(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssClassSelector(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassNameContext className() throws RecognitionException {
@@ -5788,19 +4605,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(FunctionalPseudoContext.class,0);
 		}
 		public CssPseudoClassOrElementContext(PseudoContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssPseudoClassOrElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssPseudoClassOrElement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssPseudoClassOrElement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PseudoContext pseudo() throws RecognitionException {
@@ -5880,19 +4684,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode CloseParen() { return getToken(HtmlCssJinja2Parser.CloseParen, 0); }
 		public CssFunctionalPseudoContext(FunctionalPseudoContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssFunctionalPseudo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssFunctionalPseudo(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssFunctionalPseudo(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FunctionalPseudoContext functionalPseudo() throws RecognitionException {
@@ -5970,19 +4761,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(CssIdentContext.class,i);
 		}
 		public CssValueExpressionContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssValueExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssValueExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssValueExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -6084,19 +4862,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssDivideOperatorContext(Operator_Context ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDivideOperator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDivideOperator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDivideOperator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssCommaSeparatorContext extends Operator_Context {
@@ -6105,19 +4870,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssCommaSeparatorContext(Operator_Context ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssCommaSeparator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssCommaSeparator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssCommaSeparator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssSpaceSeparatorContext extends Operator_Context {
@@ -6126,19 +4878,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssSpaceSeparatorContext(Operator_Context ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssSpaceSeparator(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssSpaceSeparator(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssSpaceSeparator(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Operator_Context operator_() throws RecognitionException {
@@ -6212,19 +4951,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssVarPropertyContext(Property_Context ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssVarProperty(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssVarProperty(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssVarProperty(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssIdPropertyContext extends Property_Context {
@@ -6235,19 +4961,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssIdPropertyContext(Property_Context ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssIdProperty(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssIdProperty(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssIdProperty(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final Property_Context property_() throws RecognitionException {
@@ -6324,19 +5037,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(DeclarationListContext.class,0);
 		}
 		public CssRulesetDefinitionContext(RulesetContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssRulesetDefinition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssRulesetDefinition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssRulesetDefinition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final RulesetContext ruleset() throws RecognitionException {
@@ -6411,19 +5111,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.SemiColon, i);
 		}
 		public CssDeclarationListContext(DeclarationListContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDeclarationList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDeclarationList(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDeclarationList(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclarationListContext declarationList() throws RecognitionException {
@@ -6522,19 +5209,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode Important() { return getToken(HtmlCssJinja2Parser.Important, 0); }
 		public CssDeclarationContext(DeclarationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDeclaration(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDeclaration(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DeclarationContext declaration() throws RecognitionException {
@@ -6605,19 +5279,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(Operator_Context.class,i);
 		}
 		public CssExpressionSequenceContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssExpressionSequence(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssExpressionSequence(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssExpressionSequence(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -6689,19 +5350,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssStringTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssStringTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssStringTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssStringTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssPercentageTermContext extends TermContext {
@@ -6712,19 +5360,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssPercentageTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssPercentageTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssPercentageTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssPercentageTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssCalcTermContext extends TermContext {
@@ -6740,19 +5375,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode CloseParen() { return getToken(HtmlCssJinja2Parser.CloseParen, 0); }
 		public CssCalcTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssCalcTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssCalcTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssCalcTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssVariableTermContext extends TermContext {
@@ -6766,19 +5388,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode Variable() { return getToken(HtmlCssJinja2Parser.Variable, 0); }
 		public TerminalNode CloseParen() { return getToken(HtmlCssJinja2Parser.CloseParen, 0); }
 		public CssVariableTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssVariableTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssVariableTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssVariableTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssFunctionTermContext extends TermContext {
@@ -6794,19 +5403,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode CloseParen() { return getToken(HtmlCssJinja2Parser.CloseParen, 0); }
 		public CssFunctionTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssFunctionTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssFunctionTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssFunctionTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssUrlTermContext extends TermContext {
@@ -6817,19 +5413,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssUrlTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssUrlTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssUrlTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssUrlTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssHexColorTermContext extends TermContext {
@@ -6838,19 +5421,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssHexColorTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssHexColorTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssHexColorTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssHexColorTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssNumberTermContext extends TermContext {
@@ -6861,19 +5431,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssNumberTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssNumberTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssNumberTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssNumberTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssIdTermContext extends TermContext {
@@ -6884,19 +5441,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssIdTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssIdTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssIdTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssIdTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssDimensionTermContext extends TermContext {
@@ -6907,19 +5451,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssDimensionTermContext(TermContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDimensionTerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDimensionTerm(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDimensionTerm(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TermContext term() throws RecognitionException {
@@ -7080,19 +5611,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode Plus() { return getToken(HtmlCssJinja2Parser.Plus, 0); }
 		public TerminalNode Minus() { return getToken(HtmlCssJinja2Parser.Minus, 0); }
 		public CssNumberExpressionContext(NumberContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssNumberExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssNumberExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssNumberExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final NumberContext number() throws RecognitionException {
@@ -7154,19 +5672,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode Plus() { return getToken(HtmlCssJinja2Parser.Plus, 0); }
 		public TerminalNode Minus() { return getToken(HtmlCssJinja2Parser.Minus, 0); }
 		public CssPercentageExpressionContext(PercentageContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssPercentageExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssPercentageExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssPercentageExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final PercentageContext percentage() throws RecognitionException {
@@ -7228,19 +5733,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode Plus() { return getToken(HtmlCssJinja2Parser.Plus, 0); }
 		public TerminalNode Minus() { return getToken(HtmlCssJinja2Parser.Minus, 0); }
 		public CssDimensionExpressionContext(DimensionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDimensionExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDimensionExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDimensionExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final DimensionContext dimension() throws RecognitionException {
@@ -7302,19 +5794,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(RulesetContext.class,0);
 		}
 		public CssRulesetContext(NestedStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssRuleset(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssRuleset(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssRuleset(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssMediaQueriesContext extends NestedStatementContext {
@@ -7322,19 +5801,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(MediaContext.class,0);
 		}
 		public CssMediaQueriesContext(NestedStatementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaQueries(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaQueries(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaQueries(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final NestedStatementContext nestedStatement() throws RecognitionException {
@@ -7412,19 +5878,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(NestedStatementContext.class,i);
 		}
 		public CssGroupRulebodyContext(GroupRuleBodyContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssGroupRulebody(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssGroupRulebody(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssGroupRulebody(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final GroupRuleBodyContext groupRuleBody() throws RecognitionException {
@@ -7494,37 +5947,11 @@ public class HtmlCssJinja2Parser extends Parser {
 		public TerminalNode String_() { return getToken(HtmlCssJinja2Parser.String_, 0); }
 		public TerminalNode CloseParen() { return getToken(HtmlCssJinja2Parser.CloseParen, 0); }
 		public CssQuotedUrlContext(UrlContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssQuotedUrl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssQuotedUrl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssQuotedUrl(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssUnquotedUrlContext extends UrlContext {
 		public TerminalNode Url() { return getToken(HtmlCssJinja2Parser.Url, 0); }
 		public CssUnquotedUrlContext(UrlContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssUnquotedUrl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssUnquotedUrl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssUnquotedUrl(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final UrlContext url() throws RecognitionException {
@@ -7612,19 +6039,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.Minus, i);
 		}
 		public CssCalcSumExpressionContext(CalcSumContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssCalcSumExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssCalcSumExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssCalcSumExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CalcSumContext calcSum() throws RecognitionException {
@@ -7725,19 +6139,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(NumberContext.class,i);
 		}
 		public CssCalcProductExpressionContext(CalcProductContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssCalcProductExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssCalcProductExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssCalcProductExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CalcProductContext calcProduct() throws RecognitionException {
@@ -7822,19 +6223,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssDimensionValueContext(CalcValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssDimensionValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssDimensionValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssDimensionValue(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssNumberValueContext extends CalcValueContext {
@@ -7845,19 +6233,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssNumberValueContext(CalcValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssNumberValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssNumberValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssNumberValue(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssPercentageValueContext extends CalcValueContext {
@@ -7868,19 +6243,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getRuleContext(WsContext.class,0);
 		}
 		public CssPercentageValueContext(CalcValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssPercentageValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssPercentageValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssPercentageValue(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssNestedCalcExpressionContext extends CalcValueContext {
@@ -7896,19 +6258,6 @@ public class HtmlCssJinja2Parser extends Parser {
 		}
 		public TerminalNode CloseParen() { return getToken(HtmlCssJinja2Parser.CloseParen, 0); }
 		public CssNestedCalcExpressionContext(CalcValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssNestedCalcExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssNestedCalcExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssNestedCalcExpression(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CalcValueContext calcValue() throws RecognitionException {
@@ -7993,73 +6342,21 @@ public class HtmlCssJinja2Parser extends Parser {
 	public static class CssMediaOnlyContext extends CssIdentContext {
 		public TerminalNode MediaOnly() { return getToken(HtmlCssJinja2Parser.MediaOnly, 0); }
 		public CssMediaOnlyContext(CssIdentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssMediaOnly(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssMediaOnly(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssMediaOnly(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssIdentifierContext extends CssIdentContext {
 		public TerminalNode Ident() { return getToken(HtmlCssJinja2Parser.Ident, 0); }
 		public CssIdentifierContext(CssIdentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssIdentifier(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssIdentifier(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssIdentifier(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssAndContext extends CssIdentContext {
 		public TerminalNode And() { return getToken(HtmlCssJinja2Parser.And, 0); }
 		public CssAndContext(CssIdentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssAnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssAnd(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssAnd(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class CssNotContext extends CssIdentContext {
 		public TerminalNode Not() { return getToken(HtmlCssJinja2Parser.Not, 0); }
 		public CssNotContext(CssIdentContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssNot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssNot(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssNot(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CssIdentContext cssIdent() throws RecognitionException {
@@ -8139,19 +6436,6 @@ public class HtmlCssJinja2Parser extends Parser {
 			return getToken(HtmlCssJinja2Parser.Space, i);
 		}
 		public CssWhiteSpaceContext(WsContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).enterCssWhiteSpace(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HtmlCssJinja2ParserListener ) ((HtmlCssJinja2ParserListener)listener).exitCssWhiteSpace(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HtmlCssJinja2ParserVisitor ) return ((HtmlCssJinja2ParserVisitor<? extends T>)visitor).visitCssWhiteSpace(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final WsContext ws() throws RecognitionException {

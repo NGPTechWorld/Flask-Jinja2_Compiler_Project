@@ -174,14 +174,14 @@ public class HtmlCssJinja2ParserBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

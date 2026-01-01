@@ -274,18 +274,6 @@ public interface HtmlCssJinja2ParserListener extends ParseTreeListener {
 	 */
 	void exitJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Jinja2IsExpression}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Jinja2IsExpression}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Jinja2ComparisonExpression}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
 	 * @param ctx the parse tree
@@ -297,6 +285,18 @@ public interface HtmlCssJinja2ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Jinja2AtomExpressionBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtomExpression}.
