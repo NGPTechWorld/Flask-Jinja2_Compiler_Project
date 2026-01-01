@@ -482,13 +482,6 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Jinja2TemplateContent}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code StyleBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#style}.
 	 * @param ctx the parse tree

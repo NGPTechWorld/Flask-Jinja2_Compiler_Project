@@ -489,13 +489,6 @@ public class HtmlCssJinja2ParserBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitStyleBody(HtmlCssJinja2Parser.StyleBodyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

@@ -823,18 +823,6 @@ public class HtmlCssJinja2ParserBaseListener implements HtmlCssJinja2ParserListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterStyleBody(HtmlCssJinja2Parser.StyleBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}

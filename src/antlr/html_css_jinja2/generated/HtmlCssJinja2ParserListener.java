@@ -814,18 +814,6 @@ public interface HtmlCssJinja2ParserListener extends ParseTreeListener {
 	 */
 	void exitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Jinja2TemplateContent}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
-	 * @param ctx the parse tree
-	 */
-	void enterJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Jinja2TemplateContent}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
-	 * @param ctx the parse tree
-	 */
-	void exitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code StyleBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#style}.
 	 * @param ctx the parse tree

@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.htmlElements;
+package ast.html_css_jinja2.htmlElements.html_content;
 
 import ast.html_css_jinja2.htmlElements.helper_abstract.HtmlNode;
 

@@ -9,7 +9,6 @@ options {
 }
 
 //! HTML document structure 
-
 // DONE htmlDocument
 htmlDocument
 : SEA_WS* DTD? SEA_WS* (htmlElements | jinjaBlock)* EOF            #HtmlDocumentRule
@@ -20,10 +19,9 @@ htmlElements
 : htmlMisc* htmlElement htmlMisc*                                  #HtmlElementsRule
 ;
 
-// DONE htmlElement
-// DONE  HtmlOpeningClosingTag
+// DONE htmlElement HtmlOpeningClosingTag
 // TODO  StyleElement
-htmlElement //! + visit(ctx)
+htmlElement
 : TAG_OPEN TAG_NAME htmlAttribute* 
 (
 TAG_CLOSE (htmlContent TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE)? 
@@ -43,14 +41,12 @@ htmlAttribute //! ctx.INT().getText()
 ;
 
 // DONE HtmlTextData
-// DONE HtmlWhitespaceData (Delete)
 htmlCharData
 : HTML_TEXT                                                        #HtmlTextData 
 | SEA_WS                                                           #HtmlWhitespaceData 
 ;
 
-// DONE HtmlMiscComment (Delete)
-// DONE HtmlMiscWhitespace (Delete)
+// DONE HtmlMiscComment
 htmlMisc // HTML Miscellaneous
 : htmlComment                                                      #HtmlMiscComment 
 | SEA_WS                                                           #HtmlMiscWhitespace 
@@ -63,7 +59,7 @@ htmlComment
 
 // DONE jinjaBlock
 //! Jinja2 rules in HTML context
-jinjaBlock //! visiChildren(ctx)
+jinjaBlock
 : JINJA2_COMMENT                                                   #Jinja2Comments
 | jinjaExpression                                                  #Jinja2Expressions
 | jinjaStatement                                                   #Jinja2Statements
@@ -92,12 +88,12 @@ jinjaExprExpression
 | jinjaExprExpression (JINJA2_AND | JINJA2_OR) jinjaExprExpression                                                   #Jinja2LogicalExpression
 ;
 
-// TODO jinjaExprAtomExpression
-jinjaExprAtomExpression  // ! + visit(ctx)
+// DOING jinjaExprAtomExpression
+jinjaExprAtomExpression 
 : jinjaExprAtom (jinjaExprTrailer)*                                #Jinja2AtomExpressionBody
 ;
 
-// TODO jinjaExprTrailer
+// DOING jinjaExprTrailer
 jinjaExprTrailer
 : JINJA2_LPAREN (jinjaExprArgument (JINJA2_COMMA jinjaExprArgument)*
 JINJA2_COMMA?)? JINJA2_RPAREN                                      #Jinja2CallTrailer
@@ -105,15 +101,15 @@ JINJA2_COMMA?)? JINJA2_RPAREN                                      #Jinja2CallTr
 | JINJA2_DOT JINJA2_IDENTIFIER                                     #Jinja2AttributeTrailer
 ;
 
-// TODO jinjaExprAtom
+// DOING jinjaExprAtom
 jinjaExprAtom
 : JINJA2_LPAREN jinjaExprExpression? JINJA2_RPAREN                 #Jinja2ParenthesizedAtom
 | JINJA2_LSB (jinjaExprExpression (JINJA2_COMMA jinjaExprExpression)*)? JINJA2_RSB #Jinja2ListAtom
 | jinjaExprLiteral                                                 #Jinja2LiteralAtom
 ;
 
-// TODO jinjaExprLiteral
-jinjaExprLiteral //! VisitChildren(ctx) + ctx.INT().getText()
+// DOING jinjaExprLiteral 
+jinjaExprLiteral
 : JINJA2_INT                                                       #Jinja2IntLiteral
 | JINJA2_DOUBLE                                                    #Jinja2DoubleLiteral
 | JINJA2_STRING                                                    #Jinja2StringLiteral
@@ -123,8 +119,8 @@ jinjaExprLiteral //! VisitChildren(ctx) + ctx.INT().getText()
 | JINJA2_IDENTIFIER                                                #Jinja2IdLiteral
 ;
 
-// TODO jinjaExprArgument
-jinjaExprArgument //! ctx.INT().getText()
+// DOING jinjaExprArgument
+jinjaExprArgument
 : (JINJA2_IDENTIFIER JINJA2_EQUAL)? jinjaExprExpression            #Jinja2FunctionArg
 ;
 
@@ -137,8 +133,8 @@ jinjaStatement
 
 // TODO jinjaForBlock
 jinjaForBlock
-: JINJA2_OPEN_STMT jinjaForStatement JINJA2_CLOSE_STMT templateContent
-    (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT templateContent)?
+: JINJA2_OPEN_STMT jinjaForStatement JINJA2_CLOSE_STMT htmlContent
+    (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT htmlContent)?
     JINJA2_OPEN_STMT JINJA2_STMT_ENDFOR JINJA2_CLOSE_STMT         #Jinja2ForBlockBody
 ;
 
@@ -148,11 +144,11 @@ jinjaForStatement
 jinjaStmtAtomExpression (JINJA2_STMT_IF jinjaStmtExpression)?   #Jinja2ForStatement
 ;
 
-// TODO jinjaIfBlock
+// DOING jinjaIfBlock
 jinjaIfBlock
-: JINJA2_OPEN_STMT JINJA2_STMT_IF jinjaStmtExpression JINJA2_CLOSE_STMT templateContent
-(JINJA2_OPEN_STMT JINJA2_STMT_ELIF jinjaStmtExpression JINJA2_CLOSE_STMT templateContent)*
-(JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT templateContent)?
+: JINJA2_OPEN_STMT JINJA2_STMT_IF jinjaStmtExpression JINJA2_CLOSE_STMT htmlContent
+(JINJA2_OPEN_STMT JINJA2_STMT_ELIF jinjaStmtExpression JINJA2_CLOSE_STMT htmlContent)*
+(JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT htmlContent)?
 JINJA2_OPEN_STMT JINJA2_STMT_ENDIF JINJA2_CLOSE_STMT          #Jinja2IfBlockBody
 ;
 
@@ -205,10 +201,10 @@ jinjaStmtArgument
 : (JINJA2_STMT_IDENTIFIER JINJA2_STMT_EQUAL)? jinjaStmtExpression #Jinja2StmtFunctionArg
 ;
 
-// TODO templateContent : Check if need replace with htmlContent
-templateContent //! VisitChildren(ctx) 
-: (htmlCharData | htmlElement | htmlComment | jinjaBlock)*        #Jinja2TemplateContent
-;
+// templateContent
+// templateContent  
+// : (htmlCharData | htmlElement | htmlComment | jinjaBlock)*        #Jinja2TemplateContent
+// ;
 
 //! CSS rules
 // TODO style
