@@ -8,13 +8,15 @@ import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 
 public class HtmlElementNode extends HtmlElementsJinjaBlockTemplate {
     public String tagName;
+    public String endTagName;
     public boolean selfClosing;
     public List<BaseNode> children = new ArrayList<>();
     public List<HtmlAttributeNode> attributes = new ArrayList<>();
 
-    public HtmlElementNode(String tagName, boolean selfClosing, int line) {
+    public HtmlElementNode(String tagName, String endTagName, boolean selfClosing, int line) {
         super("HtmlElement: " + tagName, line);
         this.tagName = tagName;
+        this.endTagName = endTagName;
         this.selfClosing = selfClosing;
     }
 
@@ -27,7 +29,7 @@ public class HtmlElementNode extends HtmlElementsJinjaBlockTemplate {
         String closing = selfClosing ? " /" : "";
         return " ".repeat(indent)
                 + "(line " + line + (selfClosing ? ") Self Closing <" : ") HtmlElement <")
-                + tagName + closing + ">";
+                + tagName + closing + ">" + " </"+ endTagName +">";
     }
 
 }

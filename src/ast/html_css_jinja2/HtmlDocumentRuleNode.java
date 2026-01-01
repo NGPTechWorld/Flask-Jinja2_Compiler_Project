@@ -18,12 +18,12 @@ public class HtmlDocumentRuleNode extends BaseNode {
         children.add(node);
     }
 
-    @Override
-    public String toString(int indent) {
-        StringBuilder sb = new StringBuilder(super.toString(indent));
-        for (BaseNode child : children) {
-            sb.append("\n").append(child.toString(indent + 2));
-        }
-        return sb.toString();
-    }
+    // @Override
+    // public String toString(int indent) {
+    //     StringBuilder sb = new StringBuilder(super.toString(indent));
+    //     for (BaseNode child : children) {
+    //         sb.append("\n").append(child.toString(indent + 2));
+    //     }
+    //     return sb.toString();
+    // }
 }
