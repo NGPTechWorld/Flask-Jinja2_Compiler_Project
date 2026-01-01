@@ -8,22 +8,22 @@ options {
     tokenVocab = HtmlCssJinja2Lexer;
 }
 
-//! HTML document structure
+//! HTML document structure 
 
 // DONE htmlDocument
 htmlDocument
-    : SEA_WS* DTD? SEA_WS* (htmlElements | jinjaBlock)* EOF            #HtmlDocumentRule
-    ;
+: SEA_WS* DTD? SEA_WS* (htmlElements | jinjaBlock)* EOF            #HtmlDocumentRule
+;
 
 // DONE htmlElements
 htmlElements
-    : htmlMisc* htmlElement htmlMisc*                                  #HtmlElementsRule
-    ;
+: htmlMisc* htmlElement htmlMisc*                                  #HtmlElementsRule
+;
 
 // DONE htmlElement
 // DONE  HtmlOpeningClosingTag
 // TODO  StyleElement
-htmlElement
+htmlElement //! + visit(ctx)
 : TAG_OPEN TAG_NAME htmlAttribute* 
 (
 TAG_CLOSE (htmlContent TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE)? 
@@ -32,13 +32,13 @@ TAG_CLOSE (htmlContent TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE)?
 | style                                                            #StyleElement    
 ;
 
-// TODO HtmlContentRule
-htmlContent
+// DOING HtmlContentRule
+htmlContent //! visitChildren()
 : (htmlCharData | htmlElement | htmlComment | jinjaBlock)*         #HtmlContentRule 
 ;
 
 // DONE htmlAttribute
-htmlAttribute
+htmlAttribute //! ctx.INT().getText()
 : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?                            #HtmlAttributeRule 
 ;
 
@@ -61,47 +61,46 @@ htmlComment
 : HTML_COMMENT                                                     #HtmlCommentRule 
 ;
 
-// TODO jinjaBlock
+// DONE jinjaBlock
 //! Jinja2 rules in HTML context
-jinjaBlock
+jinjaBlock //! visiChildren(ctx)
 : JINJA2_COMMENT                                                   #Jinja2Comments
 | jinjaExpression                                                  #Jinja2Expressions
 | jinjaStatement                                                   #Jinja2Statements
 ;
 
-// TODO jinjaExpression
-// Jinja2 Expressions
+// DOING jinjaExpression
+// Jinja2 Expressions  
 jinjaExpression
 : JINJA2_OPEN_EXPR jinjaExprContent? JINJA2_CLOSE_EXPR             #Jinja2ExpressionsBody
 ;
 
-// TODO jinjaExprContent
-jinjaExprContent
+// TODO jinjaExprContentNode
+jinjaExprContent  //! + visit(ctx)
 : jinjaExprExpression jinjaExprExpression*                         #Jinja2ExprContentRule
 ;
 
 // TODO jinjaExprExpression a lot of nodes
 jinjaExprExpression
-: jinjaExprExpression JINJA2_IS jinjaExprExpression                #Jinja2IsExpression
-| jinjaExprExpression JINJA2_ISNOT jinjaExprExpression             #Jinja2IsNotExpression
-| jinjaExprExpression (JINJA2_EQ | JINJA2_NEQ | JINJA2_LT //! need label
-| JINJA2_LTE | JINJA2_GT | JINJA2_GTE) jinjaExprExpression     #Jinja2ComparisonExpression
-| jinjaExprExpression (JINJA2_AND | JINJA2_OR) jinjaExprExpression #Jinja2LogicalExpression
-| JINJA2_NOT jinjaExprExpression                                   #Jinja2NotExpression
-| jinjaExprExpression (JINJA2_PLUS | JINJA2_MINUS) jinjaExprExpression #Jinja2AddSubExpression
-| jinjaExprExpression (JINJA2_STAR | JINJA2_DIV | JINJA2_MOD) jinjaExprExpression #Jinja2MulDivModExpression
-| jinjaExprAtomExpression                                          #Jinja2AtomExpression
+: jinjaExprAtomExpression                                                                                            #Jinja2AtomExpression
+| jinjaExprExpression (JINJA2_STAR | JINJA2_DIV | JINJA2_MOD) jinjaExprExpression                                    #Jinja2MulDivModExpression
+| jinjaExprExpression (JINJA2_PLUS | JINJA2_MINUS) jinjaExprExpression                                               #Jinja2AddSubExpression
+| jinjaExprExpression (JINJA2_EQ | JINJA2_NEQ | JINJA2_LT | JINJA2_LTE | JINJA2_GT | JINJA2_GTE) jinjaExprExpression #Jinja2ComparisonExpression
+| jinjaExprExpression JINJA2_IS jinjaExprExpression                                                                  #Jinja2IsExpression
+| jinjaExprExpression JINJA2_ISNOT jinjaExprExpression                                                               #Jinja2IsNotExpression
+| JINJA2_NOT jinjaExprExpression                                                                                     #Jinja2NotExpression
+| jinjaExprExpression (JINJA2_AND | JINJA2_OR) jinjaExprExpression                                                   #Jinja2LogicalExpression
 ;
 
 // TODO jinjaExprAtomExpression
-jinjaExprAtomExpression
+jinjaExprAtomExpression  // ! + visit(ctx)
 : jinjaExprAtom (jinjaExprTrailer)*                                #Jinja2AtomExpressionBody
 ;
 
 // TODO jinjaExprTrailer
 jinjaExprTrailer
 : JINJA2_LPAREN (jinjaExprArgument (JINJA2_COMMA jinjaExprArgument)*
-JINJA2_COMMA?)? JINJA2_RPAREN  #Jinja2CallTrailer
+JINJA2_COMMA?)? JINJA2_RPAREN                                      #Jinja2CallTrailer
 | JINJA2_LSB jinjaExprExpression JINJA2_RSB                        #Jinja2SubscriptTrailer
 | JINJA2_DOT JINJA2_IDENTIFIER                                     #Jinja2AttributeTrailer
 ;
@@ -114,7 +113,7 @@ jinjaExprAtom
 ;
 
 // TODO jinjaExprLiteral
-jinjaExprLiteral
+jinjaExprLiteral //! VisitChildren(ctx) + ctx.INT().getText()
 : JINJA2_INT                                                       #Jinja2IntLiteral
 | JINJA2_DOUBLE                                                    #Jinja2DoubleLiteral
 | JINJA2_STRING                                                    #Jinja2StringLiteral
@@ -125,11 +124,11 @@ jinjaExprLiteral
 ;
 
 // TODO jinjaExprArgument
-jinjaExprArgument
+jinjaExprArgument //! ctx.INT().getText()
 : (JINJA2_IDENTIFIER JINJA2_EQUAL)? jinjaExprExpression            #Jinja2FunctionArg
 ;
 
-// TODO jinjaStatement
+// DONE jinjaStatement
 // Jinja2 Statements
 jinjaStatement
 : jinjaForBlock                                                   #Jinja2ForBlock
@@ -158,16 +157,15 @@ JINJA2_OPEN_STMT JINJA2_STMT_ENDIF JINJA2_CLOSE_STMT          #Jinja2IfBlockBody
 ;
 
 // TODO jinjaStmtExpression
-jinjaStmtExpression
-: jinjaStmtExpression JINJA2_STMT_IS jinjaStmtExpression          #Jinja2StmtIsExpression
-| jinjaStmtExpression JINJA2_STMT_ISNOT jinjaStmtExpression       #Jinja2StmtIsNotExpression
-| jinjaStmtExpression (JINJA2_STMT_EQ | JINJA2_STMT_NEQ | JINJA2_STMT_LT |
-JINJA2_STMT_LTE | JINJA2_STMT_GT | JINJA2_STMT_GTE) jinjaStmtExpression #Jinja2StmtComparisonExpression
-| jinjaStmtExpression (JINJA2_STMT_AND | JINJA2_STMT_OR) jinjaStmtExpression #Jinja2StmtLogicalExpression
-| JINJA2_STMT_NOT jinjaStmtExpression                             #Jinja2StmtNotExpression
-| jinjaStmtExpression (JINJA2_STMT_PLUS | JINJA2_STMT_MINUS) jinjaStmtExpression #Jinja2StmtAddSubExpression
-| jinjaStmtExpression (JINJA2_STMT_STAR | JINJA2_STMT_DIV | JINJA2_STMT_MOD) jinjaStmtExpression #Jinja2StmtMulDivModExpression
-| jinjaStmtAtomExpression                                         #Jinja2StmtAtomExpression
+jinjaStmtExpression //! VisitChildren(ctx)
+: jinjaStmtExpression JINJA2_STMT_IS jinjaStmtExpression                                                                                           #Jinja2StmtIsExpression
+| jinjaStmtExpression JINJA2_STMT_ISNOT jinjaStmtExpression                                                                                        #Jinja2StmtIsNotExpression
+| jinjaStmtExpression (JINJA2_STMT_EQ | JINJA2_STMT_NEQ | JINJA2_STMT_LT | JINJA2_STMT_LTE | JINJA2_STMT_GT | JINJA2_STMT_GTE) jinjaStmtExpression #Jinja2StmtComparisonExpression
+| jinjaStmtExpression (JINJA2_STMT_AND | JINJA2_STMT_OR) jinjaStmtExpression                                                                       #Jinja2StmtLogicalExpression
+| JINJA2_STMT_NOT jinjaStmtExpression                                                                                                              #Jinja2StmtNotExpression
+| jinjaStmtExpression (JINJA2_STMT_PLUS | JINJA2_STMT_MINUS) jinjaStmtExpression                                                                   #Jinja2StmtAddSubExpression
+| jinjaStmtExpression (JINJA2_STMT_STAR | JINJA2_STMT_DIV | JINJA2_STMT_MOD) jinjaStmtExpression                                                   #Jinja2StmtMulDivModExpression
+| jinjaStmtAtomExpression                                                                                                                          #Jinja2StmtAtomExpression
 ;
 
 // TODO jinjaStmtAtomExpression
@@ -176,7 +174,7 @@ jinjaStmtAtomExpression
 ;
 
 // TODO jinjaStmtTrailer
-jinjaStmtTrailer
+jinjaStmtTrailer //! VisitChildren(ctx)
 : JINJA2_STMT_LPAREN (jinjaStmtArgument (JINJA2_STMT_COMMA jinjaStmtArgument)*
 JINJA2_STMT_COMMA?)? JINJA2_STMT_RPAREN #Jinja2StmtCallTrailer
 | JINJA2_STMT_LSB jinjaStmtExpression JINJA2_STMT_RSB             #Jinja2StmtSubscriptTrailer
@@ -184,15 +182,15 @@ JINJA2_STMT_COMMA?)? JINJA2_STMT_RPAREN #Jinja2StmtCallTrailer
 ;
 
 // TODO jinjaStmtAtom
-jinjaStmtAtom
+jinjaStmtAtom //! VisitChildren(ctx)
 : JINJA2_STMT_LPAREN jinjaStmtExpression? JINJA2_STMT_RPAREN      #Jinja2StmtParenthesizedAtom
 | JINJA2_STMT_LSB (jinjaStmtExpression
-(JINJA2_STMT_COMMA jinjaStmtExpression)*)? JINJA2_STMT_RSB #Jinja2StmtListAtom
+(JINJA2_STMT_COMMA jinjaStmtExpression)*)? JINJA2_STMT_RSB        #Jinja2StmtListAtom
 | jinjaStmtLiteral                                                #Jinja2StmtLiteralAtom
 ;
 
 // TODO jinjaStmtLiteral
-jinjaStmtLiteral
+jinjaStmtLiteral //! VisitChildren(ctx) + ctx.INT().getText()
 : JINJA2_STMT_INT                                                 #Jinja2StmtIntLiteral
 | JINJA2_STMT_DOUBLE                                              #Jinja2StmtDoubleLiteral
 | JINJA2_STMT_STRING                                              #Jinja2StmtStringLiteral
@@ -207,8 +205,8 @@ jinjaStmtArgument
 : (JINJA2_STMT_IDENTIFIER JINJA2_STMT_EQUAL)? jinjaStmtExpression #Jinja2StmtFunctionArg
 ;
 
-// TODO templateContent
-templateContent
+// TODO templateContent : Check if need replace with htmlContent
+templateContent //! VisitChildren(ctx) 
 : (htmlCharData | htmlElement | htmlComment | jinjaBlock)*        #Jinja2TemplateContent
 ;
 
