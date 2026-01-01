@@ -1,8 +1,8 @@
 package ast.html_css_jinja2.jinjaBlock.Jinja2_comment;
 
-import ast.html_css_jinja2.jinjaBlock.jinjaBlockNode;
+import ast.html_css_jinja2.jinjaBlock.JinjaBlockNode;
 
-public class Jinja2CommentNode extends jinjaBlockNode {
+public class Jinja2CommentNode extends JinjaBlockNode {
 
     public String comment;
 
@@ -13,6 +13,6 @@ public class Jinja2CommentNode extends jinjaBlockNode {
 
     @Override
     public String toString(int indent) {
-        return super.toString(indent) + comment;
+        return " ".repeat(indent) + "(line " + line + ") JinjaComment: " + comment;
     }
 }
