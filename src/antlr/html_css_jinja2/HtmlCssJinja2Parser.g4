@@ -88,7 +88,7 @@ jinjaExprExpression
 | jinjaExprExpression (JINJA2_EQ | JINJA2_NEQ | JINJA2_LT | JINJA2_LTE | JINJA2_GT | JINJA2_GTE) jinjaExprExpression #Jinja2ComparisonExpression
 | jinjaExprExpression JINJA2_IS jinjaExprExpression                                                                  #Jinja2IsExpression
 | jinjaExprExpression JINJA2_ISNOT jinjaExprExpression                                                               #Jinja2IsNotExpression
-| JINJA2_NOT jinjaExprExpression                                `                                                     #Jinja2NotExpression
+| JINJA2_NOT jinjaExprExpression                                                                                     #Jinja2NotExpression
 | jinjaExprExpression (JINJA2_AND | JINJA2_OR) jinjaExprExpression                                                   #Jinja2LogicalExpression
 ;
 
