@@ -3,7 +3,7 @@ package visitor.html_css_jinja2;
 import ast.BaseNode;
 import ast.html_css_jinja2.HtmlDocumentRuleNode;
 import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
-import ast.html_css_jinja2.htmlElements.HtmlElementNode;
+import ast.html_css_jinja2.htmlElements.html_content.HtmlElementNode;
 
 public class ASTPrinter2 {
 
