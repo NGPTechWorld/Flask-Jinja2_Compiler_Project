@@ -1,52 +1,15 @@
-#import Flask, render_template, request, redirect, url_for, jsonify
-#global x, y
-#pass
-#break
-#mohamad
-#(x + 1) * 5 + (8-5)
-#[5,11,"ngp"]
-#{
-#    "name":5+6,
-#    "h":"s"
-#}
-#mohamad.age.name
-#mohamad.age['api']
-#mohamad(x+u)
-#mohamad(x=5,y=1)
-#mohamad(**x)
-#obj.arr[i].x += a + 1
-#return
-#class h(A,N):
-#  x=5
-#def product_details(product_id):
-#    product = None
-#for p in products:
-#        if p['id'] == product_id:
-#            product = p
-#           break
+# ============================================================
+# 5) Augmented assignment (numbers)
+# ============================================================
 
-#for i in a + b:
-#for i in x * 2:
-#for i in func(3) and cond:
-#    pass
-
-#i = 0
-#while i < 5:
-#    print(i)
-#    i += 1
-from math import sqrt, pow
-
-x = 10
-y = 5
-z = [1, 2, 3]
-
-for i in z:
-    x += i * 2
-    if x > 15:
-        y = y + x
-
-def add(a, b):
-    return a + b
-
-result = add(x, y)
-print(result)
+a = 10 / 0
+b = 10
+b -= 3
+c = 10
+c *= 2
+d = 10
+d /= 5
+e = 10
+e %= 3
+f = 10
+f **= 2
