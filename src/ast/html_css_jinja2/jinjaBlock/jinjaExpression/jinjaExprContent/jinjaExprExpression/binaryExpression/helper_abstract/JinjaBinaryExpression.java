@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.helper_abstract;
+package ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.helper_abstract;
 
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.helper_abstract.JinjaExpression;
 

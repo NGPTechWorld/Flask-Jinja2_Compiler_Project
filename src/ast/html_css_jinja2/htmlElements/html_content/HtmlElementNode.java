@@ -27,24 +27,26 @@ public class HtmlElementNode extends HtmlElementsJinjaBlockTemplate {
 
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" ".repeat(indent))
-                .append("(line ")
-                .append(line)
-                .append(") HtmlElement <")
-                .append(tagName);
+        StringBuilder sb = new StringBuilder(" ".repeat(indent));
+        sb.append("(line ").append(line).append(") HtmlElement <").append(tagName).append("> ");
 
         if (selfClosing) {
-            sb.append("> </No End Tag>");
+            sb.append("</No End Tag>");
         } else {
-            sb.append("> </")
-                    .append(endTagName)
-                    .append(">");
+            sb.append("</").append(endTagName).append(">");
+        }
+
+        // Display attributes
+        for (HtmlAttributeNode attr : attributes) {
+            sb.append("\n").append(attr.toString(indent + 2));
+        }
+
+        // Display children
+        for (BaseNode child : children) {
+            sb.append("\n").append(child.toString(indent + 2));
         }
 
         return sb.toString();
     }
-
-
 
 }

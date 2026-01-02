@@ -11,6 +11,7 @@ public class ASTPrinter2 {
         if (node == null)
             return;
 
+
         System.out.println(node.toString(indent));
 
         if (node instanceof HtmlDocumentRuleNode p) {
@@ -19,16 +20,17 @@ public class ASTPrinter2 {
             }
         }
 
-        else if (node instanceof HtmlElementNode e) {
+        // else if (node instanceof HtmlElementNode e) {
 
-            for (HtmlAttributeNode attr : e.attributes) {
-                print(attr, indent + 2);
-            }
+        //     for (HtmlAttributeNode attr : e.attributes) {
+        //         print(attr, indent + 2);
+        //     }
 
-            for (BaseNode child : e.children) {
-                print(child, indent + 2);
-            }
-        }
+        //     for (BaseNode child : e.children) {
+        //         print(child, indent + 2);
+        //     }
+
+        // }
 
     }
 

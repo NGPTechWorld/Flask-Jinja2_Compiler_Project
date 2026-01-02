@@ -1,7 +1,7 @@
-package ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression;
+package ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression;
 
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.helper_abstract.JinjaExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.helper_abstract.JinjaBinaryExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.helper_abstract.JinjaBinaryExpression;
 
 public class Jinja2AddSubExpression extends JinjaBinaryExpression {
 

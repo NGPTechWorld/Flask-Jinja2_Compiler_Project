@@ -70,26 +70,37 @@ import ast.html_css_jinja2.htmlElements.html_content.HtmlCommentNode;
 import ast.html_css_jinja2.htmlElements.html_content.HtmlElementNode;
 import ast.html_css_jinja2.htmlElements.html_content.HtmlTextNode;
 import ast.html_css_jinja2.jinjaBlock.Jinja2_comment.Jinja2CommentNode;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.JinjaAttributeAccess;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.JinjaCallExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.JinjaIdentifier;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.JinjaListLiteral;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.JinjaLiteral;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.JinjaSubscriptExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.helper_abstract.JinjaExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.Jinja2AddSubExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.Jinja2ComparisonExpressionNode;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.Jinja2IsExpressionNode;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.Jinja2IsNotExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.Jinja2LogicalExpressionNode;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.Jinja2MulDivModExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.binaryExpression.helper_abstract.JinjaBinaryExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.unaryExpression.Jinja2NotExpressionNode;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.unaryExpression.JinjaUnaryExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.JinjaListLiteral;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaExprTrailer.JinjaAttributeAccess;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaExprTrailer.JinjaCallExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaExprTrailer.JinjaSubscriptExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaBooleanLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaDoubleLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaIdentifier;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaIntLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaNullLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaStringLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.helper_abstract.JinjaLiteral;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2AddSubExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2ComparisonExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2IsExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2IsNotExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2LogicalExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2MulDivModExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.helper_abstract.JinjaBinaryExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.unaryExpression.Jinja2NotExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.unaryExpression.JinjaUnaryExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaBodyNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForStatementNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaIfNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.jinjaStmtLiteralAtom.JinjaStmtBooleanLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.jinjaStmtLiteralAtom.JinjaStmtDoubleLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.jinjaStmtLiteralAtom.JinjaStmtIdentifier;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.jinjaStmtLiteralAtom.JinjaStmtIntLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.jinjaStmtLiteralAtom.JinjaStmtNullLiteralExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.jinjaStmtLiteralAtom.JinjaStmtStringLiteralExpression;
 
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
 
@@ -162,17 +173,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                     }
                 }
             }
-            // has null values
-            // for (var child : content.children) {
-            // // TODO: Need Abstraction (htmlCharData | htmlElement | htmlComment
-            // |jinjaBlock)
-            // BaseNode node = (BaseNode) visit(child);
-            // if (node != null) {
-            // element.children.add(node);
-            // }
-            // }
         }
-
         return element;
 
     }
@@ -185,12 +186,18 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlContentRule(HtmlContentRuleContext ctx) {
-        // Here It doesn't need HtmlContentRule
-        // Instead we just need to iterate over it's children
-        for (var child : ctx.children) {
-            visit(child);
+        JinjaBodyNode bodyNode = new JinjaBodyNode(ctx.getStart().getLine());
+
+        if (ctx.children != null) {
+            for (var child : ctx.children) {
+                BaseNode node = visit(child);
+                if (node != null) {
+                    bodyNode.add(node);
+                }
+            }
         }
-        return null;
+
+        return bodyNode;
 
     }
 
@@ -365,32 +372,36 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitJinja2IntLiteral(Jinja2IntLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), ctx.getText());
+        return new JinjaIntLiteralExpression(ctx.getStart().getLine(), Integer.parseInt(ctx.getText()));
     }
 
     @Override
     public BaseNode visitJinja2DoubleLiteral(Jinja2DoubleLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), ctx.getText());
+        return new JinjaDoubleLiteralExpression(ctx.getStart().getLine(), Double.parseDouble(ctx.getText()));
     }
 
     @Override
     public BaseNode visitJinja2TrueLiteral(Jinja2TrueLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), "true");
+        return new JinjaBooleanLiteralExpression(ctx.getStart().getLine(), true);
     }
 
     @Override
     public BaseNode visitJinja2FalseLiteral(Jinja2FalseLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), "false");
+        return new JinjaBooleanLiteralExpression(ctx.getStart().getLine(), false);
     }
 
     @Override
     public BaseNode visitJinja2NullLiteral(Jinja2NullLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), "null");
+        return new JinjaNullLiteralExpression(ctx.getStart().getLine());
     }
 
     @Override
     public BaseNode visitJinja2StringLiteral(Jinja2StringLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), ctx.getText());
+        String text = ctx.getText();
+        if (text.length() >= 2 && (text.startsWith("\"") || text.startsWith("'"))) {
+            text = text.substring(1, text.length() - 1);
+        }
+        return new JinjaStringLiteralExpression(ctx.getStart().getLine(), text);
     }
 
     @Override
@@ -474,7 +485,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // --------------------------------------------------------
     @Override
     public BaseNode visitJinja2ForBlockBody(Jinja2ForBlockBodyContext ctx) {
-        System.out.println("visitJinja2ForBlockBody " + ctx.getStart().getLine());
         int line = ctx.getStart().getLine();
 
         // header
@@ -702,37 +712,42 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // ! LITERALS
     @Override
     public BaseNode visitJinja2StmtIntLiteral(Jinja2StmtIntLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), ctx.getText());
+        return new JinjaStmtIntLiteralExpression(ctx.getStart().getLine(), Integer.parseInt(ctx.getText()));
     }
 
     @Override
     public BaseNode visitJinja2StmtDoubleLiteral(Jinja2StmtDoubleLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), ctx.getText());
+        return new JinjaStmtDoubleLiteralExpression(ctx.getStart().getLine(), Double.parseDouble(ctx.getText()));
     }
 
     @Override
     public BaseNode visitJinja2StmtStringLiteral(Jinja2StmtStringLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), ctx.getText());
+        // Remove quotes from the string
+        String text = ctx.getText();
+        if (text.length() >= 2 && (text.startsWith("\"") || text.startsWith("'"))) {
+            text = text.substring(1, text.length() - 1);
+        }
+        return new JinjaStmtStringLiteralExpression(ctx.getStart().getLine(), text);
     }
 
     @Override
     public BaseNode visitJinja2StmtTrueLiteral(Jinja2StmtTrueLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), "true");
+        return new JinjaStmtBooleanLiteralExpression(ctx.getStart().getLine(), true);
     }
 
     @Override
     public BaseNode visitJinja2StmtFalseLiteral(Jinja2StmtFalseLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), "false");
+        return new JinjaStmtBooleanLiteralExpression(ctx.getStart().getLine(), false);
     }
 
     @Override
     public BaseNode visitJinja2StmtNullLiteral(Jinja2StmtNullLiteralContext ctx) {
-        return new JinjaLiteral(ctx.getStart().getLine(), "null");
+        return new JinjaStmtNullLiteralExpression(ctx.getStart().getLine());
     }
 
     @Override
     public BaseNode visitJinja2StmtIdLiteral(Jinja2StmtIdLiteralContext ctx) {
-        return new JinjaIdentifier(ctx.getStart().getLine(), ctx.getText());
+        return new JinjaStmtIdentifier(ctx.getStart().getLine(), ctx.getText());
     }
 
     // ! Template content (HTML + Jinja mix) important for {% if %} and {% for %}
