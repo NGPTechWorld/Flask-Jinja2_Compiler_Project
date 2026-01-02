@@ -27,10 +27,24 @@ public class HtmlElementNode extends HtmlElementsJinjaBlockTemplate {
 
     @Override
     public String toString(int indent) {
-        String closing = selfClosing ? " /" : "";
-        return " ".repeat(indent)
-                + "(line " + line + (selfClosing ? ") Self Closing <" : ") HtmlElement <")
-                + tagName + closing + ">" + " </" + endTagName + ">";
+        StringBuilder sb = new StringBuilder();
+        sb.append(" ".repeat(indent))
+                .append("(line ")
+                .append(line)
+                .append(") HtmlElement <")
+                .append(tagName);
+
+        if (selfClosing) {
+            sb.append("> </No End Tag>");
+        } else {
+            sb.append("> </")
+                    .append(endTagName)
+                    .append(">");
+        }
+
+        return sb.toString();
     }
+
+
 
 }

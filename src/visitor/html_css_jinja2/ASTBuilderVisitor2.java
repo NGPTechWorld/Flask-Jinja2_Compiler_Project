@@ -30,6 +30,7 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ExpressionsBody
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2FalseLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ForBlockBodyContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ForBlockContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ForStatementContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IdLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IfBlockBodyContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IfBlockContext;
@@ -87,6 +88,7 @@ import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.unaryExpr
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.unaryExpression.JinjaUnaryExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaBodyNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForStatementNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaIfNode;
 
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
@@ -194,8 +196,14 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitHtmlTextData(HtmlTextDataContext ctx) {
-        return new HtmlTextNode(
-                ctx.HTML_TEXT().getText().trim(), ctx.HTML_TEXT().getSymbol().getLine());
+        String text = ctx.getText();
+
+        // Ignore pure whitespace
+        if (text.trim().isEmpty()) {
+            return null;
+        }
+
+        return new HtmlTextNode(text, ctx.getStart().getLine());
     }
 
     // Ignore
@@ -220,12 +228,20 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitHtmlAttributeRule(HtmlAttributeRuleContext ctx) {
         String attrName = ctx.TAG_NAME().getText();
         String attrValue = null;
+
+        // Check if the attribute has a value
         if (ctx.ATTVALUE_VALUE() != null) {
             attrValue = ctx.ATTVALUE_VALUE().getText();
-            attrValue = attrValue.substring(1, attrValue.length() - 1);
+            // Remove quotes from the attribute value
+            if (attrValue.startsWith("\"") || attrValue.startsWith("'")) {
+                attrValue = attrValue.substring(1, attrValue.length() - 1);
+            }
         }
-        return new HtmlAttributeNode(ctx.ATTVALUE_VALUE().getSymbol().getLine(), attrName, attrValue);
 
+        // Use the line number from the attribute name instead of the value
+        int line = ctx.TAG_NAME().getSymbol().getLine();
+
+        return new HtmlAttributeNode(line, attrName, attrValue);
     }
 
     @Override
@@ -457,29 +473,68 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // For
     // --------------------------------------------------------
     @Override
-    public BaseNode visitJinja2ForBlock(Jinja2ForBlockContext ctx) {
+    public BaseNode visitJinja2ForBlockBody(Jinja2ForBlockBodyContext ctx) {
+        System.out.println("visitJinja2ForBlockBody " + ctx.getStart().getLine());
+        int line = ctx.getStart().getLine();
 
-        System.out.println(" visitJinja2ForBlock");
-        return super.visitJinja2ForBlock(ctx);
+        // header
+        JinjaForStatementNode stmt = (JinjaForStatementNode) visit(ctx.jinjaForStatement());
+
+        JinjaForNode node = new JinjaForNode(line);
+
+        // variables
+        node.variables = stmt.variables;
+
+        // iterable
+        node.iterable = stmt.iterable;
+
+        // optional if filter
+        node.ifCondition = stmt.ifCondition;
+
+        // body
+        if (ctx.htmlContent(0) != null && ctx.htmlContent(0).children != null) {
+            for (var child : ctx.htmlContent(0).children) {
+                BaseNode n = visit(child);
+                if (n != null)
+                    node.body.add(n);
+            }
+        }
+
+        // else
+        if (ctx.JINJA2_STMT_ELSE() != null &&
+                ctx.htmlContent(1) != null &&
+                ctx.htmlContent(1).children != null) {
+
+            for (var child : ctx.htmlContent(1).children) {
+                BaseNode n = visit(child);
+                if (n != null)
+                    node.elseBody.add(n);
+            }
+        }
+
+        return node;
+
     }
 
-    // @Override
-    // public BaseNode visitJinja2ForBlockBody(Jinja2ForBlockBodyContext ctx) {
-    // JinjaForNode node = new JinjaForNode(ctx.getStart().getLine());
-    // // ! ERRORS
-    // // node.variable =
-    // ctx.jinjaForStatement().JINJA2_STMT_IDENTIFIER(0).getText();
-    // // node.iterable = (JinjaExpression)
-    // // visit(ctx.jinjaForStatement().jinjaStmtAtomExpression());
+    @Override
+    public BaseNode visitJinja2ForStatement(Jinja2ForStatementContext ctx) {
 
-    // for (var child : ctx.templateContent(0).children) {
-    // BaseNode n = visit(child);
-    // if (n != null)
-    // node.body.add(n);
-    // }
-    // return node;
+        JinjaForStatementNode stmt = new JinjaForStatementNode(ctx.getStart().getLine());
 
-    // }
+        // variables
+        for (var id : ctx.JINJA2_STMT_IDENTIFIER()) {
+            stmt.variables.add(id.getText());
+        }
+
+        // iterable
+        stmt.iterable = (JinjaExpression) visit(ctx.jinjaStmtAtomExpression());
+
+        // optional IF filter
+        if (ctx.jinjaStmtExpression() != null) {
+            stmt.ifCondition = (JinjaExpression) visit(ctx.jinjaStmtExpression());
+        }
+        return stmt;
+    }
 
     // --------------------------------------------------------
     // If

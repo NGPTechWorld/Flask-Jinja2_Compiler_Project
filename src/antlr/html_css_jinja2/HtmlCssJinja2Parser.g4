@@ -31,12 +31,12 @@ TAG_CLOSE (htmlContent TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE)?
 ;
 
 // DOING HtmlContentRule
-htmlContent //! visitChildren()
+htmlContent
 : (htmlCharData | htmlElement | htmlComment | jinjaBlock)*         #HtmlContentRule 
 ;
 
 // DONE htmlAttribute
-htmlAttribute //! ctx.INT().getText()
+htmlAttribute
 : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?                            #HtmlAttributeRule 
 ;
 
@@ -58,20 +58,20 @@ htmlComment
 ;
 
 // DONE jinjaBlock
-//! Jinja2 rules in HTML context
+//! Jinja2 rules
 jinjaBlock
 : JINJA2_COMMENT                                                   #Jinja2Comments
 | jinjaExpression                                                  #Jinja2Expressions
 | jinjaStatement                                                   #Jinja2Statements
 ;
 
-// DOING jinjaExpression
+// DONE jinjaExpression
 // Jinja2 Expressions  
 jinjaExpression
 : JINJA2_OPEN_EXPR jinjaExprContent? JINJA2_CLOSE_EXPR             #Jinja2ExpressionsBody
 ;
 
-// DOING jinjaExprContentNode the list
+// DONE jinjaExprContentNode the list
 jinjaExprContent 
 : jinjaExprExpression jinjaExprExpression*                         #Jinja2ExprContentRule
 ;
@@ -88,12 +88,12 @@ jinjaExprExpression
 | jinjaExprExpression (JINJA2_AND | JINJA2_OR) jinjaExprExpression                                                   #Jinja2LogicalExpression
 ;
 
-// DOING jinjaExprAtomExpression
+// DOING jinjaExprAtomExpression check classes
 jinjaExprAtomExpression 
 : jinjaExprAtom (jinjaExprTrailer)*                                #Jinja2AtomExpressionBody
 ;
 
-// DOING jinjaExprTrailer
+// DOING jinjaExprTrailer check classes
 jinjaExprTrailer
 : JINJA2_LPAREN (jinjaExprArgument (JINJA2_COMMA jinjaExprArgument)*
 JINJA2_COMMA?)? JINJA2_RPAREN                                      #Jinja2CallTrailer
@@ -101,14 +101,14 @@ JINJA2_COMMA?)? JINJA2_RPAREN                                      #Jinja2CallTr
 | JINJA2_DOT JINJA2_IDENTIFIER                                     #Jinja2AttributeTrailer
 ;
 
-// DOING jinjaExprAtom
+// DOING jinjaExprAtom check classes
 jinjaExprAtom
 : JINJA2_LPAREN jinjaExprExpression? JINJA2_RPAREN                 #Jinja2ParenthesizedAtom
 | JINJA2_LSB (jinjaExprExpression (JINJA2_COMMA jinjaExprExpression)*)? JINJA2_RSB #Jinja2ListAtom
 | jinjaExprLiteral                                                 #Jinja2LiteralAtom
 ;
 
-// DOING jinjaExprLiteral 
+// DOING jinjaExprLiteral check classes
 jinjaExprLiteral
 : JINJA2_INT                                                       #Jinja2IntLiteral
 | JINJA2_DOUBLE                                                    #Jinja2DoubleLiteral
@@ -131,20 +131,20 @@ jinjaStatement
 | jinjaIfBlock                                                    #Jinja2IfBlock
 ;
 
-// TODO jinjaForBlock
+// DONE jinjaForBlock
 jinjaForBlock
 : JINJA2_OPEN_STMT jinjaForStatement JINJA2_CLOSE_STMT htmlContent
     (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT htmlContent)?
     JINJA2_OPEN_STMT JINJA2_STMT_ENDFOR JINJA2_CLOSE_STMT         #Jinja2ForBlockBody
 ;
 
-// TODO jinjaForStatement
+// DONE jinjaForStatement
 jinjaForStatement
 : JINJA2_STMT_FOR JINJA2_STMT_IDENTIFIER (JINJA2_STMT_COMMA JINJA2_STMT_IDENTIFIER)* JINJA2_STMT_IN
 jinjaStmtAtomExpression (JINJA2_STMT_IF jinjaStmtExpression)?   #Jinja2ForStatement
 ;
 
-// DOING jinjaIfBlock
+// DONE jinjaIfBlock
 jinjaIfBlock
 : JINJA2_OPEN_STMT JINJA2_STMT_IF jinjaStmtExpression JINJA2_CLOSE_STMT htmlContent
 (JINJA2_OPEN_STMT JINJA2_STMT_ELIF jinjaStmtExpression JINJA2_CLOSE_STMT htmlContent)*
@@ -152,8 +152,8 @@ jinjaIfBlock
 JINJA2_OPEN_STMT JINJA2_STMT_ENDIF JINJA2_CLOSE_STMT          #Jinja2IfBlockBody
 ;
 
-// TODO jinjaStmtExpression
-jinjaStmtExpression //! VisitChildren(ctx)
+// DOING jinjaStmtExpression check classes
+jinjaStmtExpression
 : jinjaStmtExpression JINJA2_STMT_IS jinjaStmtExpression                                                                                           #Jinja2StmtIsExpression
 | jinjaStmtExpression JINJA2_STMT_ISNOT jinjaStmtExpression                                                                                        #Jinja2StmtIsNotExpression
 | jinjaStmtExpression (JINJA2_STMT_EQ | JINJA2_STMT_NEQ | JINJA2_STMT_LT | JINJA2_STMT_LTE | JINJA2_STMT_GT | JINJA2_STMT_GTE) jinjaStmtExpression #Jinja2StmtComparisonExpression
@@ -164,29 +164,29 @@ jinjaStmtExpression //! VisitChildren(ctx)
 | jinjaStmtAtomExpression                                                                                                                          #Jinja2StmtAtomExpression
 ;
 
-// TODO jinjaStmtAtomExpression
+// DOING jinjaStmtAtomExpression check classes
 jinjaStmtAtomExpression
 : jinjaStmtAtom (jinjaStmtTrailer)*                               #Jinja2StmtAtomExpressionBody
 ;
 
-// TODO jinjaStmtTrailer
-jinjaStmtTrailer //! VisitChildren(ctx)
+// DOING jinjaStmtTrailer check classes
+jinjaStmtTrailer
 : JINJA2_STMT_LPAREN (jinjaStmtArgument (JINJA2_STMT_COMMA jinjaStmtArgument)*
 JINJA2_STMT_COMMA?)? JINJA2_STMT_RPAREN #Jinja2StmtCallTrailer
 | JINJA2_STMT_LSB jinjaStmtExpression JINJA2_STMT_RSB             #Jinja2StmtSubscriptTrailer
 | JINJA2_STMT_DOT JINJA2_STMT_IDENTIFIER                          #Jinja2StmtAttributeTrailer
 ;
 
-// TODO jinjaStmtAtom
-jinjaStmtAtom //! VisitChildren(ctx)
+// DOING jinjaStmtAtom check classes
+jinjaStmtAtom 
 : JINJA2_STMT_LPAREN jinjaStmtExpression? JINJA2_STMT_RPAREN      #Jinja2StmtParenthesizedAtom
 | JINJA2_STMT_LSB (jinjaStmtExpression
 (JINJA2_STMT_COMMA jinjaStmtExpression)*)? JINJA2_STMT_RSB        #Jinja2StmtListAtom
 | jinjaStmtLiteral                                                #Jinja2StmtLiteralAtom
 ;
 
-// TODO jinjaStmtLiteral
-jinjaStmtLiteral //! VisitChildren(ctx) + ctx.INT().getText()
+// DOING jinjaStmtLiteral check classes
+jinjaStmtLiteral 
 : JINJA2_STMT_INT                                                 #Jinja2StmtIntLiteral
 | JINJA2_STMT_DOUBLE                                              #Jinja2StmtDoubleLiteral
 | JINJA2_STMT_STRING                                              #Jinja2StmtStringLiteral
@@ -196,7 +196,7 @@ jinjaStmtLiteral //! VisitChildren(ctx) + ctx.INT().getText()
 | JINJA2_STMT_IDENTIFIER                                          #Jinja2StmtIdLiteral
 ;
 
-// TODO jinjaStmtArgument
+// DOING jinjaStmtArgument check classes
 jinjaStmtArgument
 : (JINJA2_STMT_IDENTIFIER JINJA2_STMT_EQUAL)? jinjaStmtExpression #Jinja2StmtFunctionArg
 ;
