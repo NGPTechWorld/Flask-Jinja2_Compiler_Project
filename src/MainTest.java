@@ -13,6 +13,7 @@ import visitor.html_css_jinja2.ASTBuilderVisitor2;
 import visitor.html_css_jinja2.ASTPrinter2;
 import visitor.python_flask.ASTBuilderVisitor;
 import visitor.python_flask.ASTPrinter;
+import visitor.python_flask.SymbolVisitor;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -126,6 +127,11 @@ public class MainTest {
         ProgramNode ast = (ProgramNode) visitor.visit(tree);
         System.out.println("=== AST (JSON STYLE) ===");
         ASTPrinter.print(ast, 0);
+
+        SymbolVisitor symbolVisitor = new SymbolVisitor();
+        symbolVisitor.visitProgram(ast);
+        System.out.println("\n=== Symbol Table ===");
+        symbolVisitor.printSymbols();
     }
 
     public static void runANTLR_HTML_CSS_JINJA2_AST() throws Exception {
