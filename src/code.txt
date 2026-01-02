@@ -1,15 +1,27 @@
 # ============================================================
-# 5) Augmented assignment (numbers)
+# IfStatement tests
 # ============================================================
 
-a = 10 / 0
-b = 10
-b -= 3
-c = 10
-c *= 2
-d = 10
-d /= 5
-e = 10
-e %= 3
-f = 10
-f **= 2
+value = 6
+if value > 5:
+    r1 = "if"
+elif value == 5:
+    r1 = "elif"
+else:
+    r1 = "else"
+
+value = 5
+if value > 5:
+    r2 = "if"
+elif value == 5:
+    r2 = "elif"
+else:
+    r2 = "else"
+
+value = 4
+if value > 5:
+    r3 = "if"
+elif value == 5:
+    r3 = "elif"
+else:
+    r3 = "else"

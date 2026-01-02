@@ -2,6 +2,8 @@ package visitor.python_flask;
 
 import javax.management.OperationsException;
 
+import org.antlr.v4.runtime.atn.ATN;
+
 import Symbol_table.Symbol;
 import Symbol_table.SymbolTable;
 import antlr.python_flask.generated.PythonParserBaseVisitor;
@@ -50,6 +52,7 @@ import ast.python_flask.simple_statement.expression_stat.atom.LiteralAtomNode;
 import ast.python_flask.simple_statement.expression_stat.atom.ParenAtomNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.AddSubExpressionNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.AtomExpressionNode;
+import ast.python_flask.simple_statement.expression_stat.expressions.ComparisonExpressionNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.IsExpressionNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.MulDivModExpressionNode;
 import ast.python_flask.simple_statement.expression_stat.expressions.PowerExpressionNode;
@@ -96,14 +99,13 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         else if (stmt instanceof ForStatementNode f) {
             visitFor(f);
-        } 
-        else if (stmt instanceof WhileStatementNode w) {
+        }
+         else if (stmt instanceof WhileStatementNode w) {
             visitWhile(w);
         }
          else if (stmt instanceof IfStatementNode i) {
             visitIf(i);
         }
-
         else if (stmt instanceof ImportStatementNode imp) {
             visitImport(imp);
         }
@@ -203,7 +205,6 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
     // Assignment
     // ============================================================
     private void visitAssignment(AssignmentStatementNode a) {
-
         switch (a.operator.getOp()) {
             case "=":
                 handleAssing(a);
@@ -233,9 +234,12 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         Object literalValue = null;
         int count = 0;
+
         for (TargetNode t : a.targets) {
+
             if (a.targets.size() == a.values.size()) {
                 literalValue = extractLiteralValue(a.values.get(count++));
+                
             } else {
                 literalValue = null;
             }
@@ -398,11 +402,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                         double leftNum = ((Number) oldVal).doubleValue();
                         double rightNum = ((Number) newVal).doubleValue();
                         double dev = leftNum / rightNum;
-                        if (leftNum % rightNum == 0)
-                            result = (int) dev;
-                        else
-                            result = dev;
-                        
+                        result = dev;
                     }
 
                     if (result != null) {
@@ -509,7 +509,6 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     double result = add.operator.equals("+")
                             ? leftNum + rightNum
                             : leftNum - rightNum;
-
                     if (L instanceof Integer && R instanceof Integer) {
                         return (int) Math.round(result);
                     } else if (L instanceof Double || R instanceof Double) {
@@ -519,7 +518,6 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     } else if (L instanceof Long || R instanceof Long) {
                         return (long) result;
                     }
-
                     return result;
                 }
             }
@@ -548,14 +546,29 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     switch (mul.operator) {
                         case "*":
                             result = left * right;
+                            if (L instanceof Integer && R instanceof Integer) {
+                                return (int) Math.round(result);
+                            } else if (L instanceof Float || R instanceof Float) {
+                                return (float) result;
+                            } else if (L instanceof Long || R instanceof Long) {
+                                return (long) result;
+                            }
+                            break;
+                        case "%":
+                            result = left % right;
+                            if (L instanceof Integer && R instanceof Integer) {
+                                return (int) Math.round(result);
+                            } else if (L instanceof Float || R instanceof Float) {
+                                return (float) result;
+                            } else if (L instanceof Long || R instanceof Long) {
+                                return (long) result;
+                            }
                             break;
                         case "/":
                             result = left / right;
                             break;
-                        case "%":
-                            result = left % right;
-                            break;
                     }
+                    
 
                     return result;
                 }
@@ -613,6 +626,12 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
             // Null
             if (lit.literal instanceof NullLiteralExpression n) {
                 return null;
+            }
+        }
+
+        if (expr instanceof ParenAtomNode par) {
+            if (par.expressions.size() != 0) {
+                return extractLiteralValue(par.expressions.get(0));
             }
         }
 
@@ -683,26 +702,24 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
         table.pushScope("function " + f.name.name);
 
         boolean can_set_dv = true;
-        for (int i = f.parameters.size() - 1; i >=0; i-- ) {
+        for (int i = f.parameters.size() - 1; i >= 0; i--) {
             ParamNode p = f.parameters.get(i);
             // Normal parameter
             if (p instanceof NormalParamNode np) {
-                if(np.defaultValue != null && can_set_dv) {
-                table.define(new Symbol(
-                        np.name.name,
-                        "parameter",
-                        np.line,
-                        extractLiteralValue(np.defaultValue)));
+                if (np.defaultValue != null && can_set_dv) {
+                    table.define(new Symbol(
+                            np.name.name,
+                            "parameter",
+                            np.line,
+                            extractLiteralValue(np.defaultValue)));
+                } else {
+                    table.define(new Symbol(
+                            np.name.name,
+                            "parameter",
+                            np.line));
+                    can_set_dv = false;
+                }
             }
-            else {
-                table.define(new Symbol(
-                    np.name.name,
-                    "parameter",
-                    np.line
-                ));
-                can_set_dv = false;
-            }
-        }
 
             // *args
             else if (p instanceof VarArgParamNode vp) {
@@ -800,16 +817,20 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
 
     private void visitIf(IfStatementNode i) {
 
-        visitExpression(i.ifCondition);
+        if (checkCondition(i.ifCondition)) {
+            visitBody(i.bodyIf);
+            return;
+        }
+        else {
+            for (var pair : i.elseIfStat) {
+                ExpressionNode cond = pair.a;
+                BodyNode body = pair.b;
 
-        visitBody(i.bodyIf);
-
-        for (var pair : i.elseIfStat) {
-            ExpressionNode cond = pair.a;
-            BodyNode body = pair.b;
-
-            visitExpression(cond); 
-            visitBody(body); 
+                if (checkCondition(cond)){
+                    visitBody(body);
+                    return;
+                } 
+            }
         }
 
         if (i.bodyElse != null) {
@@ -817,66 +838,139 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
         }
     }
 
-    private void visitImport(ImportStatementNode imp) {
+    private boolean checkCondition(ExpressionNode expr) {
+
+        if (expr instanceof ComparisonExpressionNode cmp) {
     
+            Object L = extractLiteralValue(cmp.left);
+            Object R = extractLiteralValue(cmp.right);
+    
+            if (L == null || R == null)
+                return false;
+    
+            if (isNumber(L) && isNumber(R)) {
+    
+                double left = toDouble(L);
+                double right = toDouble(R);
+    
+                return switch (cmp.operator) {
+                    case ">"  -> left > right;
+                    case "<"  -> left < right;
+                    case ">=" -> left >= right;
+                    case "<=" -> left <= right;
+                    case "==" -> left == right;
+                    case "!=" -> left != right;
+                    default   -> false;
+                };
+            }
+    
+            if (L instanceof String && R instanceof String) {
+    
+                String left = (String) L;
+                String right = (String) R;
+    
+                return switch (cmp.operator) {
+                    case "==" -> left.equals(right);
+                    case "!=" -> !left.equals(right);
+                    default   -> false; 
+                };
+            }
+    
+            return false;
+        }
+    
+        return false;
+    }
+
+    private boolean isNumber(Object o) {
+        if (o instanceof Integer || o instanceof Double)
+            return true;
+    
+        if (o instanceof String s) {
+            try {
+                Double.parseDouble(s);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+    
+        return false;
+    }
+    
+
+    private double toDouble(Object o) {
+        if (o instanceof Integer i)
+            return i.doubleValue();
+    
+        if (o instanceof Double d)
+            return d;
+    
+        if (o instanceof String s)
+            return Double.parseDouble(s);
+    
+        throw new RuntimeException("Not a number: " + o);
+    }
+    
+    
+    
+
+    private void visitImport(ImportStatementNode imp) {
+
         // 1) إذا كان import عادي (بدون from)
         if (imp.fromModule == null) {
-            
+
             for (ImportItem item : imp.items) {
-                
+
                 // import module
                 if (item.idRight == null) {
                     table.define(new Symbol(
-                        item.idLeft,
-                        "module",
-                        item.line
-                    ));
+                            item.idLeft,
+                            "module",
+                            item.line));
                 }
-                
+
                 // import module as alias
                 else {
                     table.define(new Symbol(
-                        item.idRight, // alias
-                        "module",
-                        item.line
-                    ));
+                            item.idRight, // alias
+                            "module",
+                            item.line));
                 }
             }
         }
-        
+
         // 2) from module import ...
         else {
-            
+
             // زيارة اسم الموديول (resolve فقط)
             for (String part : imp.fromModule.parts) {
                 table.resolve(part);
             }
-            
+
             for (ImportItem item : imp.items) {
-                
+
                 // from X import name
                 if (item.idRight == null) {
                     table.define(new Symbol(
-                        item.idLeft,
-                        "import",
-                        item.line
-                    ));
+                            item.idLeft,
+                            "import",
+                            item.line));
                 }
-                
+
                 // from X import name as alias
                 else {
                     table.define(new Symbol(
-                        item.idRight, // alias
-                        "import",
-                        item.line
-                    ));
+                            item.idRight, // alias
+                            "import",
+                            item.line));
                 }
             }
         }
     }
-    
+
     private void visitGlobal(GlobalStatementNode g) {
-        
+
         for (String name : g.names) {
             table.resolve(name); // يشير إلى أن الاسم global
         }
