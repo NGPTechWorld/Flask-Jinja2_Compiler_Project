@@ -108,7 +108,7 @@ jinjaExprAtom
 | jinjaExprLiteral                                                 #Jinja2LiteralAtom
 ;
 
-// DOING jinjaExprLiteral check classes
+// DONE jinjaExprLiteral
 jinjaExprLiteral
 : JINJA2_INT                                                       #Jinja2IntLiteral
 | JINJA2_DOUBLE                                                    #Jinja2DoubleLiteral
@@ -185,7 +185,7 @@ jinjaStmtAtom
 | jinjaStmtLiteral                                                #Jinja2StmtLiteralAtom
 ;
 
-// DOING jinjaStmtLiteral check classes
+// DONE jinjaStmtLiteral
 jinjaStmtLiteral 
 : JINJA2_STMT_INT                                                 #Jinja2StmtIntLiteral
 | JINJA2_STMT_DOUBLE                                              #Jinja2StmtDoubleLiteral
@@ -207,17 +207,17 @@ jinjaStmtArgument
 // ;
 
 //! CSS rules
-// TODO style
+// TODO style IMPORTANT
 style
 : STYLE_OPEN stylesheet STYLE_CLOSE                              #StyleBody
 ;
 
-// TODO stylesheet
+// TODO stylesheet IMPORTANT
 stylesheet
 : ws (imports ws)* (nestedStatement ws)*                         #CssStylesheet
 ;
 
-// TODO imports
+// TODO imports IMPORTANT
 imports
 : Import ws (String_ | url) ws mediaQueryList SemiColon ws       #CssImportWithMediaQueryAndSemicolon
 | Import ws (String_ | url) ws SemiColon ws                      #CssImportWithSemicolon
