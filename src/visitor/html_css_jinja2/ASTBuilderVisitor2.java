@@ -482,7 +482,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // }
 
     // --------------------------------------------------------
-    // if
+    // If
     // --------------------------------------------------------
 
     @Override
@@ -560,7 +560,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitJinja2StmtLogicalExpression(Jinja2StmtLogicalExpressionContext ctx) {
         // ! should be for stmt not expression
 
-        return new JinjaBinaryExpression("visitJinja2StmtLogicalExpression ",
+        return new JinjaBinaryExpression("Jinja2StmtLogicalExpression ",
                 ctx.getStart().getLine(),
                 ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
@@ -572,7 +572,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitJinja2StmtAddSubExpression(Jinja2StmtAddSubExpressionContext ctx) {
         // ! should be for stmt not expression
 
-        return new JinjaBinaryExpression("visitJinja2StmtAddSubExpression ",
+        return new JinjaBinaryExpression("Jinja2StmtAddSubExpression ",
                 ctx.getStart().getLine(),
                 ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
@@ -585,7 +585,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitJinja2StmtMulDivModExpression(Jinja2StmtMulDivModExpressionContext ctx) {
         // ! should be for stmt not expression
 
-        return new JinjaBinaryExpression("visitJinja2StmtMulDivModExpression ",
+        return new JinjaBinaryExpression("Jinja2StmtMulDivModExpression ",
                 ctx.getStart().getLine(),
                 ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
