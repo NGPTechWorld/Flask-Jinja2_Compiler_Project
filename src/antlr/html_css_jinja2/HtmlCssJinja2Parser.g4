@@ -133,10 +133,10 @@ jinjaStatement
 
 // DONE jinjaForBlock
 jinjaForBlock
-    : JINJA2_OPEN_STMT jinjaForStatement JINJA2_CLOSE_STMT templateContent
-       (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT templateContent)?
-        JINJA2_OPEN_STMT JINJA2_STMT_ENDFOR JINJA2_CLOSE_STMT         #Jinja2ForBlockBody
-    ;
+: JINJA2_OPEN_STMT jinjaForStatement JINJA2_CLOSE_STMT htmlContent
+    (JINJA2_OPEN_STMT JINJA2_STMT_ELSE JINJA2_CLOSE_STMT htmlContent)?
+    JINJA2_OPEN_STMT JINJA2_STMT_ENDFOR JINJA2_CLOSE_STMT         #Jinja2ForBlockBody
+;
 
 // DONE jinjaForStatement
 jinjaForStatement
@@ -207,12 +207,12 @@ jinjaStmtArgument
 // ;
 
 //! CSS rules
-// DOING style IMPORTANT
+// TODO style IMPORTANT
 style
 : STYLE_OPEN stylesheet STYLE_CLOSE                              #StyleBody
 ;
 
-// DOING stylesheet IMPORTANT
+// TODO stylesheet IMPORTANT
 stylesheet
 : ws (imports ws)* (nestedStatement ws)*                         #CssStylesheet
 ;
@@ -318,7 +318,7 @@ property_
 | Variable ws                                                    #CssVarProperty
 ;
 
-// DOING ruleset
+// TODO ruleset
 ruleset
 : selectorGroup '{' ws declarationList? '}' ws                   #CssRulesetDefinition
 ;
@@ -367,7 +367,7 @@ dimension
 : (Plus | Minus)? Dimension                                      #CssDimensionExpression
 ;
 
-// DOING nestedStatement
+// TODO nestedStatement
 nestedStatement
 : ruleset                                                        #CssRuleset
 | media                                                          #CssMediaQueries
