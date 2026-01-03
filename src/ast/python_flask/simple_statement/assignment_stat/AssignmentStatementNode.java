@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ast.python_flask.StatementNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
+import ast.python_flask.expressions_roles.ExpressionNode;
+import ast.python_flask.expressions_roles.target.TargetNode;
 
 public class AssignmentStatementNode extends StatementNode {
     public List<TargetNode> targets = new ArrayList<>();

@@ -1,6 +1,6 @@
 package ast.python_flask.compound_statement.function_defintion.param;
 
-import ast.python_flask.literal.IdentifierExpression;
+import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 
 public class VarArgParamNode extends ParamNode {
     public IdentifierExpression name;

@@ -26,8 +26,8 @@ public class MainTest {
         // });
         runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
-        // runPythonAndFlaskAST();
-        runANTLR_HTML_CSS_JINJA2_AST();
+        runPythonAndFlaskAST();
+        // runANTLR_HTML_CSS_JINJA2_AST();
     }
 
     public static void runPythonAndFlask() throws Exception {

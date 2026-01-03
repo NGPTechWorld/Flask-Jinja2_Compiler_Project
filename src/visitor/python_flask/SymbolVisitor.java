@@ -9,10 +9,12 @@ import Symbol_table.SymbolTable;
 import antlr.python_flask.generated.PythonParserBaseVisitor;
 import antlr.python_flask.generated.PythonParser.DoubleLiteralContext;
 import ast.BaseNode;
+import ast.python_flask.BodyNode;
 import ast.python_flask.ProgramNode;
 import ast.python_flask.StatementNode;
-import ast.python_flask.argument.ArgumentNode;
-import ast.python_flask.compound_statement.BodyNode;
+import ast.python_flask.expressions_roles.*;
+import ast.python_flask.expressions_roles.atom.*;
+import ast.python_flask.expressions_roles.trailer.*;
 import ast.python_flask.compound_statement.ClassDefintionNode;
 import ast.python_flask.compound_statement.ForStatementNode;
 import ast.python_flask.compound_statement.IfStatementNode;
@@ -23,43 +25,17 @@ import ast.python_flask.compound_statement.function_defintion.param.KwVarArgPara
 import ast.python_flask.compound_statement.function_defintion.param.NormalParamNode;
 import ast.python_flask.compound_statement.function_defintion.param.ParamNode;
 import ast.python_flask.compound_statement.function_defintion.param.VarArgParamNode;
-import ast.python_flask.literal.BooleanLiteralExpression;
-import ast.python_flask.literal.DoubleLiteralExpression;
-import ast.python_flask.literal.FStringLiteralExpression;
-import ast.python_flask.literal.IdentifierExpression;
-import ast.python_flask.literal.IntLiteralExpression;
-import ast.python_flask.literal.NullLiteralExpression;
-import ast.python_flask.literal.StringLiteralExpression;
+import ast.python_flask.expressions_roles.literal.*;
 import ast.python_flask.simple_statement.BreakStatementNode;
 import ast.python_flask.simple_statement.ContinueStatementNode;
+import ast.python_flask.simple_statement.ExpressionStatementNode;
 import ast.python_flask.simple_statement.GlobalStatementNode;
 import ast.python_flask.simple_statement.PassStatementNode;
 import ast.python_flask.simple_statement.ReturnStatementNode;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
-import ast.python_flask.simple_statement.assignment_stat.TargetNode;
-import ast.python_flask.simple_statement.assignment_stat.target.AttributeTargetNode;
-import ast.python_flask.simple_statement.assignment_stat.target.SubscriptTargetNode;
-import ast.python_flask.simple_statement.assignment_stat.target.VarTargetNode;
-import ast.python_flask.simple_statement.expression_stat.BinaryExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionStatementNode;
-import ast.python_flask.simple_statement.expression_stat.UnaryExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.atom.AtomNode;
-import ast.python_flask.simple_statement.expression_stat.atom.DictAtomNode;
-import ast.python_flask.simple_statement.expression_stat.atom.ListAtomNode;
-import ast.python_flask.simple_statement.expression_stat.atom.LiteralAtomNode;
-import ast.python_flask.simple_statement.expression_stat.atom.ParenAtomNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.AddSubExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.AtomExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.ComparisonExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.IsExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.MulDivModExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.expressions.PowerExpressionNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.AttributeTrailerNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.CallTrailerNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.SubscriptTrailerNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.TrailerNode;
+import ast.python_flask.expressions_roles.operators.*;
+import ast.python_flask.expressions_roles.target.*;
 import ast.python_flask.simple_statement.import_stat.ImportItem;
 import ast.python_flask.simple_statement.import_stat.ImportStatementNode;
 
@@ -691,7 +667,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
     private void visitFunctionDef(FunctionDefNode f) {
 
         table.define(new Symbol(
-                f.name.name,
+                f.nameFun.name,
                 "function",
                 f.line,
                 extractReturnType(f.returnType)));
@@ -699,7 +675,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
             visitDecorator(d);
         }
 
-        table.pushScope("function " + f.name.name);
+        table.pushScope("function " + f.nameFun.name);
 
         boolean can_set_dv = true;
         for (int i = f.parameters.size() - 1; i >= 0; i--) {

@@ -3,9 +3,10 @@ package ast.python_flask.compound_statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ast.python_flask.BodyNode;
 import ast.python_flask.StatementNode;
-import ast.python_flask.literal.IdentifierExpression;
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
+import ast.python_flask.expressions_roles.ExpressionNode;
+import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 
 public class ClassDefintionNode extends StatementNode {
     public IdentifierExpression nameClass;

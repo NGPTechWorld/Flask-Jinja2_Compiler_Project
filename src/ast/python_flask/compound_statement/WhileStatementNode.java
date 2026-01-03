@@ -1,7 +1,8 @@
 package ast.python_flask.compound_statement;
 
+import ast.python_flask.BodyNode;
 import ast.python_flask.StatementNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
+import ast.python_flask.expressions_roles.ExpressionNode;
 
 public class WhileStatementNode extends StatementNode{
     public ExpressionNode iterable;

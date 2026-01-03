@@ -3,16 +3,16 @@ package ast.python_flask.compound_statement.function_defintion;
 import java.util.ArrayList;
 import java.util.List;
 
+import ast.python_flask.BodyNode;
 import ast.python_flask.StatementNode;
-import ast.python_flask.compound_statement.BodyNode;
 import ast.python_flask.compound_statement.function_defintion.param.ParamNode;
-import ast.python_flask.simple_statement.expression_stat.ExpressionNode;
-import ast.python_flask.literal.IdentifierExpression;
+import ast.python_flask.expressions_roles.ExpressionNode;
+import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 
 public class FunctionDefNode extends StatementNode {
 
     public List<DecoratorNode> decorators = new ArrayList<>();
-    public IdentifierExpression name;
+    public IdentifierExpression nameFun;
     public List<ParamNode> parameters = new ArrayList<>();
     public ExpressionNode returnType; // optional
     public BodyNode body;
@@ -32,7 +32,7 @@ public class FunctionDefNode extends StatementNode {
         }
 
         sb.append("\n").append(" ".repeat(indent + 2)).append("Name:");
-        sb.append("\n").append(name.toString(indent + 4));
+        sb.append("\n").append(nameFun.toString(indent + 4));
         if (!parameters.isEmpty()) {
             sb.append("\n").append(" ".repeat(indent + 2)).append("Params:");
             for (var p : parameters)

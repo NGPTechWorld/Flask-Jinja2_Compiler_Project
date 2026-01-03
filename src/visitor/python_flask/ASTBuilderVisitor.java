@@ -9,8 +9,6 @@ import antlr.python_flask.generated.*;
 import antlr.python_flask.generated.PythonParser.*;
 import ast.BaseNode;
 import ast.python_flask.*;
-import ast.python_flask.argument.ArgumentNode;
-import ast.python_flask.compound_statement.BodyNode;
 import ast.python_flask.compound_statement.ClassDefintionNode;
 import ast.python_flask.compound_statement.ForStatementNode;
 import ast.python_flask.compound_statement.IfStatementNode;
@@ -21,25 +19,24 @@ import ast.python_flask.compound_statement.function_defintion.param.KwVarArgPara
 import ast.python_flask.compound_statement.function_defintion.param.NormalParamNode;
 import ast.python_flask.compound_statement.function_defintion.param.ParamNode;
 import ast.python_flask.compound_statement.function_defintion.param.VarArgParamNode;
-import ast.python_flask.literal.*;
+import ast.python_flask.expressions_roles.*;
+import ast.python_flask.expressions_roles.atom.*;
+import ast.python_flask.expressions_roles.literal.*;
+import ast.python_flask.expressions_roles.operators.*;
+import ast.python_flask.expressions_roles.target.AttributeTargetNode;
+import ast.python_flask.expressions_roles.target.SubscriptTargetNode;
+import ast.python_flask.expressions_roles.target.TargetNode;
+import ast.python_flask.expressions_roles.target.VarTargetNode;
+import ast.python_flask.expressions_roles.trailer.AttributeTrailerNode;
+import ast.python_flask.expressions_roles.trailer.CallTrailerNode;
+import ast.python_flask.expressions_roles.trailer.SubscriptTrailerNode;
+import ast.python_flask.expressions_roles.trailer.TrailerNode;
 import ast.python_flask.simple_statement.*;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentOperator;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
-import ast.python_flask.simple_statement.assignment_stat.TargetNode;
-import ast.python_flask.simple_statement.assignment_stat.target.AttributeTargetNode;
-import ast.python_flask.simple_statement.assignment_stat.target.SubscriptTargetNode;
-import ast.python_flask.simple_statement.assignment_stat.target.VarTargetNode;
-import ast.python_flask.simple_statement.expression_stat.*;
-import ast.python_flask.simple_statement.expression_stat.atom.*;
-import ast.python_flask.simple_statement.expression_stat.expressions.*;
-import ast.python_flask.simple_statement.expression_stat.trailer.AttributeTrailerNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.CallTrailerNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.SubscriptTrailerNode;
-import ast.python_flask.simple_statement.expression_stat.trailer.TrailerNode;
 import ast.python_flask.simple_statement.import_stat.*;
 
 public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
-
     // ============================================================
     // Program
     // ============================================================
@@ -101,7 +98,6 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
     @Override
     public BaseNode visitIfStatement(IfStatementContext ctx) {
         int line = ctx.getStart().getLine();
-
         ExpressionNode ifCondition = (ExpressionNode) visit(ctx.expression(0));
         BodyNode bodyIf = (BodyNode) visit(ctx.body(0));
 
@@ -165,7 +161,7 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
                 node.decorators.add((DecoratorNode) visit(dec));
             }
         }
-        node.name = new IdentifierExpression(
+        node.nameFun = new IdentifierExpression(
                 ctx.IDENTIFIER().getSymbol().getLine(),
                 ctx.IDENTIFIER().getText());
         if (ctx.parameters() != null) {
