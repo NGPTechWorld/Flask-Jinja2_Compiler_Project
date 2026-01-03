@@ -75,6 +75,8 @@ import ast.html_css_jinja2.css.stylesheet.imports.CssImportNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.helper_abstract.CssNestedStatement;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.CssRulesetNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.CssDeclarationListNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.CssExpressionNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.helper_abstract.CssTermNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SelectorGroupNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SelectorNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SimpleSelectorSequenceNode;
@@ -812,7 +814,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 stylesheet.addStatement(statementNode);
             }
         }
-        
 
         return stylesheet;
     }
@@ -857,51 +858,189 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitCssSelectorGroup(CssSelectorGroupContext ctx) {
         int line = ctx.getStart().getLine();
-        SimpleSelectorSequenceNode firstSeq = (SimpleSelectorSequenceNode) visit(ctx.simpleSelectorSequence(0));
+
+        // Add null check for the first sequence
+        SimpleSelectorSequenceNode firstSeq = null;
+        if (ctx.simpleSelectorSequence(0) != null) {
+            firstSeq = (SimpleSelectorSequenceNode) visit(ctx.simpleSelectorSequence(0));
+        }
+
         SelectorNode selector = new SelectorNode(line, firstSeq);
 
         // Handle subsequent sequences with combinators
         for (int i = 0; i < ctx.combinator().size(); i++) {
             String combinator = ctx.combinator(i).getText(); // ">", "+", "~", or a space
-            SimpleSelectorSequenceNode nextSeq = (SimpleSelectorSequenceNode) visit(ctx.simpleSelectorSequence(i + 1));
-            selector.addCombinatorAndSequence(combinator, nextSeq);
 
+            // Add null check for the next sequence
+            SimpleSelectorSequenceNode nextSeq = null;
+            if (ctx.simpleSelectorSequence(i + 1) != null) {
+                nextSeq = (SimpleSelectorSequenceNode) visit(ctx.simpleSelectorSequence(i + 1));
+            }
+
+            if (nextSeq != null) {
+                selector.addCombinatorAndSequence(combinator, nextSeq);
+            }
         }
         return selector;
     }
 
-    // FIX Null Problem
+    @Override
+    public BaseNode visitCssCompoundSelectorWithType(CssCompoundSelectorWithTypeContext ctx) {
+        int line = ctx.getStart().getLine();
+
+        // 1. Visit the type selector (e.g., 'div', 'h1') - add null check
+        TypeSelectorNode typeSelector = null;
+        if (ctx.typeSelector() != null) {
+            typeSelector = (TypeSelectorNode) visit(ctx.typeSelector());
+        }
+
+        // 2. Create the main node for this sequence
+        SimpleSelectorSequenceNode sequence = new SimpleSelectorSequenceNode(line, typeSelector);
+
+        // 3. Process and add ID selectors (e.g., '#my-id')
+        for (var compCtx : ctx.Hash()) {
+            String id = compCtx.getText().substring(1); // Remove the '#'
+            sequence.addComponent(new CssIdSelectorNode(compCtx.getSymbol().getLine(), id));
+        }
+
+        // 4. Process and add class selectors (e.g., '.my-class')
+        for (var compCtx : ctx.className()) {
+            sequence.addComponent((CssClassSelectorNode) visit(compCtx));
+        }
+
+        // 5. Process and add pseudo-selectors (e.g., ':hover', '::before')
+        for (var compCtx : ctx.pseudo()) {
+            sequence.addComponent((CssPseudoSelectorNode) visit(compCtx));
+        }
+
+        return sequence;
+    }
+
+    // Add missing visitor method for type selector
+    @Override
+    public BaseNode visitCssElementTypeSelector(HtmlCssJinja2Parser.CssElementTypeSelectorContext ctx) {
+        String namespacePrefix = null;
+        if (ctx.typeNamespacePrefix() != null) {
+            namespacePrefix = ctx.typeNamespacePrefix().getText();
+        }
+        return new TypeSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine(), namespacePrefix);
+    }
+
+    // Add missing visitor method for pseudo selector
+    // Add missing visitor method for pseudo selector
     // @Override
     // public BaseNode
-    // visitCssCompoundSelectorWithType(CssCompoundSelectorWithTypeContext ctx) {
-    // int line = ctx.getStart().getLine();
+    // visitCssPseudoClassOrElement(HtmlCssJinja2Parser.CssPseudoClassOrElementContext
+    // ctx) {
+    // boolean isElement = ctx.getChild(1).getText().equals(":");
+    // String name = "";
+    // CssExpressionNode expression = null;
 
-    // // 1. Visit the type selector (e.g., 'div', 'h1')
-    // TypeSelectorNode typeSelector = (TypeSelectorNode) visit(ctx.typeSelector());
+    // // Check if it's a simple pseudo selector (like :hover, ::before)
+    // if (ctx.cssIdent() != null) {
+    // name = ctx.cssIdent().getText();
+    // }
+    // // Check if it's a functional pseudo selector (like :nth-child(2n+1))
+    // else if (ctx.getChildCount() > 2 && ctx.getChild(2) instanceof
+    // HtmlCssJinja2Parser.CssFunctionalPseudoContext) {
+    // HtmlCssJinja2Parser.CssFunctionalPseudoContext funcCtx =
+    // (HtmlCssJinja2Parser.CssFunctionalPseudoContext) ctx
+    // .getChild(2);
 
-    // // 2. Create the main node for this sequence
-    // SimpleSelectorSequenceNode sequence = new SimpleSelectorSequenceNode(line,
-    // typeSelector);
-
-    // // 3. Process and add ID selectors (e.g., '#my-id')
-    // for (var compCtx : ctx.Hash()) {
-    // String id = compCtx.getText().substring(1); // Remove the '#'
-    // sequence.addComponent(new CssIdSelectorNode(compCtx.getSymbol().getLine(),
-    // id));
+    // // Extract the function name from the text
+    // String funcText = funcCtx.getText();
+    // int parenIndex = funcText.indexOf('(');
+    // if (parenIndex > 0) {
+    // name = funcText.substring(0, parenIndex);
     // }
 
-    // // 4. Process and add class selectors (e.g., '.my-class')
-    // for (var compCtx : ctx.className()) {
-    // sequence.addComponent((CssClassSelectorNode) visit(compCtx));
+    // // Visit the expression inside the parentheses
+    // if (funcCtx.getChildCount() > 2) {
+    // expression = (CssExpressionNode) visit(funcCtx.getChild(1)); // The
+    // expression is the second child
+    // }
     // }
 
-    // // 5. Process and add pseudo-selectors (e.g., ':hover', '::before')
-    // for (var compCtx : ctx.pseudo()) {
-    // sequence.addComponent((CssPseudoSelectorNode) visit(compCtx));
+    // return new CssPseudoSelectorNode(name, ctx.getStart().getLine(), isElement,
+    // expression);
     // }
 
-    // return sequence;
-    // }
+    // Add missing visitor method for pseudo selector
+    @Override
+    public BaseNode visitCssPseudoClassOrElement(HtmlCssJinja2Parser.CssPseudoClassOrElementContext ctx) {
+        boolean isElement = ctx.getChildCount() > 1 && ctx.getChild(1).getText().equals(":");
+        String name = "";
+        CssExpressionNode expression = null;
+
+        // Check if it's a simple pseudo selector (like :hover, ::before)
+        if (ctx.cssIdent() != null) {
+            name = ctx.cssIdent().getText();
+        }
+        // Check if it's a functional pseudo selector (like :nth-child(2n+1))
+        else if (ctx.getChildCount() > 2 && ctx.getChild(2) instanceof HtmlCssJinja2Parser.CssFunctionalPseudoContext) {
+            HtmlCssJinja2Parser.CssFunctionalPseudoContext funcCtx = (HtmlCssJinja2Parser.CssFunctionalPseudoContext) ctx
+                    .getChild(2);
+
+            // Extract the function name from the text
+            String funcText = funcCtx.getText();
+            int parenIndex = funcText.indexOf('(');
+            if (parenIndex > 0) {
+                name = funcText.substring(0, parenIndex);
+            }
+
+            // Visit the expression inside the parentheses - add null check
+            if (funcCtx.getChildCount() > 2 && funcCtx.getChild(1) != null) {
+                expression = (CssExpressionNode) visit(funcCtx.getChild(1)); // The expression is the second child
+            }
+        }
+
+        return new CssPseudoSelectorNode(name, ctx.getStart().getLine(), isElement, expression);
+    }
+
+    // Add visitor method for functional pseudo selector
+    @Override
+    public BaseNode visitCssFunctionalPseudo(HtmlCssJinja2Parser.CssFunctionalPseudoContext ctx) {
+        // Extract the function name from the text
+        String funcText = ctx.getText();
+        int parenIndex = funcText.indexOf('(');
+        String name = parenIndex > 0 ? funcText.substring(0, parenIndex) : "";
+
+        // Visit the expression inside the parentheses - add null check
+        CssExpressionNode expression = null;
+        if (ctx.getChildCount() > 2 && ctx.getChild(1) != null) {
+            expression = (CssExpressionNode) visit(ctx.getChild(1)); // The expression is the second child
+        }
+
+        boolean isElement = false; // This will be determined by the parent context
+        return new CssPseudoSelectorNode(name, ctx.getStart().getLine(), isElement, expression);
+    }
+
+    // Add visitor method for expression in functional pseudo selector
+    @Override
+    public BaseNode visitCssExpressionSequence(HtmlCssJinja2Parser.CssExpressionSequenceContext ctx) {
+        CssExpressionNode expression = new CssExpressionNode("CssExpression", ctx.getStart().getLine());
+
+        if (ctx.term() != null) {
+            for (var termCtx : ctx.term()) {
+                BaseNode term = visit(termCtx);
+                if (term != null) {
+                    expression.addTerm((CssTermNode) term);
+                }
+            }
+        }
+
+        return expression;
+    }
+
+    // Add missing visitor method for universal selector
+    @Override
+    public BaseNode visitCssUniversalSelector(HtmlCssJinja2Parser.CssUniversalSelectorContext ctx) {
+        String namespacePrefix = null;
+        if (ctx.typeNamespacePrefix() != null) {
+            namespacePrefix = ctx.typeNamespacePrefix().getText();
+        }
+        return new TypeSelectorNode("*", ctx.getStart().getLine(), namespacePrefix);
+    }
 
     @Override
     public BaseNode visitCssCompoundSelectorWithoutType(CssCompoundSelectorWithoutTypeContext ctx) {
