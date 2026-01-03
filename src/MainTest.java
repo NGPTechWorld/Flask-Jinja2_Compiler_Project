@@ -19,14 +19,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
-import javax.swing.SwingUtilities;
-
 public class MainTest {
     public static void main(String[] args) throws Exception {
         // SwingUtilities.invokeLater(() -> {
         // new LiveParserViewer().setVisible(true);
         // });
-        // runPythonAndFlask();
+        runPythonAndFlask();
         // runANTLR_HTML_CSS_JINJA2();
         // runPythonAndFlaskAST();
         runANTLR_HTML_CSS_JINJA2_AST();

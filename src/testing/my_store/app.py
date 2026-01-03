@@ -95,6 +95,23 @@ def delete_product(product_id):
         # إرجاع خطأ 404 إذا لم يتم العثور على المنتج
         return redirect(url_for('index'))
 
+@app.route('/api/delete-product/<int:product_id>', methods=['DELETE'])
+def api_delete_product(product_id):
+    global products
+    
+    product_to_delete = None
+    for p in products:
+        if p['id'] == product_id:
+            product_to_delete = p
+            break
+    
+    if product_to_delete:
+        products.remove(product_to_delete)
+        return jsonify({"success": True, "message": "تم حذف المنتج بنجاح", "deleted_product_id": product_id})
+    else:
+        return jsonify({"success": False, "message": "المنتج غير موجود"}), 404
+
+
 # تشغيل التطبيق
 if __name__ == '__main__':
     # debug=True يسمح بتحديث التغييرات تلقائيًا وعرض الأخطاء
