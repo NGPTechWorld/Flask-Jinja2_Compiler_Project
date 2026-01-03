@@ -1,4 +1,7 @@
 // Generated from ./src/antlr/html_css_jinja2/HtmlCssJinja2Parser.g4 by ANTLR 4.13.2
+
+    package antlr.html_css_jinja2.generated;
+
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -171,14 +174,14 @@ public class HtmlCssJinja2ParserBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -480,13 +483,6 @@ public class HtmlCssJinja2ParserBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
