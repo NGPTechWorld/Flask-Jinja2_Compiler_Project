@@ -29,26 +29,28 @@ public class MediaQueryNode extends CssNode {
         this.expressions.add(expression);
     }
 
-    // TODO indent
+    // REVIEW visitor
+
     @Override
-    public String toString() {
-        return "MediaQueryNode{" +
-                "modifier='" + modifier + '\'' +
-                ", mediaType='" + mediaType + '\'' +
-                ", expressions=" + expressions +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        if (modifier != null) {
+            sb.append(modifier).append(" ");
+        }
+        if (mediaType != null) {
+            sb.append(mediaType);
+        }
+        if (!expressions.isEmpty()) {
+            if (mediaType != null)
+                sb.append(" and ");
+            for (int i = 0; i < expressions.size(); i++) {
+                sb.append(expressions.get(i).toString(0));
+                if (i < expressions.size() - 1) {
+                    sb.append(" and ");
+                }
+            }
+        }
+        return sb.toString();
     }
-
-    // @Override
-    // public String toString(int indent) {
-    // StringBuilder sb = new StringBuilder(" ".repeat(indent));
-    // sb.append("(line ").append(line)
-    // .append(") CssMedia @media ").append(query);
-
-    // for (var rule : rules) {
-    // sb.append("\n").append(rule.toString(indent + 2));
-    // }
-    // return sb.toString();
-    // }
 
 }

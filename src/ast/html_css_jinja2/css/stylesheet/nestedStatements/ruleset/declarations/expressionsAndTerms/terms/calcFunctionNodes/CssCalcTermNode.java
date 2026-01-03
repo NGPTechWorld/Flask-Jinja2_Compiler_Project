@@ -16,9 +16,8 @@ public class CssCalcTermNode extends CssTermNode {
         this.expression = expression;
     }
 
-    // TODO indent
     @Override
-    public String toString() {
-        return "CssCalcTermNode{expression=" + expression + "}";
+    public String toString(int indent) {
+        return "calc(" + expression.toString(0) + ")";
     }
 }

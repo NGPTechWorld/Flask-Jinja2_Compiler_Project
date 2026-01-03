@@ -19,12 +19,10 @@ public class FunctionalPseudoNode extends CssSelectorComponentNode {
         this.expression = expression;
     }
 
-    // TODO indent
+    // REVIEW indent
+
     @Override
-    public String toString() {
-        return "FunctionalPseudoNode{" +
-                "name='" + name + '\'' +
-                ", expression=" + expression +
-                '}';
+    public String toString(int indent) {
+        return ":" + name + "(" + expression.toString(0) + ")";
     }
 }

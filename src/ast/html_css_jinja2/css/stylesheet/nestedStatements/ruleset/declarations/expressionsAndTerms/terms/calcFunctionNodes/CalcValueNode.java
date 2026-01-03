@@ -55,14 +55,17 @@ public class CalcValueNode extends CssNode {
         return node;
     }
 
-    // TODO indent
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "CalcValueNode{" +
-                "number=" + number +
-                ", dimension=" + dimension +
-                ", percentage=" + percentage +
-                ", nestedCalc=" + nestedCalc +
-                '}';
+    public String toString(int indent) {
+        if (number != null)
+            return number.toString(0);
+        if (dimension != null)
+            return dimension.toString(0);
+        if (percentage != null)
+            return percentage.toString(0);
+        if (nestedCalc != null)
+            return "(" + nestedCalc.toString(0) + ")";
+        return "?"; // Should not happen
     }
 }

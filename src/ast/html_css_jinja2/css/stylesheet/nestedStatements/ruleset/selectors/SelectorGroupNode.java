@@ -18,9 +18,17 @@ public class SelectorGroupNode extends CssNode {
         this.selectors.add(selector);
     }
 
-    // TODO INDent
+    // REVIEW  (solve 0 indent)
+
     @Override
-    public String toString() {
-        return "SelectorGroupNode{" + "selectors=" + selectors + '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < selectors.size(); i++) {
+            sb.append(selectors.get(i).toString(0)); // Print selectors on the same line
+            if (i < selectors.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
 }

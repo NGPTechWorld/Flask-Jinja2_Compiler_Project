@@ -20,20 +20,17 @@ public class CssDeclarationNode extends CssNode {
         this.important = important;
     }
 
-    // @Override
-    // public String toString(int indent) {
-    // return " ".repeat(indent)
-    // + "(line " + line + ") CssDeclaration "
-    // + property + ": " + value;
-    // }
-    // TODO indent
+    // REVIEW indent
+
     @Override
-    public String toString() {
-        return "CssDeclarationNode{" +
-                "property=" + property +
-                ", expression=" + expression +
-                ", important=" + important +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append(" ").append(property.toString(0)).append(": ").append(expression.toString(0));
+        if (important) {
+            sb.append(" !important");
+        }
+        sb.append(";");
+        return sb.toString();
     }
 
 }

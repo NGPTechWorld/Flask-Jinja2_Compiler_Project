@@ -15,13 +15,11 @@ public class CssFunctionTermNode extends CssTermNode {
         this.name = name;
         this.parameters = parameters;
     }
-    //TODO indent
+
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "CssFunctionTermNode{" +
-                "name='" + name + '\'' +
-                ", parameters=" + parameters +
-                '}';
+    public String toString(int indent) {
+        return name + "(" + parameters.toString(0) + ")";
     }
 
 }

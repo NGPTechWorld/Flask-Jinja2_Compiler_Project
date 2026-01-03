@@ -9,9 +9,10 @@ public class CssIdPropertyNode extends CssPropertyNode {
     public CssIdPropertyNode(String name, int line) {
         super(name, line);
     }
-    //TODO indent
+
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "CssIdPropertyNode{name='" + name + "'}";
+    public String toString(int indent) {
+        return name;
     }
 }

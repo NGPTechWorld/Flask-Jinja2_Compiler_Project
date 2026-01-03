@@ -13,10 +13,10 @@ public class CssVariableTermNode extends CssTermNode {
         this.variableName = variableName;
     }
 
-    // TODO
+    // REVIEW
     @Override
-    public String toString() {
-        return "CssVariableTermNode{variableName='" + variableName + "'}";
+    public String toString(int indent) {
+        return "var(--" + variableName + ")";
     }
 
 }

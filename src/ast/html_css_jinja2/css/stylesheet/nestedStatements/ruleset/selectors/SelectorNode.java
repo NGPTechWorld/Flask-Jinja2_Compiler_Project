@@ -52,16 +52,18 @@ public class SelectorNode extends CssNode {
 
         @Override
         public String toString() {
-            return "'" + combinator + "' " + sequence;
+            return combinator + " " + sequence.toString(0);
         }
     }
 
-    // TODO indent
     @Override
-    public String toString() {
-        return "SelectorNode{" +
-                "firstSequence=" + firstSequence +
-                ", rest=" + rest +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(firstSequence.toString(0));
+        for (CombinatorAndSequence cas : rest) {
+            sb.append(" ").append(cas.toString());
+        }
+        return sb.toString();
     }
+
 }

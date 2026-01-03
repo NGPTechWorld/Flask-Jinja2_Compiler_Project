@@ -17,10 +17,18 @@ public class MediaQueryListNode extends CssNode {
         this.queries.add(query);
     }
 
-    // TODO indent
+    // REVIEW indent
+
     @Override
-    public String toString() {
-        return "MediaQueryListNode{" + "queries=" + queries + '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < queries.size(); i++) {
+            sb.append(queries.get(i).toString(0));
+            if (i < queries.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
 
 }

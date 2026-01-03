@@ -12,10 +12,10 @@ public class CssVarPropertyNode extends CssPropertyNode {
         this.line = line;
         this.name = name;
     }
-
+    //REVIEW
     @Override
-    public String toString() {
-        return "CssVarPropertyNode{name='" + name + "'}";
+    public String toString(int indent) {
+        return "--" + name;
     }
 
 }
