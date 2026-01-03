@@ -1,0 +1,22 @@
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.terms;
+
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.terms.helper_abstract.CssTermNode;
+
+// var() function , e.'var(--main-color)'.
+public class CssVariableTermNode extends CssTermNode {
+    int line;
+    String variableName; // The name of the variable, e.g., '--main-color'
+
+    public CssVariableTermNode(String name, int line, String variableName) {
+        super(name, line);
+        this.line = line;
+        this.variableName = variableName;
+    }
+
+    // TODO
+    @Override
+    public String toString() {
+        return "CssVariableTermNode{variableName='" + variableName + "'}";
+    }
+
+}

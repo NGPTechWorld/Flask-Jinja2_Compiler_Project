@@ -1,5 +1,7 @@
 package ast.html_css_jinja2.css;
 
+import ast.html_css_jinja2.css.helper_abstract.CssNode;
+
 public class CssValueNode extends CssNode {
 
     public String text;

@@ -1,5 +1,7 @@
 package ast.html_css_jinja2.css;
 
+import ast.html_css_jinja2.css.helper_abstract.CssNode;
+
 public class CssSelectorNode extends CssNode {
     // combinators, pseudos in future
     public String text; // raw selector text

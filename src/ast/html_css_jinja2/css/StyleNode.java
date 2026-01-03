@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ast.BaseNode;
+import ast.html_css_jinja2.css.helper_abstract.CssNode;
 
 public class StyleNode extends CssNode {
     public List<BaseNode> children = new ArrayList<>();
