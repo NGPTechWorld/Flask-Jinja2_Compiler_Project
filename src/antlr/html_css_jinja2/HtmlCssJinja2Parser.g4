@@ -207,12 +207,12 @@ jinjaStmtArgument
 // ;
 
 //! CSS rules
-// TODO style IMPORTANT
+// DOING style IMPORTANT
 style
 : STYLE_OPEN stylesheet STYLE_CLOSE                              #StyleBody
 ;
 
-// TODO stylesheet IMPORTANT
+// DOING stylesheet IMPORTANT
 stylesheet
 : ws (imports ws)* (nestedStatement ws)*                         #CssStylesheet
 ;
@@ -318,7 +318,7 @@ property_
 | Variable ws                                                    #CssVarProperty
 ;
 
-// TODO ruleset
+// DOING ruleset
 ruleset
 : selectorGroup '{' ws declarationList? '}' ws                   #CssRulesetDefinition
 ;
@@ -367,7 +367,7 @@ dimension
 : (Plus | Minus)? Dimension                                      #CssDimensionExpression
 ;
 
-// TODO nestedStatement
+// DOING nestedStatement
 nestedStatement
 : ruleset                                                        #CssRuleset
 | media                                                          #CssMediaQueries
