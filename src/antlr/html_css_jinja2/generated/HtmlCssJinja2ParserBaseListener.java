@@ -1,5 +1,8 @@
 // Generated from ./src/antlr/html_css_jinja2/HtmlCssJinja2Parser.g4 by ANTLR 4.13.2
 
+    package antlr.html_css_jinja2.generated;
+
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -280,18 +283,6 @@ public class HtmlCssJinja2ParserBaseListener implements HtmlCssJinja2ParserListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -299,6 +290,18 @@ public class HtmlCssJinja2ParserBaseListener implements HtmlCssJinja2ParserListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -815,18 +818,6 @@ public class HtmlCssJinja2ParserBaseListener implements HtmlCssJinja2ParserListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,10 +10,10 @@ import ast.python_flask.StatementNode;
 import ast.python_flask.expressions_roles.ExpressionNode;
 
 public class IfStatementNode extends StatementNode {
-    ExpressionNode ifCondition;
-    BodyNode bodyIf;
-    List<Pair<ExpressionNode, BodyNode>> elseIfStat = new ArrayList<>();
-    BodyNode bodyElse;
+    public ExpressionNode ifCondition;
+    public BodyNode bodyIf;
+    public List<Pair<ExpressionNode, BodyNode>> elseIfStat = new ArrayList<>();
+    public BodyNode bodyElse;
 
     public IfStatementNode(
             int line,

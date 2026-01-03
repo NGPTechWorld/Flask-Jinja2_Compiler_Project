@@ -47,3 +47,30 @@ def product_details(product_id):
         if p['id'] == product_id:
             product = p
             break
+# ============================================================
+# IfStatement tests
+# ============================================================
+
+value = 6
+if value > 5:
+    r1 = "if"
+elif value == 5:
+    r1 = "elif"
+else:
+    r1 = "else"
+
+value = 5
+if value > 5:
+    r2 = "if"
+elif value == 5:
+    r2 = "elif"
+else:
+    r2 = "else"
+
+value = 4
+if value > 5:
+    r3 = "if"
+elif value == 5:
+    r3 = "elif"
+else:
+    r3 = "else"

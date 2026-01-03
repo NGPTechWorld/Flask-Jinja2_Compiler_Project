@@ -1,4 +1,7 @@
 // Generated from ./src/antlr/html_css_jinja2/HtmlCssJinja2Parser.g4 by ANTLR 4.13.2
+
+    package antlr.html_css_jinja2.generated;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -164,19 +167,19 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitJinja2LogicalExpression(HtmlCssJinja2Parser.Jinja2LogicalExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Jinja2IsExpression}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Jinja2ComparisonExpression}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitJinja2ComparisonExpression(HtmlCssJinja2Parser.Jinja2ComparisonExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Jinja2IsExpression}
+	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinja2IsExpression(HtmlCssJinja2Parser.Jinja2IsExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Jinja2AtomExpressionBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#jinjaExprAtomExpression}.
@@ -478,13 +481,6 @@ public interface HtmlCssJinja2ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitJinja2StmtFunctionArg(HtmlCssJinja2Parser.Jinja2StmtFunctionArgContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Jinja2TemplateContent}
-	 * labeled alternative in {@link HtmlCssJinja2Parser#templateContent}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitJinja2TemplateContent(HtmlCssJinja2Parser.Jinja2TemplateContentContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code StyleBody}
 	 * labeled alternative in {@link HtmlCssJinja2Parser#style}.

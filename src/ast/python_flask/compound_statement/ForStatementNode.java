@@ -10,6 +10,7 @@ import ast.python_flask.expressions_roles.target.TargetNode;
 
 public class ForStatementNode extends StatementNode {
     public List<TargetNode> targets = new ArrayList<>();
+    
     public List<ExpressionNode> iterables = new ArrayList<>();
     public BodyNode body;
 
