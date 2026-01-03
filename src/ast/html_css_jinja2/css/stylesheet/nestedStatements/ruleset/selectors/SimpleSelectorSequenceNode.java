@@ -12,8 +12,8 @@ public class SimpleSelectorSequenceNode extends CssNode {
     TypeSelectorNode typeSelector; // Can be null
     List<CssSelectorComponentNode> components = new ArrayList<>();
 
-    public SimpleSelectorSequenceNode(String name, int line, TypeSelectorNode typeSelector) {
-        super(name, line);
+    public SimpleSelectorSequenceNode( int line, TypeSelectorNode typeSelector) {
+        super("SimpleSelectorSequenceNode", line);
         this.line = line;
         this.typeSelector = typeSelector;
     }

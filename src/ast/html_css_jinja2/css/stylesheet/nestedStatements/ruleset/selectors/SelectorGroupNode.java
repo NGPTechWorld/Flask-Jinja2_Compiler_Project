@@ -10,14 +10,15 @@ public class SelectorGroupNode extends CssNode {
     int line;
     List<SelectorNode> selectors = new ArrayList<>();
 
-    public SelectorGroupNode(String name, int line) {
+    public SelectorGroupNode(int line) {
         super("SelectorGroupNode", line);
     }
 
     public void addSelector(SelectorNode selector) {
         this.selectors.add(selector);
     }
-    //TODO INDent
+
+    // TODO INDent
     @Override
     public String toString() {
         return "SelectorGroupNode{" + "selectors=" + selectors + '}';

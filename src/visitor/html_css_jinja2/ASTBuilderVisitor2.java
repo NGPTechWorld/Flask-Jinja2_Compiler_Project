@@ -8,6 +8,15 @@ import org.antlr.v4.runtime.misc.Pair;
 
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2ParserBaseVisitor;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssClassSelectorContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssCompoundSelectorWithTypeContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssCompoundSelectorWithoutTypeContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssMediaQueriesContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssRulesetContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssRulesetDefinitionContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssSelectorGroupBodyContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssSelectorGroupContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssStylesheetContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlAttributeRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlCommentRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlContentRuleContext;
@@ -29,11 +38,9 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ExprContentRule
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ExpressionsBodyContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2FalseLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ForBlockBodyContext;
-import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ForBlockContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2ForStatementContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IdLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IfBlockBodyContext;
-import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IfBlockContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IntLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IsExpressionContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2IsNotExpressionContext;
@@ -53,17 +60,29 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtIdLiteralCo
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtIntLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtLogicalExpressionContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtMulDivModExpressionContext;
-import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtNotExpressionContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtNullLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtStringLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtSubscriptTrailerContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StmtTrueLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2StringLiteralContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2SubscriptTrailerContext;
-// import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2TemplateContentContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.Jinja2TrueLiteralContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.StyleBodyContext;
 import ast.BaseNode;
 import ast.html_css_jinja2.HtmlDocumentRuleNode;
+import ast.html_css_jinja2.css.stylesheet.StylesheetNode;
+import ast.html_css_jinja2.css.stylesheet.imports.CssImportNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.helper_abstract.CssNestedStatement;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.CssRulesetNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.CssDeclarationListNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SelectorGroupNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SelectorNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SimpleSelectorSequenceNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.CssClassSelectorNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.CssIdSelectorNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.CssPseudoSelectorNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.TypeSelectorNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.helper_abstract.CssSelectorComponentNode;
 import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
 import ast.html_css_jinja2.htmlElements.html_content.HtmlCommentNode;
@@ -81,7 +100,6 @@ import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExpr
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaIntLiteralExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaNullLiteralExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.JinjaStringLiteralExpression;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.atom.jinjaliteralAtom.helper_abstract.JinjaLiteral;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2AddSubExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2ComparisonExpressionNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2IsExpressionNode;
@@ -90,7 +108,6 @@ import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExpr
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.Jinja2MulDivModExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.helper_abstract.JinjaBinaryExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.unaryExpression.Jinja2NotExpressionNode;
-import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.unaryExpression.JinjaUnaryExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaBodyNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForStatementNode;
@@ -767,6 +784,164 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         text = text.substring(2, text.length() - 2).trim();
         return new Jinja2CommentNode(ctx.getStart().getLine(), text);
     }
+
+    // ****************
+    // ! CSS
+    // ****************
+    @Override
+    public BaseNode visitStyleBody(StyleBodyContext ctx) {
+
+        return visit(ctx.stylesheet());
+    }
+
+    @Override
+    public BaseNode visitCssStylesheet(CssStylesheetContext ctx) {
+        int line = ctx.getStart().getLine();
+        StylesheetNode stylesheet = new StylesheetNode(line);
+
+        for (HtmlCssJinja2Parser.ImportsContext importCtx : ctx.imports()) {
+            CssImportNode importNode = (CssImportNode) visit(importCtx);
+            if (importNode != null) {
+                stylesheet.addImport(importNode);
+            }
+        }
+
+        for (HtmlCssJinja2Parser.NestedStatementContext stmtCtx : ctx.nestedStatement()) {
+            CssNestedStatement statementNode = (CssNestedStatement) visit(stmtCtx);
+            if (statementNode != null) {
+                stylesheet.addStatement(statementNode);
+            }
+        }
+        
+
+        return stylesheet;
+    }
+
+    // --- Ruleset ---
+    @Override
+    public BaseNode visitCssRuleset(CssRulesetContext ctx) {
+        return visit(ctx.ruleset());
+    }
+
+    @Override
+    public BaseNode visitCssMediaQueries(CssMediaQueriesContext ctx) {
+        return visit(ctx.media());
+    }
+
+    // --- Ruleset ---
+    // Visit and add alْl nested statements (rulesets, media queries, etc.)
+    @Override
+    public BaseNode visitCssRulesetDefinition(CssRulesetDefinitionContext ctx) {
+        int line = ctx.getStart().getLine();
+        SelectorGroupNode selectors = (SelectorGroupNode) visit(ctx.selectorGroup());
+        CssDeclarationListNode declarations = null;
+        if (ctx.declarationList() != null) {
+            declarations = (CssDeclarationListNode) visit(ctx.declarationList());
+        }
+
+        return new CssRulesetNode(line, selectors, declarations);
+    }
+
+    // --- Selectors ---
+
+    @Override
+    public BaseNode visitCssSelectorGroupBody(CssSelectorGroupBodyContext ctx) {
+        int line = ctx.getStart().getLine();
+        SelectorGroupNode group = new SelectorGroupNode(line);
+        for (HtmlCssJinja2Parser.SelectorContext selectorCtx : ctx.selector()) {
+            group.addSelector((SelectorNode) visit(selectorCtx));
+        }
+        return group;
+    }
+
+    @Override
+    public BaseNode visitCssSelectorGroup(CssSelectorGroupContext ctx) {
+        int line = ctx.getStart().getLine();
+        SimpleSelectorSequenceNode firstSeq = (SimpleSelectorSequenceNode) visit(ctx.simpleSelectorSequence(0));
+        SelectorNode selector = new SelectorNode(line, firstSeq);
+
+        // Handle subsequent sequences with combinators
+        for (int i = 0; i < ctx.combinator().size(); i++) {
+            String combinator = ctx.combinator(i).getText(); // ">", "+", "~", or a space
+            SimpleSelectorSequenceNode nextSeq = (SimpleSelectorSequenceNode) visit(ctx.simpleSelectorSequence(i + 1));
+            selector.addCombinatorAndSequence(combinator, nextSeq);
+
+        }
+        return selector;
+    }
+
+    // FIX Null Problem
+    // @Override
+    // public BaseNode
+    // visitCssCompoundSelectorWithType(CssCompoundSelectorWithTypeContext ctx) {
+    // int line = ctx.getStart().getLine();
+
+    // // 1. Visit the type selector (e.g., 'div', 'h1')
+    // TypeSelectorNode typeSelector = (TypeSelectorNode) visit(ctx.typeSelector());
+
+    // // 2. Create the main node for this sequence
+    // SimpleSelectorSequenceNode sequence = new SimpleSelectorSequenceNode(line,
+    // typeSelector);
+
+    // // 3. Process and add ID selectors (e.g., '#my-id')
+    // for (var compCtx : ctx.Hash()) {
+    // String id = compCtx.getText().substring(1); // Remove the '#'
+    // sequence.addComponent(new CssIdSelectorNode(compCtx.getSymbol().getLine(),
+    // id));
+    // }
+
+    // // 4. Process and add class selectors (e.g., '.my-class')
+    // for (var compCtx : ctx.className()) {
+    // sequence.addComponent((CssClassSelectorNode) visit(compCtx));
+    // }
+
+    // // 5. Process and add pseudo-selectors (e.g., ':hover', '::before')
+    // for (var compCtx : ctx.pseudo()) {
+    // sequence.addComponent((CssPseudoSelectorNode) visit(compCtx));
+    // }
+
+    // return sequence;
+    // }
+
+    @Override
+    public BaseNode visitCssCompoundSelectorWithoutType(CssCompoundSelectorWithoutTypeContext ctx) {
+        int line = ctx.getStart().getLine();
+
+        // 1. This sequence has no type selector, so it's null
+        TypeSelectorNode typeSelector = null;
+
+        // 2. Create the main node for this sequence
+        SimpleSelectorSequenceNode sequence = new SimpleSelectorSequenceNode(line, typeSelector);
+
+        // 3. Process and add ID selectors (e.g., '#my-id')
+        for (var compCtx : ctx.Hash()) {
+            String id = compCtx.getText().substring(1); // Remove the '#'
+            sequence.addComponent(new CssIdSelectorNode(compCtx.getSymbol().getLine(), id));
+        }
+
+        // 4. Process and add class selectors (e.g., '.my-class')
+        for (var compCtx : ctx.className()) {
+            sequence.addComponent((CssClassSelectorNode) visit(compCtx));
+        }
+
+        // 5. Process and add pseudo-selectors (e.g., ':hover', '::before')
+        for (var compCtx : ctx.pseudo()) {
+            sequence.addComponent((CssPseudoSelectorNode) visit(compCtx));
+        }
+
+        return sequence;
+    }
+
+    @Override
+    public BaseNode visitCssClassSelector(CssClassSelectorContext ctx) {
+        return new CssClassSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine());
+    }
+
+    // @Override
+    // public BaseNode visitCssClassSelector(CssClassSelectorContext ctx) {
+    // return new CssClassSelectorNode(ctx.getStart().getLine(),
+    // ctx.cssIdent().getText());
+    // }
 
     // ! Helper for self closing html
     // This is used to detect the selfclosing tags

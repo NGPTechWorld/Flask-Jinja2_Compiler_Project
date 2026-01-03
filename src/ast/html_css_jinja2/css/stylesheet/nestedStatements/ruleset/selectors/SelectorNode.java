@@ -11,8 +11,9 @@ public class SelectorNode extends CssNode {
     SimpleSelectorSequenceNode firstSequence;
     List<CombinatorAndSequence> rest = new ArrayList<>();
 
-    public SelectorNode(String name, int line, SimpleSelectorSequenceNode firstSequence) {
-        super(name, line);
+    public SelectorNode(int line, SimpleSelectorSequenceNode firstSequence) {
+        super("SelectorNode", line);
+        this.line = line;
         this.firstSequence = firstSequence;
     }
 
@@ -26,6 +27,18 @@ public class SelectorNode extends CssNode {
 
     public List<CombinatorAndSequence> getRest() {
         return rest;
+    }
+
+    /**
+     * Adds a combinator and the following simple selector sequence to this
+     * selector.
+     * This method was missing and caused the compilation error.
+     * 
+     * @param combinator The combinator string (e.g., ">", "+", "~", or " ").
+     * @param sequence   The following SimpleSelectorSequenceNode.
+     */
+    public void addCombinatorAndSequence(String combinator, SimpleSelectorSequenceNode sequence) {
+        this.rest.add(new CombinatorAndSequence(combinator, sequence));
     }
 
     public static class CombinatorAndSequence {

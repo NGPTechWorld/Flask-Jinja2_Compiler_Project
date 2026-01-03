@@ -15,7 +15,7 @@ public class CssRulesetNode extends CssNestedStatement {
     SelectorGroupNode selectors;
     CssDeclarationListNode declarations; // Can be null
 
-    public CssRulesetNode(int line, String name, SelectorGroupNode selectors, CssDeclarationListNode declarations) {
+    public CssRulesetNode(int line, SelectorGroupNode selectors, CssDeclarationListNode declarations) {
         super("CssRuleset", line);
         this.line = line;
         this.selectors = selectors;
@@ -33,13 +33,13 @@ public class CssRulesetNode extends CssNestedStatement {
 
     // @Override
     // public String toString(int indent) {
-    // StringBuilder sb = new StringBuilder(" ".repeat(indent));
-    // sb.append("(line ").append(line).append(") CssRuleset ").append(selector);
+    //     StringBuilder sb = new StringBuilder(" ".repeat(indent));
+    //     sb.append("(line ").append(line).append(") CssRuleset ").append(selectors);
 
-    // for (var d : declarations) {
-    // sb.append("\n").append(d.toString(indent + 2));
-    // }
-    // return sb.toString();
+    //     // for (var d : declarations) {
+    //     //     sb.append("\n").append(d.toString(indent + 2));
+    //     // }
+    //     return sb.toString();
     // }
 
 }

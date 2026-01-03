@@ -6,8 +6,8 @@ public class CssIdSelectorNode extends CssSelectorComponentNode {
     int line;
     String id;
 
-    public CssIdSelectorNode(String name, int line, String id) {
-        super(name, line);
+    public CssIdSelectorNode(int line, String id) {
+        super("CssIdSelectorNode", line);
         this.id = id;
     }
 
