@@ -1,6 +1,8 @@
 package ast.html_css_jinja2.css.stylesheet.nestedStatements.media;
 
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.helper_abstract.CssNestedStatement;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.groupRuleBody.GroupRuleBodyNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList.MediaQueryListNode;
 
 public class CssMediaNode extends CssNestedStatement {
     int line;

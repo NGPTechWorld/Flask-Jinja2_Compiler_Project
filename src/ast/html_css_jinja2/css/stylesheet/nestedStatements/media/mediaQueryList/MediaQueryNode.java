@@ -1,11 +1,11 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.media;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ast.html_css_jinja2.css.CssRuleNode;
+import ast.html_css_jinja2.css.helper_abstract.CssNode;
 
-public class MediaQueryNode extends CssRuleNode {
+public class MediaQueryNode extends CssNode {
 
     int line;
     String modifier; // "only" or "not"

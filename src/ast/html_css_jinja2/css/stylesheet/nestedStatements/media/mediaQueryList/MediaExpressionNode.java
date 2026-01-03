@@ -1,9 +1,9 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.media;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList;
 
-import ast.html_css_jinja2.css.CssRuleNode;
-import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.CssExpressionNode;
+import ast.html_css_jinja2.css.helper_abstract.CssNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.CssExpressionNode;
 
-public class MediaExpressionNode extends CssRuleNode {
+public class MediaExpressionNode extends CssNode {
     int line;
     String feature; // e.g., "max-width"
     CssExpressionNode expression; // e.g., "600px"

@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.terms.calcFunctionNodes;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.calcFunctionNodes;
 
 import java.util.ArrayList;
 import java.util.List;

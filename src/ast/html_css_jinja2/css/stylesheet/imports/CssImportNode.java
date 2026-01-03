@@ -1,7 +1,7 @@
 package ast.html_css_jinja2.css.stylesheet.imports;
 
 import ast.html_css_jinja2.css.helper_abstract.CssNode;
-import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.MediaQueryListNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList.MediaQueryListNode;
 
 public class CssImportNode extends CssNode {
 

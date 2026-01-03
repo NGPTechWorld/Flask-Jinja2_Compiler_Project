@@ -1,10 +1,10 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ast.html_css_jinja2.css.helper_abstract.CssNode;
-import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.terms.helper_abstract.CssTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.helper_abstract.CssTermNode;
 
 public class CssExpressionNode extends CssNode {
     int line;

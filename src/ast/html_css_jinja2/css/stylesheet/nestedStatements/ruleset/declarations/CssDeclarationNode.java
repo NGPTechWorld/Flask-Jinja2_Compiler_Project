@@ -1,8 +1,8 @@
 package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations;
 
 import ast.html_css_jinja2.css.helper_abstract.CssNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.CssExpressionNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.property.helper_abstract.CssPropertyNode;
-import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.CssExpressionNode;
 
 //color: red;
 public class CssDeclarationNode extends CssNode {

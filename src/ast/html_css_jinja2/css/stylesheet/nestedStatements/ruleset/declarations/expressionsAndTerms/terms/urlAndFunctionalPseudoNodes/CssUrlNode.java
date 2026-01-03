@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.terms.urlAndFunctionalPseudoNodes;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.urlAndFunctionalPseudoNodes;
 
 import ast.html_css_jinja2.css.helper_abstract.CssNode;
 

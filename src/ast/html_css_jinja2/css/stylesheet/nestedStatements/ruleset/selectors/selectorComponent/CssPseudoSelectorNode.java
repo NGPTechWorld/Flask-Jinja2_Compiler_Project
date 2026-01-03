@@ -1,6 +1,6 @@
 package ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent;
 
-import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.expressionsAndTerms.CssExpressionNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.CssExpressionNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.helper_abstract.CssSelectorComponentNode;
 
 public class CssPseudoSelectorNode extends CssSelectorComponentNode {

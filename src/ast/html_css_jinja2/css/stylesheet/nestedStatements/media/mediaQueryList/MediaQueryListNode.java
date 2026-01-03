@@ -1,11 +1,11 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.media;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ast.html_css_jinja2.css.CssRuleNode;
+import ast.html_css_jinja2.css.helper_abstract.CssNode;
 
-public class MediaQueryListNode extends CssRuleNode {
+public class MediaQueryListNode extends CssNode {
     int line;
     List<MediaQueryNode> queries = new ArrayList<>();
 
@@ -17,6 +17,7 @@ public class MediaQueryListNode extends CssRuleNode {
         this.queries.add(query);
     }
 
+    // TODO indent
     @Override
     public String toString() {
         return "MediaQueryListNode{" + "queries=" + queries + '}';

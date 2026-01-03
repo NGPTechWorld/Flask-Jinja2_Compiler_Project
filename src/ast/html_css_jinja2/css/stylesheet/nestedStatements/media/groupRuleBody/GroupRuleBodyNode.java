@@ -1,4 +1,4 @@
-package ast.html_css_jinja2.css.stylesheet.nestedStatements.media;
+package ast.html_css_jinja2.css.stylesheet.nestedStatements.media.groupRuleBody;
 
 import java.util.ArrayList;
 import java.util.List;
