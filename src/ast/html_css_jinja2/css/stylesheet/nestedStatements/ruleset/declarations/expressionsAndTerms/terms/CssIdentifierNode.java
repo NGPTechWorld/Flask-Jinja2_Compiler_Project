@@ -13,7 +13,8 @@ public class CssIdentifierNode extends CssTermNode {
     }
 
     @Override
-    public String toString() {
-        return "CssIdentifierNode{name='" + name + "'}";
+    public String toString(int indent) {
+        return name;
     }
+
 }

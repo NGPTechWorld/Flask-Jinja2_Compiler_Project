@@ -11,13 +11,14 @@ public class CssPercentageTermNode extends CssTermNode {
         this.line = line;
         this.text = text;
     }
-      public int getLine() { return line; }
 
+    public int getLine() {
+        return line;
+    }
 
-    // ! TODO indent
     @Override
-    public String toString() {
-        return "CssPercentageTermNode{text='" + text + "'}";
+    public String toString(int indent) {
+        return text;
     }
 
 }

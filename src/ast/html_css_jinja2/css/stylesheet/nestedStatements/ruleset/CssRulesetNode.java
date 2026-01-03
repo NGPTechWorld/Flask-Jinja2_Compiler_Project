@@ -22,24 +22,14 @@ public class CssRulesetNode extends CssNestedStatement {
         this.declarations = declarations;
     }
 
-    // TODO indent
     @Override
-    public String toString() {
-        return "CssRulesetNode{" +
-                "selectors=" + selectors +
-                ", declarations=" + declarations +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append("\n").append(selectors.toString(indent + 2));
+        if (declarations != null) {
+            sb.append("\n").append(declarations.toString(indent + 2));
+        }
+        return sb.toString();
     }
-
-    // @Override
-    // public String toString(int indent) {
-    //     StringBuilder sb = new StringBuilder(" ".repeat(indent));
-    //     sb.append("(line ").append(line).append(") CssRuleset ").append(selectors);
-
-    //     // for (var d : declarations) {
-    //     //     sb.append("\n").append(d.toString(indent + 2));
-    //     // }
-    //     return sb.toString();
-    // }
 
 }

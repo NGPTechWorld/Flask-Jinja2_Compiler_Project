@@ -16,12 +16,11 @@ public class CssMediaNode extends CssNestedStatement {
         this.body = body;
     }
 
-    // TODO
     @Override
-    public String toString() {
-        return "CssMediaNode{" +
-                "mediaQueryList=" + mediaQueryList +
-                ", body=" + body +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append(" ").append(mediaQueryList.toString(0));
+        sb.append("\n").append(body.toString(indent + 2));
+        return sb.toString();
     }
 }

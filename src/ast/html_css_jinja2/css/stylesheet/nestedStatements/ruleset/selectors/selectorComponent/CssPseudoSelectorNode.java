@@ -18,13 +18,15 @@ public class CssPseudoSelectorNode extends CssSelectorComponentNode {
         this.expression = expression;
     }
 
-    // TODO indent
+    // REVIEW indent
+
     @Override
-    public String toString() {
-        return "CssPseudoSelectorNode{" +
-                "name='" + name + '\'' +
-                ", isElement=" + isElement +
-                ", expression=" + expression +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(":").append(isElement ? ":" : "").append(name);
+        if (expression != null) {
+            sb.append("(").append(expression.toString(0)).append(")");
+        }
+        return sb.toString();
     }
 }

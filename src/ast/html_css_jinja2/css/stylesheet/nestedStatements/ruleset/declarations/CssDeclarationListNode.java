@@ -16,9 +16,16 @@ public class CssDeclarationListNode extends CssNode {
     public void addDeclaration(CssDeclarationNode declaration) {
         this.declarations.add(declaration);
     }
-    // TODO indent
+    // REVIEW indent
+
     @Override
-    public String toString() {
-        return "CssDeclarationListNode{" + "declarations=" + declarations + '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append(" {");
+        for (CssDeclarationNode declaration : declarations) {
+            sb.append("\n").append(declaration.toString(indent + 2));
+        }
+        sb.append("\n").append(" ".repeat(indent)).append("}");
+        return sb.toString();
     }
 }

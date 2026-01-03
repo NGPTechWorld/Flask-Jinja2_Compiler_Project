@@ -10,10 +10,10 @@ public class CssClassSelectorNode extends CssSelectorComponentNode {
         super(name, line);
     }
 
-    // TODO indent
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "CssClassSelectorNode{name='" + name + "'}";
+    public String toString(int indent) {
+        return "." + name;
     }
 
 }

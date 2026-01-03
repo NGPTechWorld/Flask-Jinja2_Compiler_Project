@@ -11,10 +11,9 @@ public class CssStringNode extends CssTermNode {
         this.line = line;
         this.value = value;
     }
-    //TODO indent
-    @Override
-    public String toString() {
-        return "CssStringNode{value='" + value + "'}";
-    }
 
+    @Override
+    public String toString(int indent) {
+        return "\"" + value + "\"";
+    }
 }

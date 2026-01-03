@@ -11,12 +11,14 @@ public class CssNumberNode extends CssTermNode {
         this.line = line;
         this.text = text;
     }
-      public int getLine() { return line; }
 
-    // TODO indent
+    public int getLine() {
+        return line;
+    }
+
     @Override
-    public String toString() {
-        return "CssNumberNode{text='" + text + "'}";
+    public String toString(int indent) {
+        return text;
     }
 
 }

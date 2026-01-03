@@ -12,7 +12,7 @@ public class SimpleSelectorSequenceNode extends CssNode {
     TypeSelectorNode typeSelector; // Can be null
     List<CssSelectorComponentNode> components = new ArrayList<>();
 
-    public SimpleSelectorSequenceNode( int line, TypeSelectorNode typeSelector) {
+    public SimpleSelectorSequenceNode(int line, TypeSelectorNode typeSelector) {
         super("SimpleSelectorSequenceNode", line);
         this.line = line;
         this.typeSelector = typeSelector;
@@ -22,12 +22,19 @@ public class SimpleSelectorSequenceNode extends CssNode {
         this.components.add(component);
     }
 
-    // TODO indent
+    // REVIEW indent
+
     @Override
-    public String toString() {
-        return "SimpleSelectorSequenceNode{" +
-                "typeSelector=" + typeSelector +
-                ", components=" + components +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        if (typeSelector != null) {
+            sb.append(typeSelector.toString(0));
+        }
+        for (CssSelectorComponentNode component : components) {
+            if (component != null) { // Add null check
+                sb.append(component.toString(0)); // Components are printed without extra indent
+            }
+        }
+        return sb.toString();
     }
 }

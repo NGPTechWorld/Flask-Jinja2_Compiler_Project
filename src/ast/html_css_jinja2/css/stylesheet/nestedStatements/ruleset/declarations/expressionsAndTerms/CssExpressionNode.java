@@ -24,13 +24,18 @@ public class CssExpressionNode extends CssNode {
         this.terms.add(term);
     }
 
-    // TODO
+    // REVIEW
+
     @Override
-    public String toString() {
-        return "CssExpressionNode{" +
-                "terms=" + terms +
-                ", operators=" + operators +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < terms.size(); i++) {
+            sb.append(terms.get(i).toString(0));
+            if (i < operators.size()) {
+                sb.append(" ").append(operators.get(i)).append(" ");
+            }
+        }
+        return sb.toString();
     }
 
 }
