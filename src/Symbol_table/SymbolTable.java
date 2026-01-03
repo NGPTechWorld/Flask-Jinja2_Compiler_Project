@@ -18,6 +18,15 @@ public class SymbolTable {
         draft_scopes.peek().define(symbol); 
     }
 
+    public void define_global(Symbol symbol) {
+        for (Scope scope : draft_scopes) {
+            if(scope.get_name() == "global") {
+                scope.define(symbol);
+                return;
+            }
+        }
+    }
+
     public Symbol resolve(String name) {
         for (Scope scope : draft_scopes) {
             Symbol s = scope.resolve(name);

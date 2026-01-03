@@ -1,27 +1,6 @@
-# ============================================================
-# IfStatement tests
-# ============================================================
+import math
+import os as system
 
-value = 6
-if value > 5:
-    r1 = "if"
-elif value == 5:
-    r1 = "elif"
-else:
-    r1 = "else"
+from math import sqrt
+from random import randint as rint
 
-value = 5
-if value > 5:
-    r2 = "if"
-elif value == 5:
-    r2 = "elif"
-else:
-    r2 = "else"
-
-value = 4
-if value > 5:
-    r3 = "if"
-elif value == 5:
-    r3 = "elif"
-else:
-    r3 = "else"

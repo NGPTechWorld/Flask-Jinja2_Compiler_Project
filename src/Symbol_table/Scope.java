@@ -9,6 +9,10 @@ public class Scope {
         this.name = name;
     }
 
+    public String get_name() {
+        return name;
+    }
+
     public void define(Symbol symbol) {
         symbols.put(symbol.getName(), symbol);
     }
