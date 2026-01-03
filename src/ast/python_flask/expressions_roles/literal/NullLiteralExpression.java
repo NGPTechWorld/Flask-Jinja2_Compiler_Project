@@ -8,6 +8,6 @@ public class NullLiteralExpression extends LiteralNode {
 
     @Override
     public String toString(int indent) {
-        return super.toString(indent)+"null";
+        return super.toString(indent)+"none";
     }
 }

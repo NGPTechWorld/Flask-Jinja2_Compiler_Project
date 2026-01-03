@@ -10,7 +10,6 @@ tokenVocab = PythonLexer;
 //------------------------------------------------------------
 // Entry Point
 //------------------------------------------------------------
-// Done! 😎
 program
 : statement* EOF
 ;
@@ -18,12 +17,11 @@ program
 //------------------------------------------------------------
 // Statements
 //------------------------------------------------------------
-// Done! 😎
 statement
 : simpleStatement
 | compoundStatement
 ;
-// Done! 😎
+
 simpleStatement
 : assignmentStatement
 | importStatement
@@ -42,45 +40,45 @@ compoundStatement
 | funcdef
 | classDef
 ;
-// Done! 😎
+
 returnStatement
 : RETURN (expressionList)? NEWLINE
 ;
-// Done! 😎
+
 breakStatement
 :  BREAK NEWLINE
 ;
-// Done! 😎
+
 continueStatement
 : CONTINUE NEWLINE
 ;
-// Done! 😎
+
 importStatement
 : IMPORT importItem (COMMA importItem)* NEWLINE
 | FROM importModule IMPORT importItem (COMMA importItem)* NEWLINE
 ;
-// Done! 😎
+
 importItem
 : IDENTIFIER (AS IDENTIFIER)?
 ;
-// Done! 😎
+
 importModule
 : IDENTIFIER (DOT IDENTIFIER)*
 ;
-// Done! 😎
+
 globalStatement
 : GLOBAL IDENTIFIER (COMMA IDENTIFIER)* NEWLINE
 ;
-// Done! 😎
+
 passStatement
 : PASS NEWLINE
 ;
-// Done! 😎
+
 // Class Definition (basic)
 classDef
 : CLASS IDENTIFIER (LPAREN arglist? RPAREN)? COLON body
 ;
-// Done! 😎
+
 body
 : INDENT statement+ DEDENT
 ;
@@ -88,32 +86,32 @@ body
 //------------------------------------------------------------
 // Function Definition
 //------------------------------------------------------------
-// Done! 😎
+
 funcdef
 : decorators? DEF IDENTIFIER LPAREN parameters? RPAREN (ARROW expression)? COLON body
 ;
-// Done! 😎
+
 // Decorators
 decorators
 : decorator+
 ;
-// Done! 😎
+
 decorator
 : AT dottedName (LPAREN arglist? RPAREN)? NEWLINE
 ;
-// Done! 😎
+
 dottedName
 : IDENTIFIER (DOT IDENTIFIER)*
 ;
 
 // Parameter list
-// Done! 😎
+
 parameters
 : param (COMMA param)* (COMMA)?
 ;
 
 // Single parameter (positional / default / *args / **kwargs)
-// Done! 😎
+
 param
 : IDENTIFIER (EQUAL expression)?   #NormalParam
 | STAR IDENTIFIER                  #VarArgParam
@@ -123,7 +121,7 @@ param
 //------------------------------------------------------------
 // For Loop
 //------------------------------------------------------------
-// Done! 😎
+
 forStatement
 : FOR targetList IN expressionList COLON body
 ;
@@ -135,7 +133,7 @@ whileStatement
 //------------------------------------------------------------
 // If / Elif / Else Statements
 //------------------------------------------------------------
-// Done! 😎
+
 ifStatement
 : IF expression COLON body (ELIF expression COLON body)* (ELSE COLON body)?
 ;
@@ -143,27 +141,27 @@ ifStatement
 //------------------------------------------------------------
 // Assignment Statements
 //------------------------------------------------------------
-// Done! 😎
+
 assignmentStatement
 : targetList (augmentedAssignment | EQUAL) expressionList NEWLINE
 ;
-// Done! 😎
+
 // Targets
 targetList
 : target (COMMA target)*
 ;
-// Done! 😎
+
 target
 : IDENTIFIER                 #VarTarget
 | target LSB expression RSB  #SubscriptTarget    // e.g., my_list[0] = 5
 | target DOT IDENTIFIER      #AttributeTarget       // e.g., my_obj.attr = 5
 ;
-// Done! 😎
+
 // Expression lists
 expressionList
 : expression (COMMA expression)*
 ;
-// Done! 😎
+
 // Augmented assignments
 augmentedAssignment
 : PLUS_EQUAL
@@ -177,7 +175,7 @@ augmentedAssignment
 // EXPRESSIONS (Major Refactor)
 //============================================================
 // This is the top-level expression rule
-// Done! 😎
+
 expression
 : atomExpression                           # AtomExpressionAt
 | expression POWER expression              # PowerExpression
@@ -190,19 +188,19 @@ expression
 | expression AND expression                # AndExpression
 | expression OR expression                 # OrExpression
 ;
-// Done! 😎
+
 // This handles calls, subscripts, and attribute access
 atomExpression
 : atom 
 | IDENTIFIER (trailer)*  // example: request.form.get('name')
 ;
-// Done! 😎
+
 trailer
 : LPAREN arglist? RPAREN # CallTrailer   // example: ('name')
 | LSB expression RSB # SubscriptTrailer // example: [i] or ['name']
 | DOT IDENTIFIER # AttributeTrailer     // example: .get or .form
 ;
-// Done! 😎
+
 // Atomic values
 atom
 : LPAREN expressionList? RPAREN      #ParenAtom
@@ -211,16 +209,16 @@ atom
 | literal                            #LiteralAtom
 ;
 
-// Done! 😎
+
 // List of key-value pairs for dictionaries
 keyValueList
 :NEWLINE* keyValue (COMMA NEWLINE* keyValue)* COMMA? NEWLINE*
 ;
-// Done! 😎
+
 keyValue
 : expression COLON expression
 ;
-// Done! 😎
+
 // Literals
 literal
 : INT              #IntLiteral
@@ -232,12 +230,12 @@ literal
 | NULL             #NullLiteral
 | IDENTIFIER       #IdentifierLiteral
 ;
-// Done! 😎
+
 // Argument list for function calls
 arglist
 : argument (COMMA argument)* COMMA?
 ;
-// Done! 😎
+
 argument
 : (IDENTIFIER EQUAL)? expression
 | POWER expression   

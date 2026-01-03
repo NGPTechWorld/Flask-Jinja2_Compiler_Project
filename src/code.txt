@@ -34,19 +34,16 @@
 #while i < 5:
 #    print(i)
 #    i += 1
-from math import sqrt, pow
+#x = 10
+#while i < 5:
+#    print(i)
 
-x = 10
-y = 5
-z = [1, 2, 3]
-
-for i in z:
-    x += i * 2
-    if x > 15:
-        y = y + x
-
-def add(a, b):
-    return a + b
-
-result = add(x, y)
-print(result)
+def product_details(product_id):
+    # تبحث عن منتج باستخدام الـ ID وتعرض صفحة التفاصيل الخاصة به.
+    
+    # البحث عن المنتج في القائمة
+    product = None
+    for p in products:
+        if p['id'] == product_id:
+            product = p
+            break
