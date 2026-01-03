@@ -1,6 +1,24 @@
-import math
-import os as system
+# ============================================================
+# FunctionDef tests
+# ============================================================
 
-from math import sqrt
-from random import randint as rint
+def f(a, b):
+    x = a + b
+    if x > 10:
+        y = x * 2
+    else:
+        y = x - 2
+    return y
 
+def g() -> int:
+    for i in range(3):
+        z = i + 1
+    return z
+
+def h(a, b = 10):
+    x = a + b
+    if x > 10:
+        y = x * 2
+    else:
+        y = x - 2
+    return y
