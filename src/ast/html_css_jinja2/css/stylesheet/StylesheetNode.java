@@ -24,22 +24,24 @@ public class StylesheetNode extends CssNode {
         statementsCss.add(stmt);
     }
 
-    // @Override
-    // public String toString(int indent) {
-    // StringBuilder sb = new StringBuilder(" ".repeat(indent));
-    // sb.append("(line ").append(line).append(") Stylesheet");
-    // for (var stmt : statementsCss) {
-    // sb.append("\n").append(stmt.toString(indent + 2));
-    // }
-    // return sb.toString();
-    // }
-    // TODO indent
     @Override
-    public String toString() {
-        return "StylesheetNode{" +
-                "imports=" + imports +
-                ", statements=" + statementsCss +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+
+        if (!imports.isEmpty()) {
+            sb.append("\n").append(" ".repeat(indent + 2)).append("Imports:");
+            for (CssImportNode importNode : imports) {
+                sb.append("\n").append(importNode.toString(indent + 4));
+            }
+        }
+
+        if (!statementsCss.isEmpty()) {
+            sb.append("\n").append(" ".repeat(indent + 2)).append("Statements:");
+            for (CssNestedStatement stmt : statementsCss) {
+                sb.append("\n").append(stmt.toString(indent + 4));
+            }
+        }
+        return sb.toString();
     }
 
 }
