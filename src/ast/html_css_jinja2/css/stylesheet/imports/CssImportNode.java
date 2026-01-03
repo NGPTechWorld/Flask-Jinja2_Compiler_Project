@@ -16,13 +16,15 @@ public class CssImportNode extends CssNode {
         this.mediaQueryList = mediaQueryList;
     }
 
-    // TODO indent
     @Override
-    public String toString() {
-        return "CssImportNode{" +
-                "importPath='" + importPath + '\'' +
-                ", mediaQueryList=" + mediaQueryList +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append(" url(\"").append(importPath).append("\")");
+        if (mediaQueryList != null) {
+            sb.append(" ").append(mediaQueryList.toString(0)); // Print media list on same line
+        }
+        sb.append(";");
+        return sb.toString();
     }
 
 }
