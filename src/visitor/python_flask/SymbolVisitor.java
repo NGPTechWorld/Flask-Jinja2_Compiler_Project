@@ -1,11 +1,14 @@
 package visitor.python_flask;
 
+import java.util.ArrayList;
+
 import javax.management.OperationsException;
 
 import org.antlr.v4.runtime.atn.ATN;
 
 import Symbol_table.Symbol;
 import Symbol_table.SymbolTable;
+import Symbol_table.Scope;
 import antlr.python_flask.generated.PythonParserBaseVisitor;
 import antlr.python_flask.generated.PythonParser.DoubleLiteralContext;
 import ast.BaseNode;
@@ -41,9 +44,10 @@ import ast.python_flask.simple_statement.import_stat.ImportStatementNode;
 
 public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
     private SymbolTable table = new SymbolTable();
+    private ArrayList<String> globalVars = new ArrayList<>();
 
     // ============================================================
-    // Program // ✔️
+    // Program
     // ============================================================
     public void visitProgram(ProgramNode program) {
         table.pushScope("global");
@@ -57,11 +61,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
     // Statement
     // ============================================================
     private void visitStatement(StatementNode stmt) {
-        if (stmt instanceof ExpressionStatementNode e) {
-            visitExpressionStatement(e);
-        }
-
-        else if (stmt instanceof AssignmentStatementNode a) {
+        if (stmt instanceof AssignmentStatementNode a) {
             visitAssignment(a);
         }
 
@@ -82,98 +82,11 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
          else if (stmt instanceof IfStatementNode i) {
             visitIf(i);
         }
+        else if (stmt instanceof GlobalStatementNode g) {
+            visitGlobal(g);
+        }
         else if (stmt instanceof ImportStatementNode imp) {
             visitImport(imp);
-        }
-    }
-
-    // ============================================================
-    // Expression Statement // ✔️
-    // ============================================================
-    private void visitExpressionStatement(ExpressionStatementNode e) {
-        for (ExpressionNode exp : e.expressions) {
-            visitExpression(exp);
-        }
-    }
-
-    // ============================================================
-    // Expression
-    // ============================================================
-    private void visitExpression(ExpressionNode expr) {
-
-        if (expr == null)
-            return;
-
-        if (expr instanceof IdentifierExpression id) {
-            table.resolve(id.name);
-            return;
-        }
-
-        if (expr instanceof ListAtomNode list) {
-            for (ExpressionNode e : list.elements) {
-                visitExpression(e);
-            }
-            return;
-        }
-
-        if (expr instanceof DictAtomNode dict) {
-            for (var pair : dict.entries) {
-                visitExpression(pair.a); // key
-                visitExpression(pair.b); // value
-            }
-            return;
-        }
-
-        if (expr instanceof ParenAtomNode par) {
-            for (ExpressionNode e : par.expressions) {
-                visitExpression(e);
-            }
-            return;
-        }
-
-        if (expr instanceof AtomExpressionNode atom) {
-
-            if (atom.atom != null) {
-                visitExpression(atom.atom);
-                return;
-            }
-
-            if (atom.identifier != null) {
-                table.resolve(atom.identifier.name);
-            }
-
-            for (TrailerNode t : atom.trailers) {
-                visitTrailer(t);
-            }
-
-            return;
-        }
-
-        if (expr instanceof BinaryExpressionNode bin) {
-            visitExpression(bin.left);
-            visitExpression(bin.right);
-            return;
-        }
-
-        if (expr instanceof UnaryExpressionNode un) {
-            visitExpression(un.expr);
-            return;
-        }
-    }
-
-    private void visitTrailer(TrailerNode trailer) {
-        if (trailer instanceof CallTrailerNode callTrailer) {
-            // زيارة وسائط استدعاء الدالة
-            for (ExpressionNode arg : callTrailer.arguments) {
-                visitExpression(arg);
-            }
-        } else if (trailer instanceof SubscriptTrailerNode subscriptTrailer) {
-            // زيارة التعبير داخل الأقواس المربعة
-            visitExpression(subscriptTrailer.exp);
-        } else if (trailer instanceof AttributeTrailerNode attributeTrailer) {
-            // obj.attribute - لا يتم تسجيل رمز جديد
-            // يمكن تسجيل استخدام السمة هنا إذا أردت
-            // attributeTrailer.attribute.name يحتوي على اسم السمة
         }
     }
 
@@ -221,12 +134,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
             }
 
             if (t instanceof VarTargetNode v) {
-
-                table.define(new Symbol(
-                        v.attribute.name,
-                        "variable",
-                        v.line,
-                        literalValue));
+                define_var(new Symbol(v.attribute.name, "variable", v.line, literalValue));
             }
 
             else if (t instanceof AttributeTargetNode attr) {
@@ -235,12 +143,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
 
             else if (t instanceof SubscriptTargetNode sub) {
                 visitTarget(sub.targetNode);
-                visitExpression(sub.exp);
             }
-        }
-
-        for (ExpressionNode value : a.values) {
-            visitExpression(value);
         }
     }
 
@@ -279,7 +182,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     }
 
                     if (result != null) {
-                        table.define(new Symbol(v.attribute.name, "variable", v.line, result));
+                        define_var(new Symbol(v.attribute.name, "variable", v.line, result));
                     }
                 }
             }
@@ -317,7 +220,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     }
 
                     if (result != null) {
-                        table.define(new Symbol(v.attribute.name, "variable", v.line, result));
+                        define_var(new Symbol(v.attribute.name, "variable", v.line, result));
                     }
                 }
             }
@@ -355,7 +258,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     }
 
                     if (result != null) {
-                        table.define(new Symbol(v.attribute.name, "variable", v.line, result));
+                        define_var(new Symbol(v.attribute.name, "variable", v.line, result));
                     }
                 }
             }
@@ -382,7 +285,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     }
 
                     if (result != null) {
-                        table.define(new Symbol(v.attribute.name, "variable", v.line, result));
+                        define_var(new Symbol(v.attribute.name, "variable", v.line, result));
                     }
                 }
             }
@@ -420,7 +323,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     }
 
                     if (result != null) {
-                        table.define(new Symbol(v.attribute.name, "variable", v.line, result));
+                        define_var(new Symbol(v.attribute.name, "variable", v.line, result));
                     }
                 }
             }
@@ -453,7 +356,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                     }
 
                     if (result != null) {
-                        table.define(new Symbol(v.attribute.name, "variable", v.line, result));
+                        define_var(new Symbol(v.attribute.name, "variable", v.line, result));
                     }
                 }
             }
@@ -617,7 +520,7 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
     private void visitTarget(TargetNode t) {
 
         if (t instanceof VarTargetNode v) {
-            table.define(new Symbol(
+            define_var(new Symbol(
                     v.attribute.name,
                     "variable",
                     v.line));
@@ -630,7 +533,6 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         else if (t instanceof SubscriptTargetNode sub) {
             visitTarget(sub.targetNode);
-            visitExpression(sub.exp);
         }
     }
 
@@ -642,10 +544,6 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                 c.nameClass.name,
                 "class",
                 c.line));
-
-        for (ExpressionNode arg : c.arguments) {
-            visitExpression(arg);
-        }
 
         table.pushScope("class " + c.nameClass.name);
         visitBody(c.body);
@@ -714,11 +612,8 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
             }
         }
 
-        if (f.returnType != null)
-            visitExpression(f.returnType);
-
         visitBody(f.body);
-
+        globalVars.clear();
         table.popScope();
     }
 
@@ -749,20 +644,12 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
         if (arg.nameArg != null) {
             table.resolve(arg.nameArg.name);
         }
-
-        if (arg.value != null) {
-            visitExpression(arg.value);
-        }
     }
 
     // ============================================================
     // For
     // ============================================================
     private void visitFor(ForStatementNode f) {
-
-        for (ExpressionNode iterable : f.iterables) {
-            visitExpression(iterable);
-        }
 
         for (TargetNode t : f.targets) {
 
@@ -779,18 +666,22 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
 
             else if (t instanceof SubscriptTargetNode sub) {
                 visitTarget(sub.targetNode);
-                visitExpression(sub.exp);
             }
         }
 
         visitBody(f.body);
     }
 
+    // ============================================================
+    // While
+    // ============================================================
     private void visitWhile(WhileStatementNode w) {
-        visitExpression(w.iterable);
         visitBody(w.body);
     }
 
+    // ============================================================
+    // If
+    // ============================================================
     private void visitIf(IfStatementNode i) {
 
         if (checkCondition(i.ifCondition)) {
@@ -887,18 +778,16 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
     
         throw new RuntimeException("Not a number: " + o);
     }
-    
-    
-    
 
+    // ============================================================
+    // Import
+    // ============================================================
     private void visitImport(ImportStatementNode imp) {
 
-        // 1) إذا كان import عادي (بدون from)
         if (imp.fromModule == null) {
 
             for (ImportItem item : imp.items) {
 
-                // import module
                 if (item.idRight == null) {
                     table.define(new Symbol(
                             item.idLeft,
@@ -906,27 +795,23 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                             item.line));
                 }
 
-                // import module as alias
                 else {
                     table.define(new Symbol(
-                            item.idRight, // alias
+                            item.idRight, 
                             "module",
                             item.line));
                 }
             }
         }
 
-        // 2) from module import ...
         else {
 
-            // زيارة اسم الموديول (resolve فقط)
             for (String part : imp.fromModule.parts) {
                 table.resolve(part);
             }
 
             for (ImportItem item : imp.items) {
 
-                // from X import name
                 if (item.idRight == null) {
                     table.define(new Symbol(
                             item.idLeft,
@@ -934,21 +819,30 @@ public class SymbolVisitor extends PythonParserBaseVisitor<BaseNode> {
                             item.line));
                 }
 
-                // from X import name as alias
                 else {
                     table.define(new Symbol(
-                            item.idRight, // alias
+                            item.idRight, 
                             "import",
                             item.line));
                 }
             }
         }
     }
-
+    
+    // ============================================================
+    // Global Statement
+    // ============================================================
     private void visitGlobal(GlobalStatementNode g) {
-
         for (String name : g.names) {
-            table.resolve(name); // يشير إلى أن الاسم global
+            globalVars.add(name);
+        }
+    }
+
+    private void define_var(Symbol symbol) {
+        if (globalVars.contains(symbol.getName())) {
+            table.define_global(symbol);
+        } else {
+        table.define(symbol);
         }
     }
 
