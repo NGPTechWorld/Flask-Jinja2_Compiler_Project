@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تفاصيل المنتج</title>
+    <title>Product Details</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -189,10 +189,6 @@
         transform: translateX(0);
       }
 
-      .notification.error {
-        background-color: var(--accent-color);
-      }
-
       @media (max-width: 768px) {
         .product-details-container {
           flex-direction: column;
@@ -216,38 +212,40 @@
   <body>
     <header>
       <div class="header-content">
-        <div class="logo">متجر المنتجات</div>
+        <div class="logo">Product Store</div>
         <a href="/" class="back-btn">
-          <i class="fas fa-arrow-right"></i>
-          العودة للمنتجات
+          <i class="fas fa-arrow-left"></i>
+          Back to Products
         </a>
       </div>
     </header>
 
     <div class="container">
-      <div class="product-image-section">
-        <img src="{{ product.image }}" alt="{{ product.name }}" />
-      </div>
-      <div class="product-info-section">
-        <h1 class="product-name">{{ product.name }}</h1>
-        <p class="product-price">{{ product.price }} دولار</p>
-        <div class="product-description">
-          <p>{{ product.description }}</p>
+      <div class="product-details-container">
+        <div class="product-image-section">
+          <img src="{{ product.image }}" alt="{{ product.name }}" />
         </div>
-        <div class="product-actions">
-          <form
-            action="/delete-product/{{ product.id }}"
-            method="POST"
-            onsubmit="return confirm('هل أنت متأكد من الحذف؟');"
-          >
-            <button type="submit" class="btn btn-danger">
-              <i class="fas fa-trash"></i> حذف المنتج
-            </button>
-          </form>
+        <div class="product-info-section">
+          <h1 class="product-name">{{ product.name }}</h1>
+          <p class="product-price">${{ product.price }}</p>
+          <div class="product-description">
+            <p>{{ product.description }}</p>
+          </div>
+          <div class="product-actions">
+            <form
+              action="/delete-product/{{ product.id }}"
+              method="POST"
+              onsubmit="return confirm('Are you sure you want to delete this product?');"
+            >
+              <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Delete Product
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
 
-    <div id="notification" class="notification">تم حذف المنتج بنجاح</div>
+    <div id="notification" class="notification">Product deleted successfully!</div>
   </body>
 </html>
