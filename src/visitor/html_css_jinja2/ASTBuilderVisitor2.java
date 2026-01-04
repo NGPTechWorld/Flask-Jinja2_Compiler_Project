@@ -11,12 +11,16 @@ import antlr.html_css_jinja2.generated.HtmlCssJinja2ParserBaseVisitor;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssClassSelectorContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssCompoundSelectorWithTypeContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssCompoundSelectorWithoutTypeContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssDeclarationContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssDeclarationListContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssIdPropertyContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssMediaQueriesContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssRulesetContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssRulesetDefinitionContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssSelectorGroupBodyContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssSelectorGroupContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssStylesheetContext;
+import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssVarPropertyContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlAttributeRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlCommentRuleContext;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.HtmlContentRuleContext;
@@ -73,10 +77,30 @@ import ast.html_css_jinja2.HtmlDocumentRuleNode;
 import ast.html_css_jinja2.css.stylesheet.StylesheetNode;
 import ast.html_css_jinja2.css.stylesheet.imports.CssImportNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.helper_abstract.CssNestedStatement;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.groupRuleBody.GroupRuleBodyNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList.MediaQueryListNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.media.mediaQueryList.MediaQueryNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.CssRulesetNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.CssDeclarationListNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.CssDeclarationNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.CssExpressionNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssDimensionTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssFunctionTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssHexColorTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssIdentifierNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssNumberNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssPercentageTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssStringNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssUrlTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.CssVariableTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.calcFunctionNodes.CalcProductNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.calcFunctionNodes.CalcSumNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.calcFunctionNodes.CalcValueNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.helper_abstract.CssTermNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.expressionsAndTerms.terms.urlAndFunctionalPseudoNodes.CssUrlNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.property.CssIdPropertyNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.property.CssVarPropertyNode;
+import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.declarations.property.helper_abstract.CssPropertyNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SelectorGroupNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SelectorNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.SimpleSelectorSequenceNode;
@@ -832,6 +856,19 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return new CssRulesetNode(line, selectors, declarations);
     }
 
+    @Override
+    public BaseNode visitCssGroupRulebody(
+            HtmlCssJinja2Parser.CssGroupRulebodyContext ctx) {
+
+        GroupRuleBodyNode body = new GroupRuleBodyNode(" GroupRuleBodyNode", ctx.getStart().getLine());
+
+        for (var stmt : ctx.nestedStatement()) {
+            body.addStatement((CssNestedStatement) visit(stmt));
+        }
+
+        return body;
+    }
+
     // --- Selectors ---
 
     @Override
@@ -905,6 +942,36 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return sequence;
     }
 
+    @Override
+    public BaseNode visitCssCompoundSelectorWithoutType(CssCompoundSelectorWithoutTypeContext ctx) {
+
+        int line = ctx.getStart().getLine();
+
+        // 1. This sequence has no type selector, so it's null
+        TypeSelectorNode typeSelector = null;
+
+        // 2. Create the main node for this sequence
+        SimpleSelectorSequenceNode sequence = new SimpleSelectorSequenceNode(line, typeSelector);
+
+        // 3. Process and add ID selectors (e.g., '#my-id')
+        for (var compCtx : ctx.Hash()) {
+            String id = compCtx.getText().substring(1); // Remove the '#'
+            sequence.addComponent(new CssIdSelectorNode(compCtx.getSymbol().getLine(), id));
+        }
+
+        // 4. Process and add class selectors (e.g., '.my-class')
+        for (var compCtx : ctx.className()) {
+            sequence.addComponent((CssClassSelectorNode) visit(compCtx));
+        }
+
+        // 5. Process and add pseudo-selectors (e.g., ':hover', '::before')
+        for (var compCtx : ctx.pseudo()) {
+            sequence.addComponent((CssPseudoSelectorNode) visit(compCtx));
+        }
+
+        return sequence;
+    }
+
     // Add missing visitor method for type selector
     @Override
     public BaseNode visitCssElementTypeSelector(HtmlCssJinja2Parser.CssElementTypeSelectorContext ctx) {
@@ -914,7 +981,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         }
         return new TypeSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine(), namespacePrefix);
     }
-
 
     // Add missing visitor method for pseudo selector
     @Override
@@ -983,7 +1049,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return expression;
     }
 
-    // Add missing visitor method for universal selector
+    // universal selector
     @Override
     public BaseNode visitCssUniversalSelector(HtmlCssJinja2Parser.CssUniversalSelectorContext ctx) {
         String namespacePrefix = null;
@@ -994,41 +1060,272 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     @Override
-    public BaseNode visitCssCompoundSelectorWithoutType(CssCompoundSelectorWithoutTypeContext ctx) {
-        int line = ctx.getStart().getLine();
-
-        // 1. This sequence has no type selector, so it's null
-        TypeSelectorNode typeSelector = null;
-
-        // 2. Create the main node for this sequence
-        SimpleSelectorSequenceNode sequence = new SimpleSelectorSequenceNode(line, typeSelector);
-
-        // 3. Process and add ID selectors (e.g., '#my-id')
-        for (var compCtx : ctx.Hash()) {
-            String id = compCtx.getText().substring(1); // Remove the '#'
-            sequence.addComponent(new CssIdSelectorNode(compCtx.getSymbol().getLine(), id));
-        }
-
-        // 4. Process and add class selectors (e.g., '.my-class')
-        for (var compCtx : ctx.className()) {
-            sequence.addComponent((CssClassSelectorNode) visit(compCtx));
-        }
-
-        // 5. Process and add pseudo-selectors (e.g., ':hover', '::before')
-        for (var compCtx : ctx.pseudo()) {
-            sequence.addComponent((CssPseudoSelectorNode) visit(compCtx));
-        }
-
-        return sequence;
-    }
-
-    @Override
     public BaseNode visitCssClassSelector(CssClassSelectorContext ctx) {
         return new CssClassSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine());
     }
 
+    // ---- Declaration ---
+    @Override
+    public BaseNode visitCssDeclaration(CssDeclarationContext ctx) {
+        CssPropertyNode property = (CssPropertyNode) visit(ctx.property_());
 
-    // ! Helper for self closing html
+        CssExpressionNode expression = (CssExpressionNode) visit(ctx.expr());
+
+        boolean important = ctx.Important() != null;
+
+        return new CssDeclarationNode(
+                ctx.getStart().getLine(),
+                property,
+                expression,
+                important);
+
+    }
+
+    @Override
+    public BaseNode visitCssDeclarationList(CssDeclarationListContext ctx) {
+        CssDeclarationListNode listNode = new CssDeclarationListNode("CssDeclarationList", ctx.getStart().getLine());
+
+        // Loop over every declaration in the list
+        for (var declCtx : ctx.declaration()) {
+            CssDeclarationNode declaration = (CssDeclarationNode) visit(declCtx);
+            listNode.addDeclaration(declaration);
+        }
+
+        return listNode;
+    }
+
+    @Override
+    public BaseNode visitCssIdProperty(CssIdPropertyContext ctx) {
+        return new CssIdPropertyNode(
+                ctx.cssIdent().getText(),
+                ctx.getStart().getLine());
+    }
+
+    @Override
+    public BaseNode visitCssVarProperty(CssVarPropertyContext ctx) {
+        // Variable token already includes "--"
+        String name = ctx.Variable().getText().substring(2);
+
+        return new CssVarPropertyNode(
+                name,
+                ctx.getStart().getLine());
+    }
+
+    // --- terms ---
+    @Override
+    public BaseNode visitCssNumberTerm(
+            HtmlCssJinja2Parser.CssNumberTermContext ctx) {
+        return new CssNumberNode(ctx.getStart().getLine(), ctx.number().getText());
+    }
+
+    @Override
+    public BaseNode visitCssPercentageTerm(
+            HtmlCssJinja2Parser.CssPercentageTermContext ctx) {
+        return new CssPercentageTermNode(ctx.getStart().getLine(), ctx.percentage().getText());
+    }
+
+    @Override
+    public BaseNode visitCssDimensionTerm(
+            HtmlCssJinja2Parser.CssDimensionTermContext ctx) {
+        return new CssDimensionTermNode(" CssDimensionTermNode ", ctx.getStart().getLine(), ctx.dimension().getText());
+    }
+
+    @Override
+    public BaseNode visitCssVariableTerm(
+            HtmlCssJinja2Parser.CssVariableTermContext ctx) {
+        return new CssVariableTermNode(
+                " CssVariableTermNode ",
+                ctx.getStart().getLine(),
+                ctx.Variable().getText().substring(2));
+    }
+
+    @Override
+    public BaseNode visitCssFunctionTerm(
+            HtmlCssJinja2Parser.CssFunctionTermContext ctx) {
+
+        return new CssFunctionTermNode(
+                ctx.Function_().getText(),
+                ctx.getStart().getLine(),
+                (CssExpressionNode) visit(ctx.expr()));
+    }
+
+    @Override
+    public BaseNode visitCssStringTerm(HtmlCssJinja2Parser.CssStringTermContext ctx) {
+        String text = ctx.String_().getText();
+        String value = stripQuotes(text);
+        return new CssStringNode("CssString", ctx.getStart().getLine(), value);
+    }
+
+    @Override
+    public BaseNode visitCssIdTerm(HtmlCssJinja2Parser.CssIdTermContext ctx) {
+        return new CssIdentifierNode(
+                ctx.cssIdent().getText(),
+                ctx.getStart().getLine());
+    }
+
+    @Override
+    public BaseNode visitCssHexColorTerm(HtmlCssJinja2Parser.CssHexColorTermContext ctx) {
+        String hexText = ctx.Hash().getText();
+        String value = hexText.substring(1); // Remove the #
+        return new CssHexColorTermNode("CssHexColorTerm", ctx.getStart().getLine(), value);
+    }
+
+    // --- Imports ---
+
+    @Override
+    public BaseNode visitCssImportWithMediaQueryAndSemicolon(
+            HtmlCssJinja2Parser.CssImportWithMediaQueryAndSemicolonContext ctx) {
+
+        String path = ctx.String_() != null
+                ? stripQuotes(ctx.String_().getText())
+                : ctx.url().getText();
+
+        return new CssImportNode(
+                ctx.getStart().getLine(),
+                "CssImport",
+                path,
+                (MediaQueryListNode) visit(ctx.mediaQueryList()));
+    }
+
+    @Override
+    public BaseNode visitCssImportWithSemicolon(
+            HtmlCssJinja2Parser.CssImportWithSemicolonContext ctx) {
+
+        String path = ctx.String_() != null
+                ? stripQuotes(ctx.String_().getText())
+                : ctx.url().getText();
+
+        return new CssImportNode(
+                ctx.getStart().getLine(),
+                "CssImport",
+                path,
+                null);
+    }
+
+    @Override
+    public BaseNode visitCssImportWithMediaQueryNoSemicolon(
+            HtmlCssJinja2Parser.CssImportWithMediaQueryNoSemicolonContext ctx) {
+
+        String path = ctx.String_() != null
+                ? stripQuotes(ctx.String_().getText())
+                : ctx.url().getText();
+
+        return new CssImportNode(
+                ctx.getStart().getLine(),
+                "CssImport",
+                path,
+                (MediaQueryListNode) visit(ctx.mediaQueryList()));
+    }
+
+    @Override
+    public BaseNode visitCssImportWithoutSemicolon(
+            HtmlCssJinja2Parser.CssImportWithoutSemicolonContext ctx) {
+
+        String path = ctx.String_() != null
+                ? stripQuotes(ctx.String_().getText())
+                : ctx.url().getText();
+
+        return new CssImportNode(
+                ctx.getStart().getLine(),
+                "CssImport",
+                path,
+                null);
+    }
+
+    @Override
+    public BaseNode visitCssMediaQueriesList(
+            HtmlCssJinja2Parser.CssMediaQueriesListContext ctx) {
+
+        MediaQueryListNode list = new MediaQueryListNode("MediaQueryList", ctx.getStart().getLine());
+
+        for (var q : ctx.mediaQuery()) {
+            list.addQuery((MediaQueryNode) visit(q));
+        }
+
+        return list;
+    }
+
+    // --- URL visitors ---
+
+    @Override
+    public BaseNode visitCssQuotedUrl(
+            HtmlCssJinja2Parser.CssQuotedUrlContext ctx) {
+
+        String raw = ctx.String_().getText(); // "image.png"
+        String url = raw.substring(1, raw.length() - 1); // remove quotes
+
+        CssUrlNode urlNode = new CssUrlNode(
+                "CssUrl",
+                ctx.getStart().getLine(),
+                url,
+                true);
+
+        return new CssUrlTermNode(
+                "CssUrlTerm",
+                ctx.getStart().getLine(),
+                urlNode);
+    }
+
+    @Override
+    public BaseNode visitCssUnquotedUrl(
+            HtmlCssJinja2Parser.CssUnquotedUrlContext ctx) {
+
+        CssUrlNode urlNode = new CssUrlNode(
+                "CssUrl",
+                ctx.getStart().getLine(),
+                ctx.Url().getText(),
+                false);
+
+        return new CssUrlTermNode(
+                "CssUrlTerm",
+                ctx.getStart().getLine(),
+                urlNode);
+    }
+
+    @Override
+    public BaseNode visitCssCalcSumExpression(
+            HtmlCssJinja2Parser.CssCalcSumExpressionContext ctx) {
+
+        CalcSumNode sum = new CalcSumNode("CalcSum", ctx.getStart().getLine());
+
+        // first product
+        sum.addProduct((CalcProductNode) visit(ctx.calcProduct(0)));
+
+        // remaining (+ / -) products
+        for (int i = 1; i < ctx.calcProduct().size(); i++) {
+            String operator = ctx.getChild(2 * i - 1).getText(); // + or -
+            CalcProductNode product = (CalcProductNode) visit(ctx.calcProduct(i));
+
+            sum.addOperatorAndProduct(operator, product);
+        }
+
+        return sum;
+    }
+
+    @Override
+    public BaseNode visitCssCalcProductExpression(
+            HtmlCssJinja2Parser.CssCalcProductExpressionContext ctx) {
+
+        CalcProductNode product = new CalcProductNode("CalcProduct", ctx.getStart().getLine());
+
+        // first value
+        product.addValue((CalcValueNode) visit(ctx.calcValue(0)));
+
+        int valueIndex = 1;
+
+        for (int i = 1; i < ctx.getChildCount(); i++) {
+            String text = ctx.getChild(i).getText();
+
+            if (text.equals("*") || text.equals("/")) {
+                CalcValueNode value = (CalcValueNode) visit(ctx.calcValue(valueIndex++));
+                product.addOperatorAndValue(text, value);
+            }
+        }
+
+        return product;
+    }
+
+    // * Helper for self closing html
     // This is used to detect the selfclosing tags
     // for example : <img />
     // or <br>
@@ -1040,4 +1337,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     private boolean isVoidElement(String tag) {
         return VOID_ELEMENTS.contains(tag.toLowerCase());
     }
+
+    private String stripQuotes(String s) {
+        return s.substring(1, s.length() - 1);
+    }
+
 }

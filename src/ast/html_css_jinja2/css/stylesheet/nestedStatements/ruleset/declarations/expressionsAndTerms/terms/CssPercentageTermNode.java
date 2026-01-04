@@ -6,8 +6,8 @@ public class CssPercentageTermNode extends CssTermNode {
     int line;
     String text;
 
-    public CssPercentageTermNode(String name, int line, String text) {
-        super(name, line);
+    public CssPercentageTermNode(int line, String text) {
+        super(" CssPercentageTermNode ", line);
         this.line = line;
         this.text = text;
     }

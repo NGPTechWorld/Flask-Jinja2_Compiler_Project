@@ -19,7 +19,7 @@ public class CssDimensionTermNode extends CssTermNode {
 
     @Override
     public String toString(int indent) {
-        return text;
+        return  text;
     }
 
 }
