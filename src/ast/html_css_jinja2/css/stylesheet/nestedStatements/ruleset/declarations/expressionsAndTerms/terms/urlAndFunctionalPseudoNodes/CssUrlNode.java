@@ -14,9 +14,8 @@ public class CssUrlNode extends CssNode {
         this.wasQuoted = wasQuoted;
     }
 
-    // TODO indent
     @Override
-    public String toString() {
-        return "CssUrlNode{url='" + url + "', wasQuoted=" + wasQuoted + "}";
+    public String toString(int indent) {
+        return "url(\"" + url + "\")";
     }
 }

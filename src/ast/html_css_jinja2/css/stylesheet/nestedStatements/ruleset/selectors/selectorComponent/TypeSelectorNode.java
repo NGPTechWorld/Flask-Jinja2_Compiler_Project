@@ -9,15 +9,13 @@ public class TypeSelectorNode extends CssSelectorComponentNode {
 
     public TypeSelectorNode(String name, int line, String namespacePrefix) {
         super(name, line);
+        this.name = name;
         this.namespacePrefix = namespacePrefix;
     }
 
-    // TODO indent
+    // REVIEW
     @Override
-    public String toString() {
-        return "TypeSelectorNode{" +
-                "name='" + name + '\'' +
-                ", namespacePrefix='" + namespacePrefix + '\'' +
-                '}';
+    public String toString(int indent) {
+        return (namespacePrefix != null ? namespacePrefix + "|" : "") + name;
     }
 }

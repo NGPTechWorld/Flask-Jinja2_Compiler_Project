@@ -29,13 +29,17 @@ public class CalcProductNode extends CssNode {
         this.values.add(value);
     }
 
-    // TODO indent
+    // REVIEW visitor
     @Override
-    public String toString() {
-        return "CalcProductNode{" +
-                "values=" + values +
-                ", operators=" + operators +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            sb.append(values.get(i).toString(0));
+            if (i < operators.size()) {
+                sb.append(" ").append(operators.get(i)).append(" ");
+            }
+        }
+        return sb.toString();
     }
 
 }

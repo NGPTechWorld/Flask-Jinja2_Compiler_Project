@@ -15,8 +15,8 @@ public class CssHexColorTermNode extends CssTermNode {
     }
 
     @Override
-    public String toString() {
-        return "CssHexColorTermNode{value='" + value + "'}";
+    public String toString(int indent) {
+        return "#" + value;
     }
 
 }

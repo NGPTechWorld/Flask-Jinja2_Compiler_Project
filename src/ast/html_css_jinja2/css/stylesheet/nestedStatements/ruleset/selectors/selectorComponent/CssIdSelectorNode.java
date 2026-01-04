@@ -11,10 +11,10 @@ public class CssIdSelectorNode extends CssSelectorComponentNode {
         this.id = id;
     }
 
-    // TODO indent
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "CssIdSelectorNode{id='" + id + "'}";
+    public String toString(int indent) {
+        return "#" + id;
     }
 
 }

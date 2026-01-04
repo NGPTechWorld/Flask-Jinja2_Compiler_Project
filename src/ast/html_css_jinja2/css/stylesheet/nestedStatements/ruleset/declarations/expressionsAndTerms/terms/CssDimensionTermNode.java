@@ -13,11 +13,13 @@ public class CssDimensionTermNode extends CssTermNode {
         this.text = text;
     }
 
-      public int getLine() { return line; }
-
-    // TODO
-    @Override
-    public String toString() {
-        return "CssDimensionTermNode{text='" + text + "'}";
+    public int getLine() {
+        return line;
     }
+
+    @Override
+    public String toString(int indent) {
+        return  text;
+    }
+
 }

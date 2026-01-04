@@ -14,10 +14,10 @@ public class CssUrlTermNode extends CssTermNode {
         this.line = line;
         this.url = url;
     }
-    //TODO indent
+    
     @Override
-    public String toString() {
-        return "CssUrlTermNode{url=" + url + "}";
+    public String toString(int indent) {
+        return url.toString(0);
     }
 
 }

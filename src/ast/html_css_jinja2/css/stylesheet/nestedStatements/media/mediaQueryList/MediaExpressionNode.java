@@ -14,13 +14,17 @@ public class MediaExpressionNode extends CssNode {
         this.feature = feature;
         this.expression = expression;
     }
-    //TODO indent
+
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "MediaExpressionNode{" +
-                "feature='" + feature + '\'' +
-                ", expression=" + expression +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder("(");
+        sb.append(feature);
+        if (expression != null) {
+            sb.append(": ").append(expression.toString(0));
+        }
+        sb.append(")");
+        return sb.toString();
     }
 
 }

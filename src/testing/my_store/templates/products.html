@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>متجر المنتجات</title>
+    <title>Product Store</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -73,6 +73,7 @@
         align-items: center;
         gap: 8px;
         transition: background-color 0.3s;
+        text-decoration: none;
       }
 
       .add-product-btn:hover {
@@ -103,6 +104,7 @@
         height: 200px;
         width: 100%;
         object-fit: contain;
+        background-color: #fff;
       }
 
       .product-info {
@@ -126,6 +128,7 @@
       .product-actions {
         display: flex;
         justify-content: space-between;
+        gap: 10px;
       }
 
       .btn {
@@ -215,20 +218,15 @@
   <body>
     <header>
       <div class="header-content">
-        <div class="logo">متجر المنتجات</div>
+        <div class="logo">Product Store</div>
         <a href="/add-product" class="add-product-btn">
           <i class="fas fa-plus"></i>
-          إضافة منتج جديد
+          Add New Product
         </a>
       </div>
     </header>
 
     <div class="container">
-      <!-- <div class="search-bar">
-            <input type="text" class="search-input" placeholder="ابحث عن منتج...">
-            <button class="search-btn"><i class="fas fa-search"></i></button>
-        </div> -->
-
       {% if products %}
       <div class="products-grid">
         {% for product in products %}
@@ -240,18 +238,16 @@
           />
           <div class="product-info">
             <h3 class="product-name">{{ product.name }}</h3>
-            <p class="product-price">{{ product.price }} دولار</p>
+            <p class="product-price">${{ product.price }}</p>
             <div class="product-actions">
-              <a href="/product/{{ product.id }}" class="btn btn-primary"
-                >عرض التفاصيل</a
-              >
+              <a href="/product/{{ product.id }}" class="btn btn-primary">View Details</a>
               <form
                 action="/delete-product/{{ product.id }}"
                 method="POST"
-                onsubmit="return confirm('هل أنت متأكد من الحذف؟');"
+                onsubmit="return confirm('Are you sure you want to delete this product?');"
               >
                 <button type="submit" class="btn btn-danger">
-                  <i class="fas fa-trash"></i> حذف المنتج
+                  <i class="fas fa-trash"></i> Delete
                 </button>
               </form>
             </div>
@@ -262,12 +258,12 @@
       {% else %}
       <div class="empty-state">
         <i class="fas fa-box-open"></i>
-        <h3>لا توجد منتجات حالياً</h3>
-        <p>قم بإضافة منتج جديد للبدء</p>
+        <h3>No products found</h3>
+        <p>Add a new product to get started</p>
       </div>
       {% endif %}
     </div>
 
-    <div id="notification" class="notification">تم حذف المنتج بنجاح</div>
+    <div id="notification" class="notification">Product deleted successfully!</div>
   </body>
 </html>

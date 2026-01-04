@@ -29,15 +29,22 @@ public class CalcSumNode extends CssNode {
         this.operators.add(operator);
         this.products.add(product);
     }
-      public int getLine() { return line; }
 
-    // TODO indent
+    public int getLine() {
+        return line;
+    }
+
+    // REVIEW indent
     @Override
-    public String toString() {
-        return "CalcSumNode{" +
-                "products=" + products +
-                ", operators=" + operators +
-                '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < products.size(); i++) {
+            sb.append(products.get(i).toString(0));
+            if (i < operators.size()) {
+                sb.append(" ").append(operators.get(i)).append(" ");
+            }
+        }
+        return sb.toString();
     }
 
 }

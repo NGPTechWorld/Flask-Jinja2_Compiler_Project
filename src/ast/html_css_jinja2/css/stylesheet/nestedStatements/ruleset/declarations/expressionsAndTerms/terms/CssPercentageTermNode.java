@@ -6,18 +6,19 @@ public class CssPercentageTermNode extends CssTermNode {
     int line;
     String text;
 
-    public CssPercentageTermNode(String name, int line, String text) {
-        super(name, line);
+    public CssPercentageTermNode(int line, String text) {
+        super(" CssPercentageTermNode ", line);
         this.line = line;
         this.text = text;
     }
-      public int getLine() { return line; }
 
+    public int getLine() {
+        return line;
+    }
 
-    // ! TODO indent
     @Override
-    public String toString() {
-        return "CssPercentageTermNode{text='" + text + "'}";
+    public String toString(int indent) {
+        return text;
     }
 
 }

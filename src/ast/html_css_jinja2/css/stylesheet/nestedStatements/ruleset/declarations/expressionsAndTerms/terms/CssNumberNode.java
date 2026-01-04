@@ -6,17 +6,19 @@ public class CssNumberNode extends CssTermNode {
     int line;
     String text; // i set it string to preserve original format (e.g., 10, 10.0, .5)
 
-    public CssNumberNode(String name, int line, String text) {
-        super(name, line);
+    public CssNumberNode( int line, String text) {
+        super("CssNumberNode ", line);
         this.line = line;
         this.text = text;
     }
-      public int getLine() { return line; }
 
-    // TODO indent
+    public int getLine() {
+        return line;
+    }
+
     @Override
-    public String toString() {
-        return "CssNumberNode{text='" + text + "'}";
+    public String toString(int indent) {
+        return text;
     }
 
 }

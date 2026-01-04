@@ -19,10 +19,15 @@ public class GroupRuleBodyNode extends CssNode {
         this.statements.add(statement);
     }
 
-    // TODO indent
     @Override
-    public String toString() {
-        return "GroupRuleBodyNode{" + "statements=" + statements + '}';
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+        sb.append(" {");
+        for (CssNestedStatement statement : statements) {
+            sb.append("\n").append(statement.toString(indent + 2));
+        }
+        sb.append("\n").append(" ".repeat(indent)).append("}");
+        return sb.toString();
     }
 
 }
