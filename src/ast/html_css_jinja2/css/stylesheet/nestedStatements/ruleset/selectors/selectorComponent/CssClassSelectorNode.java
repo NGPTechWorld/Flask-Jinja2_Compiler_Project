@@ -8,6 +8,7 @@ public class CssClassSelectorNode extends CssSelectorComponentNode {
 
     public CssClassSelectorNode(String name, int line) {
         super(name, line);
+        this.name = name;
     }
 
     // REVIEW indent

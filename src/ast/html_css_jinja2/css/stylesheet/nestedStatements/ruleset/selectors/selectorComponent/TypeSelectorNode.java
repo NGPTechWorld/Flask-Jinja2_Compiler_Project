@@ -9,6 +9,7 @@ public class TypeSelectorNode extends CssSelectorComponentNode {
 
     public TypeSelectorNode(String name, int line, String namespacePrefix) {
         super(name, line);
+        this.name = name;
         this.namespacePrefix = namespacePrefix;
     }
 
