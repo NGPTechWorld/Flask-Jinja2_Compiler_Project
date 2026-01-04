@@ -56,13 +56,31 @@ public class SelectorNode extends CssNode {
         }
     }
 
+    // @Override
+    // public String toString(int indent) {
+    // StringBuilder sb = new StringBuilder(super.toString(indent));
+    // sb.append(" ".repeat(indent)).append(firstSequence.toString(0));
+    // for (CombinatorAndSequence cas : rest) {
+    // sb.append(" ").append(cas.toString());
+    // }
+    // return sb.toString();
+    // }
+
     @Override
     public String toString(int indent) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(firstSequence.toString(0));
+        StringBuilder sb = new StringBuilder(super.toString(indent));
+
+        // Start with the first sequence of the selector
+        if (firstSequence != null) {
+            // TODO Fix indent important
+            sb.append(firstSequence.toString(0));
+        }
+
+        // Append any following sequences with their combinators
         for (CombinatorAndSequence cas : rest) {
             sb.append(" ").append(cas.toString());
         }
+
         return sb.toString();
     }
 
