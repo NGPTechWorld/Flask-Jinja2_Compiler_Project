@@ -628,7 +628,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // literals
     // --------------------------------------------------------
 
-    // // ! Comparison
+    // ! Comparison
     @Override
     public BaseNode visitJinja2StmtComparisonExpression(Jinja2StmtComparisonExpressionContext ctx) {
         // ! should be for stmt not expression
@@ -769,16 +769,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return new JinjaStmtIdentifier(ctx.getStart().getLine(), ctx.getText());
     }
 
-    // ! Template content (HTML + Jinja mix) important for {% if %} and {% for %}
-    // @Override
-    // public BaseNode visitJinja2TemplateContent(Jinja2TemplateContentContext ctx)
-    // {
-    // for (var child : ctx.children) {
-    // visit(child);
-    // }
-    // return null;
-    // }
-
     // ! (3 of 3) - Jinja Comments
     @Override
     public BaseNode visitJinja2Comments(Jinja2CommentsContext ctx) {
@@ -792,7 +782,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // ****************
     @Override
     public BaseNode visitStyleBody(StyleBodyContext ctx) {
-
         return visit(ctx.stylesheet());
     }
 
@@ -926,44 +915,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return new TypeSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine(), namespacePrefix);
     }
 
-    // Add missing visitor method for pseudo selector
-    // Add missing visitor method for pseudo selector
-    // @Override
-    // public BaseNode
-    // visitCssPseudoClassOrElement(HtmlCssJinja2Parser.CssPseudoClassOrElementContext
-    // ctx) {
-    // boolean isElement = ctx.getChild(1).getText().equals(":");
-    // String name = "";
-    // CssExpressionNode expression = null;
-
-    // // Check if it's a simple pseudo selector (like :hover, ::before)
-    // if (ctx.cssIdent() != null) {
-    // name = ctx.cssIdent().getText();
-    // }
-    // // Check if it's a functional pseudo selector (like :nth-child(2n+1))
-    // else if (ctx.getChildCount() > 2 && ctx.getChild(2) instanceof
-    // HtmlCssJinja2Parser.CssFunctionalPseudoContext) {
-    // HtmlCssJinja2Parser.CssFunctionalPseudoContext funcCtx =
-    // (HtmlCssJinja2Parser.CssFunctionalPseudoContext) ctx
-    // .getChild(2);
-
-    // // Extract the function name from the text
-    // String funcText = funcCtx.getText();
-    // int parenIndex = funcText.indexOf('(');
-    // if (parenIndex > 0) {
-    // name = funcText.substring(0, parenIndex);
-    // }
-
-    // // Visit the expression inside the parentheses
-    // if (funcCtx.getChildCount() > 2) {
-    // expression = (CssExpressionNode) visit(funcCtx.getChild(1)); // The
-    // expression is the second child
-    // }
-    // }
-
-    // return new CssPseudoSelectorNode(name, ctx.getStart().getLine(), isElement,
-    // expression);
-    // }
 
     // Add missing visitor method for pseudo selector
     @Override
@@ -1076,11 +1027,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return new CssClassSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine());
     }
 
-    // @Override
-    // public BaseNode visitCssClassSelector(CssClassSelectorContext ctx) {
-    // return new CssClassSelectorNode(ctx.getStart().getLine(),
-    // ctx.cssIdent().getText());
-    // }
 
     // ! Helper for self closing html
     // This is used to detect the selfclosing tags
