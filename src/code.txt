@@ -1,24 +1,16 @@
 # ============================================================
-# FunctionDef tests
+# Global keyword inside function
 # ============================================================
 
-def f(a, b):
-    x = a + b
-    if x > 10:
-        y = x * 2
-    else:
-        y = x - 2
-    return y
+x = 10
+y = "hello"
 
-def g() -> int:
-    for i in range(3):
-        z = i + 1
-    return z
+def f1():
+    global x
+    x += 5 #global
+    y = 10 #local
 
-def h(a, b = 10):
-    x = a + b
-    if x > 10:
-        y = x * 2
-    else:
-        y = x - 2
-    return y
+def f2():
+    global x, y
+    x *= 2
+    y = y + "!"

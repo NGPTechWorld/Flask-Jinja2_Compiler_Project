@@ -9,7 +9,6 @@ import ast.BaseNode;
 import ast.python_flask.ProgramNode;
 import visitor.python_flask.ASTBuilderVisitor;
 import visitor.python_flask.ASTPrinter;
-import visitor.python_flask.SymbolVisitor;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -123,10 +122,8 @@ public class MainTest {
         System.out.println("=== AST (JSON STYLE) ===");
         ASTPrinter.print(ast, 0);
 
-        SymbolVisitor symbolVisitor = new SymbolVisitor();
-        symbolVisitor.visitProgram(ast);
         System.out.println("\n=== Symbol Table ===");
-        symbolVisitor.printSymbols();
+        visitor.printSymbols();
     }
 
 }
