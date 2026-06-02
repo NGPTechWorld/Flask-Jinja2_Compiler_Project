@@ -108,7 +108,6 @@ import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.sel
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.CssIdSelectorNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.CssPseudoSelectorNode;
 import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.TypeSelectorNode;
-import ast.html_css_jinja2.css.stylesheet.nestedStatements.ruleset.selectors.selectorComponent.helper_abstract.CssSelectorComponentNode;
 import ast.html_css_jinja2.helper_abstract.HtmlElementsJinjaBlockTemplate;
 import ast.html_css_jinja2.htmlElements.HtmlAttributeNode;
 import ast.html_css_jinja2.htmlElements.html_content.HtmlCommentNode;
@@ -239,20 +238,16 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 }
             }
         }
-
         return bodyNode;
-
     }
 
     @Override
     public BaseNode visitHtmlTextData(HtmlTextDataContext ctx) {
         String text = ctx.getText();
-
         // Ignore pure whitespace
         if (text.trim().isEmpty()) {
             return null;
         }
-
         return new HtmlTextNode(text, ctx.getStart().getLine());
     }
 
@@ -324,7 +319,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return visit(ctx.jinjaExprExpression());
     }
 
-    // DONE
     // ! visitJinja2MulDivModExpression
     @Override
     public BaseNode visitJinja2MulDivModExpression(Jinja2MulDivModExpressionContext ctx) {
@@ -1010,7 +1004,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 expression = (CssExpressionNode) visit(funcCtx.getChild(1)); // The expression is the second child
             }
         }
-
         return new CssPseudoSelectorNode(name, ctx.getStart().getLine(), isElement, expression);
     }
 
@@ -1021,36 +1014,14 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         String funcText = ctx.getText();
         int parenIndex = funcText.indexOf('(');
         String name = parenIndex > 0 ? funcText.substring(0, parenIndex) : "";
-
         // Visit the expression inside the parentheses - add null check
         CssExpressionNode expression = null;
         if (ctx.getChildCount() > 2 && ctx.getChild(1) != null) {
             expression = (CssExpressionNode) visit(ctx.getChild(1)); // The expression is the second child
         }
-
         boolean isElement = false; // This will be determined by the parent context
         return new CssPseudoSelectorNode(name, ctx.getStart().getLine(), isElement, expression);
     }
-
-    // Add visitor method for expression in functional pseudo selector
-    // @Override
-    // public BaseNode
-    // visitCssExpressionSequence(HtmlCssJinja2Parser.CssExpressionSequenceContext
-    // ctx) {
-    // CssExpressionNode expression = new CssExpressionNode("CssExpression",
-    // ctx.getStart().getLine());
-
-    // if (ctx.term() != null) {
-    // for (var termCtx : ctx.term()) {
-    // BaseNode term = visit(termCtx);
-    // if (term != null) {
-    // expression.addTerm((CssTermNode) term);
-    // }
-    // }
-    // }
-
-    // return expression;
-    // }
 
     // --- Expression Visitor ---
     @Override
@@ -1060,7 +1031,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         if (ctx.term() != null && !ctx.term().isEmpty()) {
             // Add the first term
             expression.addTerm((CssTermNode) visit(ctx.term(0)));
-
             // Process remaining terms with operators
             for (int i = 1; i < ctx.term().size(); i++) {
                 // Check if there's an operator before this term
@@ -1094,34 +1064,15 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return new CssClassSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine());
     }
 
-    // ---- Declaration ---
-    // @Override
-    // public BaseNode visitCssDeclaration(CssDeclarationContext ctx) {
-    // CssPropertyNode property = (CssPropertyNode) visit(ctx.property_());
-
-    // CssExpressionNode expression = (CssExpressionNode) visit(ctx.expr());
-
-    // boolean important = ctx.Important() != null;
-
-    // return new CssDeclarationNode(
-    // ctx.getStart().getLine(),
-    // property,
-    // expression,
-    // important);
-
-    // }
-
     @Override
     public BaseNode visitCssDeclaration(CssDeclarationContext ctx) {
         CssPropertyNode property = (CssPropertyNode) visit(ctx.property_());
         CssExpressionNode expression = (CssExpressionNode) visit(ctx.expr());
         boolean important = ctx.Important() != null;
-
         // Return null if property or expression is null
         if (property == null || expression == null) {
             return null;
         }
-
         return new CssDeclarationNode(
                 ctx.getStart().getLine(),
                 property,
@@ -1129,24 +1080,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 important);
     }
 
-    // @Override
-    // public BaseNode visitCssDeclarationList(CssDeclarationListContext ctx) {
-    // CssDeclarationListNode listNode = new
-    // CssDeclarationListNode("CssDeclarationList", ctx.getStart().getLine());
-
-    // // Loop over every declaration in the list
-    // for (var declCtx : ctx.declaration()) {
-    // CssDeclarationNode declaration = (CssDeclarationNode) visit(declCtx);
-    // listNode.addDeclaration(declaration);
-    // }
-
-    // return listNode;
-    // }
-
     @Override
     public BaseNode visitCssDeclarationList(CssDeclarationListContext ctx) {
         CssDeclarationListNode listNode = new CssDeclarationListNode("CssDeclarationList", ctx.getStart().getLine());
-
         // Loop over every declaration in the list
         for (var declCtx : ctx.declaration()) {
             CssDeclarationNode declaration = (CssDeclarationNode) visit(declCtx);
@@ -1154,7 +1090,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 listNode.addDeclaration(declaration);
             }
         }
-
         return listNode;
     }
 
@@ -1169,7 +1104,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitCssVarProperty(CssVarPropertyContext ctx) {
         // Variable token already includes "--"
         String name = ctx.Variable().getText().substring(2);
-
         return new CssVarPropertyNode(
                 name,
                 ctx.getStart().getLine());
@@ -1203,16 +1137,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 ctx.Variable().getText().substring(2));
     }
 
-    // @Override
-    // public BaseNode visitCssFunctionTerm(
-    // HtmlCssJinja2Parser.CssFunctionTermContext ctx) {
-
-    // return new CssFunctionTermNode(
-    // ctx.Function_().getText(),
-    // ctx.getStart().getLine(),
-    // (CssExpressionNode) visit(ctx.expr()));
-    // }
-
     @Override
     public BaseNode visitCssFunctionTerm(HtmlCssJinja2Parser.CssFunctionTermContext ctx) {
         // Extract the function name without the trailing '('
@@ -1226,14 +1150,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 ctx.getStart().getLine(),
                 (CssExpressionNode) visit(ctx.expr()));
     }
-
-    // @Override
-    // public BaseNode visitCssStringTerm(HtmlCssJinja2Parser.CssStringTermContext
-    // ctx) {
-    // String text = ctx.String_().getText();
-    // String value = stripQuotes(text);
-    // return new CssStringNode("CssString", ctx.getStart().getLine(), value);
-    // }
 
     @Override
     public BaseNode visitCssStringTerm(HtmlCssJinja2Parser.CssStringTermContext ctx) {
@@ -1321,7 +1237,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // --- Imports ---
-
     @Override
     public BaseNode visitCssImportWithMediaQueryAndSemicolon(
             HtmlCssJinja2Parser.CssImportWithMediaQueryAndSemicolonContext ctx) {
@@ -1340,11 +1255,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitCssImportWithSemicolon(
             HtmlCssJinja2Parser.CssImportWithSemicolonContext ctx) {
-
         String path = ctx.String_() != null
                 ? stripQuotes(ctx.String_().getText())
                 : ctx.url().getText();
-
         return new CssImportNode(
                 ctx.getStart().getLine(),
                 "CssImport",
@@ -1370,11 +1283,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitCssImportWithoutSemicolon(
             HtmlCssJinja2Parser.CssImportWithoutSemicolonContext ctx) {
-
         String path = ctx.String_() != null
                 ? stripQuotes(ctx.String_().getText())
                 : ctx.url().getText();
-
         return new CssImportNode(
                 ctx.getStart().getLine(),
                 "CssImport",
@@ -1385,31 +1296,24 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitCssMediaQueriesList(
             HtmlCssJinja2Parser.CssMediaQueriesListContext ctx) {
-
         MediaQueryListNode list = new MediaQueryListNode("MediaQueryList", ctx.getStart().getLine());
-
         for (var q : ctx.mediaQuery()) {
             list.addQuery((MediaQueryNode) visit(q));
         }
-
         return list;
     }
 
     // --- URL visitors ---
-
     @Override
     public BaseNode visitCssQuotedUrl(
             HtmlCssJinja2Parser.CssQuotedUrlContext ctx) {
-
         String raw = ctx.String_().getText(); // "image.png"
         String url = raw.substring(1, raw.length() - 1); // remove quotes
-
         CssUrlNode urlNode = new CssUrlNode(
                 "CssUrl",
                 ctx.getStart().getLine(),
                 url,
                 true);
-
         return new CssUrlTermNode(
                 "CssUrlTerm",
                 ctx.getStart().getLine(),
@@ -1419,13 +1323,11 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitCssUnquotedUrl(
             HtmlCssJinja2Parser.CssUnquotedUrlContext ctx) {
-
         CssUrlNode urlNode = new CssUrlNode(
                 "CssUrl",
                 ctx.getStart().getLine(),
                 ctx.Url().getText(),
                 false);
-
         return new CssUrlTermNode(
                 "CssUrlTerm",
                 ctx.getStart().getLine(),
@@ -1435,43 +1337,32 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitCssCalcSumExpression(
             HtmlCssJinja2Parser.CssCalcSumExpressionContext ctx) {
-
         CalcSumNode sum = new CalcSumNode("CalcSum", ctx.getStart().getLine());
-
         // first product
         sum.addProduct((CalcProductNode) visit(ctx.calcProduct(0)));
-
         // remaining (+ / -) products
         for (int i = 1; i < ctx.calcProduct().size(); i++) {
             String operator = ctx.getChild(2 * i - 1).getText(); // + or -
             CalcProductNode product = (CalcProductNode) visit(ctx.calcProduct(i));
-
             sum.addOperatorAndProduct(operator, product);
         }
-
         return sum;
     }
 
     @Override
     public BaseNode visitCssCalcProductExpression(
             HtmlCssJinja2Parser.CssCalcProductExpressionContext ctx) {
-
         CalcProductNode product = new CalcProductNode("CalcProduct", ctx.getStart().getLine());
-
         // first value
         product.addValue((CalcValueNode) visit(ctx.calcValue(0)));
-
         int valueIndex = 1;
-
         for (int i = 1; i < ctx.getChildCount(); i++) {
             String text = ctx.getChild(i).getText();
-
             if (text.equals("*") || text.equals("/")) {
                 CalcValueNode value = (CalcValueNode) visit(ctx.calcValue(valueIndex++));
                 product.addOperatorAndValue(text, value);
             }
         }
-
         return product;
     }
 
