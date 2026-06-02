@@ -330,7 +330,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! visitJinja2AddSubExpression
-    // DONE
     @Override
     public BaseNode visitJinja2AddSubExpression(Jinja2AddSubExpressionContext ctx) {
         return new Jinja2AddSubExpression(ctx.getStart().getLine(),
@@ -340,7 +339,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! visitJinja2ComparisonExpression
-    // DONE
     @Override
     public BaseNode visitJinja2ComparisonExpression(Jinja2ComparisonExpressionContext ctx) {
         return new Jinja2ComparisonExpressionNode(
@@ -383,7 +381,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! visitJinja2LogicalExpression
-    // DONE
     @Override
     public BaseNode visitJinja2LogicalExpression(Jinja2LogicalExpressionContext ctx) {
         return new Jinja2LogicalExpressionNode(
@@ -457,7 +454,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! Attribute access
-    // TODO
     @Override
     public BaseNode visitJinja2AttributeTrailer(Jinja2AttributeTrailerContext ctx) {
         return new JinjaAttributeAccess(
@@ -467,7 +463,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! Subscript
-    // TODO
     @Override
     public BaseNode visitJinja2SubscriptTrailer(Jinja2SubscriptTrailerContext ctx) {
         return new JinjaSubscriptExpression(
@@ -477,7 +472,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! Atom expression body (MOST IMPORTANT)
-    // TODO Important
     @Override
     public BaseNode visitJinja2AtomExpressionBody(Jinja2AtomExpressionBodyContext ctx) {
         JinjaExpression base = (JinjaExpression) visit(ctx.jinjaExprAtom());
@@ -682,7 +676,6 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     }
 
     // ! Mul / Div / Mod
-    // TODO
     @Override
     public BaseNode visitJinja2StmtMulDivModExpression(Jinja2StmtMulDivModExpressionContext ctx) {
         // ! should be for stmt not expression
