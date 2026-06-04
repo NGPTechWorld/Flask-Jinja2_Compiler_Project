@@ -18,6 +18,8 @@ import visitor.python_flask.SymbolVisitor;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.SwingUtilities;
 
@@ -143,6 +145,13 @@ public class MainTest {
 
         ParseTree tree = parser.htmlDocument();
         ASTBuilderVisitor2 visitor = new ASTBuilderVisitor2();
+
+        // Simulate data link from backend to jinja 
+        Set<String> mockBackendData = new HashSet<>();
+        mockBackendData.add("products"); // We assume 'products' is passed to the template
+        mockBackendData.add("users"); // We assume 'user' is passed
+        visitor.setGlobalContext(mockBackendData);
+
         HtmlDocumentRuleNode ast = (HtmlDocumentRuleNode) visitor.visit(tree);
         System.out.println(" === AST === ");
         ASTPrinter2.print(ast, 0);

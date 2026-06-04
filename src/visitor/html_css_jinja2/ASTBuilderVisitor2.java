@@ -1,6 +1,7 @@
 package visitor.html_css_jinja2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -149,23 +150,47 @@ import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.atom.ji
 public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode> {
 
     // Integrated states from SymbolVisitor
-    private final SymbolTable table = new SymbolTable();
+    private final SymbolTable htmlTable = new SymbolTable();
+    private final SymbolTable cssTable = new SymbolTable();
+    private final SymbolTable jinjaTable = new SymbolTable();
     private final ArrayList<String> globalVars = new ArrayList<>();
 
-    // Helper method to retrieve table out if needed
+    // Helper method to retrieve jinjaTable out if needed
     public SymbolTable getSymbolTable() {
-        return this.table;
+        return this.jinjaTable;
     }
 
     public void printSymbols() {
-        table.printTable();
+        System.out.println("\nHtml Table");
+        htmlTable.printTable();
+        System.out.println("\nCss Table");
+        cssTable.printTable();
+        System.out.println("\njinja Table");
+        jinjaTable.printTable();
+
+    }
+
+    // This holds the variables that "exist" before the template starts.
+    private Set<String> simulatedGlobalContext = new HashSet<>();
+
+    // NEW: Method to inject data (Call this before visiting)
+    public void setGlobalContext(Set<String> globalVarNames) {
+        this.simulatedGlobalContext = globalVarNames;
     }
 
     @Override
     public BaseNode visitHtmlDocumentRule(HtmlDocumentRuleContext ctx) {
-        table.pushScope("global"); // Symbol logic opened
-        // table.define(new Symbol("products", "template_variable", 0));
-        // table.define(new Symbol("users", "template_variable", 0));
+        // jinja Symbol Tabel
+        jinjaTable.pushScope("global"); // Symbol logic opened
+        // Inject simulated backend variables (e.g., 'products', 'user')
+        // In real life, these are the variables passed to the render() function.
+        for (String varName : simulatedGlobalContext) {
+            jinjaTable.define(new Symbol(varName, "global_variable", 0));
+        }
+
+        // html Symbol Tabel
+        htmlTable.pushScope("html document global");
+        cssTable.pushScope("css global");
 
         HtmlDocumentRuleNode program = new HtmlDocumentRuleNode(ctx.getStart().getLine());
         for (var child : ctx.children) {
@@ -175,7 +200,9 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                 program.addChild(node);
             }
         }
-        table.popScope(); // Symbol logic closed
+        jinjaTable.popScope(); // Symbol logic closed
+        htmlTable.popScope();
+        cssTable.popScope();
         return program;
     }
 
@@ -293,6 +320,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitHtmlAttributeRule(HtmlAttributeRuleContext ctx) {
         String attrName = ctx.TAG_NAME().getText();
         String attrValue = null;
+        int line = ctx.TAG_NAME().getSymbol().getLine();
 
         // Check if the attribute has a value
         if (ctx.ATTVALUE_VALUE() != null) {
@@ -303,8 +331,37 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
             }
         }
 
-        // Use the line number from the attribute name instead of the value
-        int line = ctx.TAG_NAME().getSymbol().getLine();
+        // LOGIC: Check for ID uniqueness
+        if (attrName.equalsIgnoreCase("id") && attrValue != null) {
+            // Check if we already defined this ID
+            if (htmlTable.resolve(attrValue) != null) {
+                System.err.println(
+                        "Semantic Error [HTML]: '" + attrValue + "' found at line " + ctx.getStart().getLine());
+            } else {
+                // If not, add it to the table
+                htmlTable.define(new Symbol(attrValue, "html_id", ctx.getStart().getLine()));
+            }
+        }
+        /*
+         * example here used the same id="notification"
+         * <div id="notification" class="notification">Product deleted
+         * successfully!</div>
+         * <div id="notification" class="notification">Product deleted
+         * successfully!</div>
+         */
+
+        // REAL LIFE BEHAVIOR: Check if class exists (Warning only)
+        if (attrName.equalsIgnoreCase("class") && attrValue != null) {
+            String[] classes = attrValue.split(" ");
+            for (String c : classes) {
+                if (!c.isEmpty() && cssTable.resolve(c) == null) {
+                    // Note: In a single pass, we might not have seen the CSS yet.
+                    // But this simulates the check.
+                    System.out.println("WARNING [HTML]: Class '" + c + "' used at line " + ctx.getStart().getLine()
+                            + " might not be defined in CSS.");
+                }
+            }
+        }
 
         return new HtmlAttributeNode(line, attrName, attrValue);
     }
@@ -460,15 +517,24 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitJinja2IdLiteral(Jinja2IdLiteralContext ctx) {
+
+        String varName = ctx.getText();
         // ! Test Semantic Check
-        Symbol symbol = table.resolve(ctx.getText());
+        Symbol symbol = jinjaTable.resolve(varName);
         if (symbol == null) {
             System.out.println(
-                    "Semantic Error: variable '"
-                            + ctx.getText()
-                            + "' not defined at line "
+                    "WARNING [Jinja] : Variable '"
+                            + varName
+                            + "' is not defined at line "
                             + ctx.getStart().getLine());
         }
+        /*
+         * Example
+         * {% for user in users %}
+         * {{ user.name }}
+         * {% endfor %}
+         * {{ user.name }} // this cause the error
+         */
 
         return new JinjaIdentifier(ctx.getStart().getLine(), ctx.getText());
     }
@@ -548,30 +614,26 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     public BaseNode visitJinja2ForBlockBody(Jinja2ForBlockBodyContext ctx) {
         int line = ctx.getStart().getLine();
 
-        table.pushScope(
-                "for_line_" + ctx.getStart().getLine()); // ?? table
+        jinjaTable.pushScope(
+                "for_loop " + line); // jinjaTable
 
         // header
         JinjaForStatementNode stmt = (JinjaForStatementNode) visit(ctx.jinjaForStatement());
 
-        // ?? start table
+        // start jinjaTable
         for (String var : stmt.variables) {
-            table.define(
+            jinjaTable.define(
                     new Symbol(
                             var,
                             "for_variable",
-                            ctx.getStart().getLine()));
+                            line));
         }
-        // ?? end table
+        // end jinjaTable
 
         JinjaForNode node = new JinjaForNode(line);
 
-        // variables
         node.variables = stmt.variables;
-
-        // iterable
         node.iterable = stmt.iterable;
-
         // optional if filter
         node.ifCondition = stmt.ifCondition;
 
@@ -596,7 +658,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
             }
         }
 
-        table.popScope(); // ?? table
+        jinjaTable.popScope(); // jinjaTable
 
         return node;
 
@@ -628,8 +690,8 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitJinja2IfBlockBody(Jinja2IfBlockBodyContext ctx) {
-        table.pushScope(
-                "if_line_" + ctx.getStart().getLine());
+        jinjaTable.pushScope(
+                "if_block " + ctx.getStart().getLine());
 
         int line = ctx.getStart().getLine();
 
@@ -679,7 +741,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
                     bodyElse.add(node);
             }
         }
-        table.popScope();
+        jinjaTable.popScope();
         return new JinjaIfNode(line, ifCondition, bodyIf, elseIfs, bodyElse);
     }
 
@@ -825,12 +887,12 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     @Override
     public BaseNode visitJinja2StmtIdLiteral(Jinja2StmtIdLiteralContext ctx) {
         // ! Test Semantic Check
-        String name = ctx.getText();
-        Symbol symbol = table.resolve(name);
+        String varName = ctx.getText();
+        Symbol symbol = jinjaTable.resolve(varName);
         if (symbol == null) {
             System.out.println(
-                    "Semantic Error : Variable '" +
-                            name +
+                    "WARNING [Jinja] : Variable '" +
+                            varName +
                             "' is not defined at line " +
                             ctx.getStart().getLine());
         }
@@ -1112,7 +1174,11 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitCssClassSelector(CssClassSelectorContext ctx) {
-        return new CssClassSelectorNode(ctx.cssIdent().getText(), ctx.getStart().getLine());
+        String className = ctx.cssIdent().getText();
+        int line = ctx.getStart().getLine();
+        cssTable.define(new Symbol(className, "css_class", line));
+
+        return new CssClassSelectorNode(className, line);
     }
 
     @Override
