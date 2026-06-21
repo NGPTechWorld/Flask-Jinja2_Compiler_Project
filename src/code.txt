@@ -1,27 +1,16 @@
 # ============================================================
-# IfStatement tests
+# Global keyword inside function
 # ============================================================
 
-value = 6
-if value > 5:
-    r1 = "if"
-elif value == 5:
-    r1 = "elif"
-else:
-    r1 = "else"
+x = 10
+y = "hello"
 
-value = 5
-if value > 5:
-    r2 = "if"
-elif value == 5:
-    r2 = "elif"
-else:
-    r2 = "else"
+def f1():
+    global x
+    x += 5 #global
+    y = 10 #local
 
-value = 4
-if value > 5:
-    r3 = "if"
-elif value == 5:
-    r3 = "elif"
-else:
-    r3 = "else"
+def f2():
+    global x, y
+    x *= 2
+    y = y + "!"
