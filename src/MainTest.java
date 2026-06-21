@@ -150,7 +150,7 @@ public class MainTest {
         Set<String> mockBackendData = new HashSet<>();
         mockBackendData.add("products"); // We assume 'products' is passed to the template
         mockBackendData.add("users"); // We assume 'user' is passed
-        visitor.setGlobalContext(mockBackendData);
+        visitor.setDataFromBackEndForJinja(mockBackendData);
 
         HtmlDocumentRuleNode ast = (HtmlDocumentRuleNode) visitor.visit(tree);
         System.out.println(" === AST === ");

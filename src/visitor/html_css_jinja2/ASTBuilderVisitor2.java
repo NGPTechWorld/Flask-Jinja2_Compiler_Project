@@ -174,7 +174,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     private Set<String> simulatedGlobalContext = new HashSet<>();
 
     // NEW: Method to inject data (Call this before visiting)
-    public void setGlobalContext(Set<String> globalVarNames) {
+    public void setDataFromBackEndForJinja(Set<String> globalVarNames) {
         this.simulatedGlobalContext = globalVarNames;
     }
 
