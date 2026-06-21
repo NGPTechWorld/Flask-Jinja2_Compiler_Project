@@ -211,7 +211,7 @@ public class ASTBuilderVisitor extends PythonParserBaseVisitor<BaseNode> {
 
         FunctionDefNode node = new FunctionDefNode(line);
         node.returnType = returnTypeNode;
-        node.name = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(), funcName);
+        node.nameFun = new IdentifierExpression(ctx.IDENTIFIER().getSymbol().getLine(), funcName);
 
         if (ctx.decorators() != null) {
             for (var dec : ctx.decorators().decorator()) {
