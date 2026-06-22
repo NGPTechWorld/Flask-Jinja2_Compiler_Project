@@ -20,7 +20,7 @@ public class SymbolTable {
 
     public void define_global(Symbol symbol) {
         for (Scope scope : draft_scopes) {
-            if(scope.get_name() == "global") {
+            if("global".equals(scope.get_name())) {
                 scope.define(symbol);
                 return;
             }

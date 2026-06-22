@@ -1,5 +1,4 @@
 
-import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -9,6 +8,8 @@ import antlr.python_flask.generated.PythonLexer;
 import antlr.python_flask.generated.PythonParser;
 import ast.html_css_jinja2.HtmlDocumentRuleNode;
 import ast.python_flask.ProgramNode;
+import semantic.SemanticError;
+import semantic.python_flask.SemanticAnalyzer;
 import visitor.html_css_jinja2.ASTBuilderVisitor2;
 import visitor.html_css_jinja2.ASTPrinter2;
 import visitor.python_flask.ASTBuilderVisitor;
@@ -18,142 +19,113 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.swing.SwingUtilities;
-
+/**
+ * Compiler driver.
+ *
+ * Each language is taken through the full front-end pipeline and the run only
+ * stops AFTER the Semantic Analysis phase:
+ *
+ *   [1] Lexing  ->  [2] Parsing  ->  [3] AST  ->  [4] Symbol table  ->  [5] Semantic check
+ */
 public class MainTest {
+
+    private static final String PYTHON_INPUT = "src/code.txt";
+    private static final String HTML_INPUT   = "src/testing/my_store/templates/products.html";
+
     public static void main(String[] args) throws Exception {
-        // SwingUtilities.invokeLater(() -> {
-        // new LiveParserViewer().setVisible(true);
-        // });
-        // runPythonAndFlask();
-        // runANTLR_HTML_CSS_JINJA2();
-        // runPythonAndFlaskAST();
-        runANTLR_HTML_CSS_JINJA2_AST();
+        String pythonInput = args.length > 0 ? args[0] : PYTHON_INPUT;
+        String htmlInput   = args.length > 1 ? args[1] : HTML_INPUT;
+        runPythonPipeline(pythonInput);
+        System.out.println();
+        runHtmlPipeline(htmlInput);
     }
 
-    public static void runPythonAndFlask() throws Exception {
-        String code = Files.readString(Paths.get("src/code.txt"));
+    // ============================================================
+    // Python / Flask pipeline
+    // ============================================================
+    public static void runPythonPipeline(String path) throws Exception {
+        banner("PYTHON / FLASK PIPELINE  (" + path + ")");
+        String code = Files.readString(Paths.get(path));
 
+        System.out.println("[1] Lexical analysis ...");
         PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-        tokens.fill();
-
-        System.out.println("=== TOKENS ===");
-        for (Token t : tokens.getTokens()) {
-            System.out.println(t.getText() + " -> " + PythonLexer.VOCABULARY.getSymbolicName(t.getType()));
-        }
-
+        System.out.println("[2] Parsing ...");
         PythonParser parser = new PythonParser(tokens);
-
-        System.out.println("\n=== PARSE TREE ===");
-        parser.setBuildParseTree(true);
-        ParseTree tree = parser.program();
-        System.out.println(tree.toStringTree(parser));
-
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-            viewer.open();
-        });
-
-        System.out.println(tree.toStringTree(parser));
-        printPrettyTreePython(tree, parser, 0);
-    }
-
-    public static void runANTLR_HTML_CSS_JINJA2() throws Exception {
-        String code = Files.readString(Paths.get("src/code.txt"));
-
-        HtmlCssJinja2Lexer lexer = new HtmlCssJinja2Lexer(CharStreams.fromString(code));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-        tokens.fill();
-
-        System.out.println("=== TOKENS ===");
-        for (Token t : tokens.getTokens()) {
-            System.out.println(t.getText() + " -> " + HtmlCssJinja2Lexer.VOCABULARY.getSymbolicName(t.getType()));
-        }
-
-        HtmlCssJinja2Parser parser = new HtmlCssJinja2Parser(tokens);
-
-        System.out.println("\n=== PARSE TREE ===");
-        parser.setBuildParseTree(true);
-        ParseTree tree = parser.htmlDocument();
-        System.out.println(tree.toStringTree(parser));
-
-        TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
-        viewer.open();
-
-        System.out.println(tree.toStringTree(parser));
-        printPrettyTreeHTML(tree, parser, 0);
-    }
-
-    public static void printPrettyTreePython(ParseTree tree, PythonParser parser, int indent) {
-        String indentStr = " ".repeat(indent);
-        if (tree.getChildCount() == 0) {
-            System.out.println(indentStr + tree.getText());
-            return;
-        }
-
-        System.out.println(indentStr + parser.getRuleNames()[((RuleContext) tree).getRuleIndex()]);
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            printPrettyTreePython(tree.getChild(i), parser, indent + 2);
-        }
-    }
-
-    public static void printPrettyTreeHTML(ParseTree tree, HtmlCssJinja2Parser parser, int indent) {
-        String indentStr = " ".repeat(indent);
-        if (tree.getChildCount() == 0) {
-            System.out.println(indentStr + tree.getText());
-            return;
-        }
-
-        System.out.println(indentStr + parser.getRuleNames()[((RuleContext) tree).getRuleIndex()]);
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            printPrettyTreeHTML(tree.getChild(i), parser, indent + 2);
-        }
-    }
-
-    public static void runPythonAndFlaskAST() throws Exception {
-        String code = Files.readString(Paths.get("src/code.txt"));
-
-        PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        PythonParser parser = new PythonParser(tokens);
-
         ParseTree tree = parser.program();
 
-        ASTBuilderVisitor visitor = new ASTBuilderVisitor();
-        ProgramNode ast = (ProgramNode) visitor.visit(tree);
-        System.out.println("=== AST (JSON STYLE) ===");
+        System.out.println("[3] Building AST ...\n");
+        ASTBuilderVisitor builder = new ASTBuilderVisitor();
+        ProgramNode ast = (ProgramNode) builder.visit(tree);
         ASTPrinter.print(ast, 0);
 
-        System.out.println("\n=== Symbol Table ===");
-        visitor.printSymbols();
+        System.out.println("\n[4] Symbol table:");
+        builder.printSymbols();
+
+        System.out.println("\n[5] Semantic analysis:");
+        SemanticAnalyzer analyzer = new SemanticAnalyzer();
+        List<SemanticError> errors = analyzer.analyze(ast);
+        reportSemantic(errors);
     }
 
-    public static void runANTLR_HTML_CSS_JINJA2_AST() throws Exception {
-        String code = Files.readString(Paths.get("src/code.txt"));
+    // ============================================================
+    // HTML / CSS / Jinja2 pipeline
+    // ============================================================
+    public static void runHtmlPipeline(String path) throws Exception {
+        banner("HTML / CSS / JINJA2 PIPELINE  (" + path + ")");
+        String code = Files.readString(Paths.get(path));
 
+        System.out.println("[1] Lexical analysis ...");
         HtmlCssJinja2Lexer lexer = new HtmlCssJinja2Lexer(CharStreams.fromString(code));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        System.out.println("[2] Parsing ...");
         HtmlCssJinja2Parser parser = new HtmlCssJinja2Parser(tokens);
-
         ParseTree tree = parser.htmlDocument();
-        ASTBuilderVisitor2 visitor = new ASTBuilderVisitor2();
 
-        // Simulate data link from backend to jinja 
-        Set<String> mockBackendData = new HashSet<>();
-        mockBackendData.add("products"); // We assume 'products' is passed to the template
-        mockBackendData.add("users"); // We assume 'user' is passed
-        visitor.setDataFromBackEndForJinja(mockBackendData);
-
-        HtmlDocumentRuleNode ast = (HtmlDocumentRuleNode) visitor.visit(tree);
-        System.out.println(" === AST === ");
+        System.out.println("[3] Building AST ...\n");
+        ASTBuilderVisitor2 builder = new ASTBuilderVisitor2();
+        // Simulated backend context handed to the template by Flask's render()
+        // (requirement #2: data passed from the Python side into the Jinja tree).
+        Set<String> backendData = new HashSet<>(Arrays.asList("products", "users"));
+        builder.setDataFromBackEndForJinja(backendData);
+        HtmlDocumentRuleNode ast = (HtmlDocumentRuleNode) builder.visit(tree);
         ASTPrinter2.print(ast, 0);
-        System.out.println("\n=== Symbol Table ===");
-        visitor.printSymbols();
+
+        System.out.println("\n[4] Symbol tables:");
+        builder.printSymbols();
+
+        System.out.println("\n[5] Semantic analysis:");
+        semantic.html_css_jinja2.SemanticAnalyzer analyzer = new semantic.html_css_jinja2.SemanticAnalyzer();
+        List<SemanticError> errors = analyzer.analyze(ast, builder.getSemanticErrors());
+        reportSemantic(errors);
     }
 
+    // ============================================================
+    // Reporting helpers
+    // ============================================================
+    private static void reportSemantic(List<SemanticError> errors) {
+        if (errors == null || errors.isEmpty()) {
+            System.out.println("   No semantic errors found.");
+            return;
+        }
+        long errs = errors.stream()
+                .filter(e -> e.severity == SemanticError.Severity.ERROR)
+                .count();
+        long warns = errors.size() - errs;
+        System.out.println("   " + errs + " error(s), " + warns + " warning(s):");
+        for (SemanticError e : errors) {
+            System.out.println(e);
+        }
+    }
+
+    private static void banner(String title) {
+        System.out.println("============================================================");
+        System.out.println("  " + title);
+        System.out.println("============================================================");
+    }
 }

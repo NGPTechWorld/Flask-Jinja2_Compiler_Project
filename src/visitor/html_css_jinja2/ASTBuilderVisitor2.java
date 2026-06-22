@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.misc.Pair;
 
 import Symbol_table.Symbol;
 import Symbol_table.SymbolTable;
+import semantic.SemanticError;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2ParserBaseVisitor;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssClassSelectorContext;
@@ -154,6 +155,15 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     private final SymbolTable cssTable = new SymbolTable();
     private final SymbolTable jinjaTable = new SymbolTable();
     private final ArrayList<String> globalVars = new ArrayList<>();
+
+    // Semantic findings discovered WHILE the symbol tables are being built.
+    // Scope-sensitive checks (Jinja undefined variable) are naturally computed
+    // during this single walk; the SemanticAnalyzer phase reads them back.
+    private final List<SemanticError> semanticErrors = new ArrayList<>();
+
+    public List<SemanticError> getSemanticErrors() {
+        return semanticErrors;
+    }
 
     // Helper method to retrieve jinjaTable out if needed
     public SymbolTable getSymbolTable() {
@@ -335,8 +345,10 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         if (attrName.equalsIgnoreCase("id") && attrValue != null) {
             // Check if we already defined this ID
             if (htmlTable.resolve(attrValue) != null) {
-                System.err.println(
-                        "Semantic Error [HTML]: '" + attrValue + "' found at line " + ctx.getStart().getLine());
+                semanticErrors.add(SemanticError.error(
+                        "HTML",
+                        "Duplicate id '" + attrValue + "' (already declared)",
+                        ctx.getStart().getLine()));
             } else {
                 // If not, add it to the table
                 htmlTable.define(new Symbol(attrValue, "html_id", ctx.getStart().getLine()));
@@ -355,10 +367,12 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
             String[] classes = attrValue.split(" ");
             for (String c : classes) {
                 if (!c.isEmpty() && cssTable.resolve(c) == null) {
-                    // Note: In a single pass, we might not have seen the CSS yet.
-                    // But this simulates the check.
-                    System.out.println("WARNING [HTML]: Class '" + c + "' used at line " + ctx.getStart().getLine()
-                            + " might not be defined in CSS.");
+                    // The <style> block is parsed before <body>, so by now every
+                    // class defined in CSS is already in cssTable.
+                    semanticErrors.add(SemanticError.warning(
+                            "CSS",
+                            "Class '" + c + "' is used but not defined in any CSS rule",
+                            ctx.getStart().getLine()));
                 }
             }
         }
@@ -522,11 +536,10 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         // ! Test Semantic Check
         Symbol symbol = jinjaTable.resolve(varName);
         if (symbol == null) {
-            System.out.println(
-                    "WARNING [Jinja] : Variable '"
-                            + varName
-                            + "' is not defined at line "
-                            + ctx.getStart().getLine());
+            semanticErrors.add(SemanticError.warning(
+                    "Jinja",
+                    "Variable '" + varName + "' is not defined",
+                    ctx.getStart().getLine()));
         }
         /*
          * Example
@@ -890,11 +903,10 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         String varName = ctx.getText();
         Symbol symbol = jinjaTable.resolve(varName);
         if (symbol == null) {
-            System.out.println(
-                    "WARNING [Jinja] : Variable '" +
-                            varName +
-                            "' is not defined at line " +
-                            ctx.getStart().getLine());
+            semanticErrors.add(SemanticError.warning(
+                    "Jinja",
+                    "Variable '" + varName + "' is not defined",
+                    ctx.getStart().getLine()));
         }
 
         return new JinjaStmtIdentifier(ctx.getStart().getLine(), ctx.getText());
