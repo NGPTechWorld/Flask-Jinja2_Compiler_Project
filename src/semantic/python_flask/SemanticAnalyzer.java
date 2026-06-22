@@ -83,6 +83,7 @@ public class SemanticAnalyzer {
             "set", "tuple", "input", "open", "type", "isinstance", "enumerate", "zip",
             "map", "filter", "sorted", "sum", "min", "max", "abs", "round", "super",
             "object", "self", "cls", "None", "True", "False", "Exception", "format",
+            "__name__", "__main__",
             // common Flask names so the reference app does not explode with noise
             "Flask", "render_template", "request", "redirect", "url_for", "jsonify",
             "secure_filename", "os", "app"));

@@ -27,6 +27,29 @@ public abstract class DenterHelper {
         return parenCount > 0 || braceCount > 0 || bracketCount > 0;
     }
 
+    private void trackBrackets(Token t) {
+        switch (t.getType()) {
+            case PythonLexer.LPAREN:
+                parenCount++;
+                break;
+            case PythonLexer.RPAREN:
+                if (parenCount > 0) parenCount--;
+                break;
+            case PythonLexer.LKB: // {
+                braceCount++;
+                break;
+            case PythonLexer.RKB: // }
+                if (braceCount > 0) braceCount--;
+                break;
+            case PythonLexer.LSB: // [
+                bracketCount++;
+                break;
+            case PythonLexer.RSB: // ]
+                if (bracketCount > 0) bracketCount--;
+                break;
+        }
+    }
+
     protected DenterHelper(int nlToken, int indentToken, int dedentToken) {
         this.nlToken = nlToken;
         this.indentToken = indentToken;
@@ -66,28 +89,19 @@ public abstract class DenterHelper {
         }
 
         // Track brackets BEFORE doing indentation logic
-        switch (t.getType()) {
-            case PythonLexer.LPAREN:
-                parenCount++;
-                break;
-            case PythonLexer.RPAREN:
-                parenCount--;
-                break;
-            case PythonLexer.LKB: // {
-                braceCount++;
-                break;
-            case PythonLexer.RKB: // }
-                braceCount--;
-                break;
-            case PythonLexer.LSB: // [
-                bracketCount++;
-                break;
-            case PythonLexer.RSB: // ]
-                bracketCount--;
-                break;
+        trackBrackets(t);
+
+        // Implicit line joining: while nested inside (), [] or {}, NEWLINE tokens
+        // are swallowed so multi-line list / dict / call literals parse as a single
+        // logical line (matching Python's behaviour).
+        while (inBracketedBlock() && t.getType() == nlToken) {
+            t = dentsBuffer.isEmpty()
+                    ? pullToken()
+                    : dentsBuffer.remove();
+            trackBrackets(t);
         }
 
-        // If inside JSON/dict/list/parentheses → ignore indentation completely
+        // If still inside JSON/dict/list/parentheses → ignore indentation completely
         if (inBracketedBlock()) {
             return t;
         }
