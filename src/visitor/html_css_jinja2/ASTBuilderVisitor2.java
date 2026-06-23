@@ -2,6 +2,7 @@ package visitor.html_css_jinja2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +10,6 @@ import org.antlr.v4.runtime.misc.Pair;
 
 import Symbol_table.Symbol;
 import Symbol_table.SymbolTable;
-import semantic.SemanticError;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2ParserBaseVisitor;
 import antlr.html_css_jinja2.generated.HtmlCssJinja2Parser.CssClassSelectorContext;
@@ -156,13 +156,18 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     private final SymbolTable jinjaTable = new SymbolTable();
     private final ArrayList<String> globalVars = new ArrayList<>();
 
-    // Semantic findings discovered WHILE the symbol tables are being built.
-    // Scope-sensitive checks (Jinja undefined variable) are naturally computed
-    // during this single walk; the SemanticAnalyzer phase reads them back.
-    private final List<SemanticError> semanticErrors = new ArrayList<>();
+    // Names of every class defined by the CSS rules, collected while the CSS
+    // symbol table is built. This is symbol-table output (not a semantic check)
+    // and is consumed by the SemanticAnalyzer to validate class usage.
+    private final Set<String> definedCssClasses = new LinkedHashSet<>();
 
-    public List<SemanticError> getSemanticErrors() {
-        return semanticErrors;
+    public Set<String> getDefinedCssClasses() {
+        return definedCssClasses;
+    }
+
+    // Backend context injected by Flask's render() (see setDataFromBackEndForJinja).
+    public Set<String> getDataFromBackEndForJinja() {
+        return simulatedGlobalContext;
     }
 
     // Helper method to retrieve jinjaTable out if needed
@@ -341,40 +346,10 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
             }
         }
 
-        // LOGIC: Check for ID uniqueness
+        // Symbol table only: record every HTML id. Duplicate-id detection and
+        // class-usage validation are done later by the SemanticAnalyzer.
         if (attrName.equalsIgnoreCase("id") && attrValue != null) {
-            // Check if we already defined this ID
-            if (htmlTable.resolve(attrValue) != null) {
-                semanticErrors.add(SemanticError.error(
-                        "HTML",
-                        "Duplicate id '" + attrValue + "' (already declared)",
-                        ctx.getStart().getLine()));
-            } else {
-                // If not, add it to the table
-                htmlTable.define(new Symbol(attrValue, "html_id", ctx.getStart().getLine()));
-            }
-        }
-        /*
-         * example here used the same id="notification"
-         * <div id="notification" class="notification">Product deleted
-         * successfully!</div>
-         * <div id="notification" class="notification">Product deleted
-         * successfully!</div>
-         */
-
-        // REAL LIFE BEHAVIOR: Check if class exists (Warning only)
-        if (attrName.equalsIgnoreCase("class") && attrValue != null) {
-            String[] classes = attrValue.split(" ");
-            for (String c : classes) {
-                if (!c.isEmpty() && cssTable.resolve(c) == null) {
-                    // The <style> block is parsed before <body>, so by now every
-                    // class defined in CSS is already in cssTable.
-                    semanticErrors.add(SemanticError.warning(
-                            "CSS",
-                            "Class '" + c + "' is used but not defined in any CSS rule",
-                            ctx.getStart().getLine()));
-                }
-            }
+            htmlTable.define(new Symbol(attrValue, "html_id", ctx.getStart().getLine()));
         }
 
         return new HtmlAttributeNode(line, attrName, attrValue);
@@ -531,24 +506,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitJinja2IdLiteral(Jinja2IdLiteralContext ctx) {
-
-        String varName = ctx.getText();
-        // ! Test Semantic Check
-        Symbol symbol = jinjaTable.resolve(varName);
-        if (symbol == null) {
-            semanticErrors.add(SemanticError.warning(
-                    "Jinja",
-                    "Variable '" + varName + "' is not defined",
-                    ctx.getStart().getLine()));
-        }
-        /*
-         * Example
-         * {% for user in users %}
-         * {{ user.name }}
-         * {% endfor %}
-         * {{ user.name }} // this cause the error
-         */
-
+        // AST node only; undefined-variable checking is done by the SemanticAnalyzer.
         return new JinjaIdentifier(ctx.getStart().getLine(), ctx.getText());
     }
 
@@ -899,16 +857,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
 
     @Override
     public BaseNode visitJinja2StmtIdLiteral(Jinja2StmtIdLiteralContext ctx) {
-        // ! Test Semantic Check
-        String varName = ctx.getText();
-        Symbol symbol = jinjaTable.resolve(varName);
-        if (symbol == null) {
-            semanticErrors.add(SemanticError.warning(
-                    "Jinja",
-                    "Variable '" + varName + "' is not defined",
-                    ctx.getStart().getLine()));
-        }
-
+        // AST node only; undefined-variable checking is done by the SemanticAnalyzer.
         return new JinjaStmtIdentifier(ctx.getStart().getLine(), ctx.getText());
     }
 
@@ -1189,6 +1138,7 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         String className = ctx.cssIdent().getText();
         int line = ctx.getStart().getLine();
         cssTable.define(new Symbol(className, "css_class", line));
+        definedCssClasses.add(className);
 
         return new CssClassSelectorNode(className, line);
     }

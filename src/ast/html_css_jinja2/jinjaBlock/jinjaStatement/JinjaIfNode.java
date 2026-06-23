@@ -10,10 +10,10 @@ import ast.html_css_jinja2.jinjaBlock.jinjaExpression.helper_abstract.JinjaExpre
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.helper_abstract.JinjaStatementNode;
 
 public class JinjaIfNode extends JinjaStatementNode {
-    JinjaExpression ifCondition;
-    JinjaBodyNode bodyIf;
-    List<Pair<JinjaExpression, JinjaBodyNode>> elseIfStat = new ArrayList<>();
-    JinjaBodyNode bodyElse;
+    public JinjaExpression ifCondition;
+    public JinjaBodyNode bodyIf;
+    public List<Pair<JinjaExpression, JinjaBodyNode>> elseIfStat = new ArrayList<>();
+    public JinjaBodyNode bodyElse;
 
     public JinjaIfNode(int line, JinjaExpression ifCondition, JinjaBodyNode bodyIf,
             List<Pair<JinjaExpression, JinjaBodyNode>> elseIfStat, JinjaBodyNode bodyElse) {

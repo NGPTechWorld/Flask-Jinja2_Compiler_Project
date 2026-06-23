@@ -113,7 +113,10 @@ public class MainTest {
 
         System.out.println("\n[5] Semantic analysis:");
         semantic.html_css_jinja2.SemanticAnalyzer analyzer = new semantic.html_css_jinja2.SemanticAnalyzer();
-        List<SemanticError> errors = analyzer.analyze(ast, builder.getSemanticErrors());
+        List<SemanticError> errors = analyzer.analyze(
+                ast,
+                builder.getDefinedCssClasses(),
+                builder.getDataFromBackEndForJinja());
         reportSemantic(errors);
     }
 
