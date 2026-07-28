@@ -35,6 +35,11 @@ public class SymbolTable {
         return null;
     }
 
+    public boolean existsInCurrentScope(String name) {
+        Scope top = draft_scopes.peek();
+        return top != null && top.resolve(name) != null;
+    }
+
     public void printTable() {
         List<Scope> reversedScopes = new ArrayList<>(scopes);
         Collections.reverse(reversedScopes);
