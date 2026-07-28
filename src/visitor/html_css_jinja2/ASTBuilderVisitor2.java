@@ -138,6 +138,10 @@ import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExpr
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.binaryExpression.helper_abstract.JinjaBinaryExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaExpression.jinjaExprContent.jinjaExprExpression.unaryExpression.Jinja2NotExpressionNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaBodyNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.binaryExpression.Jinja2StmtAddSubExpression;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.binaryExpression.Jinja2StmtComparisonExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.binaryExpression.Jinja2StmtLogicalExpressionNode;
+import ast.html_css_jinja2.jinjaBlock.jinjaStatement.jinjaStmtExpression.binaryExpression.Jinja2StmtMulDivModExpression;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaForStatementNode;
 import ast.html_css_jinja2.jinjaBlock.jinjaStatement.JinjaIfNode;
@@ -723,47 +727,40 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
     // ! Comparison
     @Override
     public BaseNode visitJinja2StmtComparisonExpression(Jinja2StmtComparisonExpressionContext ctx) {
-        // ! should be for stmt not expression
-        return new JinjaBinaryExpression("Jinja2StmtComparisonExpression ",
+        return new Jinja2StmtComparisonExpressionNode(
                 ctx.getStart().getLine(),
-                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
+                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(1)));
     }
 
     // ! Logical
     @Override
     public BaseNode visitJinja2StmtLogicalExpression(Jinja2StmtLogicalExpressionContext ctx) {
-        // ! should be for stmt not expression
-
-        return new JinjaBinaryExpression("Jinja2StmtLogicalExpression ",
+        return new Jinja2StmtLogicalExpressionNode(
                 ctx.getStart().getLine(),
-                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
+                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(1)));
     }
 
     // ! Add / Sub
     @Override
     public BaseNode visitJinja2StmtAddSubExpression(Jinja2StmtAddSubExpressionContext ctx) {
-        // ! should be for stmt not expression
-
-        return new JinjaBinaryExpression("Jinja2StmtAddSubExpression ",
+        return new Jinja2StmtAddSubExpression(
                 ctx.getStart().getLine(),
-                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
+                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(1)));
     }
 
     // ! Mul / Div / Mod
     @Override
     public BaseNode visitJinja2StmtMulDivModExpression(Jinja2StmtMulDivModExpressionContext ctx) {
-        // ! should be for stmt not expression
-
-        return new JinjaBinaryExpression("Jinja2StmtMulDivModExpression ",
+        return new Jinja2StmtMulDivModExpression(
                 ctx.getStart().getLine(),
-                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(0)),
+                ctx.getChild(1).getText(),
                 (JinjaExpression) visit(ctx.jinjaStmtExpression(1)));
     }
 
