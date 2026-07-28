@@ -51,7 +51,7 @@ public class MainTest {
         printDataLink(dataLink, htmlInput, templateContext);
 
         System.out.println();
-        //runHtmlPipeline(htmlInput, templateContext);
+        runHtmlPipeline(htmlInput, templateContext);
     }
 
     // ============================================================
