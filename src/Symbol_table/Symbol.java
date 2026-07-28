@@ -5,6 +5,8 @@ public class Symbol {
     private String type;
     private int lineNumber;
     private Object value;
+    private String pyType;
+
 
     public Symbol(String name, String type, int lineNumber) {
         this.name = name;
@@ -26,6 +28,14 @@ public class Symbol {
 
     public Object getValue() {
         return this.value;
+    }
+
+    public String getPyType() {
+        return pyType;
+    }
+
+    public void setPyType(String pyType) {
+        this.pyType = pyType;
     }
 
     @Override

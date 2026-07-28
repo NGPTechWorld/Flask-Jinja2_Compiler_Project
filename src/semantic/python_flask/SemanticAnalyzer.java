@@ -30,8 +30,10 @@ import ast.python_flask.expressions_roles.atom.ListAtomNode;
 import ast.python_flask.expressions_roles.atom.LiteralAtomNode;
 import ast.python_flask.expressions_roles.atom.ParenAtomNode;
 import ast.python_flask.expressions_roles.literal.DoubleLiteralExpression;
+import ast.python_flask.expressions_roles.literal.FStringLiteralExpression;
 import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 import ast.python_flask.expressions_roles.literal.IntLiteralExpression;
+import ast.python_flask.expressions_roles.operators.AddSubExpressionNode;
 import ast.python_flask.expressions_roles.operators.MulDivModExpressionNode;
 import ast.python_flask.expressions_roles.target.AttributeTargetNode;
 import ast.python_flask.expressions_roles.target.SubscriptTargetNode;
@@ -48,6 +50,9 @@ import ast.python_flask.simple_statement.ReturnStatementNode;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
 import ast.python_flask.simple_statement.import_stat.ImportItem;
 import ast.python_flask.simple_statement.import_stat.ImportStatementNode;
+import ast.python_flask.expressions_roles.literal.StringLiteralExpression;
+import ast.python_flask.expressions_roles.literal.BooleanLiteralExpression;
+import ast.python_flask.expressions_roles.literal.NullLiteralExpression;
 
 /**
  * Semantic Analysis phase for the Python/Flask AST.
@@ -76,6 +81,7 @@ public class SemanticAnalyzer {
 
     private int loopDepth = 0;
     private int functionDepth = 0;
+    
 
     /** Names that are always available without being declared. */
     private static final Set<String> BUILTINS = new HashSet<>(Arrays.asList(
@@ -87,6 +93,89 @@ public class SemanticAnalyzer {
             // common Flask names so the reference app does not explode with noise
             "Flask", "render_template", "request", "redirect", "url_for", "jsonify",
             "secure_filename", "os", "app"));
+
+    private enum PyType { INT, FLOAT, STRING, BOOL, LIST, DICT, NONE, UNKNOWN }
+
+    private final Deque<String> returnTypeStack = new LinkedList<>();
+
+private boolean isNumeric(PyType t) { return t == PyType.INT || t == PyType.FLOAT; }
+
+private PyType fromName(String n) {
+    if (n == null) return PyType.UNKNOWN;
+    return switch (n) {
+        case "int" -> PyType.INT;
+        case "float" -> PyType.FLOAT;
+        case "str", "string" -> PyType.STRING;
+        case "bool" -> PyType.BOOL;
+        case "list" -> PyType.LIST;
+        case "dict" -> PyType.DICT;
+        case "None" -> PyType.NONE;
+        default -> PyType.UNKNOWN;
+    };
+}
+
+private PyType inferType(ExpressionNode expr) {
+    if (expr == null) return PyType.UNKNOWN;
+
+    if (expr instanceof LiteralAtomNode lit) {
+        if (lit.literal instanceof IntLiteralExpression)     return PyType.INT;
+        if (lit.literal instanceof DoubleLiteralExpression)  return PyType.FLOAT;
+        if (lit.literal instanceof StringLiteralExpression)  return PyType.STRING;   // ← جديد
+        if (lit.literal instanceof FStringLiteralExpression)  return PyType.STRING;
+        if (lit.literal instanceof BooleanLiteralExpression) return PyType.BOOL;     // ← جديد
+        if (lit.literal instanceof NullLiteralExpression)    return PyType.NONE;     // ← جديد
+        
+        if (lit.literal instanceof IdentifierExpression id) {
+            Symbol s = table.resolve(id.name);
+            if (s != null && s.getPyType() != null) {
+                try {
+                    return PyType.valueOf(s.getPyType());
+                } catch (IllegalArgumentException ex) {
+                    return PyType.UNKNOWN;
+                }
+            }
+            return PyType.UNKNOWN;
+        }
+        return PyType.UNKNOWN;
+    }
+
+    if (expr instanceof AddSubExpressionNode add) {                          // ← جديد (كانت مفقودة)
+        PyType l = inferType(add.left), r = inferType(add.right);
+        if (l == PyType.UNKNOWN || r == PyType.UNKNOWN) return PyType.UNKNOWN;
+        if (l == PyType.STRING && r == PyType.STRING) return PyType.STRING;
+        if (isNumeric(l) && isNumeric(r)) return (l == PyType.FLOAT || r == PyType.FLOAT) ? PyType.FLOAT : PyType.INT;
+        errors.add(SemanticError.error("Python",
+            "Cannot apply '" + add.operator + "' between " + l + " and " + r, add.line));
+        return PyType.UNKNOWN;
+    }
+
+    if (expr instanceof MulDivModExpressionNode mul) {
+        PyType l = inferType(mul.left), r = inferType(mul.right);
+        if (l == PyType.UNKNOWN || r == PyType.UNKNOWN) return PyType.UNKNOWN;
+        if (mul.operator.equals("*") &&
+            ((l == PyType.STRING && r == PyType.INT) || (l == PyType.INT && r == PyType.STRING))) {
+            return PyType.STRING; // "ab" * 3 → "ababab"، مسموح حقيقةً ببايثون
+        }
+        if (isNumeric(l) && isNumeric(r)) return (l == PyType.FLOAT || r == PyType.FLOAT) ? PyType.FLOAT : PyType.INT;
+        errors.add(SemanticError.error("Python",
+            "Cannot apply '" + mul.operator + "' between " + l + " and " + r, mul.line));
+        return PyType.UNKNOWN;
+    }
+
+    return PyType.UNKNOWN; // استدعاء function، attribute، subscript... → ما منحاول نحكم عليه
+}
+
+private String extractReturnTypeName(ExpressionNode expr) {
+
+    if (
+        expr instanceof LiteralAtomNode lit &&
+        lit.literal instanceof IdentifierExpression id
+    ) {
+        return id.name;
+    }
+
+    return null;
+}
 
     public List<SemanticError> analyze(ProgramNode program) {
         if (program == null) {
@@ -125,11 +214,41 @@ public class SemanticAnalyzer {
                 }
             } else if (s instanceof FunctionDefNode f) {
                 if (f.nameFun != null) {
-                    define(f.nameFun.name, "function", f.line);
+            
+                    if (table.existsInCurrentScope(f.nameFun.name)) {
+            
+                        errors.add(
+                            SemanticError.error(
+                                "Python",
+                                "Function '" + f.nameFun.name + "' is already defined in this scope",
+                                f.line
+                            )
+                        );
+            
+                    } else {
+            
+                        define(f.nameFun.name, "function", f.line);
+                    }
                 }
+            
             } else if (s instanceof ClassDefintionNode c) {
+            
                 if (c.nameClass != null) {
-                    define(c.nameClass.name, "class", c.line);
+            
+                    if (table.existsInCurrentScope(c.nameClass.name)) {
+            
+                        errors.add(
+                            SemanticError.error(
+                                "Python",
+                                "Class '" + c.nameClass.name + "' is already defined",
+                                c.line
+                            )
+                        );
+            
+                    } else {
+            
+                        define(c.nameClass.name, "class", c.line);
+                    }
                 }
             } else if (s instanceof ImportStatementNode imp) {
                 for (ImportItem it : imp.items) {
@@ -176,6 +295,16 @@ public class SemanticAnalyzer {
             for (ExpressionNode v : a.values) {
                 checkExpr(v);
             }
+        
+            // ← هنا بالضبط: الإصلاح الثالث (تتبّع النوع)
+            if (a.targets.size() == 1 && a.values.size() == 1 && a.targets.get(0) instanceof VarTargetNode v) {
+                PyType inferred = inferType(a.values.get(0));
+                if (inferred != PyType.UNKNOWN) {
+                    Symbol sym = table.resolve(v.attribute.name);
+                    if (sym != null) sym.setPyType(inferred.name());
+                }
+            }
+        
             for (TargetNode t : a.targets) {
                 if (!(t instanceof VarTargetNode)) {
                     checkTargetRead(t); // obj.attr = ... / obj[i] = ... reads 'obj'
@@ -194,6 +323,16 @@ public class SemanticAnalyzer {
             if (r.expressions != null) {
                 for (ExpressionNode ex : r.expressions) {
                     checkExpr(ex);
+                }
+                // فحص Type Mismatch
+                String declared = returnTypeStack.isEmpty() ? null : returnTypeStack.peek();
+                if (declared != null && r.expressions.size() == 1) {
+                    PyType expected = fromName(declared);
+                    PyType actual = inferType(r.expressions.get(0));
+                    if (expected != PyType.UNKNOWN && actual != PyType.UNKNOWN && expected != actual) {
+                        errors.add(SemanticError.error("Python",
+                            "Function declared to return '" + declared + "' but returns " + actual, r.line));
+                    }
                 }
             }
         } else if (s instanceof BreakStatementNode b) {
@@ -239,6 +378,7 @@ public class SemanticAnalyzer {
 
     private void checkFunctionDef(FunctionDefNode f) {
         table.pushScope("function " + (f.nameFun != null ? f.nameFun.name : "?"));
+        returnTypeStack.push(extractReturnTypeName(f.returnType));
 
         Set<String> seenParams = new HashSet<>();
         for (ParamNode p : f.parameters) {
@@ -262,6 +402,7 @@ public class SemanticAnalyzer {
         checkBody(f.body);
         functionDepth--;
 
+        returnTypeStack.pop(); 
         table.popScope();
     }
 
