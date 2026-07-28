@@ -20,15 +20,16 @@ public class SelectorGroupNode extends CssNode {
 
     // REVIEW  (solve 0 indent)
 
-    @Override
-    public String toString(int indent) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < selectors.size(); i++) {
-            sb.append(selectors.get(i).toString(0)); // Print selectors on the same line
-            if (i < selectors.size() - 1) {
-                sb.append(", ");
-            }
+   @Override
+public String toString(int indent) {
+    StringBuilder sb = new StringBuilder(super.toString(indent));  // prints "(line X) SelectorGroupNode " with proper indent
+    // now append the selector list
+    for (int i = 0; i < selectors.size(); i++) {
+        sb.append(selectors.get(i).toString(0));
+        if (i < selectors.size() - 1) {
+            sb.append(", ");
         }
-        return sb.toString();
     }
+    return sb.toString();
+}
 }

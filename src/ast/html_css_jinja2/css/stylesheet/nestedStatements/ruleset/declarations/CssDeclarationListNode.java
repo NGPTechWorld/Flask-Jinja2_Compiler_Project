@@ -16,7 +16,7 @@ public class CssDeclarationListNode extends CssNode {
     public void addDeclaration(CssDeclarationNode declaration) {
         this.declarations.add(declaration);
     }
-    // REVIEW indent
+    
 
     @Override
     public String toString(int indent) {

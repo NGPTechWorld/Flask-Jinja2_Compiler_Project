@@ -16,7 +16,7 @@ public class CssFunctionTermNode extends CssTermNode {
         this.parameters = parameters;
     }
 
-    // REVIEW indent
+    
     @Override
     public String toString(int indent) {
         return name + "(" + parameters.toString(0) + ")";

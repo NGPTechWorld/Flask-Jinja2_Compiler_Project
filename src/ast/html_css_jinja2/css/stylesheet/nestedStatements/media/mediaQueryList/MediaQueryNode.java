@@ -29,7 +29,7 @@ public class MediaQueryNode extends CssNode {
         this.expressions.add(expression);
     }
 
-    // REVIEW visitor
+    
 
     @Override
     public String toString(int indent) {

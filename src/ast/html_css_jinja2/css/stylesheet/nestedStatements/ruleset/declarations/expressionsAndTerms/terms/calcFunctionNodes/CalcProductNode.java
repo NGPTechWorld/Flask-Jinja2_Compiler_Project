@@ -29,7 +29,6 @@ public class CalcProductNode extends CssNode {
         this.values.add(value);
     }
 
-    // REVIEW visitor
     @Override
     public String toString(int indent) {
         StringBuilder sb = new StringBuilder();

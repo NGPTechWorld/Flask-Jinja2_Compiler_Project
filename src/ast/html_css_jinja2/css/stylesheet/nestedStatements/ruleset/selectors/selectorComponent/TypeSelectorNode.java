@@ -13,7 +13,7 @@ public class TypeSelectorNode extends CssSelectorComponentNode {
         this.namespacePrefix = namespacePrefix;
     }
 
-    // REVIEW
+
     @Override
     public String toString(int indent) {
         return (namespacePrefix != null ? namespacePrefix + "|" : "") + name;

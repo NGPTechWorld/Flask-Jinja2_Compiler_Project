@@ -18,7 +18,7 @@ public class CssPseudoSelectorNode extends CssSelectorComponentNode {
         this.expression = expression;
     }
 
-    // REVIEW indent
+    
 
     @Override
     public String toString(int indent) {

@@ -17,7 +17,6 @@ public class MediaQueryListNode extends CssNode {
         this.queries.add(query);
     }
 
-    // REVIEW indent
 
     @Override
     public String toString(int indent) {

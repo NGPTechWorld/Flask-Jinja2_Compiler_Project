@@ -34,7 +34,7 @@ public class CalcSumNode extends CssNode {
         return line;
     }
 
-    // REVIEW indent
+
     @Override
     public String toString(int indent) {
         StringBuilder sb = new StringBuilder();

@@ -22,7 +22,6 @@ public class SimpleSelectorSequenceNode extends CssNode {
         this.components.add(component);
     }
 
-    // REVIEW indent
 
     @Override
     public String toString(int indent) {

@@ -20,7 +20,6 @@ public class CssDeclarationNode extends CssNode {
         this.important = important;
     }
 
-    // REVIEW indent
 
     @Override
     public String toString(int indent) {

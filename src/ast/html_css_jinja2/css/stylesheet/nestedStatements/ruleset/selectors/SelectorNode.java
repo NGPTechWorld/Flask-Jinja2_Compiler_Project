@@ -17,26 +17,12 @@ public class SelectorNode extends CssNode {
         this.firstSequence = firstSequence;
     }
 
-    public int getLine() {
-        return line;
-    }
+    public int getLine() { return line; }
 
-    public SimpleSelectorSequenceNode getFirstSequence() {
-        return firstSequence;
-    }
+    public SimpleSelectorSequenceNode getFirstSequence() { return firstSequence; }
 
-    public List<CombinatorAndSequence> getRest() {
-        return rest;
-    }
+    public List<CombinatorAndSequence> getRest() { return rest; }
 
-    /**
-     * Adds a combinator and the following simple selector sequence to this
-     * selector.
-     * This method was missing and caused the compilation error.
-     * 
-     * @param combinator The combinator string (e.g., ">", "+", "~", or " ").
-     * @param sequence   The following SimpleSelectorSequenceNode.
-     */
     public void addCombinatorAndSequence(String combinator, SimpleSelectorSequenceNode sequence) {
         this.rest.add(new CombinatorAndSequence(combinator, sequence));
     }
@@ -52,36 +38,25 @@ public class SelectorNode extends CssNode {
 
         @Override
         public String toString() {
-            return combinator + " " + sequence.toString(0);
+            // FIX: handle descendant combinator separately
+            if (combinator.equals(" ")) {
+                return " " + sequence.toString(0);
+            } else {
+                return " " + combinator + " " + sequence.toString(0);
+            }
         }
     }
-
-    // @Override
-    // public String toString(int indent) {
-    // StringBuilder sb = new StringBuilder(super.toString(indent));
-    // sb.append(" ".repeat(indent)).append(firstSequence.toString(0));
-    // for (CombinatorAndSequence cas : rest) {
-    // sb.append(" ").append(cas.toString());
-    // }
-    // return sb.toString();
-    // }
 
     @Override
     public String toString(int indent) {
         StringBuilder sb = new StringBuilder(super.toString(indent));
-
-        // Start with the first sequence of the selector
         if (firstSequence != null) {
-            // TODO Fix indent important
             sb.append(firstSequence.toString(0));
         }
-
-        // Append any following sequences with their combinators
+        // FIX: do NOT add an extra space before cas.toString()
         for (CombinatorAndSequence cas : rest) {
-            sb.append(" ").append(cas.toString());
+            sb.append(cas.toString());
         }
-
         return sb.toString();
     }
-
 }

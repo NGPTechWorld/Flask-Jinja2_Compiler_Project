@@ -15,7 +15,7 @@ public class MediaExpressionNode extends CssNode {
         this.expression = expression;
     }
 
-    // REVIEW indent
+
     @Override
     public String toString(int indent) {
         StringBuilder sb = new StringBuilder("(");

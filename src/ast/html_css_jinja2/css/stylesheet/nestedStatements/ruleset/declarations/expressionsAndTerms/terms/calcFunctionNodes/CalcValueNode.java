@@ -55,7 +55,7 @@ public class CalcValueNode extends CssNode {
         return node;
     }
 
-    // REVIEW indent
+
     @Override
     public String toString(int indent) {
         if (number != null)
