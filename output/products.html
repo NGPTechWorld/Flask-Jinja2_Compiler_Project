@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="static/products.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">Product Store</div><a href="/add-product" class="add-product-btn"><i class="fas fa-plus"></i>Add New Product</a>
+      </div>
+    </header>
+    <div class="container">
+      <div class="products-grid">
+        <div class="product-card"><img src="static/images/image1.jpg" alt="Dell XPS 15 Laptop" class="product-image" />
+          <div class="product-info">
+            <h3 class="product-name">Dell XPS 15 Laptop</h3>
+            <p class="product-price">$450</p>
+            <div class="product-actions"><a href="/product/1" class="btn btn-primary">View Details</a>
+              <form action="/delete-product/1" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="product-card"><img src="static/images/image2.jpg" alt="iPhone 15 Pro" class="product-image" />
+          <div class="product-info">
+            <h3 class="product-name">iPhone 15 Pro</h3>
+            <p class="product-price">$520</p>
+            <div class="product-actions"><a href="/product/2" class="btn btn-primary">View Details</a>
+              <form action="/delete-product/2" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="product-card"><img src="static/images/image3.jpg" alt="Sony WH-1000XM5 Headphones" class="product-image" />
+          <div class="product-info">
+            <h3 class="product-name">Sony WH-1000XM5 Headphones</h3>
+            <p class="product-price">$120</p>
+            <div class="product-actions"><a href="/product/3" class="btn btn-primary">View Details</a>
+              <form action="/delete-product/3" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="notification" class="notification">Product deleted successfully!</div>
+  </body>
+</html>
