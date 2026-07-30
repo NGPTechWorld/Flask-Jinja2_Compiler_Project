@@ -1,7 +1,8 @@
 package generator.runtime;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,425 +10,804 @@ import java.util.Map;
 
 import org.antlr.v4.runtime.misc.Pair;
 
-import ast.BaseNode;
 import ast.python_flask.BodyNode;
 import ast.python_flask.ProgramNode;
 import ast.python_flask.StatementNode;
-import ast.python_flask.*;
 import ast.python_flask.compound_statement.ClassDefintionNode;
 import ast.python_flask.compound_statement.ForStatementNode;
 import ast.python_flask.compound_statement.IfStatementNode;
 import ast.python_flask.compound_statement.WhileStatementNode;
+import ast.python_flask.compound_statement.function_defintion.DecoratorNode;
 import ast.python_flask.compound_statement.function_defintion.FunctionDefNode;
 import ast.python_flask.expressions_roles.ArgumentNode;
-import ast.python_flask.expressions_roles.ExpressionNode;
-import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 import ast.python_flask.expressions_roles.AtomExpressionNode;
+import ast.python_flask.expressions_roles.BinaryExpressionNode;
+import ast.python_flask.expressions_roles.ExpressionNode;
+import ast.python_flask.expressions_roles.UnaryExpressionNode;
 import ast.python_flask.expressions_roles.atom.DictAtomNode;
-import ast.python_flask.expressions_roles.atom.LiteralAtomNode;
 import ast.python_flask.expressions_roles.atom.ListAtomNode;
+import ast.python_flask.expressions_roles.atom.LiteralAtomNode;
 import ast.python_flask.expressions_roles.atom.ParenAtomNode;
 import ast.python_flask.expressions_roles.literal.BooleanLiteralExpression;
 import ast.python_flask.expressions_roles.literal.DoubleLiteralExpression;
+import ast.python_flask.expressions_roles.literal.IdentifierExpression;
 import ast.python_flask.expressions_roles.literal.IntLiteralExpression;
 import ast.python_flask.expressions_roles.literal.NullLiteralExpression;
 import ast.python_flask.expressions_roles.literal.StringLiteralExpression;
-import ast.python_flask.expressions_roles.operators.AddSubExpressionNode;
-import ast.python_flask.expressions_roles.operators.MulDivModExpressionNode;
-import ast.python_flask.expressions_roles.operators.PowerExpressionNode;
 import ast.python_flask.expressions_roles.target.TargetNode;
 import ast.python_flask.expressions_roles.target.VarTargetNode;
 import ast.python_flask.expressions_roles.trailer.AttributeTrailerNode;
 import ast.python_flask.expressions_roles.trailer.CallTrailerNode;
 import ast.python_flask.expressions_roles.trailer.SubscriptTrailerNode;
 import ast.python_flask.expressions_roles.trailer.TrailerNode;
+import ast.python_flask.simple_statement.BreakStatementNode;
+import ast.python_flask.simple_statement.ContinueStatementNode;
 import ast.python_flask.simple_statement.ExpressionStatementNode;
+import ast.python_flask.simple_statement.PassStatementNode;
 import ast.python_flask.simple_statement.ReturnStatementNode;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
 
 /**
- * ============================================================
- * PythonContextGenerator
- * ============================================================
- * مرحلة Code Generation - جزء Python
+ * Code-generation phase, Python side.
  *
- * هاد الصنف لا يعتمد إطلاقاً على SymbolTable (متعمد حسب متطلبات
- * المرحلة). بيمشي مباشرة على Python AST (ProgramNode) ويحسب
- * القيم الفعلية عن طريق Evaluator خاص فيه، وبعدين يكتشف كل
- * استدعاءات render_template(...) ويبني لكل وحدة منها Scope
- * (Context) جاهز يتبعت لمحرك توليد Jinja.
+ * Produces, for every page the application can serve, the data that page is
+ * rendered with. It works in three layers:
  *
- * ملاحظة هامة:
- * الحقول التالية مؤكدة 100% من كود الـ Visitor المرفق:
- *   ListAtomNode.elements , DictAtomNode.entries , LiteralAtomNode.literal
- *   VarTargetNode.attribute , AssignmentStatementNode(targets/operator/values)
- *   AtomExpressionNode(line, identifier, trailers) -> بالكونستركتور بس
+ *   1. an expression evaluator  - turns an expression node into a Java value
+ *   2. a statement executor     - runs a route function body (if / for / return)
+ *   3. a route enumerator       - reads @app.route and unrolls its URL parameters
  *
- * جميع أسماء الحقول بهذا الملف مؤكدة 100% من ملفات الكلاسات الفعلية
- * (AtomExpressionNode, AttributeTrailerNode, SubscriptTrailerNode,
- * CallTrailerNode, ArgumentNode, BodyNode, ClassDefintionNode).
- * لا يوجد أي تخمين متبقٍ.
+ * Layer 2 is what makes function-local variables work. A route such as
  *
- * الاستثناء الوحيد: أسماء حقول ExpressionStatementNode.expressions
- * و ReturnStatementNode.values مبنية على ترتيب الكونستركتور بالـ
- * Visitor (لم يُتَح الوصول المباشر للحقل بأي مكان بالكود المرفق)،
- * وهي شبه مؤكدة لكن يُفضّل التحقق السريع منها إذا صار خطأ ترجمة.
+ *     @app.route('/product/&lt;int:product_id&gt;')
+ *     def product_details(product_id):
+ *         product = None
+ *         for p in products: ...
+ *         return render_template('product_details.html', product=product)
+ *
+ * has no single answer: `product` depends on the URL. So the function is
+ * executed once per possible product_id, and each execution yields one
+ * {@link RenderCall} - that is, one generated page.
+ *
+ * The symbol table is deliberately unused: it stores types, and generation
+ * needs values.
  */
 public class PythonContextGenerator {
 
-    /** يمثل Context/Scope واحد جاهز للتمرير إلى Jinja Renderer */
-    public static class Scope {
-        private final Map<String, Object> variables = new LinkedHashMap<>();
+    /** One page to render: which template, with what data, from which URL args. */
+    public static final class RenderCall {
 
-        public void set(String name, Object value) {
-            variables.put(name, value);
+        public final String templateName;
+        public final Map<String, Object> context;
+        public final Map<String, Object> arguments;
+        public final int line;
+
+        RenderCall(String templateName, Map<String, Object> context,
+                   Map<String, Object> arguments, int line) {
+            this.templateName = templateName;
+            this.context = context;
+            this.arguments = arguments;
+            this.line = line;
         }
 
-        public Object get(String name) {
-            return variables.get(name);
-        }
-
-        public Map<String, Object> raw() {
-            return variables;
+        /** Wraps the context in the Scope the HTML generator consumes. */
+        public Scope toScope() {
+            Scope scope = new Scope();
+            context.forEach(scope::set);
+            return scope;
         }
 
         @Override
         public String toString() {
-            return variables.toString();
+            return templateName + " (line " + line + ") args=" + arguments + " ctx=" + context.keySet();
         }
     }
 
-    /** يمثل استدعاء render_template واحد تم اكتشافه بالكود */
-    public static class RenderCall {
-        public final String templateName;
-        public final Scope scope;
-        public final int line;
+    /** How a statement finished: normally, or by jumping out of its block. */
+    private enum Flow { NORMAL, BREAK, CONTINUE, RETURN }
 
-        public RenderCall(String templateName, Scope scope, int line) {
-            this.templateName = templateName;
-            this.scope = scope;
-            this.line = line;
+    /** A statement's outcome; RETURN carries the expression being returned. */
+    private record Signal(Flow flow, ExpressionNode returned) {
+
+        static final Signal NORMAL = new Signal(Flow.NORMAL, null);
+        static final Signal BREAK = new Signal(Flow.BREAK, null);
+        static final Signal CONTINUE = new Signal(Flow.CONTINUE, null);
+
+        static Signal returning(ExpressionNode expression) {
+            return new Signal(Flow.RETURN, expression);
         }
     }
 
-    // السجل الخاص بمرحلة التوليد -> generation_log.txt
+    /** Stops a runaway while-loop from hanging the compiler. */
+    private static final int LOOP_LIMIT = 10_000;
+
     private final List<String> logLines = new ArrayList<>();
 
-    private void log(String msg) {
-        logLines.add(msg);
+    // ============================================================
+    // Logging
+    // ============================================================
+
+    /** Records one line for compiler_output/generation_log.txt. */
+    private void log(String message) {
+        logLines.add(message);
     }
 
-    public void flushLog(String path) throws IOException {
-        try (FileWriter fw = new FileWriter(path)) {
-            for (String line : logLines) {
-                fw.write(line + System.lineSeparator());
+    /** Exposes the log so the driver can merge it with the Jinja side. */
+    public List<String> getLog() {
+        return logLines;
+    }
+
+    /** Writes the collected log to disk, creating the folder if needed. */
+    public void flushLog(Path path) throws IOException {
+        if (path.getParent() != null) {
+            Files.createDirectories(path.getParent());
+        }
+        Files.write(path, logLines);
+    }
+
+    // ============================================================
+    // 1) Module-level context
+    // ============================================================
+
+    /** Evaluates every top-level assignment in app.py into name -> value. */
+    public Map<String, Object> buildGlobalContext(ProgramNode program) {
+        Map<String, Object> globals = new LinkedHashMap<>();
+        log("[GEN] building the module context from the Python AST");
+
+        for (StatementNode statement : program.statements) {
+            if (statement instanceof AssignmentStatementNode assignment) {
+                evaluateAssignment(assignment, globals);
             }
         }
+
+        log("[GEN] module context ready: " + globals.keySet());
+        return globals;
     }
 
-    // ============================================================
-    // 1) بناء الـ Global Context من كل Assignment على مستوى الملف
-    // ============================================================
-    public Scope buildGlobalContext(ProgramNode program) {
-        Scope globalScope = new Scope();
-        log("[GEN] Start building global context from app.py");
-
-        for (StatementNode stmt : program.statements) {
-            processTopLevelStatement(stmt, globalScope);
-        }
-
-        log("[GEN] Finished global context. Variables: " + globalScope.raw().keySet());
-        return globalScope;
-    }
-
-    private void processTopLevelStatement(StatementNode stmt, Scope globalScope) {
-        if (stmt instanceof AssignmentStatementNode assign) {
-            handleAssignment(assign, globalScope);
-        }
-        // FunctionDefNode و ClassDefintionNode ما بولّدوا context مباشرة
-        // بس لازم نمشي جواتها لنكتشف render_template calls لاحقاً (خطوة 2)
-    }
-
-    private void handleAssignment(AssignmentStatementNode assign, Scope globalScope) {
-        int count = 0;
-        for (TargetNode target : assign.targets) {
-            if (!(target instanceof VarTargetNode varTarget)) {
-                // AttributeTargetNode / SubscriptTargetNode: تجاوز حالياً
-                // (تعديل خاصية على كائن موجود مسبقاً - غير مطلوب بالـ demo)
+    /** Binds each simple target of one assignment to its evaluated value. */
+    private void evaluateAssignment(AssignmentStatementNode assignment, Map<String, Object> scope) {
+        for (int i = 0; i < assignment.targets.size(); i++) {
+            TargetNode target = assignment.targets.get(i);
+            // Attribute and subscript targets mutate an existing object; the
+            // static evaluator does not model that.
+            if (!(target instanceof VarTargetNode variable)) {
                 continue;
             }
-
-            ExpressionNode valueExpr = (assign.targets.size() == assign.values.size())
-                    ? assign.values.get(count)
-                    : (assign.values.size() == 1 ? assign.values.get(0) : null);
-
-            Object value = evaluate(valueExpr, globalScope);
-            String varName = varTarget.attribute.name;
-            globalScope.set(varName, value);
-
-            log("[GEN] Evaluated '" + varName + "' -> " + describe(value));
-            count++;
+            scope.put(variable.attribute.name, evaluate(valueFor(assignment, i), scope));
         }
     }
 
+    /** Picks the right-hand expression that belongs to target number {@code i}. */
+    private ExpressionNode valueFor(AssignmentStatementNode assignment, int i) {
+        if (assignment.targets.size() == assignment.values.size()) {
+            return assignment.values.get(i);          // a, b = 1, 2
+        }
+        if (assignment.values.size() == 1) {
+            return assignment.values.get(0);          // a = b = 1
+        }
+        return null;
+    }
+
     // ============================================================
-    // 2) Evaluator: تحويل أي ExpressionNode إلى قيمة Java فعلية
+    // 2) Expression evaluator
     // ============================================================
-    public Object evaluate(ExpressionNode expr, Scope scope) {
-        if (expr == null) return null;
 
-        // --- Literal مباشر: رقم / نص / بوليان / null / identifier ---
-        if (expr instanceof LiteralAtomNode lit) {
-            return evaluateLiteral(lit, scope);
-        }
-
-        // --- List: [ ... ] ---
-        if (expr instanceof ListAtomNode listNode) {
-            List<Object> result = new ArrayList<>();
-            for (ExpressionNode element : listNode.elements) {
-                result.add(evaluate(element, scope));
-            }
-            return result;
-        }
-
-        // --- Dict: { key: value, ... } ---
-        if (expr instanceof DictAtomNode dictNode) {
-            Map<Object, Object> result = new LinkedHashMap<>();
-            for (Pair<ExpressionNode, ExpressionNode> entry : dictNode.entries) {
-                Object key = evaluate(entry.a, scope);
-                Object value = evaluate(entry.b, scope);
-                result.put(key, value);
-            }
-            return result;
-        }
-
-        // --- (expr) أو (expr, expr, ...) ---
-        if (expr instanceof ParenAtomNode parenNode) {
-            if (parenNode.expressions.isEmpty()) return null;
-            if (parenNode.expressions.size() == 1) {
-                return evaluate(parenNode.expressions.get(0), scope);
-            }
-            List<Object> tuple = new ArrayList<>();
-            for (ExpressionNode e : parenNode.expressions) {
-                tuple.add(evaluate(e, scope));
-            }
-            return tuple;
-        }
-
-        // --- identifier[...trailers...] مثل: product.name أو products[0] أو دالة() ---
-        if (expr instanceof AtomExpressionNode atomExpr) {
-            return evaluateAtomExpression(atomExpr, scope);
-        }
-
-        // --- عمليات حسابية ---
-        if (expr instanceof AddSubExpressionNode add) {
-            return evalAddSub(add, scope);
-        }
-        if (expr instanceof MulDivModExpressionNode mul) {
-            return evalMulDivMod(mul, scope);
-        }
-        if (expr instanceof PowerExpressionNode pow) {
-            Object base = evaluate(pow.left, scope);
-            Object exp = evaluate(pow.right, scope);
-            if (base instanceof Number && exp instanceof Number) {
-                return (int) Math.pow(((Number) base).doubleValue(), ((Number) exp).doubleValue());
-            }
+    /** Turns any Python expression node into a real Java value. */
+    public Object evaluate(ExpressionNode expression, Map<String, Object> scope) {
+        if (expression == null) {
             return null;
         }
-
-        log("[GEN][WARN] Unsupported expression type: " + expr.getClass().getSimpleName());
+        if (expression instanceof LiteralAtomNode literal) {
+            return evaluateLiteral(literal, scope);
+        }
+        if (expression instanceof ListAtomNode list) {
+            return evaluateList(list, scope);
+        }
+        if (expression instanceof DictAtomNode dict) {
+            return evaluateDict(dict, scope);
+        }
+        if (expression instanceof ParenAtomNode paren) {
+            return evaluateParen(paren, scope);
+        }
+        if (expression instanceof AtomExpressionNode atom) {
+            return evaluateAtom(atom, scope);
+        }
+        // Every operator node shares left/operator/right, so one branch covers
+        // arithmetic, comparison, logic and identity alike.
+        if (expression instanceof BinaryExpressionNode binary) {
+            return evaluateBinary(binary, scope);
+        }
+        if (expression instanceof UnaryExpressionNode unary) {
+            return evaluateUnary(unary, scope);
+        }
+        log("[GEN][WARN] unsupported expression " + expression.getClass().getSimpleName());
         return null;
     }
 
-    private Object evaluateLiteral(LiteralAtomNode lit, Scope scope) {
-        if (lit.literal instanceof IdentifierExpression id) {
-            // مرجع لمتغير موجود بالـ scope الحالي (بدل SymbolTable)
+    /** Resolves a literal, or looks a bare identifier up in the scope. */
+    private Object evaluateLiteral(LiteralAtomNode node, Map<String, Object> scope) {
+        if (node.literal instanceof IdentifierExpression id) {
             return scope.get(id.name);
         }
-        if (lit.literal instanceof IntLiteralExpression i) return i.value;
-        if (lit.literal instanceof DoubleLiteralExpression d) return d.value;
-        if (lit.literal instanceof StringLiteralExpression s) return s.value;
-        if (lit.literal instanceof BooleanLiteralExpression b) return b.value;
-        if (lit.literal instanceof NullLiteralExpression) return null;
-        return null;
-    }
-
-    private Object evalAddSub(AddSubExpressionNode add, Scope scope) {
-        Object left = evaluate(add.left, scope);
-        Object right = evaluate(add.right, scope);
-        if (left instanceof String && right instanceof String && add.operator.equals("+")) {
-            return (String) left + (String) right;
+        if (node.literal instanceof IntLiteralExpression i) {
+            return i.value;
         }
-        if (left instanceof Number && right instanceof Number) {
-            double l = ((Number) left).doubleValue();
-            double r = ((Number) right).doubleValue();
-            double res = add.operator.equals("+") ? l + r : l - r;
-            if (left instanceof Integer && right instanceof Integer) return (int) Math.round(res);
-            return res;
+        if (node.literal instanceof DoubleLiteralExpression d) {
+            return d.value;
+        }
+        if (node.literal instanceof StringLiteralExpression s) {
+            return s.value;
+        }
+        if (node.literal instanceof BooleanLiteralExpression b) {
+            return b.value;
+        }
+        if (node.literal instanceof NullLiteralExpression) {
+            return null;
         }
         return null;
     }
 
-    private Object evalMulDivMod(MulDivModExpressionNode mul, Scope scope) {
-        Object left = evaluate(mul.left, scope);
-        Object right = evaluate(mul.right, scope);
-        if (left instanceof Number && right instanceof Number) {
-            double l = ((Number) left).doubleValue();
-            double r = ((Number) right).doubleValue();
-            boolean bothInt = left instanceof Integer && right instanceof Integer;
-            switch (mul.operator) {
-                case "*": return bothInt ? (int) Math.round(l * r) : l * r;
-                case "/": return (r == 0.0) ? null : l / r;
-                case "%": return (r == 0.0) ? null : (bothInt ? (int) Math.round(l % r) : l % r);
-            }
+    /** Builds a Java List from a Python list literal. */
+    private List<Object> evaluateList(ListAtomNode node, Map<String, Object> scope) {
+        List<Object> values = new ArrayList<>();
+        for (ExpressionNode element : node.elements) {
+            values.add(evaluate(element, scope));
         }
-        return null;
+        return values;
     }
 
-    /**
-     * يعالج تعابير من نوع: identifier + trailers
-     * أمثلة: products, product.name, products[0], render_template(...)
-     */
-    @SuppressWarnings("unchecked")
-    private Object evaluateAtomExpression(AtomExpressionNode atomExpr, Scope scope) {
-        // حالة نادرة: AtomExpressionNode مغلّف حول atom مباشر (بدون identifier/trailers)
-        if (atomExpr.atom != null) {
-            return evaluate(atomExpr.atom, scope);
+    /** Builds a Java Map from a Python dict literal, preserving key order. */
+    private Map<Object, Object> evaluateDict(DictAtomNode node, Map<String, Object> scope) {
+        Map<Object, Object> entries = new LinkedHashMap<>();
+        for (Pair<ExpressionNode, ExpressionNode> entry : node.entries) {
+            entries.put(evaluate(entry.a, scope), evaluate(entry.b, scope));
         }
+        return entries;
+    }
 
-        IdentifierExpression baseId = atomExpr.identifier;
-        List<TrailerNode> trailers = atomExpr.trailers;
+    /** Unwraps (expr), or turns (a, b, c) into a list. */
+    private Object evaluateParen(ParenAtomNode node, Map<String, Object> scope) {
+        if (node.expressions.isEmpty()) {
+            return null;
+        }
+        if (node.expressions.size() == 1) {
+            return evaluate(node.expressions.get(0), scope);
+        }
+        List<Object> tuple = new ArrayList<>();
+        for (ExpressionNode element : node.expressions) {
+            tuple.add(evaluate(element, scope));
+        }
+        return tuple;
+    }
 
-        Object current = scope.get(baseId.name);
+    /** Walks identifier + trailers: products, product.name, products[0], f(). */
+    private Object evaluateAtom(AtomExpressionNode node, Map<String, Object> scope) {
+        if (node.atom != null) {
+            return evaluate(node.atom, scope);
+        }
+        Object current = scope.get(node.identifier.name);
 
-        for (TrailerNode trailer : trailers) {
-            if (trailer instanceof AttributeTrailerNode attrTrailer) {
-                // .name -> current لازم يكون Map (dict بايثون)
-                if (current instanceof Map<?, ?> map) {
-                    current = map.get(attrTrailer.attribute.name);
-                } else {
-                    current = null;
-                }
-            } else if (trailer instanceof SubscriptTrailerNode subTrailer) {
-                // [index] -> current لازم يكون List أو Map
-                Object indexVal = evaluate(subTrailer.exp, scope);
-                if (current instanceof List<?> list && indexVal instanceof Integer idx) {
-                    current = (idx >= 0 && idx < list.size()) ? list.get(idx) : null;
-                } else if (current instanceof Map<?, ?> map) {
-                    current = map.get(indexVal);
-                } else {
-                    current = null;
-                }
+        for (TrailerNode trailer : node.trailers) {
+            if (trailer instanceof AttributeTrailerNode attribute) {
+                current = (current instanceof Map<?, ?> map)
+                        ? map.get(attribute.attribute.name)
+                        : null;
+            } else if (trailer instanceof SubscriptTrailerNode subscript) {
+                current = subscriptOf(current, evaluate(subscript.exp, scope));
             } else if (trailer instanceof CallTrailerNode) {
-                // استدعاء دالة عادية غير render_template -> غير مدعوم بالتقييم الساكن
-                log("[GEN][WARN] Unsupported function call skipped in evaluate(): " + baseId.name);
+                // Calling a function would mean executing it; not modelled here.
                 current = null;
             }
         }
         return current;
     }
 
+    /** Applies one [index] step to a list or a dict. */
+    private Object subscriptOf(Object base, Object index) {
+        if (base instanceof List<?> list && index instanceof Integer i) {
+            return (i >= 0 && i < list.size()) ? list.get(i) : null;
+        }
+        if (base instanceof Map<?, ?> map) {
+            return map.get(index);
+        }
+        return null;
+    }
+
+    /** Evaluates every binary operator; they all share left/operator/right. */
+    private Object evaluateBinary(BinaryExpressionNode node, Map<String, Object> scope) {
+        String operator = node.operator == null ? "" : node.operator.trim();
+
+        // Short-circuit before touching the right-hand side, like Python.
+        if (operator.equals("and")) {
+            Object left = evaluate(node.left, scope);
+            return truthy(left) ? evaluate(node.right, scope) : left;
+        }
+        if (operator.equals("or")) {
+            Object left = evaluate(node.left, scope);
+            return truthy(left) ? left : evaluate(node.right, scope);
+        }
+
+        Object left = evaluate(node.left, scope);
+        Object right = evaluate(node.right, scope);
+
+        switch (operator) {
+            case "==": case "is":     return equalValues(left, right);
+            case "!=": case "is not": return !equalValues(left, right);
+            case "<":  return compare(left, right) < 0;
+            case "<=": return compare(left, right) <= 0;
+            case ">":  return compare(left, right) > 0;
+            case ">=": return compare(left, right) >= 0;
+            case "in":     return contains(right, left);
+            case "not in": return !contains(right, left);
+            default:       return arithmetic(left, operator, right);
+        }
+    }
+
+    /** Evaluates not x, -x and +x. */
+    private Object evaluateUnary(UnaryExpressionNode node, Map<String, Object> scope) {
+        Object value = evaluate(node.expr, scope);
+        String operator = node.operator == null ? "" : node.operator.trim();
+
+        if (operator.equals("not")) {
+            return !truthy(value);
+        }
+        if (operator.equals("-")) {
+            Double number = toNumber(value);
+            return number == null ? null : narrow(-number, value instanceof Integer);
+        }
+        return value;
+    }
+
+    /** Evaluates +, -, *, /, % and ** on two numbers, plus string +. */
+    private Object arithmetic(Object left, String operator, Object right) {
+        if (operator.equals("+") && (left instanceof String || right instanceof String)) {
+            return String.valueOf(left) + String.valueOf(right);
+        }
+        Double a = toNumber(left);
+        Double b = toNumber(right);
+        if (a == null || b == null) {
+            return null;
+        }
+        boolean bothInt = left instanceof Integer && right instanceof Integer;
+
+        switch (operator) {
+            case "+":  return narrow(a + b, bothInt);
+            case "-":  return narrow(a - b, bothInt);
+            case "*":  return narrow(a * b, bothInt);
+            case "%":  return b == 0 ? null : narrow(a % b, bothInt);
+            case "**": return narrow(Math.pow(a, b), bothInt);
+            case "/":  return b == 0 ? null : a / b;   // Python's '/' is always a float
+            default:   return null;
+        }
+    }
+
+    /** Orders two numbers, or two strings; anything else compares as equal. */
+    private int compare(Object left, Object right) {
+        Double a = toNumber(left);
+        Double b = toNumber(right);
+        if (a != null && b != null) {
+            return Double.compare(a, b);
+        }
+        if (left instanceof String x && right instanceof String y) {
+            return x.compareTo(y);
+        }
+        return 0;
+    }
+
+    /** Equality that treats 1 and 1.0 as equal, like Python. */
+    private boolean equalValues(Object left, Object right) {
+        if (left == null || right == null) {
+            return left == right;
+        }
+        Double a = toNumber(left);
+        Double b = toNumber(right);
+        if (a != null && b != null) {
+            return a.doubleValue() == b.doubleValue();
+        }
+        return left.equals(right);
+    }
+
+    /** Implements the `in` operator over lists, dicts and strings. */
+    private boolean contains(Object container, Object needle) {
+        if (container instanceof List<?> list) {
+            for (Object item : list) {
+                if (equalValues(item, needle)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        if (container instanceof Map<?, ?> map) {
+            return map.containsKey(needle);
+        }
+        if (container instanceof String text) {
+            return text.contains(String.valueOf(needle));
+        }
+        return false;
+    }
+
+    /** Python truthiness: None, zero and empty containers are false. */
+    private boolean truthy(Object value) {
+        if (value == null)                return false;
+        if (value instanceof Boolean b)   return b;
+        if (value instanceof Number n)    return n.doubleValue() != 0;
+        if (value instanceof String s)    return !s.isEmpty();
+        if (value instanceof List<?> l)   return !l.isEmpty();
+        if (value instanceof Map<?, ?> m) return !m.isEmpty();
+        return true;
+    }
+
+    /** Reads any value as a number, or null when it is not numeric. */
+    private Double toNumber(Object value) {
+        if (value instanceof Number n)  return n.doubleValue();
+        if (value instanceof Boolean b) return b ? 1.0 : 0.0;
+        return null;
+    }
+
+    /** Keeps integer maths integral so a price prints as 450, not 450.0. */
+    private Object narrow(double result, boolean preferInteger) {
+        if (preferInteger && result == Math.floor(result) && !Double.isInfinite(result)) {
+            return (int) result;
+        }
+        return result;
+    }
+
     // ============================================================
-    // 3) اكتشاف كل استدعاءات render_template(...) بالشجرة كاملة
+    // 3) Statement executor
     // ============================================================
-    public List<RenderCall> findRenderTemplateCalls(ProgramNode program, Scope globalScope) {
+
+    /** Runs a block, stopping as soon as a statement jumps out of it. */
+    private Signal execute(BodyNode body, Map<String, Object> scope) {
+        if (body == null) {
+            return Signal.NORMAL;
+        }
+        for (StatementNode statement : body.statements) {
+            Signal signal = execute(statement, scope);
+            if (signal.flow() != Flow.NORMAL) {
+                return signal;                  // propagate break/continue/return upwards
+            }
+        }
+        return Signal.NORMAL;
+    }
+
+    /** Runs one statement against the local scope. */
+    private Signal execute(StatementNode statement, Map<String, Object> scope) {
+        if (statement instanceof AssignmentStatementNode assignment) {
+            evaluateAssignment(assignment, scope);
+            return Signal.NORMAL;
+        }
+        if (statement instanceof IfStatementNode branch) {
+            return executeIf(branch, scope);
+        }
+        if (statement instanceof ForStatementNode loop) {
+            return executeFor(loop, scope);
+        }
+        if (statement instanceof WhileStatementNode loop) {
+            return executeWhile(loop, scope);
+        }
+        if (statement instanceof ReturnStatementNode returned) {
+            return Signal.returning(returned.expressions.isEmpty()
+                    ? null
+                    : returned.expressions.get(0));
+        }
+        if (statement instanceof BreakStatementNode) {
+            return Signal.BREAK;
+        }
+        if (statement instanceof ContinueStatementNode) {
+            return Signal.CONTINUE;
+        }
+        // pass, imports, global, and calls made only for their side effects
+        if (statement instanceof PassStatementNode || statement instanceof ExpressionStatementNode) {
+            return Signal.NORMAL;
+        }
+        return Signal.NORMAL;
+    }
+
+    /** Runs the first branch whose condition holds, else the else-branch. */
+    private Signal executeIf(IfStatementNode branch, Map<String, Object> scope) {
+        if (truthy(evaluate(branch.ifCondition, scope))) {
+            return execute(branch.bodyIf, scope);
+        }
+        for (Pair<ExpressionNode, BodyNode> elseIf : branch.elseIfStat) {
+            if (truthy(evaluate(elseIf.a, scope))) {
+                return execute(elseIf.b, scope);
+            }
+        }
+        return execute(branch.bodyElse, scope);
+    }
+
+    /** Runs `for x in items`, honouring break, continue and return. */
+    private Signal executeFor(ForStatementNode loop, Map<String, Object> scope) {
+        if (loop.iterables.isEmpty() || loop.targets.isEmpty()) {
+            return Signal.NORMAL;
+        }
+        if (!(evaluate(loop.iterables.get(0), scope) instanceof List<?> items)) {
+            return Signal.NORMAL;
+        }
+        if (!(loop.targets.get(0) instanceof VarTargetNode target)) {
+            return Signal.NORMAL;
+        }
+        for (Object item : items) {
+            // Python leaves the loop variable behind after the loop; so do we.
+            scope.put(target.attribute.name, item);
+            Signal signal = execute(loop.body, scope);
+            if (signal.flow() == Flow.BREAK) {
+                break;
+            }
+            if (signal.flow() == Flow.RETURN) {
+                return signal;
+            }
+        }
+        return Signal.NORMAL;
+    }
+
+    /** Runs a while-loop under a hard iteration cap so generation cannot hang. */
+    private Signal executeWhile(WhileStatementNode loop, Map<String, Object> scope) {
+        int rounds = 0;
+        while (truthy(evaluate(loop.iterable, scope))) {
+            if (++rounds > LOOP_LIMIT) {
+                log("[GEN][WARN] line " + loop.line + ": while loop cut off after "
+                        + LOOP_LIMIT + " iterations");
+                break;
+            }
+            Signal signal = execute(loop.body, scope);
+            if (signal.flow() == Flow.BREAK) {
+                break;
+            }
+            if (signal.flow() == Flow.RETURN) {
+                return signal;
+            }
+        }
+        return Signal.NORMAL;
+    }
+
+    // ============================================================
+    // 4) Routes: reading @app.route and unrolling its parameters
+    // ============================================================
+
+    /**
+     * Produces one RenderCall per page the application can serve.
+     *
+     * {@code parameterValues} supplies the values a URL parameter can take, for
+     * example product_id -> [1, 2, 3]. They cannot be derived from the code, so
+     * the driver states them explicitly from the data.
+     */
+    public List<RenderCall> generateRenderCalls(ProgramNode program,
+                                                Map<String, Object> globals,
+                                                Map<String, List<Object>> parameterValues) {
         List<RenderCall> calls = new ArrayList<>();
-        for (StatementNode stmt : program.statements) {
-            walkStatement(stmt, globalScope, calls);
+
+        for (StatementNode statement : program.statements) {
+            if (!(statement instanceof FunctionDefNode function)) {
+                continue;
+            }
+            String pattern = routePatternOf(function);
+            if (pattern == null) {
+                continue;                       // a plain helper, not a route
+            }
+            List<String> parameters = routeParameters(pattern);
+            log("[GEN] route " + pattern + " -> " + function.nameFun.name
+                    + (parameters.isEmpty() ? "" : " " + parameters));
+
+            for (Map<String, Object> arguments : argumentCombinations(parameters, parameterValues)) {
+                RenderCall call = callRoute(function, arguments, globals);
+                if (call != null) {
+                    calls.add(call);
+                    log("[GEN]   " + call);
+                }
+            }
+        }
+        log("[GEN] " + calls.size() + " page(s) to render");
+        return calls;
+    }
+
+    /** Executes one route function with given arguments and returns its render call. */
+    public RenderCall callRoute(FunctionDefNode function,
+                                Map<String, Object> arguments,
+                                Map<String, Object> globals) {
+        // Module variables are visible inside the function, then the URL
+        // arguments shadow them. Writes stay local, which is enough here
+        // because generation only reads.
+        Map<String, Object> local = new LinkedHashMap<>(globals);
+        local.putAll(arguments);
+
+        Signal signal = execute(function.body, local);
+        if (signal.flow() != Flow.RETURN || signal.returned() == null) {
+            return null;                        // a redirect, or no return at all
+        }
+        // The context is read from the LOCAL scope, which is what makes
+        // function-local variables such as `product` resolve.
+        return renderCallOf(signal.returned(), local, arguments);
+    }
+
+    /** Reads @app.route('/product/&lt;int:product_id&gt;') and returns the URL pattern. */
+    private String routePatternOf(FunctionDefNode function) {
+        for (DecoratorNode decorator : function.decorators) {
+            if (decorator.path.isEmpty() || decorator.arguments == null) {
+                continue;
+            }
+            String name = decorator.path.get(decorator.path.size() - 1).name;
+            if (!name.equals("route")) {
+                continue;
+            }
+            for (ArgumentNode argument : decorator.arguments) {
+                if (argument.nameArg == null
+                        && evaluate(argument.value, Map.of()) instanceof String pattern) {
+                    return pattern;
+                }
+            }
+        }
+        return null;
+    }
+
+    /** Extracts parameter names from a pattern: /product/&lt;int:product_id&gt; -> [product_id]. */
+    private List<String> routeParameters(String pattern) {
+        List<String> names = new ArrayList<>();
+        int i = 0;
+        while (true) {
+            int open = pattern.indexOf('<', i);
+            if (open < 0) {
+                return names;
+            }
+            int close = pattern.indexOf('>', open);
+            if (close < 0) {
+                return names;
+            }
+            String token = pattern.substring(open + 1, close);
+            int colon = token.indexOf(':');                 // drop the converter
+            names.add(colon >= 0 ? token.substring(colon + 1) : token);
+            i = close + 1;
+        }
+    }
+
+    /** Expands the parameter space into one argument map per reachable URL. */
+    private List<Map<String, Object>> argumentCombinations(List<String> parameters,
+                                                           Map<String, List<Object>> parameterValues) {
+        List<Map<String, Object>> combinations = new ArrayList<>();
+        combinations.add(new LinkedHashMap<>());            // the no-parameter route
+
+        for (String parameter : parameters) {
+            List<Object> values = parameterValues.get(parameter);
+            if (values == null || values.isEmpty()) {
+                log("[GEN][WARN] no values supplied for URL parameter '" + parameter
+                        + "', its pages are skipped");
+                return List.of();
+            }
+            List<Map<String, Object>> expanded = new ArrayList<>();
+            for (Map<String, Object> base : combinations) {
+                for (Object value : values) {
+                    Map<String, Object> next = new LinkedHashMap<>(base);
+                    next.put(parameter, value);
+                    expanded.add(next);
+                }
+            }
+            combinations = expanded;
+        }
+        return combinations;
+    }
+
+    // ============================================================
+    // 5) Recognising render_template(...)
+    // ============================================================
+
+    /** Collects every render_template(...) reachable without executing routes. */
+    public List<RenderCall> findRenderTemplateCalls(ProgramNode program, Map<String, Object> globals) {
+        List<RenderCall> calls = new ArrayList<>();
+        for (StatementNode statement : program.statements) {
+            walkStatement(statement, globals, calls);
         }
         return calls;
     }
 
-    private void walkStatement(StatementNode stmt, Scope globalScope, List<RenderCall> calls) {
-        if (stmt instanceof FunctionDefNode func) {
-            walkBody(func.body, globalScope, calls);
-        } else if (stmt instanceof IfStatementNode ifStmt) {
-            walkBody(ifStmt.bodyIf, globalScope, calls);
-            for (Pair<ExpressionNode, BodyNode> elif : ifStmt.elseIfStat) {
-                walkBody(elif.b, globalScope, calls);
+    /** Descends into any statement that can hold a render_template call. */
+    private void walkStatement(StatementNode statement, Map<String, Object> globals, List<RenderCall> calls) {
+        if (statement instanceof FunctionDefNode function) {
+            walkBody(function.body, globals, calls);
+        } else if (statement instanceof IfStatementNode branch) {
+            walkBody(branch.bodyIf, globals, calls);
+            for (Pair<ExpressionNode, BodyNode> elseIf : branch.elseIfStat) {
+                walkBody(elseIf.b, globals, calls);
             }
-            if (ifStmt.bodyElse != null) walkBody(ifStmt.bodyElse, globalScope, calls);
-        } else if (stmt instanceof ForStatementNode forStmt) {
-            walkBody(forStmt.body, globalScope, calls);
-        } else if (stmt instanceof WhileStatementNode whileStmt) {
-            walkBody(whileStmt.body, globalScope, calls);
-        } else if (stmt instanceof ClassDefintionNode classStmt) {
-            walkBody(classStmt.body, globalScope, calls);
-        } else if (stmt instanceof ExpressionStatementNode exprStmt) {
-            for (ExpressionNode e : exprStmt.expressions) {
-                collectRenderCallFromExpression(e, globalScope, calls);
+            walkBody(branch.bodyElse, globals, calls);
+        } else if (statement instanceof ForStatementNode loop) {
+            walkBody(loop.body, globals, calls);
+        } else if (statement instanceof WhileStatementNode loop) {
+            walkBody(loop.body, globals, calls);
+        } else if (statement instanceof ClassDefintionNode definition) {
+            walkBody(definition.body, globals, calls);
+        } else if (statement instanceof ExpressionStatementNode expressions) {
+            for (ExpressionNode expression : expressions.expressions) {
+                addIfRenderCall(expression, globals, calls);
             }
-        } else if (stmt instanceof ReturnStatementNode retStmt) {
-            for (ExpressionNode e : retStmt.expressions) {
-                collectRenderCallFromExpression(e, globalScope, calls);
+        } else if (statement instanceof ReturnStatementNode returned) {
+            for (ExpressionNode expression : returned.expressions) {
+                addIfRenderCall(expression, globals, calls);
             }
         }
     }
 
-    private void walkBody(BodyNode body, Scope globalScope, List<RenderCall> calls) {
-        if (body == null) return;
-        for (StatementNode stmt : body.statements) {
-            walkStatement(stmt, globalScope, calls);
+    /** Walks every statement of a nested body. */
+    private void walkBody(BodyNode body, Map<String, Object> globals, List<RenderCall> calls) {
+        if (body == null) {
+            return;
+        }
+        for (StatementNode statement : body.statements) {
+            walkStatement(statement, globals, calls);
         }
     }
 
-    private void collectRenderCallFromExpression(ExpressionNode expr, Scope globalScope, List<RenderCall> calls) {
-        if (!(expr instanceof AtomExpressionNode atomExpr)) return;
-        if (atomExpr.identifier == null) return; // حالة atom المغلّف - مش استدعاء
+    /** Appends the expression's render call to the list, when it is one. */
+    private void addIfRenderCall(ExpressionNode expression, Map<String, Object> scope, List<RenderCall> calls) {
+        RenderCall call = renderCallOf(expression, scope, Map.of());
+        if (call != null) {
+            calls.add(call);
+        }
+    }
 
-        IdentifierExpression baseId = atomExpr.identifier;
-        List<TrailerNode> trailers = atomExpr.trailers;
+    /** Turns render_template(name, key=value, ...) into a RenderCall, or null. */
+    private RenderCall renderCallOf(ExpressionNode expression,
+                                    Map<String, Object> scope,
+                                    Map<String, Object> arguments) {
+        if (!(expression instanceof AtomExpressionNode atom)
+                || atom.identifier == null
+                || !"render_template".equals(atom.identifier.name)) {
+            return null;
+        }
 
-        if (!"render_template".equals(baseId.name)) return;
-
-        for (TrailerNode trailer : trailers) {
-            if (!(trailer instanceof CallTrailerNode callTrailer)) continue;
-
+        for (TrailerNode trailer : atom.trailers) {
+            if (!(trailer instanceof CallTrailerNode call)) {
+                continue;
+            }
             String templateName = null;
-            Scope callScope = new Scope();
-
-            List<ExpressionNode> args = callTrailer.arguments;
+            Map<String, Object> context = new LinkedHashMap<>();
             boolean first = true;
-            for (ExpressionNode argExpr : args) {
-                if (!(argExpr instanceof ArgumentNode arg)) continue;
 
-                if (first && arg.nameArg == null) {
-                    // الوسيط الأول الموضعي = اسم القالب
-                    Object val = evaluate(arg.value, globalScope);
-                    if (val instanceof String s) templateName = s;
-                } else if (arg.nameArg != null) {
-                    // keyword argument: name=expression -> يُضاف للـ Scope
-                    Object val = evaluate(arg.value, globalScope);
-                    callScope.set(arg.nameArg.name, val);
+            for (ExpressionNode argumentNode : call.arguments) {
+                if (!(argumentNode instanceof ArgumentNode argument)) {
+                    continue;
+                }
+                if (first && argument.nameArg == null) {
+                    // The first positional argument is the template name.
+                    if (evaluate(argument.value, scope) instanceof String name) {
+                        templateName = name;
+                    }
+                } else if (argument.nameArg != null) {
+                    // products=products becomes one context entry.
+                    Object value = evaluate(argument.value, scope);
+                    context.put(argument.nameArg.name, value);
+                    if (value == null) {
+                        log("[GEN][WARN] line " + atom.line + ": context entry '"
+                                + argument.nameArg.name + "' evaluated to null");
+                    }
                 }
                 first = false;
             }
 
             if (templateName != null) {
-                calls.add(new RenderCall(templateName, callScope, atomExpr.line));
-                log("[GEN] Found render_template('" + templateName + "') with vars: " + callScope.raw().keySet());
+                return new RenderCall(templateName, context, arguments, atom.line);
             }
         }
-    }
-
-    private String describe(Object value) {
-        if (value instanceof List<?> list) return "List<" + list.size() + " items>";
-        if (value instanceof Map<?, ?> map) return "Dict<" + map.size() + " keys>";
-        return String.valueOf(value);
+        return null;
     }
 
     // ============================================================
-    // نقطة دخول مقترحة لمرحلة التوليد كاملة
+    // Helper for the driver
     // ============================================================
-    public void run(ProgramNode program, String logOutputPath) throws IOException {
-        Scope globalScope = buildGlobalContext(program);
-        List<RenderCall> renderCalls = findRenderTemplateCalls(program, globalScope);
 
-        for (RenderCall call : renderCalls) {
-            log("[GEN] Ready to render '" + call.templateName + "' -> pass to Jinja Renderer");
-            // هنا لاحقاً: jinjaRenderer.render(jinjaAstFor(call.templateName), call.scope);
+    /**
+     * Collects one field from every item of a list, e.g. the ids of products.
+     * Used to fill the URL parameter space handed to
+     * {@link #generateRenderCalls}.
+     */
+    public static List<Object> fieldValues(Object collection, String field) {
+        List<Object> values = new ArrayList<>();
+        if (collection instanceof List<?> items) {
+            for (Object item : items) {
+                if (item instanceof Map<?, ?> map && map.containsKey(field)) {
+                    values.add(map.get(field));
+                }
+            }
         }
-
-        flushLog(logOutputPath);
+        return values;
     }
 }

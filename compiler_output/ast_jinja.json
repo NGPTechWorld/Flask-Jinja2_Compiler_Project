@@ -1,0 +1,1760 @@
+{
+  "products.html": {
+    "node": "HtmlDocumentRuleNode",
+    "line": 1,
+    "children": [
+      {
+        "node": "HtmlElementNode",
+        "line": 2,
+        "tagName": "html",
+        "endTagName": "html 65",
+        "selfClosing": false,
+        "children": [
+          {
+            "node": "HtmlElementNode",
+            "line": 3,
+            "tagName": "head",
+            "endTagName": "head 12",
+            "selfClosing": false,
+            "children": [
+              {
+                "node": "HtmlElementNode",
+                "line": 4,
+                "tagName": "meta",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 4,
+                    "value": "UTF-8"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 5,
+                "tagName": "meta",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 5,
+                    "value": "viewport"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 5,
+                    "value": "width=device-width, initial-scale=1.0"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 6,
+                "tagName": "title",
+                "endTagName": "title 6",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlTextNode",
+                    "line": 6,
+                    "text": "Product Store"
+                  }
+                ],
+                "attributes": []
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 7,
+                "tagName": "link",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 8,
+                    "value": "stylesheet"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 9,
+                    "value": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 11,
+                "tagName": "link",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 11,
+                    "value": "stylesheet"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 11,
+                    "value": "static/products.css"
+                  }
+                ]
+              }
+            ],
+            "attributes": []
+          },
+          {
+            "node": "HtmlElementNode",
+            "line": 14,
+            "tagName": "body",
+            "endTagName": "body 64",
+            "selfClosing": false,
+            "children": [
+              {
+                "node": "HtmlElementNode",
+                "line": 15,
+                "tagName": "header",
+                "endTagName": "header 23",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlElementNode",
+                    "line": 16,
+                    "tagName": "div",
+                    "endTagName": "div 22",
+                    "selfClosing": false,
+                    "children": [
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 17,
+                        "tagName": "div",
+                        "endTagName": "div 17",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 17,
+                            "text": "Product Store"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 17,
+                            "value": "logo"
+                          }
+                        ]
+                      },
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 18,
+                        "tagName": "a",
+                        "endTagName": "a 21",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 19,
+                            "tagName": "i",
+                            "endTagName": "i 19",
+                            "selfClosing": false,
+                            "children": [],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 19,
+                                "value": "fas fa-plus"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 19,
+                            "text": "Add New Product"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 18,
+                            "value": "/add-product"
+                          },
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 18,
+                            "value": "add-product-btn"
+                          }
+                        ]
+                      }
+                    ],
+                    "attributes": [
+                      {
+                        "node": "HtmlAttributeNode",
+                        "line": 16,
+                        "value": "header-content"
+                      }
+                    ]
+                  }
+                ],
+                "attributes": []
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 25,
+                "tagName": "div",
+                "endTagName": "div 61",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "JinjaIfNode",
+                    "line": 26,
+                    "ifCondition": {
+                      "node": "JinjaStmtIdentifier",
+                      "line": 26
+                    },
+                    "bodyIf": {
+                      "node": "JinjaBodyNode",
+                      "line": 26,
+                      "children": [
+                        {
+                          "node": "HtmlElementNode",
+                          "line": 27,
+                          "tagName": "div",
+                          "endTagName": "div 53",
+                          "selfClosing": false,
+                          "children": [
+                            {
+                              "node": "JinjaForNode",
+                              "line": 28,
+                              "variables": [
+                                "product"
+                              ],
+                              "iterable": {
+                                "node": "JinjaStmtIdentifier",
+                                "line": 28
+                              },
+                              "ifCondition": null,
+                              "body": [
+                                {
+                                  "node": "HtmlElementNode",
+                                  "line": 29,
+                                  "tagName": "div",
+                                  "endTagName": "div 51",
+                                  "selfClosing": false,
+                                  "children": [
+                                    {
+                                      "node": "HtmlElementNode",
+                                      "line": 30,
+                                      "tagName": "img",
+                                      "endTagName": "No End Tag",
+                                      "selfClosing": true,
+                                      "children": [],
+                                      "attributes": [
+                                        {
+                                          "node": "HtmlAttributeNode",
+                                          "line": 31,
+                                          "value": "{{ product.image }}"
+                                        },
+                                        {
+                                          "node": "HtmlAttributeNode",
+                                          "line": 32,
+                                          "value": "{{ product.name }}"
+                                        },
+                                        {
+                                          "node": "HtmlAttributeNode",
+                                          "line": 33,
+                                          "value": "product-image"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "node": "HtmlElementNode",
+                                      "line": 35,
+                                      "tagName": "div",
+                                      "endTagName": "div 50",
+                                      "selfClosing": false,
+                                      "children": [
+                                        {
+                                          "node": "HtmlElementNode",
+                                          "line": 36,
+                                          "tagName": "h3",
+                                          "endTagName": "h3 36",
+                                          "selfClosing": false,
+                                          "children": [
+                                            {
+                                              "node": "JinjaAttributeAccess",
+                                              "line": 36,
+                                              "base": {
+                                                "node": "JinjaIdentifier",
+                                                "line": 36
+                                              },
+                                              "attribute": "name"
+                                            }
+                                          ],
+                                          "attributes": [
+                                            {
+                                              "node": "HtmlAttributeNode",
+                                              "line": 36,
+                                              "value": "product-name"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "node": "HtmlElementNode",
+                                          "line": 37,
+                                          "tagName": "p",
+                                          "endTagName": "p 37",
+                                          "selfClosing": false,
+                                          "children": [
+                                            {
+                                              "node": "HtmlTextNode",
+                                              "line": 37,
+                                              "text": "$"
+                                            },
+                                            {
+                                              "node": "JinjaAttributeAccess",
+                                              "line": 37,
+                                              "base": {
+                                                "node": "JinjaIdentifier",
+                                                "line": 37
+                                              },
+                                              "attribute": "price"
+                                            }
+                                          ],
+                                          "attributes": [
+                                            {
+                                              "node": "HtmlAttributeNode",
+                                              "line": 37,
+                                              "value": "product-price"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "node": "HtmlElementNode",
+                                          "line": 38,
+                                          "tagName": "div",
+                                          "endTagName": "div 49",
+                                          "selfClosing": false,
+                                          "children": [
+                                            {
+                                              "node": "HtmlElementNode",
+                                              "line": 39,
+                                              "tagName": "a",
+                                              "endTagName": "a 39",
+                                              "selfClosing": false,
+                                              "children": [
+                                                {
+                                                  "node": "HtmlTextNode",
+                                                  "line": 39,
+                                                  "text": "View Details"
+                                                }
+                                              ],
+                                              "attributes": [
+                                                {
+                                                  "node": "HtmlAttributeNode",
+                                                  "line": 39,
+                                                  "value": "/product/{{ product.id }}"
+                                                },
+                                                {
+                                                  "node": "HtmlAttributeNode",
+                                                  "line": 39,
+                                                  "value": "btn btn-primary"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "node": "HtmlElementNode",
+                                              "line": 40,
+                                              "tagName": "form",
+                                              "endTagName": "form 48",
+                                              "selfClosing": false,
+                                              "children": [
+                                                {
+                                                  "node": "HtmlElementNode",
+                                                  "line": 45,
+                                                  "tagName": "button",
+                                                  "endTagName": "button 47",
+                                                  "selfClosing": false,
+                                                  "children": [
+                                                    {
+                                                      "node": "HtmlElementNode",
+                                                      "line": 46,
+                                                      "tagName": "i",
+                                                      "endTagName": "i 46",
+                                                      "selfClosing": false,
+                                                      "children": [],
+                                                      "attributes": [
+                                                        {
+                                                          "node": "HtmlAttributeNode",
+                                                          "line": 46,
+                                                          "value": "fas fa-trash"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "node": "HtmlTextNode",
+                                                      "line": 46,
+                                                      "text": "Delete"
+                                                    }
+                                                  ],
+                                                  "attributes": [
+                                                    {
+                                                      "node": "HtmlAttributeNode",
+                                                      "line": 45,
+                                                      "value": "submit"
+                                                    },
+                                                    {
+                                                      "node": "HtmlAttributeNode",
+                                                      "line": 45,
+                                                      "value": "btn btn-danger"
+                                                    }
+                                                  ]
+                                                }
+                                              ],
+                                              "attributes": [
+                                                {
+                                                  "node": "HtmlAttributeNode",
+                                                  "line": 41,
+                                                  "value": "/delete-product/{{ product.id }}"
+                                                },
+                                                {
+                                                  "node": "HtmlAttributeNode",
+                                                  "line": 42,
+                                                  "value": "POST"
+                                                },
+                                                {
+                                                  "node": "HtmlAttributeNode",
+                                                  "line": 43,
+                                                  "value": "return confirm('Are you sure you want to delete this product?');"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "attributes": [
+                                            {
+                                              "node": "HtmlAttributeNode",
+                                              "line": 38,
+                                              "value": "product-actions"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "attributes": [
+                                        {
+                                          "node": "HtmlAttributeNode",
+                                          "line": 35,
+                                          "value": "product-info"
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "attributes": [
+                                    {
+                                      "node": "HtmlAttributeNode",
+                                      "line": 29,
+                                      "value": "product-card"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "elseBody": []
+                            }
+                          ],
+                          "attributes": [
+                            {
+                              "node": "HtmlAttributeNode",
+                              "line": 27,
+                              "value": "products-grid"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "elseIfStat": [],
+                    "bodyElse": {
+                      "node": "JinjaBodyNode",
+                      "line": 54,
+                      "children": [
+                        {
+                          "node": "HtmlElementNode",
+                          "line": 55,
+                          "tagName": "div",
+                          "endTagName": "div 59",
+                          "selfClosing": false,
+                          "children": [
+                            {
+                              "node": "HtmlElementNode",
+                              "line": 56,
+                              "tagName": "i",
+                              "endTagName": "i 56",
+                              "selfClosing": false,
+                              "children": [],
+                              "attributes": [
+                                {
+                                  "node": "HtmlAttributeNode",
+                                  "line": 56,
+                                  "value": "fas fa-box-open"
+                                }
+                              ]
+                            },
+                            {
+                              "node": "HtmlElementNode",
+                              "line": 57,
+                              "tagName": "h3",
+                              "endTagName": "h3 57",
+                              "selfClosing": false,
+                              "children": [
+                                {
+                                  "node": "HtmlTextNode",
+                                  "line": 57,
+                                  "text": "No products found"
+                                }
+                              ],
+                              "attributes": []
+                            },
+                            {
+                              "node": "HtmlElementNode",
+                              "line": 58,
+                              "tagName": "p",
+                              "endTagName": "p 58",
+                              "selfClosing": false,
+                              "children": [
+                                {
+                                  "node": "HtmlTextNode",
+                                  "line": 58,
+                                  "text": "Add a new product to get started"
+                                }
+                              ],
+                              "attributes": []
+                            }
+                          ],
+                          "attributes": [
+                            {
+                              "node": "HtmlAttributeNode",
+                              "line": 55,
+                              "value": "empty-state"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 25,
+                    "value": "container"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 63,
+                "tagName": "div",
+                "endTagName": "div 63",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlTextNode",
+                    "line": 63,
+                    "text": "Product deleted successfully!"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 63,
+                    "value": "notification"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 63,
+                    "value": "notification"
+                  }
+                ]
+              }
+            ],
+            "attributes": []
+          }
+        ],
+        "attributes": [
+          {
+            "node": "HtmlAttributeNode",
+            "line": 2,
+            "value": "en"
+          },
+          {
+            "node": "HtmlAttributeNode",
+            "line": 2,
+            "value": "ltr"
+          }
+        ]
+      }
+    ]
+  },
+  "add_product.html": {
+    "node": "HtmlDocumentRuleNode",
+    "line": 1,
+    "children": [
+      {
+        "node": "HtmlElementNode",
+        "line": 2,
+        "tagName": "html",
+        "endTagName": "html 76",
+        "selfClosing": false,
+        "children": [
+          {
+            "node": "HtmlElementNode",
+            "line": 3,
+            "tagName": "head",
+            "endTagName": "head 12",
+            "selfClosing": false,
+            "children": [
+              {
+                "node": "HtmlElementNode",
+                "line": 4,
+                "tagName": "meta",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 4,
+                    "value": "UTF-8"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 5,
+                "tagName": "meta",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 5,
+                    "value": "viewport"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 5,
+                    "value": "width=device-width, initial-scale=1.0"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 6,
+                "tagName": "title",
+                "endTagName": "title 6",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlTextNode",
+                    "line": 6,
+                    "text": "Add New Product"
+                  }
+                ],
+                "attributes": []
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 7,
+                "tagName": "link",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 8,
+                    "value": "stylesheet"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 9,
+                    "value": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 11,
+                "tagName": "link",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 11,
+                    "value": "stylesheet"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 11,
+                    "value": "static/add_product.css"
+                  }
+                ]
+              }
+            ],
+            "attributes": []
+          },
+          {
+            "node": "HtmlElementNode",
+            "line": 14,
+            "tagName": "body",
+            "endTagName": "body 75",
+            "selfClosing": false,
+            "children": [
+              {
+                "node": "HtmlElementNode",
+                "line": 15,
+                "tagName": "header",
+                "endTagName": "header 23",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlElementNode",
+                    "line": 16,
+                    "tagName": "div",
+                    "endTagName": "div 22",
+                    "selfClosing": false,
+                    "children": [
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 17,
+                        "tagName": "div",
+                        "endTagName": "div 17",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 17,
+                            "text": "Product Store"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 17,
+                            "value": "logo"
+                          }
+                        ]
+                      },
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 18,
+                        "tagName": "a",
+                        "endTagName": "a 21",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 19,
+                            "tagName": "i",
+                            "endTagName": "i 19",
+                            "selfClosing": false,
+                            "children": [],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 19,
+                                "value": "fas fa-arrow-left"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 19,
+                            "text": "Back to Products"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 18,
+                            "value": "/"
+                          },
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 18,
+                            "value": "back-btn"
+                          }
+                        ]
+                      }
+                    ],
+                    "attributes": [
+                      {
+                        "node": "HtmlAttributeNode",
+                        "line": 16,
+                        "value": "header-content"
+                      }
+                    ]
+                  }
+                ],
+                "attributes": []
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 25,
+                "tagName": "div",
+                "endTagName": "div 72",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlElementNode",
+                    "line": 26,
+                    "tagName": "div",
+                    "endTagName": "div 71",
+                    "selfClosing": false,
+                    "children": [
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 27,
+                        "tagName": "h2",
+                        "endTagName": "h2 27",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 27,
+                            "text": "Add New Product"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 27,
+                            "value": "form-title"
+                          }
+                        ]
+                      },
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 29,
+                        "tagName": "form",
+                        "endTagName": "form 70",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 30,
+                            "tagName": "div",
+                            "endTagName": "div 33",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 31,
+                                "tagName": "label",
+                                "endTagName": "label 31",
+                                "selfClosing": false,
+                                "children": [
+                                  {
+                                    "node": "HtmlTextNode",
+                                    "line": 31,
+                                    "text": "Product Name"
+                                  }
+                                ],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 31,
+                                    "value": "form-label"
+                                  }
+                                ]
+                              },
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 32,
+                                "tagName": "input",
+                                "endTagName": "No End Tag",
+                                "selfClosing": true,
+                                "children": [],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 32,
+                                    "value": "text"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 32,
+                                    "value": "name"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 32,
+                                    "value": "form-control"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 32,
+                                    "value": "Enter product name"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 32,
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 30,
+                                "value": "form-group"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 35,
+                            "tagName": "div",
+                            "endTagName": "div 46",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 36,
+                                "tagName": "label",
+                                "endTagName": "label 36",
+                                "selfClosing": false,
+                                "children": [
+                                  {
+                                    "node": "HtmlTextNode",
+                                    "line": 36,
+                                    "text": "Price (USD)"
+                                  }
+                                ],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 36,
+                                    "value": "form-label"
+                                  }
+                                ]
+                              },
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 37,
+                                "tagName": "input",
+                                "endTagName": "No End Tag",
+                                "selfClosing": true,
+                                "children": [],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 38,
+                                    "value": "number"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 39,
+                                    "value": "price"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 40,
+                                    "value": "form-control"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 41,
+                                    "value": "0"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 42,
+                                    "value": "0.01"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 43,
+                                    "value": "0.00"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 44,
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 35,
+                                "value": "form-group"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 48,
+                            "tagName": "div",
+                            "endTagName": "div 57",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 49,
+                                "tagName": "label",
+                                "endTagName": "label 49",
+                                "selfClosing": false,
+                                "children": [
+                                  {
+                                    "node": "HtmlTextNode",
+                                    "line": 49,
+                                    "text": "Product Image"
+                                  }
+                                ],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 49,
+                                    "value": "form-label"
+                                  }
+                                ]
+                              },
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 50,
+                                "tagName": "input",
+                                "endTagName": "No End Tag",
+                                "selfClosing": true,
+                                "children": [],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 51,
+                                    "value": "file"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 52,
+                                    "value": "image"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 53,
+                                    "value": "form-control"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 54,
+                                    "value": "image/*"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 55,
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 48,
+                                "value": "form-group"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 59,
+                            "tagName": "div",
+                            "endTagName": "div 67",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 60,
+                                "tagName": "label",
+                                "endTagName": "label 60",
+                                "selfClosing": false,
+                                "children": [
+                                  {
+                                    "node": "HtmlTextNode",
+                                    "line": 60,
+                                    "text": "Description"
+                                  }
+                                ],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 60,
+                                    "value": "form-label"
+                                  }
+                                ]
+                              },
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 61,
+                                "tagName": "textarea",
+                                "endTagName": "textarea 66",
+                                "selfClosing": false,
+                                "children": [],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 62,
+                                    "value": "description"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 63,
+                                    "value": "form-control"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 64,
+                                    "value": "Write a brief description..."
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 65,
+                                    "value": null
+                                  }
+                                ]
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 59,
+                                "value": "form-group"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 69,
+                            "tagName": "button",
+                            "endTagName": "button 69",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlTextNode",
+                                "line": 69,
+                                "text": "Save Product"
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 69,
+                                "value": "submit"
+                              },
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 69,
+                                "value": "btn btn-primary"
+                              }
+                            ]
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 29,
+                            "value": "/add-product"
+                          },
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 29,
+                            "value": "post"
+                          },
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 29,
+                            "value": "multipart/form-data"
+                          }
+                        ]
+                      }
+                    ],
+                    "attributes": [
+                      {
+                        "node": "HtmlAttributeNode",
+                        "line": 26,
+                        "value": "form-container"
+                      }
+                    ]
+                  }
+                ],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 25,
+                    "value": "container"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 74,
+                "tagName": "div",
+                "endTagName": "div 74",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlTextNode",
+                    "line": 74,
+                    "text": "Product added successfully!"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 74,
+                    "value": "notification"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 74,
+                    "value": "notification"
+                  }
+                ]
+              }
+            ],
+            "attributes": []
+          }
+        ],
+        "attributes": [
+          {
+            "node": "HtmlAttributeNode",
+            "line": 2,
+            "value": "en"
+          },
+          {
+            "node": "HtmlAttributeNode",
+            "line": 2,
+            "value": "ltr"
+          }
+        ]
+      }
+    ]
+  },
+  "product_details.html": {
+    "node": "HtmlDocumentRuleNode",
+    "line": 1,
+    "children": [
+      {
+        "node": "HtmlElementNode",
+        "line": 2,
+        "tagName": "html",
+        "endTagName": "html 53",
+        "selfClosing": false,
+        "children": [
+          {
+            "node": "HtmlElementNode",
+            "line": 3,
+            "tagName": "head",
+            "endTagName": "head 12",
+            "selfClosing": false,
+            "children": [
+              {
+                "node": "HtmlElementNode",
+                "line": 4,
+                "tagName": "meta",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 4,
+                    "value": "UTF-8"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 5,
+                "tagName": "meta",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 5,
+                    "value": "viewport"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 5,
+                    "value": "width=device-width, initial-scale=1.0"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 6,
+                "tagName": "title",
+                "endTagName": "title 6",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlTextNode",
+                    "line": 6,
+                    "text": "Product Details"
+                  }
+                ],
+                "attributes": []
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 7,
+                "tagName": "link",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 8,
+                    "value": "stylesheet"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 9,
+                    "value": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 11,
+                "tagName": "link",
+                "endTagName": "No End Tag",
+                "selfClosing": true,
+                "children": [],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 11,
+                    "value": "stylesheet"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 11,
+                    "value": "static/product_details.css"
+                  }
+                ]
+              }
+            ],
+            "attributes": []
+          },
+          {
+            "node": "HtmlElementNode",
+            "line": 14,
+            "tagName": "body",
+            "endTagName": "body 52",
+            "selfClosing": false,
+            "children": [
+              {
+                "node": "HtmlElementNode",
+                "line": 15,
+                "tagName": "header",
+                "endTagName": "header 23",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlElementNode",
+                    "line": 16,
+                    "tagName": "div",
+                    "endTagName": "div 22",
+                    "selfClosing": false,
+                    "children": [
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 17,
+                        "tagName": "div",
+                        "endTagName": "div 17",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 17,
+                            "text": "Product Store"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 17,
+                            "value": "logo"
+                          }
+                        ]
+                      },
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 18,
+                        "tagName": "a",
+                        "endTagName": "a 21",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 19,
+                            "tagName": "i",
+                            "endTagName": "i 19",
+                            "selfClosing": false,
+                            "children": [],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 19,
+                                "value": "fas fa-arrow-left"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlTextNode",
+                            "line": 19,
+                            "text": "Back to Products"
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 18,
+                            "value": "/"
+                          },
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 18,
+                            "value": "back-btn"
+                          }
+                        ]
+                      }
+                    ],
+                    "attributes": [
+                      {
+                        "node": "HtmlAttributeNode",
+                        "line": 16,
+                        "value": "header-content"
+                      }
+                    ]
+                  }
+                ],
+                "attributes": []
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 25,
+                "tagName": "div",
+                "endTagName": "div 49",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlElementNode",
+                    "line": 26,
+                    "tagName": "div",
+                    "endTagName": "div 48",
+                    "selfClosing": false,
+                    "children": [
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 27,
+                        "tagName": "div",
+                        "endTagName": "div 29",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 28,
+                            "tagName": "img",
+                            "endTagName": "No End Tag",
+                            "selfClosing": true,
+                            "children": [],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 28,
+                                "value": "{{ product.image }}"
+                              },
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 28,
+                                "value": "{{ product.name }}"
+                              }
+                            ]
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 27,
+                            "value": "product-image-section"
+                          }
+                        ]
+                      },
+                      {
+                        "node": "HtmlElementNode",
+                        "line": 30,
+                        "tagName": "div",
+                        "endTagName": "div 47",
+                        "selfClosing": false,
+                        "children": [
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 31,
+                            "tagName": "h1",
+                            "endTagName": "h1 31",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "JinjaAttributeAccess",
+                                "line": 31,
+                                "base": {
+                                  "node": "JinjaIdentifier",
+                                  "line": 31
+                                },
+                                "attribute": "name"
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 31,
+                                "value": "product-name"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 32,
+                            "tagName": "p",
+                            "endTagName": "p 32",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlTextNode",
+                                "line": 32,
+                                "text": "$"
+                              },
+                              {
+                                "node": "JinjaAttributeAccess",
+                                "line": 32,
+                                "base": {
+                                  "node": "JinjaIdentifier",
+                                  "line": 32
+                                },
+                                "attribute": "price"
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 32,
+                                "value": "product-price"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 33,
+                            "tagName": "div",
+                            "endTagName": "div 35",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 34,
+                                "tagName": "p",
+                                "endTagName": "p 34",
+                                "selfClosing": false,
+                                "children": [
+                                  {
+                                    "node": "JinjaAttributeAccess",
+                                    "line": 34,
+                                    "base": {
+                                      "node": "JinjaIdentifier",
+                                      "line": 34
+                                    },
+                                    "attribute": "description"
+                                  }
+                                ],
+                                "attributes": []
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 33,
+                                "value": "product-description"
+                              }
+                            ]
+                          },
+                          {
+                            "node": "HtmlElementNode",
+                            "line": 36,
+                            "tagName": "div",
+                            "endTagName": "div 46",
+                            "selfClosing": false,
+                            "children": [
+                              {
+                                "node": "HtmlElementNode",
+                                "line": 37,
+                                "tagName": "form",
+                                "endTagName": "form 45",
+                                "selfClosing": false,
+                                "children": [
+                                  {
+                                    "node": "HtmlElementNode",
+                                    "line": 42,
+                                    "tagName": "button",
+                                    "endTagName": "button 44",
+                                    "selfClosing": false,
+                                    "children": [
+                                      {
+                                        "node": "HtmlElementNode",
+                                        "line": 43,
+                                        "tagName": "i",
+                                        "endTagName": "i 43",
+                                        "selfClosing": false,
+                                        "children": [],
+                                        "attributes": [
+                                          {
+                                            "node": "HtmlAttributeNode",
+                                            "line": 43,
+                                            "value": "fas fa-trash"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "node": "HtmlTextNode",
+                                        "line": 43,
+                                        "text": "Delete Product"
+                                      }
+                                    ],
+                                    "attributes": [
+                                      {
+                                        "node": "HtmlAttributeNode",
+                                        "line": 42,
+                                        "value": "submit"
+                                      },
+                                      {
+                                        "node": "HtmlAttributeNode",
+                                        "line": 42,
+                                        "value": "btn btn-danger"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "attributes": [
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 38,
+                                    "value": "/delete-product/{{ product.id }}"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 39,
+                                    "value": "POST"
+                                  },
+                                  {
+                                    "node": "HtmlAttributeNode",
+                                    "line": 40,
+                                    "value": "return confirm('Are you sure you want to delete this product?');"
+                                  }
+                                ]
+                              }
+                            ],
+                            "attributes": [
+                              {
+                                "node": "HtmlAttributeNode",
+                                "line": 36,
+                                "value": "product-actions"
+                              }
+                            ]
+                          }
+                        ],
+                        "attributes": [
+                          {
+                            "node": "HtmlAttributeNode",
+                            "line": 30,
+                            "value": "product-info-section"
+                          }
+                        ]
+                      }
+                    ],
+                    "attributes": [
+                      {
+                        "node": "HtmlAttributeNode",
+                        "line": 26,
+                        "value": "product-details-container"
+                      }
+                    ]
+                  }
+                ],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 25,
+                    "value": "container"
+                  }
+                ]
+              },
+              {
+                "node": "HtmlElementNode",
+                "line": 51,
+                "tagName": "div",
+                "endTagName": "div 51",
+                "selfClosing": false,
+                "children": [
+                  {
+                    "node": "HtmlTextNode",
+                    "line": 51,
+                    "text": "Product deleted successfully!"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 51,
+                    "value": "notification"
+                  },
+                  {
+                    "node": "HtmlAttributeNode",
+                    "line": 51,
+                    "value": "notification"
+                  }
+                ]
+              }
+            ],
+            "attributes": []
+          }
+        ],
+        "attributes": [
+          {
+            "node": "HtmlAttributeNode",
+            "line": 2,
+            "value": "en"
+          },
+          {
+            "node": "HtmlAttributeNode",
+            "line": 2,
+            "value": "ltr"
+          }
+        ]
+      }
+    ]
+  }
+}

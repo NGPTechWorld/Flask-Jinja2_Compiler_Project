@@ -1,0 +1,103 @@
+Symbol table
+============
+Produced by the front-end (semantic phase). Code generation
+does not consult it: it stores types, generation needs values.
+
+| name                      | kind       | line  | extra                |
+
+---------------------------------------------
+Python symbols - app.py
+---------------------------------------------
+Scope function index:
+   is Empty
+Scope function add_product:
+   | name                      | variable   | 42    |                      |
+   | price                     | variable   | 43    |                      |
+   | description               | variable   | 44    |                      |
+   | image_file                | variable   | 45    |                      |
+   | filename                  | variable   | 48    |                      |
+   | save_path                 | variable   | 49    |                      |
+   | image                     | variable   | 53    | value = /static/images/default.jpg |
+   | new_product               | variable   | 55    |                      |
+Scope function product_details:
+   | product_id                | parameter  | 62    |                      |
+   | product                   | variable   | 66    |                      |
+   | p                         | variable   | 64    |                      |
+Scope function delete_product:
+   | product_id                | parameter  | 76    |                      |
+   | product_to_delete         | variable   | 82    |                      |
+   | p                         | variable   | 80    |                      |
+Scope global:
+   | Flask                     | import     | 1     |                      |
+   | render_template           | import     | 1     |                      |
+   | request                   | import     | 1     |                      |
+   | redirect                  | import     | 1     |                      |
+   | url_for                   | import     | 1     |                      |
+   | jsonify                   | import     | 1     |                      |
+   | secure_filename           | import     | 2     |                      |
+   | os                        | module     | 3     |                      |
+   | app                       | variable   | 4     |                      |
+   | products                  | variable   | 7     |                      |
+   | last_id                   | variable   | 54    | value = 4            |
+   | index                     | function   | 33    |                      |
+   | add_product               | function   | 38    |                      |
+   | product_details           | function   | 61    |                      |
+   | delete_product            | function   | 75    |                      |
+
+---------------------------------------------
+HTML symbols - products.html
+---------------------------------------------
+Scope html document global:
+   | notification              | html_id    | 63    |                      |
+
+---------------------------------------------
+CSS symbols - products.html
+---------------------------------------------
+Scope css global:
+   is Empty
+
+---------------------------------------------
+Jinja symbols - products.html
+---------------------------------------------
+Scope for_loop 28:
+   | product                   | for_variable | 28    |                      |
+Scope if_block 26:
+   is Empty
+Scope global:
+   | products                  | global_variable | 0     |                      |
+
+---------------------------------------------
+HTML symbols - add_product.html
+---------------------------------------------
+Scope html document global:
+   | notification              | html_id    | 74    |                      |
+
+---------------------------------------------
+CSS symbols - add_product.html
+---------------------------------------------
+Scope css global:
+   is Empty
+
+---------------------------------------------
+Jinja symbols - add_product.html
+---------------------------------------------
+Scope global:
+   is Empty
+
+---------------------------------------------
+HTML symbols - product_details.html
+---------------------------------------------
+Scope html document global:
+   | notification              | html_id    | 51    |                      |
+
+---------------------------------------------
+CSS symbols - product_details.html
+---------------------------------------------
+Scope css global:
+   is Empty
+
+---------------------------------------------
+Jinja symbols - product_details.html
+---------------------------------------------
+Scope global:
+   | product                   | global_variable | 0     |                      |

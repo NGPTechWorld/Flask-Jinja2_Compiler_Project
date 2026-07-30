@@ -40,12 +40,21 @@ public class SymbolTable {
         return top != null && top.resolve(name) != null;
     }
 
-    public void printTable() {
+    /** Every closed scope rendered as text, outermost first. */
+    public List<String> toLines() {
         List<Scope> reversedScopes = new ArrayList<>(scopes);
         Collections.reverse(reversedScopes);
-        
+
+        List<String> lines = new ArrayList<>();
         for (Scope scope : reversedScopes) {
-            scope.printSymbols();
+            lines.addAll(scope.toLines());
+        }
+        return lines;
+    }
+
+    public void printTable() {
+        for (String line : toLines()) {
+            System.out.println(line);
         }
     }
 }

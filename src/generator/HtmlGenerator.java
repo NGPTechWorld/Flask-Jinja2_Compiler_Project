@@ -29,6 +29,7 @@ public class HtmlGenerator {
             "label", "br", "img", "sup", "sub", "u", "s");
 
     private final JinjaEvaluator evaluator = new JinjaEvaluator();
+    private final RouteMap routes = new RouteMap();
     private final List<String> log = new ArrayList<>();
 
     public List<String> getLog() {
@@ -118,7 +119,8 @@ public class HtmlGenerator {
             out.append(" ").append(attribute.name);
             if (attribute.value != null) {
                 String value = evaluator.interpolate(attribute.value, scope, attribute.line);
-                out.append("=\"").append(escapeAttribute(value)).append("\"");
+                out.append("=\"").append(escapeAttribute(route(attribute.name, value, attribute.line)))
+                        .append("\"");
             }
         }
 
@@ -139,6 +141,22 @@ public class HtmlGenerator {
         // NOTE: endTagName carries the line number appended to it, so the
         // closing tag is rebuilt from tagName.
         out.append("</").append(element.tagName).append(">");
+    }
+
+    /** Maps a Flask route onto the static file this generator emits. */
+    private String route(String attributeName, String value, int line) {
+        String rewritten;
+        if (attributeName.equalsIgnoreCase("href")) {
+            rewritten = routes.rewriteNavigation(value);
+        } else if (attributeName.equalsIgnoreCase("action")) {
+            rewritten = routes.rewriteSubmission(value);
+        } else {
+            return value;
+        }
+        if (!rewritten.equals(value)) {
+            log.add("line " + line + ": route " + value + " -> " + rewritten);
+        }
+        return rewritten;
     }
 
     /** A for/if block can expand into block elements, so it counts as one. */

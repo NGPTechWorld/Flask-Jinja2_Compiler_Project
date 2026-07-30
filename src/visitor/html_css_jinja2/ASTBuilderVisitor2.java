@@ -179,6 +179,18 @@ public class ASTBuilderVisitor2 extends HtmlCssJinja2ParserBaseVisitor<BaseNode>
         return this.jinjaTable;
     }
 
+    public SymbolTable getHtmlTable() {
+        return this.htmlTable;
+    }
+
+    public SymbolTable getCssTable() {
+        return this.cssTable;
+    }
+
+    public SymbolTable getJinjaTable() {
+        return this.jinjaTable;
+    }
+
     public void printSymbols() {
         System.out.println("\nHtml Table");
         htmlTable.printTable();

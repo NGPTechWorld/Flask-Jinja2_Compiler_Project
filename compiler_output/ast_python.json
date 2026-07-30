@@ -1,0 +1,2379 @@
+{
+  "node": "ProgramNode",
+  "line": 1,
+  "statements": [
+    {
+      "node": "ImportStatementNode",
+      "line": 1,
+      "items": [
+        {
+          "node": "ImportItem",
+          "line": 1,
+          "idLeft": "Flask",
+          "idRight": null
+        },
+        {
+          "node": "ImportItem",
+          "line": 1,
+          "idLeft": "render_template",
+          "idRight": null
+        },
+        {
+          "node": "ImportItem",
+          "line": 1,
+          "idLeft": "request",
+          "idRight": null
+        },
+        {
+          "node": "ImportItem",
+          "line": 1,
+          "idLeft": "redirect",
+          "idRight": null
+        },
+        {
+          "node": "ImportItem",
+          "line": 1,
+          "idLeft": "url_for",
+          "idRight": null
+        },
+        {
+          "node": "ImportItem",
+          "line": 1,
+          "idLeft": "jsonify",
+          "idRight": null
+        }
+      ],
+      "fromModule": {
+        "node": "ImportModule",
+        "line": 1,
+        "parts": [
+          "flask"
+        ]
+      }
+    },
+    {
+      "node": "ImportStatementNode",
+      "line": 2,
+      "items": [
+        {
+          "node": "ImportItem",
+          "line": 2,
+          "idLeft": "secure_filename",
+          "idRight": null
+        }
+      ],
+      "fromModule": {
+        "node": "ImportModule",
+        "line": 2,
+        "parts": [
+          "werkzeug",
+          "utils"
+        ]
+      }
+    },
+    {
+      "node": "ImportStatementNode",
+      "line": 3,
+      "items": [
+        {
+          "node": "ImportItem",
+          "line": 3,
+          "idLeft": "os",
+          "idRight": null
+        }
+      ],
+      "fromModule": null
+    },
+    {
+      "node": "AssignmentStatementNode",
+      "line": 4,
+      "targets": [
+        {
+          "node": "VarTargetNode",
+          "line": 4,
+          "attribute": {
+            "node": "IdentifierExpression",
+            "line": 4
+          }
+        }
+      ],
+      "operator": "ASSIGN",
+      "values": [
+        {
+          "node": "AtomExpressionNode",
+          "line": 4,
+          "atom": null,
+          "identifier": {
+            "node": "IdentifierExpression",
+            "line": 4
+          },
+          "trailers": [
+            {
+              "node": "CallTrailerNode",
+              "line": 4,
+              "arguments": [
+                {
+                  "node": "ArgumentNode",
+                  "line": 4,
+                  "nameArg": null,
+                  "value": {
+                    "node": "LiteralAtomNode",
+                    "line": 4,
+                    "literal": {
+                      "node": "IdentifierExpression",
+                      "line": 4
+                    }
+                  },
+                  "isPower": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node": "AssignmentStatementNode",
+      "line": 7,
+      "targets": [
+        {
+          "node": "VarTargetNode",
+          "line": 7,
+          "attribute": {
+            "node": "IdentifierExpression",
+            "line": 7
+          }
+        }
+      ],
+      "operator": "ASSIGN",
+      "values": [
+        {
+          "node": "ListAtomNode",
+          "line": 7,
+          "elements": [
+            {
+              "node": "DictAtomNode",
+              "line": 8,
+              "entries": [
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 9,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 9,
+                      "value": "id"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 9,
+                    "literal": {
+                      "node": "IntLiteralExpression",
+                      "line": 9,
+                      "value": 1
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 10,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 10,
+                      "value": "name"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 10,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 10,
+                      "value": "Dell XPS 15 Laptop"
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 11,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 11,
+                      "value": "price"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 11,
+                    "literal": {
+                      "node": "IntLiteralExpression",
+                      "line": 11,
+                      "value": 450
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 12,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 12,
+                      "value": "image"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 12,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 12,
+                      "value": "static/images/image1.jpg"
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 13,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 13,
+                      "value": "description"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 13,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 13,
+                      "value": "High-performance laptop with a crystal-clear display and powerful processor, perfect for creative tasks and work."
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "node": "DictAtomNode",
+              "line": 15,
+              "entries": [
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 16,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 16,
+                      "value": "id"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 16,
+                    "literal": {
+                      "node": "IntLiteralExpression",
+                      "line": 16,
+                      "value": 2
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 17,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 17,
+                      "value": "name"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 17,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 17,
+                      "value": "iPhone 15 Pro"
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 18,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 18,
+                      "value": "price"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 18,
+                    "literal": {
+                      "node": "IntLiteralExpression",
+                      "line": 18,
+                      "value": 520
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 19,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 19,
+                      "value": "image"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 19,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 19,
+                      "value": "static/images/image2.jpg"
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 20,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 20,
+                      "value": "description"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 20,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 20,
+                      "value": "The latest Apple phone with a professional camera, titanium design, and unmatched performance."
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "node": "DictAtomNode",
+              "line": 22,
+              "entries": [
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 23,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 23,
+                      "value": "id"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 23,
+                    "literal": {
+                      "node": "IntLiteralExpression",
+                      "line": 23,
+                      "value": 3
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 24,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 24,
+                      "value": "name"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 24,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 24,
+                      "value": "Sony WH-1000XM5 Headphones"
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 25,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 25,
+                      "value": "price"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 25,
+                    "literal": {
+                      "node": "IntLiteralExpression",
+                      "line": 25,
+                      "value": 120
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 26,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 26,
+                      "value": "image"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 26,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 26,
+                      "value": "static/images/image3.jpg"
+                    }
+                  }
+                },
+                {
+                  "a": {
+                    "node": "LiteralAtomNode",
+                    "line": 27,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 27,
+                      "value": "description"
+                    }
+                  },
+                  "b": {
+                    "node": "LiteralAtomNode",
+                    "line": 27,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 27,
+                      "value": "Wireless headphones offering exceptional noise cancellation and superior sound quality for an immersive listening experience."
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node": "AssignmentStatementNode",
+      "line": 31,
+      "targets": [
+        {
+          "node": "VarTargetNode",
+          "line": 31,
+          "attribute": {
+            "node": "IdentifierExpression",
+            "line": 31
+          }
+        }
+      ],
+      "operator": "ASSIGN",
+      "values": [
+        {
+          "node": "LiteralAtomNode",
+          "line": 31,
+          "literal": {
+            "node": "IntLiteralExpression",
+            "line": 31,
+            "value": 3
+          }
+        }
+      ]
+    },
+    {
+      "node": "FunctionDefNode",
+      "line": 33,
+      "decorators": [
+        {
+          "node": "DecoratorNode",
+          "line": 33,
+          "path": [
+            {
+              "node": "IdentifierExpression",
+              "line": 33
+            },
+            {
+              "node": "IdentifierExpression",
+              "line": 33
+            }
+          ],
+          "arguments": [
+            {
+              "node": "ArgumentNode",
+              "line": 33,
+              "nameArg": null,
+              "value": {
+                "node": "LiteralAtomNode",
+                "line": 33,
+                "literal": {
+                  "node": "StringLiteralExpression",
+                  "line": 33,
+                  "value": "/"
+                }
+              },
+              "isPower": false
+            }
+          ]
+        }
+      ],
+      "nameFun": {
+        "node": "IdentifierExpression",
+        "line": 34
+      },
+      "parameters": [],
+      "returnType": null,
+      "body": {
+        "node": "BodyNode",
+        "line": 34,
+        "statements": [
+          {
+            "node": "ReturnStatementNode",
+            "line": 35,
+            "expressions": [
+              {
+                "node": "AtomExpressionNode",
+                "line": 35,
+                "atom": null,
+                "identifier": {
+                  "node": "IdentifierExpression",
+                  "line": 35
+                },
+                "trailers": [
+                  {
+                    "node": "CallTrailerNode",
+                    "line": 35,
+                    "arguments": [
+                      {
+                        "node": "ArgumentNode",
+                        "line": 35,
+                        "nameArg": null,
+                        "value": {
+                          "node": "LiteralAtomNode",
+                          "line": 35,
+                          "literal": {
+                            "node": "StringLiteralExpression",
+                            "line": 35,
+                            "value": "products.html"
+                          }
+                        },
+                        "isPower": false
+                      },
+                      {
+                        "node": "ArgumentNode",
+                        "line": 35,
+                        "nameArg": {
+                          "node": "IdentifierExpression",
+                          "line": 35
+                        },
+                        "value": {
+                          "node": "LiteralAtomNode",
+                          "line": 35,
+                          "literal": {
+                            "node": "IdentifierExpression",
+                            "line": 35
+                          }
+                        },
+                        "isPower": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "node": "FunctionDefNode",
+      "line": 38,
+      "decorators": [
+        {
+          "node": "DecoratorNode",
+          "line": 38,
+          "path": [
+            {
+              "node": "IdentifierExpression",
+              "line": 38
+            },
+            {
+              "node": "IdentifierExpression",
+              "line": 38
+            }
+          ],
+          "arguments": [
+            {
+              "node": "ArgumentNode",
+              "line": 38,
+              "nameArg": null,
+              "value": {
+                "node": "LiteralAtomNode",
+                "line": 38,
+                "literal": {
+                  "node": "StringLiteralExpression",
+                  "line": 38,
+                  "value": "/add-product"
+                }
+              },
+              "isPower": false
+            },
+            {
+              "node": "ArgumentNode",
+              "line": 38,
+              "nameArg": {
+                "node": "IdentifierExpression",
+                "line": 38
+              },
+              "value": {
+                "node": "ListAtomNode",
+                "line": 38,
+                "elements": [
+                  {
+                    "node": "LiteralAtomNode",
+                    "line": 38,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 38,
+                      "value": "GET"
+                    }
+                  },
+                  {
+                    "node": "LiteralAtomNode",
+                    "line": 38,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 38,
+                      "value": "POST"
+                    }
+                  }
+                ]
+              },
+              "isPower": false
+            }
+          ]
+        }
+      ],
+      "nameFun": {
+        "node": "IdentifierExpression",
+        "line": 39
+      },
+      "parameters": [],
+      "returnType": null,
+      "body": {
+        "node": "BodyNode",
+        "line": 39,
+        "statements": [
+          {
+            "node": "GlobalStatementNode",
+            "line": 40,
+            "names": [
+              "last_id"
+            ]
+          },
+          {
+            "node": "IfStatementNode",
+            "line": 41,
+            "ifCondition": {
+              "node": "ComparisonExpressionNode",
+              "line": 41,
+              "left": {
+                "node": "AtomExpressionNode",
+                "line": 41,
+                "atom": null,
+                "identifier": {
+                  "node": "IdentifierExpression",
+                  "line": 41
+                },
+                "trailers": [
+                  {
+                    "node": "AttributeTrailerNode",
+                    "line": 41,
+                    "attribute": {
+                      "node": "IdentifierExpression",
+                      "line": 41
+                    }
+                  }
+                ]
+              },
+              "right": {
+                "node": "LiteralAtomNode",
+                "line": 41,
+                "literal": {
+                  "node": "StringLiteralExpression",
+                  "line": 41,
+                  "value": "POST"
+                }
+              },
+              "operator": "=="
+            },
+            "bodyIf": {
+              "node": "BodyNode",
+              "line": 41,
+              "statements": [
+                {
+                  "node": "AssignmentStatementNode",
+                  "line": 42,
+                  "targets": [
+                    {
+                      "node": "VarTargetNode",
+                      "line": 42,
+                      "attribute": {
+                        "node": "IdentifierExpression",
+                        "line": 42
+                      }
+                    }
+                  ],
+                  "operator": "ASSIGN",
+                  "values": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 42,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 42
+                      },
+                      "trailers": [
+                        {
+                          "node": "AttributeTrailerNode",
+                          "line": 42,
+                          "attribute": {
+                            "node": "IdentifierExpression",
+                            "line": 42
+                          }
+                        },
+                        {
+                          "node": "SubscriptTrailerNode",
+                          "line": 42,
+                          "exp": {
+                            "node": "LiteralAtomNode",
+                            "line": 42,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 42,
+                              "value": "name"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "AssignmentStatementNode",
+                  "line": 43,
+                  "targets": [
+                    {
+                      "node": "VarTargetNode",
+                      "line": 43,
+                      "attribute": {
+                        "node": "IdentifierExpression",
+                        "line": 43
+                      }
+                    }
+                  ],
+                  "operator": "ASSIGN",
+                  "values": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 43,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 43
+                      },
+                      "trailers": [
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 43,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 43,
+                              "nameArg": null,
+                              "value": {
+                                "node": "AtomExpressionNode",
+                                "line": 43,
+                                "atom": null,
+                                "identifier": {
+                                  "node": "IdentifierExpression",
+                                  "line": 43
+                                },
+                                "trailers": [
+                                  {
+                                    "node": "AttributeTrailerNode",
+                                    "line": 43,
+                                    "attribute": {
+                                      "node": "IdentifierExpression",
+                                      "line": 43
+                                    }
+                                  },
+                                  {
+                                    "node": "SubscriptTrailerNode",
+                                    "line": 43,
+                                    "exp": {
+                                      "node": "LiteralAtomNode",
+                                      "line": 43,
+                                      "literal": {
+                                        "node": "StringLiteralExpression",
+                                        "line": 43,
+                                        "value": "price"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "AssignmentStatementNode",
+                  "line": 44,
+                  "targets": [
+                    {
+                      "node": "VarTargetNode",
+                      "line": 44,
+                      "attribute": {
+                        "node": "IdentifierExpression",
+                        "line": 44
+                      }
+                    }
+                  ],
+                  "operator": "ASSIGN",
+                  "values": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 44,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 44
+                      },
+                      "trailers": [
+                        {
+                          "node": "AttributeTrailerNode",
+                          "line": 44,
+                          "attribute": {
+                            "node": "IdentifierExpression",
+                            "line": 44
+                          }
+                        },
+                        {
+                          "node": "SubscriptTrailerNode",
+                          "line": 44,
+                          "exp": {
+                            "node": "LiteralAtomNode",
+                            "line": 44,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 44,
+                              "value": "description"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "AssignmentStatementNode",
+                  "line": 45,
+                  "targets": [
+                    {
+                      "node": "VarTargetNode",
+                      "line": 45,
+                      "attribute": {
+                        "node": "IdentifierExpression",
+                        "line": 45
+                      }
+                    }
+                  ],
+                  "operator": "ASSIGN",
+                  "values": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 45,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 45
+                      },
+                      "trailers": [
+                        {
+                          "node": "AttributeTrailerNode",
+                          "line": 45,
+                          "attribute": {
+                            "node": "IdentifierExpression",
+                            "line": 45
+                          }
+                        },
+                        {
+                          "node": "AttributeTrailerNode",
+                          "line": 45,
+                          "attribute": {
+                            "node": "IdentifierExpression",
+                            "line": 45
+                          }
+                        },
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 45,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 45,
+                              "nameArg": null,
+                              "value": {
+                                "node": "LiteralAtomNode",
+                                "line": 45,
+                                "literal": {
+                                  "node": "StringLiteralExpression",
+                                  "line": 45,
+                                  "value": "image"
+                                }
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "IfStatementNode",
+                  "line": 47,
+                  "ifCondition": {
+                    "node": "LiteralAtomNode",
+                    "line": 47,
+                    "literal": {
+                      "node": "IdentifierExpression",
+                      "line": 47
+                    }
+                  },
+                  "bodyIf": {
+                    "node": "BodyNode",
+                    "line": 47,
+                    "statements": [
+                      {
+                        "node": "AssignmentStatementNode",
+                        "line": 48,
+                        "targets": [
+                          {
+                            "node": "VarTargetNode",
+                            "line": 48,
+                            "attribute": {
+                              "node": "IdentifierExpression",
+                              "line": 48
+                            }
+                          }
+                        ],
+                        "operator": "ASSIGN",
+                        "values": [
+                          {
+                            "node": "AtomExpressionNode",
+                            "line": 48,
+                            "atom": null,
+                            "identifier": {
+                              "node": "IdentifierExpression",
+                              "line": 48
+                            },
+                            "trailers": [
+                              {
+                                "node": "CallTrailerNode",
+                                "line": 48,
+                                "arguments": [
+                                  {
+                                    "node": "ArgumentNode",
+                                    "line": 48,
+                                    "nameArg": null,
+                                    "value": {
+                                      "node": "AtomExpressionNode",
+                                      "line": 48,
+                                      "atom": null,
+                                      "identifier": {
+                                        "node": "IdentifierExpression",
+                                        "line": 48
+                                      },
+                                      "trailers": [
+                                        {
+                                          "node": "AttributeTrailerNode",
+                                          "line": 48,
+                                          "attribute": {
+                                            "node": "IdentifierExpression",
+                                            "line": 48
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "isPower": false
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "node": "AssignmentStatementNode",
+                        "line": 49,
+                        "targets": [
+                          {
+                            "node": "VarTargetNode",
+                            "line": 49,
+                            "attribute": {
+                              "node": "IdentifierExpression",
+                              "line": 49
+                            }
+                          }
+                        ],
+                        "operator": "ASSIGN",
+                        "values": [
+                          {
+                            "node": "AtomExpressionNode",
+                            "line": 49,
+                            "atom": null,
+                            "identifier": {
+                              "node": "IdentifierExpression",
+                              "line": 49
+                            },
+                            "trailers": [
+                              {
+                                "node": "AttributeTrailerNode",
+                                "line": 49,
+                                "attribute": {
+                                  "node": "IdentifierExpression",
+                                  "line": 49
+                                }
+                              },
+                              {
+                                "node": "AttributeTrailerNode",
+                                "line": 49,
+                                "attribute": {
+                                  "node": "IdentifierExpression",
+                                  "line": 49
+                                }
+                              },
+                              {
+                                "node": "CallTrailerNode",
+                                "line": 49,
+                                "arguments": [
+                                  {
+                                    "node": "ArgumentNode",
+                                    "line": 49,
+                                    "nameArg": null,
+                                    "value": {
+                                      "node": "LiteralAtomNode",
+                                      "line": 49,
+                                      "literal": {
+                                        "node": "StringLiteralExpression",
+                                        "line": 49,
+                                        "value": "static"
+                                      }
+                                    },
+                                    "isPower": false
+                                  },
+                                  {
+                                    "node": "ArgumentNode",
+                                    "line": 49,
+                                    "nameArg": null,
+                                    "value": {
+                                      "node": "LiteralAtomNode",
+                                      "line": 49,
+                                      "literal": {
+                                        "node": "StringLiteralExpression",
+                                        "line": 49,
+                                        "value": "images"
+                                      }
+                                    },
+                                    "isPower": false
+                                  },
+                                  {
+                                    "node": "ArgumentNode",
+                                    "line": 49,
+                                    "nameArg": null,
+                                    "value": {
+                                      "node": "LiteralAtomNode",
+                                      "line": 49,
+                                      "literal": {
+                                        "node": "IdentifierExpression",
+                                        "line": 49
+                                      }
+                                    },
+                                    "isPower": false
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "node": "ExpressionStatementNode",
+                        "line": 50,
+                        "expressions": [
+                          {
+                            "node": "AtomExpressionNode",
+                            "line": 50,
+                            "atom": null,
+                            "identifier": {
+                              "node": "IdentifierExpression",
+                              "line": 50
+                            },
+                            "trailers": [
+                              {
+                                "node": "AttributeTrailerNode",
+                                "line": 50,
+                                "attribute": {
+                                  "node": "IdentifierExpression",
+                                  "line": 50
+                                }
+                              },
+                              {
+                                "node": "CallTrailerNode",
+                                "line": 50,
+                                "arguments": [
+                                  {
+                                    "node": "ArgumentNode",
+                                    "line": 50,
+                                    "nameArg": null,
+                                    "value": {
+                                      "node": "LiteralAtomNode",
+                                      "line": 50,
+                                      "literal": {
+                                        "node": "IdentifierExpression",
+                                        "line": 50
+                                      }
+                                    },
+                                    "isPower": false
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "node": "AssignmentStatementNode",
+                        "line": 51,
+                        "targets": [
+                          {
+                            "node": "VarTargetNode",
+                            "line": 51,
+                            "attribute": {
+                              "node": "IdentifierExpression",
+                              "line": 51
+                            }
+                          }
+                        ],
+                        "operator": "ASSIGN",
+                        "values": [
+                          {
+                            "node": "LiteralAtomNode",
+                            "line": 51,
+                            "literal": {
+                              "node": "FStringLiteralExpression",
+                              "line": 51,
+                              "rawText": "\"/static/images/{filename}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "elseIfStat": [],
+                  "bodyElse": {
+                    "node": "BodyNode",
+                    "line": 52,
+                    "statements": [
+                      {
+                        "node": "AssignmentStatementNode",
+                        "line": 53,
+                        "targets": [
+                          {
+                            "node": "VarTargetNode",
+                            "line": 53,
+                            "attribute": {
+                              "node": "IdentifierExpression",
+                              "line": 53
+                            }
+                          }
+                        ],
+                        "operator": "ASSIGN",
+                        "values": [
+                          {
+                            "node": "LiteralAtomNode",
+                            "line": 53,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 53,
+                              "value": "/static/images/default.jpg"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "node": "AssignmentStatementNode",
+                  "line": 54,
+                  "targets": [
+                    {
+                      "node": "VarTargetNode",
+                      "line": 54,
+                      "attribute": {
+                        "node": "IdentifierExpression",
+                        "line": 54
+                      }
+                    }
+                  ],
+                  "operator": "ADD_ASSIGN",
+                  "values": [
+                    {
+                      "node": "LiteralAtomNode",
+                      "line": 54,
+                      "literal": {
+                        "node": "IntLiteralExpression",
+                        "line": 54,
+                        "value": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "node": "AssignmentStatementNode",
+                  "line": 55,
+                  "targets": [
+                    {
+                      "node": "VarTargetNode",
+                      "line": 55,
+                      "attribute": {
+                        "node": "IdentifierExpression",
+                        "line": 55
+                      }
+                    }
+                  ],
+                  "operator": "ASSIGN",
+                  "values": [
+                    {
+                      "node": "DictAtomNode",
+                      "line": 55,
+                      "entries": [
+                        {
+                          "a": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 55,
+                              "value": "id"
+                            }
+                          },
+                          "b": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 55
+                            }
+                          }
+                        },
+                        {
+                          "a": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 55,
+                              "value": "name"
+                            }
+                          },
+                          "b": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 55
+                            }
+                          }
+                        },
+                        {
+                          "a": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 55,
+                              "value": "price"
+                            }
+                          },
+                          "b": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 55
+                            }
+                          }
+                        },
+                        {
+                          "a": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 55,
+                              "value": "image"
+                            }
+                          },
+                          "b": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 55
+                            }
+                          }
+                        },
+                        {
+                          "a": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 55,
+                              "value": "description"
+                            }
+                          },
+                          "b": {
+                            "node": "LiteralAtomNode",
+                            "line": 55,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 55
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "ExpressionStatementNode",
+                  "line": 56,
+                  "expressions": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 56,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 56
+                      },
+                      "trailers": [
+                        {
+                          "node": "AttributeTrailerNode",
+                          "line": 56,
+                          "attribute": {
+                            "node": "IdentifierExpression",
+                            "line": 56
+                          }
+                        },
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 56,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 56,
+                              "nameArg": null,
+                              "value": {
+                                "node": "LiteralAtomNode",
+                                "line": 56,
+                                "literal": {
+                                  "node": "IdentifierExpression",
+                                  "line": 56
+                                }
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "ReturnStatementNode",
+                  "line": 57,
+                  "expressions": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 57,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 57
+                      },
+                      "trailers": [
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 57,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 57,
+                              "nameArg": null,
+                              "value": {
+                                "node": "AtomExpressionNode",
+                                "line": 57,
+                                "atom": null,
+                                "identifier": {
+                                  "node": "IdentifierExpression",
+                                  "line": 57
+                                },
+                                "trailers": [
+                                  {
+                                    "node": "CallTrailerNode",
+                                    "line": 57,
+                                    "arguments": [
+                                      {
+                                        "node": "ArgumentNode",
+                                        "line": 57,
+                                        "nameArg": null,
+                                        "value": {
+                                          "node": "LiteralAtomNode",
+                                          "line": 57,
+                                          "literal": {
+                                            "node": "StringLiteralExpression",
+                                            "line": 57,
+                                            "value": "index"
+                                          }
+                                        },
+                                        "isPower": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "elseIfStat": [],
+            "bodyElse": null
+          },
+          {
+            "node": "ReturnStatementNode",
+            "line": 58,
+            "expressions": [
+              {
+                "node": "AtomExpressionNode",
+                "line": 58,
+                "atom": null,
+                "identifier": {
+                  "node": "IdentifierExpression",
+                  "line": 58
+                },
+                "trailers": [
+                  {
+                    "node": "CallTrailerNode",
+                    "line": 58,
+                    "arguments": [
+                      {
+                        "node": "ArgumentNode",
+                        "line": 58,
+                        "nameArg": null,
+                        "value": {
+                          "node": "LiteralAtomNode",
+                          "line": 58,
+                          "literal": {
+                            "node": "StringLiteralExpression",
+                            "line": 58,
+                            "value": "add_product.html"
+                          }
+                        },
+                        "isPower": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "node": "FunctionDefNode",
+      "line": 61,
+      "decorators": [
+        {
+          "node": "DecoratorNode",
+          "line": 61,
+          "path": [
+            {
+              "node": "IdentifierExpression",
+              "line": 61
+            },
+            {
+              "node": "IdentifierExpression",
+              "line": 61
+            }
+          ],
+          "arguments": [
+            {
+              "node": "ArgumentNode",
+              "line": 61,
+              "nameArg": null,
+              "value": {
+                "node": "LiteralAtomNode",
+                "line": 61,
+                "literal": {
+                  "node": "StringLiteralExpression",
+                  "line": 61,
+                  "value": "/product/<int:product_id>"
+                }
+              },
+              "isPower": false
+            }
+          ]
+        }
+      ],
+      "nameFun": {
+        "node": "IdentifierExpression",
+        "line": 62
+      },
+      "parameters": [
+        {
+          "node": "NormalParamNode",
+          "line": 62,
+          "defaultValue": null
+        }
+      ],
+      "returnType": null,
+      "body": {
+        "node": "BodyNode",
+        "line": 62,
+        "statements": [
+          {
+            "node": "AssignmentStatementNode",
+            "line": 63,
+            "targets": [
+              {
+                "node": "VarTargetNode",
+                "line": 63,
+                "attribute": {
+                  "node": "IdentifierExpression",
+                  "line": 63
+                }
+              }
+            ],
+            "operator": "ASSIGN",
+            "values": [
+              {
+                "node": "LiteralAtomNode",
+                "line": 63,
+                "literal": {
+                  "node": "NullLiteralExpression",
+                  "line": 63
+                }
+              }
+            ]
+          },
+          {
+            "node": "ForStatementNode",
+            "line": 64,
+            "targets": [
+              {
+                "node": "VarTargetNode",
+                "line": 64,
+                "attribute": {
+                  "node": "IdentifierExpression",
+                  "line": 64
+                }
+              }
+            ],
+            "iterables": [
+              {
+                "node": "LiteralAtomNode",
+                "line": 64,
+                "literal": {
+                  "node": "IdentifierExpression",
+                  "line": 64
+                }
+              }
+            ],
+            "body": {
+              "node": "BodyNode",
+              "line": 64,
+              "statements": [
+                {
+                  "node": "IfStatementNode",
+                  "line": 65,
+                  "ifCondition": {
+                    "node": "ComparisonExpressionNode",
+                    "line": 65,
+                    "left": {
+                      "node": "AtomExpressionNode",
+                      "line": 65,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 65
+                      },
+                      "trailers": [
+                        {
+                          "node": "SubscriptTrailerNode",
+                          "line": 65,
+                          "exp": {
+                            "node": "LiteralAtomNode",
+                            "line": 65,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 65,
+                              "value": "id"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "right": {
+                      "node": "LiteralAtomNode",
+                      "line": 65,
+                      "literal": {
+                        "node": "IdentifierExpression",
+                        "line": 65
+                      }
+                    },
+                    "operator": "=="
+                  },
+                  "bodyIf": {
+                    "node": "BodyNode",
+                    "line": 65,
+                    "statements": [
+                      {
+                        "node": "AssignmentStatementNode",
+                        "line": 66,
+                        "targets": [
+                          {
+                            "node": "VarTargetNode",
+                            "line": 66,
+                            "attribute": {
+                              "node": "IdentifierExpression",
+                              "line": 66
+                            }
+                          }
+                        ],
+                        "operator": "ASSIGN",
+                        "values": [
+                          {
+                            "node": "LiteralAtomNode",
+                            "line": 66,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 66
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "node": "BreakStatementNode",
+                        "line": 67
+                      }
+                    ]
+                  },
+                  "elseIfStat": [],
+                  "bodyElse": null
+                }
+              ]
+            }
+          },
+          {
+            "node": "IfStatementNode",
+            "line": 69,
+            "ifCondition": {
+              "node": "IsExpressionNode",
+              "line": 69,
+              "left": {
+                "node": "LiteralAtomNode",
+                "line": 69,
+                "literal": {
+                  "node": "IdentifierExpression",
+                  "line": 69
+                }
+              },
+              "right": {
+                "node": "LiteralAtomNode",
+                "line": 69,
+                "literal": {
+                  "node": "NullLiteralExpression",
+                  "line": 69
+                }
+              },
+              "operator": "is"
+            },
+            "bodyIf": {
+              "node": "BodyNode",
+              "line": 69,
+              "statements": [
+                {
+                  "node": "ReturnStatementNode",
+                  "line": 70,
+                  "expressions": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 70,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 70
+                      },
+                      "trailers": [
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 70,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 70,
+                              "nameArg": null,
+                              "value": {
+                                "node": "AtomExpressionNode",
+                                "line": 70,
+                                "atom": null,
+                                "identifier": {
+                                  "node": "IdentifierExpression",
+                                  "line": 70
+                                },
+                                "trailers": [
+                                  {
+                                    "node": "CallTrailerNode",
+                                    "line": 70,
+                                    "arguments": [
+                                      {
+                                        "node": "ArgumentNode",
+                                        "line": 70,
+                                        "nameArg": null,
+                                        "value": {
+                                          "node": "LiteralAtomNode",
+                                          "line": 70,
+                                          "literal": {
+                                            "node": "StringLiteralExpression",
+                                            "line": 70,
+                                            "value": "index"
+                                          }
+                                        },
+                                        "isPower": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "elseIfStat": [],
+            "bodyElse": null
+          },
+          {
+            "node": "ReturnStatementNode",
+            "line": 72,
+            "expressions": [
+              {
+                "node": "AtomExpressionNode",
+                "line": 72,
+                "atom": null,
+                "identifier": {
+                  "node": "IdentifierExpression",
+                  "line": 72
+                },
+                "trailers": [
+                  {
+                    "node": "CallTrailerNode",
+                    "line": 72,
+                    "arguments": [
+                      {
+                        "node": "ArgumentNode",
+                        "line": 72,
+                        "nameArg": null,
+                        "value": {
+                          "node": "LiteralAtomNode",
+                          "line": 72,
+                          "literal": {
+                            "node": "StringLiteralExpression",
+                            "line": 72,
+                            "value": "product_details.html"
+                          }
+                        },
+                        "isPower": false
+                      },
+                      {
+                        "node": "ArgumentNode",
+                        "line": 72,
+                        "nameArg": {
+                          "node": "IdentifierExpression",
+                          "line": 72
+                        },
+                        "value": {
+                          "node": "LiteralAtomNode",
+                          "line": 72,
+                          "literal": {
+                            "node": "IdentifierExpression",
+                            "line": 72
+                          }
+                        },
+                        "isPower": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "node": "FunctionDefNode",
+      "line": 75,
+      "decorators": [
+        {
+          "node": "DecoratorNode",
+          "line": 75,
+          "path": [
+            {
+              "node": "IdentifierExpression",
+              "line": 75
+            },
+            {
+              "node": "IdentifierExpression",
+              "line": 75
+            }
+          ],
+          "arguments": [
+            {
+              "node": "ArgumentNode",
+              "line": 75,
+              "nameArg": null,
+              "value": {
+                "node": "LiteralAtomNode",
+                "line": 75,
+                "literal": {
+                  "node": "StringLiteralExpression",
+                  "line": 75,
+                  "value": "/delete-product/<int:product_id>"
+                }
+              },
+              "isPower": false
+            },
+            {
+              "node": "ArgumentNode",
+              "line": 75,
+              "nameArg": {
+                "node": "IdentifierExpression",
+                "line": 75
+              },
+              "value": {
+                "node": "ListAtomNode",
+                "line": 75,
+                "elements": [
+                  {
+                    "node": "LiteralAtomNode",
+                    "line": 75,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 75,
+                      "value": "POST"
+                    }
+                  },
+                  {
+                    "node": "LiteralAtomNode",
+                    "line": 75,
+                    "literal": {
+                      "node": "StringLiteralExpression",
+                      "line": 75,
+                      "value": "DELETE"
+                    }
+                  }
+                ]
+              },
+              "isPower": false
+            }
+          ]
+        }
+      ],
+      "nameFun": {
+        "node": "IdentifierExpression",
+        "line": 76
+      },
+      "parameters": [
+        {
+          "node": "NormalParamNode",
+          "line": 76,
+          "defaultValue": null
+        }
+      ],
+      "returnType": null,
+      "body": {
+        "node": "BodyNode",
+        "line": 77,
+        "statements": [
+          {
+            "node": "GlobalStatementNode",
+            "line": 78,
+            "names": [
+              "products"
+            ]
+          },
+          {
+            "node": "AssignmentStatementNode",
+            "line": 79,
+            "targets": [
+              {
+                "node": "VarTargetNode",
+                "line": 79,
+                "attribute": {
+                  "node": "IdentifierExpression",
+                  "line": 79
+                }
+              }
+            ],
+            "operator": "ASSIGN",
+            "values": [
+              {
+                "node": "LiteralAtomNode",
+                "line": 79,
+                "literal": {
+                  "node": "NullLiteralExpression",
+                  "line": 79
+                }
+              }
+            ]
+          },
+          {
+            "node": "ForStatementNode",
+            "line": 80,
+            "targets": [
+              {
+                "node": "VarTargetNode",
+                "line": 80,
+                "attribute": {
+                  "node": "IdentifierExpression",
+                  "line": 80
+                }
+              }
+            ],
+            "iterables": [
+              {
+                "node": "LiteralAtomNode",
+                "line": 80,
+                "literal": {
+                  "node": "IdentifierExpression",
+                  "line": 80
+                }
+              }
+            ],
+            "body": {
+              "node": "BodyNode",
+              "line": 80,
+              "statements": [
+                {
+                  "node": "IfStatementNode",
+                  "line": 81,
+                  "ifCondition": {
+                    "node": "ComparisonExpressionNode",
+                    "line": 81,
+                    "left": {
+                      "node": "AtomExpressionNode",
+                      "line": 81,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 81
+                      },
+                      "trailers": [
+                        {
+                          "node": "SubscriptTrailerNode",
+                          "line": 81,
+                          "exp": {
+                            "node": "LiteralAtomNode",
+                            "line": 81,
+                            "literal": {
+                              "node": "StringLiteralExpression",
+                              "line": 81,
+                              "value": "id"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "right": {
+                      "node": "LiteralAtomNode",
+                      "line": 81,
+                      "literal": {
+                        "node": "IdentifierExpression",
+                        "line": 81
+                      }
+                    },
+                    "operator": "=="
+                  },
+                  "bodyIf": {
+                    "node": "BodyNode",
+                    "line": 81,
+                    "statements": [
+                      {
+                        "node": "AssignmentStatementNode",
+                        "line": 82,
+                        "targets": [
+                          {
+                            "node": "VarTargetNode",
+                            "line": 82,
+                            "attribute": {
+                              "node": "IdentifierExpression",
+                              "line": 82
+                            }
+                          }
+                        ],
+                        "operator": "ASSIGN",
+                        "values": [
+                          {
+                            "node": "LiteralAtomNode",
+                            "line": 82,
+                            "literal": {
+                              "node": "IdentifierExpression",
+                              "line": 82
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "node": "BreakStatementNode",
+                        "line": 83
+                      }
+                    ]
+                  },
+                  "elseIfStat": [],
+                  "bodyElse": null
+                }
+              ]
+            }
+          },
+          {
+            "node": "IfStatementNode",
+            "line": 85,
+            "ifCondition": {
+              "node": "LiteralAtomNode",
+              "line": 85,
+              "literal": {
+                "node": "IdentifierExpression",
+                "line": 85
+              }
+            },
+            "bodyIf": {
+              "node": "BodyNode",
+              "line": 85,
+              "statements": [
+                {
+                  "node": "ExpressionStatementNode",
+                  "line": 86,
+                  "expressions": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 86,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 86
+                      },
+                      "trailers": [
+                        {
+                          "node": "AttributeTrailerNode",
+                          "line": 86,
+                          "attribute": {
+                            "node": "IdentifierExpression",
+                            "line": 86
+                          }
+                        },
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 86,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 86,
+                              "nameArg": null,
+                              "value": {
+                                "node": "LiteralAtomNode",
+                                "line": 86,
+                                "literal": {
+                                  "node": "IdentifierExpression",
+                                  "line": 86
+                                }
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "node": "ReturnStatementNode",
+                  "line": 87,
+                  "expressions": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 87,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 87
+                      },
+                      "trailers": [
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 87,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 87,
+                              "nameArg": null,
+                              "value": {
+                                "node": "AtomExpressionNode",
+                                "line": 87,
+                                "atom": null,
+                                "identifier": {
+                                  "node": "IdentifierExpression",
+                                  "line": 87
+                                },
+                                "trailers": [
+                                  {
+                                    "node": "CallTrailerNode",
+                                    "line": 87,
+                                    "arguments": [
+                                      {
+                                        "node": "ArgumentNode",
+                                        "line": 87,
+                                        "nameArg": null,
+                                        "value": {
+                                          "node": "LiteralAtomNode",
+                                          "line": 87,
+                                          "literal": {
+                                            "node": "StringLiteralExpression",
+                                            "line": 87,
+                                            "value": "index"
+                                          }
+                                        },
+                                        "isPower": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "elseIfStat": [],
+            "bodyElse": {
+              "node": "BodyNode",
+              "line": 88,
+              "statements": [
+                {
+                  "node": "ReturnStatementNode",
+                  "line": 89,
+                  "expressions": [
+                    {
+                      "node": "AtomExpressionNode",
+                      "line": 89,
+                      "atom": null,
+                      "identifier": {
+                        "node": "IdentifierExpression",
+                        "line": 89
+                      },
+                      "trailers": [
+                        {
+                          "node": "CallTrailerNode",
+                          "line": 89,
+                          "arguments": [
+                            {
+                              "node": "ArgumentNode",
+                              "line": 89,
+                              "nameArg": null,
+                              "value": {
+                                "node": "AtomExpressionNode",
+                                "line": 89,
+                                "atom": null,
+                                "identifier": {
+                                  "node": "IdentifierExpression",
+                                  "line": 89
+                                },
+                                "trailers": [
+                                  {
+                                    "node": "CallTrailerNode",
+                                    "line": 89,
+                                    "arguments": [
+                                      {
+                                        "node": "ArgumentNode",
+                                        "line": 89,
+                                        "nameArg": null,
+                                        "value": {
+                                          "node": "LiteralAtomNode",
+                                          "line": 89,
+                                          "literal": {
+                                            "node": "StringLiteralExpression",
+                                            "line": 89,
+                                            "value": "index"
+                                          }
+                                        },
+                                        "isPower": false
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "isPower": false
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "node": "IfStatementNode",
+      "line": 91,
+      "ifCondition": {
+        "node": "ComparisonExpressionNode",
+        "line": 91,
+        "left": {
+          "node": "LiteralAtomNode",
+          "line": 91,
+          "literal": {
+            "node": "IdentifierExpression",
+            "line": 91
+          }
+        },
+        "right": {
+          "node": "LiteralAtomNode",
+          "line": 91,
+          "literal": {
+            "node": "StringLiteralExpression",
+            "line": 91,
+            "value": "__main__"
+          }
+        },
+        "operator": "=="
+      },
+      "bodyIf": {
+        "node": "BodyNode",
+        "line": 91,
+        "statements": [
+          {
+            "node": "ExpressionStatementNode",
+            "line": 92,
+            "expressions": [
+              {
+                "node": "AtomExpressionNode",
+                "line": 92,
+                "atom": null,
+                "identifier": {
+                  "node": "IdentifierExpression",
+                  "line": 92
+                },
+                "trailers": [
+                  {
+                    "node": "AttributeTrailerNode",
+                    "line": 92,
+                    "attribute": {
+                      "node": "IdentifierExpression",
+                      "line": 92
+                    }
+                  },
+                  {
+                    "node": "CallTrailerNode",
+                    "line": 92,
+                    "arguments": [
+                      {
+                        "node": "ArgumentNode",
+                        "line": 92,
+                        "nameArg": {
+                          "node": "IdentifierExpression",
+                          "line": 92
+                        },
+                        "value": {
+                          "node": "LiteralAtomNode",
+                          "line": 92,
+                          "literal": {
+                            "node": "BooleanLiteralExpression",
+                            "line": 92,
+                            "value": true
+                          }
+                        },
+                        "isPower": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "elseIfStat": [],
+      "bodyElse": null
+    }
+  ]
+}
