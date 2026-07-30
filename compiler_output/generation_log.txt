@@ -1,0 +1,9 @@
+[GEN] Start building global context from app.py
+[GEN][WARN] Unsupported function call skipped in evaluate(): Flask
+[GEN] Evaluated 'app' -> null
+[GEN] Evaluated 'products' -> List<3 items>
+[GEN] Evaluated 'last_id' -> 3
+[GEN] Finished global context. Variables: [app, products, last_id]
+[GEN] Found render_template('products.html') with vars: [products]
+[GEN] Found render_template('add_product.html') with vars: []
+[GEN] Found render_template('product_details.html') with vars: [product]

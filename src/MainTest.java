@@ -9,6 +9,7 @@ import antlr.python_flask.generated.PythonParser;
 import ast.html_css_jinja2.HtmlDocumentRuleNode;
 import ast.python_flask.ProgramNode;
 import generator.DataLinkExtractor;
+import generator.runtime.PythonContextGenerator;
 import semantic.SemanticError;
 import semantic.python_flask.SemanticAnalyzer;
 import visitor.html_css_jinja2.ASTBuilderVisitor2;
@@ -28,22 +29,22 @@ import java.util.Set;
  * Both languages go through the full front-end, and the Python results feed the
  * Jinja side through the Generator data-link step:
  *
- *   Python : [1] Lex -> [2] Parse -> [3] AST -> [4] Symbols -> [5] Semantic
- *   Link   : render_template(...) context  ->  Jinja backend data
- *   Jinja  : [1] Lex -> [2] Parse -> [3] AST -> [4] Symbols -> [5] Semantic
+ * Python : [1] Lex -> [2] Parse -> [3] AST -> [4] Symbols -> [5] Semantic
+ * Link : render_template(...) context -> Jinja backend data
+ * Jinja : [1] Lex -> [2] Parse -> [3] AST -> [4] Symbols -> [5] Semantic
  */
 public class MainTest {
 
     private static final String PYTHON_INPUT = "src/testing/my_store/app.py";
-    private static final String HTML_INPUT   = "src/testing/my_store/templates/products.html";
+    private static final String HTML_INPUT = "src/testing/my_store/templates/products.html";
 
     public static void main(String[] args) throws Exception {
         String pythonInput = args.length > 0 ? args[0] : PYTHON_INPUT;
-        String htmlInput   = args.length > 1 ? args[1] : HTML_INPUT;
+        String htmlInput = args.length > 1 ? args[1] : HTML_INPUT;
 
         ProgramNode pythonAst = runPythonPipeline(pythonInput);
 
-        // ---- Generator: link the data exported by Python into the Jinja tree ----
+        // ---- Semantic data-link: names only, for Jinja semantic checking ----
         System.out.println();
         DataLinkExtractor linker = new DataLinkExtractor();
         Map<String, Set<String>> dataLink = linker.extract(pythonAst);
@@ -52,7 +53,28 @@ public class MainTest {
 
         System.out.println();
         runHtmlPipeline(htmlInput, templateContext);
+
+        // ---- NEW: Code Generation: actual values ----
+        System.out.println();
+        runCodeGenerationPipeline(pythonAst, htmlInput);
     }
+
+    // public static void main(String[] args) throws Exception {
+    // String pythonInput = args.length > 0 ? args[0] : PYTHON_INPUT;
+    // String htmlInput = args.length > 1 ? args[1] : HTML_INPUT;
+
+    // ProgramNode pythonAst = runPythonPipeline(pythonInput);
+
+    // // ---- Generator: link the data exported by Python into the Jinja tree ----
+    // System.out.println();
+    // DataLinkExtractor linker = new DataLinkExtractor();
+    // Map<String, Set<String>> dataLink = linker.extract(pythonAst);
+    // Set<String> templateContext = linker.contextFor(htmlInput);
+    // printDataLink(dataLink, htmlInput, templateContext);
+
+    // System.out.println();
+    // runHtmlPipeline(htmlInput, templateContext);
+    // }
 
     // ============================================================
     // Python / Flask pipeline
@@ -118,6 +140,41 @@ public class MainTest {
                 builder.getDefinedCssClasses(),
                 builder.getDataFromBackEndForJinja());
         reportSemantic(errors);
+    }
+
+    // ============================================================
+    // Code Generation pipeline (Python -> actual values -> Jinja context)
+    // ============================================================
+    public static void runCodeGenerationPipeline(ProgramNode pythonAst, String htmlInput) throws Exception {
+        banner("CODE GENERATION  (Python values -> Jinja context)");
+
+        PythonContextGenerator generator = new PythonContextGenerator();
+        PythonContextGenerator.Scope globalScope = generator.buildGlobalContext(pythonAst);
+        List<PythonContextGenerator.RenderCall> renderCalls = generator.findRenderTemplateCalls(pythonAst, globalScope);
+
+        System.out.println("   Global variables evaluated: " + globalScope.raw().keySet());
+
+        String targetTemplate = baseName(htmlInput);
+        PythonContextGenerator.RenderCall matched = null;
+        for (PythonContextGenerator.RenderCall call : renderCalls) {
+            if (targetTemplate.equals(baseName(call.templateName))) {
+                matched = call;
+                break;
+            }
+        }
+
+        if (matched == null) {
+            System.out.println("   No render_template(...) call found for '" + targetTemplate + "'.");
+        } else {
+            System.out.println("   Actual context values for '" + targetTemplate + "':");
+            for (var entry : matched.scope.raw().entrySet()) {
+                System.out.println("      " + entry.getKey() + " = " + entry.getValue());
+            }
+        }
+
+        Files.createDirectories(Paths.get("compiler_output"));
+        generator.flushLog("compiler_output/generation_log.txt");
+        System.out.println("   generation_log.txt written to compiler_output/");
     }
 
     // ============================================================
