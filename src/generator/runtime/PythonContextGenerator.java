@@ -353,11 +353,11 @@ public class PythonContextGenerator {
         } else if (stmt instanceof ClassDefintionNode classStmt) {
             walkBody(classStmt.body, globalScope, calls);
         } else if (stmt instanceof ExpressionStatementNode exprStmt) {
-            for (ExpressionNode e : exprStmt.expressions) {   // TODO: تأكد من اسم الحقل
+            for (ExpressionNode e : exprStmt.expressions) {
                 collectRenderCallFromExpression(e, globalScope, calls);
             }
         } else if (stmt instanceof ReturnStatementNode retStmt) {
-            for (ExpressionNode e : retStmt.values) {          // TODO: تأكد من اسم الحقل
+            for (ExpressionNode e : retStmt.expressions) {
                 collectRenderCallFromExpression(e, globalScope, calls);
             }
         }
