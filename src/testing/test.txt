@@ -1,0 +1,17 @@
+# Example with 2 Semantic Errors
+
+x = "10"
+y = 5
+
+# Semantic Error 1:
+# محاولة جمع نص مع عدد صحيح
+result = x + y
+
+numbers = [1, 2, 3, 4]
+
+# Semantic Error 2:
+# استدعاء الدالة append على عدد صحيح بدلاً من قائمة
+numbers[0].append(5)
+
+print(result)
+print(numbers)
