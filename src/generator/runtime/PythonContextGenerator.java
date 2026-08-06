@@ -74,9 +74,7 @@ import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode
  */
 public class PythonContextGenerator {
 
-    /** One page to render: which template, with what data, from which URL args. */
     public static final class RenderCall {
-
         public final String templateName;
         public final Map<String, Object> context;
         public final Map<String, Object> arguments;

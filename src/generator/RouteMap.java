@@ -3,21 +3,9 @@ package generator;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Rewrites Flask URLs into the files the generator actually produces.
- *
- * The rules are registered from the render plan, so no route and no file name
- * is written into this class: whatever @app.route the application declares is
- * what gets rewritten, which keeps the compiler usable on any Flask project.
- *
- * Navigation (an href, a GET) becomes a link to a generated file. A route that
- * carries URL parameters keeps them as a query string, because the page holds
- * the whole collection and picks its record in the browser.
- * Submission (a form action, a POST) has no static equivalent and is disabled.
- */
 public class RouteMap {
 
-    /** One Flask route, the file generated for it, and its URL parameters. */
+    // One Flask route, the file generated for it, and its URL parameters. 
     private record Rule(String pattern, String file, List<String> parameters) {}
 
     private final List<Rule> rules = new ArrayList<>();

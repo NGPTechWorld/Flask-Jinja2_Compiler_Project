@@ -38,19 +38,6 @@ import semantic.SemanticError;
 import visitor.html_css_jinja2.ASTBuilderVisitor2;
 import visitor.python_flask.ASTBuilderVisitor;
 
-/**
- * Compiler driver: app.py + templates/ in, a runnable static site out.
- *
- *   [1] Python front-end   lex -> parse -> AST -> symbols -> semantic
- *   [2] Python generation  evaluate globals, unroll routes -> render plan
- *   [3] Jinja front-end    parse each template once -> AST -> semantic
- *   [4] Jinja generation   one HTML file per entry of the render plan
- *   [5] Companion files    static/ and app.py copied verbatim
- *   [6] Compiler reports   compiler_output/*.json and *.txt
- *
- * Nothing here is hard-coded from the templates: the pages that get generated
- * are exactly the pages app.py can serve, given the data app.py declares.
- */
 public class MainTest {
 
     private static final String PYTHON_INPUT   = "src/testing/my_store/app.py";
@@ -59,14 +46,8 @@ public class MainTest {
     private static final String OUTPUT_DIR     = "output";
     private static final String REPORTS_DIR    = "compiler_output";
 
-    /** The full trees live in compiler_output/ast_*.json; printing them is opt-in. */
     private static final boolean PRINT_AST = false;
 
-    /**
-     * A route with URL parameters becomes one page carrying the whole
-     * collection; the page picks its record in the browser. Switch to
-     * PAGE_PER_URL to emit one file per URL instead.
-     */
     private static final PythonContextGenerator.PageMode PAGE_MODE =
             PythonContextGenerator.PageMode.ONE_PAGE_WITH_COLLECTION;
 
@@ -74,26 +55,14 @@ public class MainTest {
     private static final List<String> generationLog = new ArrayList<>();
     private static final List<String> symbolReport = new ArrayList<>();
 
-    /** A source file did not parse, so this build produces nothing at all. */
     private static class SourceError extends Exception {
         SourceError(String message) {
             super(message);
         }
     }
 
-    /**
-     * The data the site is currently generated from.
-     *
-     * A plain build reads it out of app.py every time. Once the preview server
-     * is running the visitor edits it through the generated forms, so it is kept
-     * here between rebuilds; saving app.py clears it and the file wins again.
-     */
     private static Map<String, Object> liveData;
-
-    /** True while the preview server is running, so forms keep their routes. */
     private static boolean serveMode;
-
-    /** The rewriting rules of the most recent build, used to answer "/" . */
     private static RouteMap currentRoutes = new RouteMap();
 
     public static void main(String[] args) throws Exception {
@@ -135,21 +104,14 @@ public class MainTest {
         }
     }
 
-    /**
-     * One complete pass: sources in, a runnable static site out.
-     * Every rebuild starts from the files on disk, so adding or deleting a
-     * product in app.py is picked up with no state carried over.
-     */
     private static void build(String pythonInput, String reason) throws Exception {
         long started = System.currentTimeMillis();
         semanticErrors.clear();
         generationLog.clear();
         symbolReport.clear();
 
-        // ---------- [1] Python front-end ----------
+        // Python
         ProgramNode pythonAst = runPythonFrontEnd(pythonInput);
-
-        // ---------- [2] Python generation ----------
         PythonContextGenerator pythonGenerator = new PythonContextGenerator();
         // Edits made through the generated forms live in liveData; without them
         // the data is read fresh out of app.py.
@@ -162,18 +124,11 @@ public class MainTest {
 
         reportDataLink(pythonAst);
 
-        // ---------- [3] Jinja front-end ----------
+        // Jinja
         Map<String, HtmlDocumentRuleNode> templateAsts = runJinjaFrontEnd(renderPlan);
-
-        // ---------- [4] Jinja generation ----------
         generatePages(renderPlan, templateAsts);
-
-        // ---------- [5] Companion files ----------
         copyCompanionFiles(pythonInput);
-
-        // ---------- [6] Compiler reports ----------
         writeReports(pythonAst, templateAsts);
-
         System.out.println();
         System.out.println(">>> " + reason + " finished in "
                 + (System.currentTimeMillis() - started) + " ms");
@@ -377,12 +332,10 @@ public class MainTest {
     }
 
     // ============================================================
-    // [1] Python front-end
+    // 1 Python front-end
     // ============================================================
-
-    /** Runs lexing, parsing, AST building and semantic analysis over app.py. */
     private static ProgramNode runPythonFrontEnd(String path) throws Exception {
-        banner("[1] PYTHON / FLASK FRONT-END  (" + path + ")");
+        banner("1- PYTHON / FLASK FRONT-END  (" + path + ")");
 
         String code = Files.readString(Paths.get(path));
         PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
@@ -390,8 +343,7 @@ public class MainTest {
         ParseTree tree = parser.program();
         int syntaxErrors = parser.getNumberOfSyntaxErrors();
         System.out.println("   parse errors : " + syntaxErrors);
-        // Nothing is emitted from a file that did not parse, so a half-saved
-        // edit leaves the previous output standing instead of wiping it.
+
         if (syntaxErrors > 0) {
             throw new SourceError(path + " has " + syntaxErrors + " syntax error(s)");
         }
@@ -412,14 +364,14 @@ public class MainTest {
     }
 
     // ============================================================
-    // [2] Python generation
+    // 2 Python generation
     // ============================================================
 
-    /** Turns every @app.route into the pages it can serve. */
+    // Turns every @app.route into the pages it can serve
     private static List<RenderCall> buildRenderPlan(PythonContextGenerator generator,
                                                     ProgramNode pythonAst,
                                                     Map<String, Object> globals) {
-        banner("[2] CODE GENERATION - PYTHON SIDE");
+        banner("2- CODE GENERATION - PYTHON SIDE");
         System.out.println("   module variables : " + globals.keySet());
 
         Map<String, List<Object>> parameterValues = new LinkedHashMap<>();
@@ -490,19 +442,13 @@ public class MainTest {
     }
 
     // ============================================================
-    // [3] Jinja front-end
+    // 3 Jinja front-end
     // ============================================================
 
-    /**
-     * Parses each template exactly once and runs semantic analysis on it.
-     * A template used by several pages is parsed once and reused, so the tree
-     * is built as many times as there are templates, not as there are pages.
-     */
     private static Map<String, HtmlDocumentRuleNode> runJinjaFrontEnd(List<RenderCall> plan)
             throws Exception {
-        banner("[3] HTML / CSS / JINJA2 FRONT-END");
+        banner("3- HTML / CSS / JINJA2 FRONT-END");
 
-        // Every context name any page passes to a given template.
         Map<String, Set<String>> contextNames = new LinkedHashMap<>();
         for (RenderCall call : plan) {
             contextNames.computeIfAbsent(call.templateName, t -> new LinkedHashSet<>())
@@ -552,14 +498,14 @@ public class MainTest {
     }
 
     // ============================================================
-    // [4] Jinja generation
+    // 4 Jinja generation
     // ============================================================
 
     /** Renders every entry of the plan into output/, clearing stale pages first. */
     private static void generatePages(List<RenderCall> plan,
                                       Map<String, HtmlDocumentRuleNode> templateAsts)
             throws IOException {
-        banner("[4] CODE GENERATION - JINJA SIDE");
+        banner("4- CODE GENERATION - JINJA SIDE");
         cleanGeneratedPages(Paths.get(OUTPUT_DIR));
         RouteMap routes = buildRouteMap(plan);
 
@@ -634,12 +580,12 @@ public class MainTest {
     }
 
     // ============================================================
-    // [5] Companion files
+    // 5 Companion files
     // ============================================================
 
     /** Copies static/ and app.py into the output untouched, as the spec requires. */
     private static void copyCompanionFiles(String pythonInput) throws IOException {
-        banner("[5] COMPANION FILES");
+        banner("5- COMPANION FILES");
 
         int assets = copyTree(Paths.get(ASSETS_DIR), Paths.get(OUTPUT_DIR, "static"));
         System.out.println("   static/ : " + assets + " file(s)");
@@ -653,7 +599,6 @@ public class MainTest {
         }
     }
 
-    /** Copies a folder recursively, replacing whatever is already there. */
     private static int copyTree(Path from, Path to) throws IOException {
         if (!Files.isDirectory(from)) {
             return 0;
@@ -675,14 +620,13 @@ public class MainTest {
     }
 
     // ============================================================
-    // [6] Compiler reports
+    //  Compiler reports
     // ============================================================
 
-    /** Writes the four artefacts the specification asks for. */
     private static void writeReports(ProgramNode pythonAst,
                                      Map<String, HtmlDocumentRuleNode> templateAsts)
             throws IOException {
-        banner("[6] COMPILER OUTPUT");
+        banner("6- COMPILER OUTPUT");
         Path reports = Paths.get(REPORTS_DIR);
         Files.createDirectories(reports);
 
@@ -700,7 +644,6 @@ public class MainTest {
         }
     }
 
-    /** Builds the symbol-table report with a header and a column legend. */
     private static List<String> symbolTableReport() {
         List<String> lines = new ArrayList<>();
         lines.add("Symbol table");
@@ -714,7 +657,7 @@ public class MainTest {
         return lines;
     }
 
-    /** Formats every semantic finding, grouped by the file it came from. */
+    
     private static List<String> semanticReport() {
         List<String> lines = new ArrayList<>();
         long errors = semanticErrors.stream()
@@ -731,11 +674,6 @@ public class MainTest {
         return lines;
     }
 
-    /**
-     * Stores one symbol table under its own heading.
-     * The table is a front-end artefact: it records what was declared and where,
-     * and code generation deliberately does not read it.
-     */
     private static void collectSymbols(String file, String language, Symbol_table.SymbolTable table) {
         List<String> lines = table.toLines();
         symbolReport.add("");
@@ -749,7 +687,7 @@ public class MainTest {
         symbolReport.addAll(lines);
     }
 
-    /** Stores one file's semantic findings and prints a one-line summary. */
+ 
     private static void collectSemantic(String file, List<SemanticError> errors) {
         if (errors == null || errors.isEmpty()) {
             System.out.println("      semantic: clean");
@@ -763,7 +701,7 @@ public class MainTest {
                 + (errors.size() - count) + " warning(s) in " + file);
     }
 
-    /** Prints a section header. */
+   
     private static void banner(String title) {
         System.out.println();
         System.out.println("============================================================");

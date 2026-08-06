@@ -9,15 +9,6 @@ import org.antlr.v4.runtime.misc.Pair;
 
 import ast.BaseNode;
 
-/**
- * Serialises any AST to JSON for compiler_output/ast_*.json.
- *
- * Both ASTs are plain trees of {@link BaseNode} objects with public fields, so
- * one reflective walk covers the Python tree and the Jinja tree alike: no
- * per-node writer has to be maintained as the grammars grow.
- *
- * Every node is emitted as {"node": ClassName, "line": n, ...its fields...}.
- */
 public class AstJsonWriter {
 
     /** Guards against a malformed tree turning into runaway recursion. */
