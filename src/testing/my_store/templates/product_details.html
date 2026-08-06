@@ -23,19 +23,33 @@
     </header>
 
     <div class="container">
+      <div id="product-data" hidden>
+        {% for product in products %}
+        <div
+          class="product-record"
+          data-id="{{ product.id }}"
+          data-name="{{ product.name }}"
+          data-price="{{ product.price }}"
+          data-image="{{ product.image }}"
+          data-description="{{ product.description }}"
+        ></div>
+        {% endfor %}
+      </div>
+
       <div class="product-details-container">
         <div class="product-image-section">
-          <img src="{{ product.image }}" alt="{{ product.name }}" />
+          <img id="detail-image" src="" alt="" />
         </div>
         <div class="product-info-section">
-          <h1 class="product-name">{{ product.name }}</h1>
-          <p class="product-price">${{ product.price }}</p>
+          <h1 class="product-name" id="detail-name"></h1>
+          <p class="product-price" id="detail-price"></p>
           <div class="product-description">
-            <p>{{ product.description }}</p>
+            <p id="detail-description"></p>
           </div>
           <div class="product-actions">
             <form
-              action="/delete-product/{{ product.id }}"
+              id="delete-form"
+              action="/delete-product/0"
               method="POST"
               onsubmit="return confirm('Are you sure you want to delete this product?');"
             >
@@ -49,5 +63,6 @@
     </div>
 
     <div id="notification" class="notification">Product deleted successfully!</div>
+    <script src="static/product_details.js"></script>
   </body>
 </html>

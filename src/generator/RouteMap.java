@@ -1,17 +1,75 @@
 package generator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Flask routes are server endpoints; a static build has no server.
+ * Rewrites Flask URLs into the files the generator actually produces.
  *
- * Navigation (an href, a GET) is rewritten to the file the generator actually
- * produces, so links keep working when the output is opened directly.
+ * The rules are registered from the render plan, so no route and no file name
+ * is written into this class: whatever @app.route the application declares is
+ * what gets rewritten, which keeps the compiler usable on any Flask project.
+ *
+ * Navigation (an href, a GET) becomes a link to a generated file. A route that
+ * carries URL parameters keeps them as a query string, because the page holds
+ * the whole collection and picks its record in the browser.
  * Submission (a form action, a POST) has no static equivalent and is disabled.
  */
 public class RouteMap {
 
-    /** The single source of truth for a product page's file name. */
-    public static String detailsPage(Object id) {
-        return "product_" + id + ".html";
+    /** One Flask route, the file generated for it, and its URL parameters. */
+    private record Rule(String pattern, String file, List<String> parameters) {}
+
+    private final List<Rule> rules = new ArrayList<>();
+    private boolean serverMode;
+
+    /**
+     * When the preview server is running, a form keeps posting to its route,
+     * because there is now something listening for it on the same origin.
+     */
+    public void setServerMode(boolean on) {
+        this.serverMode = on;
+    }
+
+    /** Registers the file that a route pattern is generated into. */
+    public void register(String pattern, String file) {
+        if (pattern != null && file != null) {
+            rules.add(new Rule(pattern, file, parametersOf(pattern)));
+        }
+    }
+
+    /** href="/product/3" becomes "product_details.html?product_id=3". */
+    public String rewriteNavigation(String url) {
+        if (isExternal(url)) {
+            return url;
+        }
+        for (Rule rule : rules) {
+            List<String> values = match(rule, url);
+            if (values == null) {
+                continue;
+            }
+            if (rule.parameters().isEmpty()) {
+                return rule.file();
+            }
+            StringBuilder link = new StringBuilder(rule.file());
+            for (int i = 0; i < rule.parameters().size() && i < values.size(); i++) {
+                link.append(i == 0 ? '?' : '&')
+                    .append(rule.parameters().get(i)).append('=').append(values.get(i));
+            }
+            return link.toString();
+        }
+        return url;                              // an unknown route, left as-is
+    }
+
+    /**
+     * A POST needs something listening. Without the preview server there is
+     * nothing, so the form is disabled; with it, the route is kept as written.
+     */
+    public String rewriteSubmission(String url) {
+        if (isExternal(url)) {
+            return url;
+        }
+        return serverMode ? url : "#";
     }
 
     /** True when the URL is not a Flask route and must be left untouched. */
@@ -22,25 +80,45 @@ public class RouteMap {
                 || !url.startsWith("/");
     }
 
-    /** href="/product/3" becomes "product_3.html". */
-    public String rewriteNavigation(String url) {
-        if (isExternal(url)) {
-            return url;
+    /**
+     * Matches a URL against one rule, returning the parameter values it carries,
+     * or null when the rule does not apply.
+     */
+    private List<String> match(Rule rule, String url) {
+        String[] patternParts = rule.pattern().split("/");
+        String[] urlParts = url.split("/");
+        if (patternParts.length != urlParts.length) {
+            return null;
         }
-        if (url.equals("/")) {
-            return "products.html";
+        List<String> values = new ArrayList<>();
+        for (int i = 0; i < patternParts.length; i++) {
+            String part = patternParts[i];
+            if (part.startsWith("<") && part.endsWith(">")) {
+                values.add(urlParts[i]);
+            } else if (!part.equals(urlParts[i])) {
+                return null;
+            }
         }
-        if (url.equals("/add-product")) {
-            return "add_product.html";
-        }
-        if (url.matches("/product/\\d+")) {
-            return detailsPage(url.substring("/product/".length()));
-        }
-        return url;
+        return values;
     }
 
-    /** action="/delete-product/3" becomes "#": a POST needs a running server. */
-    public String rewriteSubmission(String url) {
-        return isExternal(url) ? url : "#";
+    /** Extracts /product/&lt;int:product_id&gt; into [product_id]. */
+    private static List<String> parametersOf(String pattern) {
+        List<String> names = new ArrayList<>();
+        int i = 0;
+        while (true) {
+            int open = pattern.indexOf('<', i);
+            if (open < 0) {
+                return names;
+            }
+            int close = pattern.indexOf('>', open);
+            if (close < 0) {
+                return names;
+            }
+            String token = pattern.substring(open + 1, close);
+            int colon = token.indexOf(':');                  // drop the converter
+            names.add(colon >= 0 ? token.substring(colon + 1) : token);
+            i = close + 1;
+        }
     }
 }

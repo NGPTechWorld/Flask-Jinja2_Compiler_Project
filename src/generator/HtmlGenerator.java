@@ -29,7 +29,17 @@ public class HtmlGenerator {
             "label", "br", "img", "sup", "sub", "u", "s");
 
     private final JinjaEvaluator evaluator = new JinjaEvaluator();
-    private final RouteMap routes = new RouteMap();
+    private final RouteMap routes;
+
+    /** Without a route map, links are emitted exactly as the template wrote them. */
+    public HtmlGenerator() {
+        this(new RouteMap());
+    }
+
+    /** The route map is built from the render plan, so links match the files emitted. */
+    public HtmlGenerator(RouteMap routes) {
+        this.routes = routes;
+    }
     private final List<String> log = new ArrayList<>();
 
     public List<String> getLog() {

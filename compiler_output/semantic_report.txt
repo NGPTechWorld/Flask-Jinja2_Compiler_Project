@@ -1,7 +1,7 @@
 Semantic report
 ===============
 errors   : 0
-warnings : 64
+warnings : 65
 
   WARNING [CSS   ] line 16  : Class 'header-content' is used but not defined in any CSS rule
   WARNING [CSS   ] line 17  : Class 'logo' is used but not defined in any CSS rule
@@ -55,15 +55,16 @@ warnings : 64
   WARNING [CSS   ] line 19  : Class 'fas' is used but not defined in any CSS rule
   WARNING [CSS   ] line 19  : Class 'fa-arrow-left' is used but not defined in any CSS rule
   WARNING [CSS   ] line 25  : Class 'container' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 26  : Class 'product-details-container' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 27  : Class 'product-image-section' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 30  : Class 'product-info-section' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 31  : Class 'product-name' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 32  : Class 'product-price' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 33  : Class 'product-description' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 36  : Class 'product-actions' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 42  : Class 'btn' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 42  : Class 'btn-danger' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 43  : Class 'fas' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 43  : Class 'fa-trash' is used but not defined in any CSS rule
-  WARNING [CSS   ] line 51  : Class 'notification' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 29  : Class 'product-record' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 39  : Class 'product-details-container' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 40  : Class 'product-image-section' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 43  : Class 'product-info-section' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 44  : Class 'product-name' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 45  : Class 'product-price' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 46  : Class 'product-description' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 49  : Class 'product-actions' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 56  : Class 'btn' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 56  : Class 'btn-danger' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 57  : Class 'fas' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 57  : Class 'fa-trash' is used but not defined in any CSS rule
+  WARNING [CSS   ] line 65  : Class 'notification' is used but not defined in any CSS rule

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="static/product_details.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="logo">Product Store</div><a href="products.html" class="back-btn"><i class="fas fa-arrow-left"></i>Back to Products</a>
+      </div>
+    </header>
+    <div class="container">
+      <div id="product-data" hidden>
+        <div class="product-record" data-id="1" data-name="Dell XPS 15 Laptop" data-price="450" data-image="static/images/image1.jpg" data-description="High-performance laptop with a crystal-clear display and powerful processor, perfect for creative tasks and work."></div>
+        <div class="product-record" data-id="2" data-name="iPhone 15 Pro" data-price="520" data-image="static/images/image2.jpg" data-description="The latest Apple phone with a professional camera, titanium design, and unmatched performance."></div>
+        <div class="product-record" data-id="3" data-name="محمد علي النعيمي" data-price="5" data-image="static/images/Picsart_26-07-30_12-33-57-044.jpg" data-description="5"></div>
+      </div>
+      <div class="product-details-container">
+        <div class="product-image-section"><img id="detail-image" src="" alt="" /></div>
+        <div class="product-info-section">
+          <h1 class="product-name" id="detail-name"></h1>
+          <p class="product-price" id="detail-price"></p>
+          <div class="product-description">
+            <p id="detail-description"></p>
+          </div>
+          <div class="product-actions">
+            <form id="delete-form" action="/delete-product/0" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+              <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>Delete Product</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="notification" class="notification">Product deleted successfully!</div>
+    <script src="static/product_details.js"></script>
+  </body>
+</html>

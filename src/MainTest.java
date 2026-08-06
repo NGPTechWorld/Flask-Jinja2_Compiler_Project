@@ -1,8 +1,14 @@
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -24,6 +30,7 @@ import ast.python_flask.ProgramNode;
 import generator.AstJsonWriter;
 import generator.DataLinkExtractor;
 import generator.HtmlGenerator;
+import generator.PreviewServer;
 import generator.RouteMap;
 import generator.runtime.PythonContextGenerator;
 import generator.runtime.PythonContextGenerator.RenderCall;
@@ -56,26 +63,100 @@ public class MainTest {
     private static final boolean PRINT_AST = false;
 
     /**
-     * URL parameter space. Values cannot be derived from the code, so they are
-     * stated here from the data: /product/&lt;int:product_id&gt; is unrolled over
-     * the ids of the products app.py declares.
+     * A route with URL parameters becomes one page carrying the whole
+     * collection; the page picks its record in the browser. Switch to
+     * PAGE_PER_URL to emit one file per URL instead.
      */
-    private static final Map<String, String> PARAMETER_SOURCE = Map.of(
-            "product_id", "products.id");
+    private static final PythonContextGenerator.PageMode PAGE_MODE =
+            PythonContextGenerator.PageMode.ONE_PAGE_WITH_COLLECTION;
 
     private static final List<SemanticError> semanticErrors = new ArrayList<>();
     private static final List<String> generationLog = new ArrayList<>();
     private static final List<String> symbolReport = new ArrayList<>();
 
+    /** A source file did not parse, so this build produces nothing at all. */
+    private static class SourceError extends Exception {
+        SourceError(String message) {
+            super(message);
+        }
+    }
+
+    /**
+     * The data the site is currently generated from.
+     *
+     * A plain build reads it out of app.py every time. Once the preview server
+     * is running the visitor edits it through the generated forms, so it is kept
+     * here between rebuilds; saving app.py clears it and the file wins again.
+     */
+    private static Map<String, Object> liveData;
+
+    /** True while the preview server is running, so forms keep their routes. */
+    private static boolean serveMode;
+
+    /** The rewriting rules of the most recent build, used to answer "/" . */
+    private static RouteMap currentRoutes = new RouteMap();
+
     public static void main(String[] args) throws Exception {
-        String pythonInput = args.length > 0 ? args[0] : PYTHON_INPUT;
+        String pythonInput = PYTHON_INPUT;
+        boolean watch = false;
+        int port = 0;
+
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "--watch": case "-w":
+                    watch = true;
+                    break;
+                case "--serve": case "-s":
+                    port = 8080;
+                    if (i + 1 < args.length && args[i + 1].matches("\\d+")) {
+                        port = Integer.parseInt(args[++i]);
+                    }
+                    break;
+                default:
+                    pythonInput = args[i];
+            }
+        }
+        serveMode = port > 0;
+
+        try {
+            build(pythonInput, "initial build");
+        } catch (SourceError broken) {
+            System.out.println();
+            System.out.println("!!! " + broken.getMessage() + "; nothing was generated");
+        }
+
+        if (serveMode) {
+            serve(pythonInput, port);
+        }
+        if (watch) {
+            watch(pythonInput);
+        } else if (serveMode) {
+            Thread.currentThread().join();      // the server threads keep running
+        }
+    }
+
+    /**
+     * One complete pass: sources in, a runnable static site out.
+     * Every rebuild starts from the files on disk, so adding or deleting a
+     * product in app.py is picked up with no state carried over.
+     */
+    private static void build(String pythonInput, String reason) throws Exception {
+        long started = System.currentTimeMillis();
+        semanticErrors.clear();
+        generationLog.clear();
+        symbolReport.clear();
 
         // ---------- [1] Python front-end ----------
         ProgramNode pythonAst = runPythonFrontEnd(pythonInput);
 
         // ---------- [2] Python generation ----------
         PythonContextGenerator pythonGenerator = new PythonContextGenerator();
-        Map<String, Object> globals = pythonGenerator.buildGlobalContext(pythonAst);
+        // Edits made through the generated forms live in liveData; without them
+        // the data is read fresh out of app.py.
+        Map<String, Object> globals = liveData != null
+                ? liveData
+                : pythonGenerator.buildGlobalContext(pythonAst);
+        liveData = globals;
         List<RenderCall> renderPlan = buildRenderPlan(pythonGenerator, pythonAst, globals);
         generationLog.addAll(pythonGenerator.getLog());
 
@@ -92,6 +173,207 @@ public class MainTest {
 
         // ---------- [6] Compiler reports ----------
         writeReports(pythonAst, templateAsts);
+
+        System.out.println();
+        System.out.println(">>> " + reason + " finished in "
+                + (System.currentTimeMillis() - started) + " ms");
+    }
+
+    // ============================================================
+    // Serve mode: the generated forms, made to work
+    // ============================================================
+
+    /**
+     * Serves the generated site and applies what its forms submit.
+     *
+     * Adding or deleting a product changes the data this process holds, the
+     * site is regenerated on the spot, and the browser is sent back to a page
+     * the compiler has just rewritten. No second framework is involved.
+     */
+    private static void serve(String pythonInput, int port) throws IOException {
+        banner("PREVIEW SERVER");
+        new PreviewServer(Paths.get(OUTPUT_DIR), port, new PreviewServer.Actions() {
+
+            @Override
+            public void add(Map<String, String> fields) {
+                addProduct(fields);
+            }
+
+            @Override
+            public void delete(String id) {
+                deleteProduct(id);
+            }
+
+            @Override
+            public void rebuild(String reason) throws Exception {
+                build(pythonInput, reason);
+            }
+
+            @Override
+            public String fileFor(String url) {
+                return currentRoutes.rewriteNavigation(url);
+            }
+
+            @Override
+            public Path imageFolder() {
+                return Paths.get(ASSETS_DIR, "images");
+            }
+
+            @Override
+            public String imageLink(String fileName) {
+                return "static/images/" + fileName;
+            }
+        }).start();
+        System.out.println("   open http://localhost:" + port + " and use the site normally");
+    }
+
+    /**
+     * Appends one product, giving it the next free id.
+     * The keys and their order match what the Python evaluator produces, so the
+     * templates cannot tell a submitted product from a declared one.
+     */
+    @SuppressWarnings("unchecked")
+    private static void addProduct(Map<String, String> fields) {
+        List<Object> products = (List<Object>) liveData.get("products");
+        if (products == null) {
+            return;
+        }
+        Map<String, Object> product = new LinkedHashMap<>();
+        product.put("id", nextId(products));
+        product.put("name", fields.getOrDefault("name", "Unnamed product"));
+        product.put("price", asNumber(fields.get("price")));
+        product.put("image", fields.getOrDefault("image", "static/images/image1.jpg"));
+        product.put("description", fields.getOrDefault("description", ""));
+        products.add(product);
+    }
+
+    /** Removes the product carrying this id, if it is still there. */
+    @SuppressWarnings("unchecked")
+    private static void deleteProduct(String id) {
+        List<Object> products = (List<Object>) liveData.get("products");
+        if (products != null) {
+            products.removeIf(item -> item instanceof Map<?, ?> product
+                    && String.valueOf(product.get("id")).equals(id));
+        }
+    }
+
+    /** One past the largest id in use. */
+    private static int nextId(List<Object> products) {
+        int highest = 0;
+        for (Object item : products) {
+            if (item instanceof Map<?, ?> product && product.get("id") instanceof Number id) {
+                highest = Math.max(highest, id.intValue());
+            }
+        }
+        return highest + 1;
+    }
+
+    /** Prices arrive as text; keep whole numbers whole so they print as 450. */
+    private static Object asNumber(String text) {
+        if (text == null || text.isBlank()) {
+            return 0;
+        }
+        try {
+            double value = Double.parseDouble(text.trim());
+            return value == Math.floor(value) ? (int) value : value;
+        } catch (NumberFormatException notANumber) {
+            return 0;
+        }
+    }
+
+    // ============================================================
+    // Watch mode
+    // ============================================================
+
+    /** Source files whose change is worth a rebuild; anything else is editor noise. */
+    private static final Set<String> WATCHED_SUFFIXES = Set.of(".py", ".html", ".css", ".js");
+
+    /**
+     * Rebuilds the site whenever a source file is saved.
+     *
+     * Adding or deleting a product means editing the products list in app.py;
+     * this loop notices the save and regenerates, so the output never drifts
+     * away from the data. The compiler is the listener, not the application.
+     */
+    private static void watch(String pythonInput) throws Exception {
+        WatchService watcher = FileSystems.getDefault().newWatchService();
+        for (Path directory : watchedDirectories(pythonInput)) {
+            directory.register(watcher,
+                    StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_MODIFY,
+                    StandardWatchEventKinds.ENTRY_DELETE);
+            System.out.println("   watching " + directory);
+        }
+        banner("WATCHING FOR CHANGES  (Ctrl+C to stop)");
+
+        while (true) {
+            Set<String> changed = awaitChanges(watcher);
+            if (changed.isEmpty()) {
+                continue;                     // only editor temp files moved
+            }
+            try {
+                // A saved source file is the newer truth, so it replaces
+                // whatever the generated forms had changed.
+                if (changed.stream().anyMatch(file -> file.endsWith(".py"))) {
+                    liveData = null;
+                }
+                build(pythonInput, String.join(", ", changed) + " changed");
+            } catch (Exception failure) {
+                // A half-saved file must not kill the watcher: report, leave the
+                // previous output in place, and wait for the next save.
+                System.out.println();
+                System.out.println("!!! rebuild skipped: "
+                        + (failure instanceof SourceError ? failure.getMessage() : failure));
+                System.out.println("    previous output kept, waiting for the next change ...");
+            }
+        }
+    }
+
+    /** The source folders a rebuild depends on. */
+    private static List<Path> watchedDirectories(String pythonInput) {
+        List<Path> directories = new ArrayList<>();
+        directories.add(Paths.get(pythonInput).toAbsolutePath().getParent());
+        for (String folder : List.of(TEMPLATES_DIR, ASSETS_DIR)) {
+            Path path = Paths.get(folder).toAbsolutePath();
+            if (Files.isDirectory(path)) {
+                directories.add(path);
+            }
+        }
+        return directories;
+    }
+
+    /**
+     * Blocks until something changes, then drains the burst that follows.
+     * One save fires several events, so the events are collected for a short
+     * window and turned into a single rebuild.
+     */
+    private static Set<String> awaitChanges(WatchService watcher) throws InterruptedException {
+        Set<String> changed = new LinkedHashSet<>();
+        WatchKey key = watcher.take();                    // blocks until the first event
+        do {
+            for (WatchEvent<?> event : key.pollEvents()) {
+                String file = event.context().toString();
+                if (isSourceFile(file)) {
+                    changed.add(file);
+                }
+            }
+            key.reset();
+            key = watcher.poll(250, TimeUnit.MILLISECONDS);
+        } while (key != null);
+        return changed;
+    }
+
+    /** Filters out swap files, backups and the half-written files editors leave behind. */
+    private static boolean isSourceFile(String file) {
+        if (file.startsWith(".") || file.endsWith("~") || file.endsWith(".swp")) {
+            return false;
+        }
+        for (String suffix : WATCHED_SUFFIXES) {
+            if (file.endsWith(suffix)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // ============================================================
@@ -106,7 +388,13 @@ public class MainTest {
         PythonLexer lexer = new PythonLexer(CharStreams.fromString(code));
         PythonParser parser = new PythonParser(new CommonTokenStream(lexer));
         ParseTree tree = parser.program();
-        System.out.println("   parse errors : " + parser.getNumberOfSyntaxErrors());
+        int syntaxErrors = parser.getNumberOfSyntaxErrors();
+        System.out.println("   parse errors : " + syntaxErrors);
+        // Nothing is emitted from a file that did not parse, so a half-saved
+        // edit leaves the previous output standing instead of wiping it.
+        if (syntaxErrors > 0) {
+            throw new SourceError(path + " has " + syntaxErrors + " syntax error(s)");
+        }
 
         ASTBuilderVisitor builder = new ASTBuilderVisitor();
         ProgramNode ast = (ProgramNode) builder.visit(tree);
@@ -127,35 +415,69 @@ public class MainTest {
     // [2] Python generation
     // ============================================================
 
-    /** Unrolls every @app.route into one render call per reachable URL. */
+    /** Turns every @app.route into the pages it can serve. */
     private static List<RenderCall> buildRenderPlan(PythonContextGenerator generator,
                                                     ProgramNode pythonAst,
                                                     Map<String, Object> globals) {
         banner("[2] CODE GENERATION - PYTHON SIDE");
         System.out.println("   module variables : " + globals.keySet());
 
-        Map<String, List<Object>> parameterValues = resolveParameterValues(globals);
-        System.out.println("   URL parameters   : " + parameterValues);
+        Map<String, List<Object>> parameterValues = new LinkedHashMap<>();
+        Map<String, String> parameterCollections = new LinkedHashMap<>();
+        for (String parameter : generator.routeParameterNames(pythonAst)) {
+            ParameterSpace space = inferParameterSpace(parameter, globals);
+            parameterValues.put(parameter, space.values());
+            if (space.collection() != null) {
+                parameterCollections.put(parameter, space.collection());
+            }
+            System.out.println("   URL parameter    : " + parameter
+                    + " <- " + space.collection() + " " + space.values());
+        }
 
-        List<RenderCall> plan = generator.generateRenderCalls(pythonAst, globals, parameterValues);
+        List<RenderCall> plan = generator.generateRenderCalls(
+                pythonAst, globals, parameterValues, parameterCollections, PAGE_MODE);
+
         System.out.println("   render plan      : " + plan.size() + " page(s)");
         for (RenderCall call : plan) {
-            System.out.println("      " + call.templateName + "  " + call.arguments
-                    + "  ->  " + outputNameFor(call));
+            System.out.println("      " + call.routePattern + "  ->  " + outputNameFor(call)
+                    + "  context=" + call.context.keySet());
         }
         return plan;
     }
 
-    /** Turns "products.id" into the actual list of ids found in the data. */
-    private static Map<String, List<Object>> resolveParameterValues(Map<String, Object> globals) {
-        Map<String, List<Object>> values = new LinkedHashMap<>();
-        for (Map.Entry<String, String> entry : PARAMETER_SOURCE.entrySet()) {
-            String[] parts = entry.getValue().split("\\.", 2);
-            Object collection = globals.get(parts[0]);
-            values.put(entry.getKey(),
-                    PythonContextGenerator.fieldValues(collection, parts.length > 1 ? parts[1] : "id"));
+    /** Where a URL parameter's values come from: the collection, and the values. */
+    private record ParameterSpace(String collection, List<Object> values) {}
+
+    /**
+     * Works out the values a URL parameter can take without naming any variable.
+     * For &lt;int:product_id&gt; it takes the field after the last underscore ("id")
+     * and looks for a module-level list whose items carry it, so the very same
+     * code handles /user/&lt;int:user_id&gt; in a different application.
+     */
+    private static ParameterSpace inferParameterSpace(String parameter, Map<String, Object> globals) {
+        String field = parameter.contains("_")
+                ? parameter.substring(parameter.lastIndexOf('_') + 1)
+                : parameter;
+        for (Map.Entry<String, Object> entry : globals.entrySet()) {
+            List<Object> values = PythonContextGenerator.fieldValues(entry.getValue(), field);
+            if (!values.isEmpty()) {
+                return new ParameterSpace(entry.getKey(), values);
+            }
         }
-        return values;
+        return new ParameterSpace(null, List.of());
+    }
+
+    /** Builds the URL rewriting rules from the plan, so links match the files emitted. */
+    private static RouteMap buildRouteMap(List<RenderCall> plan) {
+        RouteMap routes = new RouteMap();
+        routes.setServerMode(serveMode);
+        for (RenderCall call : plan) {
+            // A collection page keeps its <parameters> so links become a query
+            // string; a per-URL page registers the concrete URL it stands for.
+            routes.register(concreteRoute(call), outputNameFor(call));
+        }
+        currentRoutes = routes;
+        return routes;
     }
 
     /** Prints the older name-level data link, which the semantic phase uses. */
@@ -205,11 +527,15 @@ public class MainTest {
             // The names Flask actually hands this template, taken from the
             // render plan rather than guessed.
             builder.setDataFromBackEndForJinja(entry.getValue());
+            int syntaxErrors = parser.getNumberOfSyntaxErrors();
+            System.out.println("   " + templateName + "  context=" + entry.getValue()
+                    + "  parse errors=" + syntaxErrors);
+            if (syntaxErrors > 0) {
+                throw new SourceError(templateName + " has " + syntaxErrors + " syntax error(s)");
+            }
+
             HtmlDocumentRuleNode ast = (HtmlDocumentRuleNode) builder.visit(tree);
             asts.put(templateName, ast);
-
-            System.out.println("   " + templateName + "  context=" + entry.getValue()
-                    + "  parse errors=" + parser.getNumberOfSyntaxErrors());
             if (PRINT_AST) {
                 visitor.html_css_jinja2.ASTPrinter2.print(ast, 0);
             }
@@ -235,13 +561,14 @@ public class MainTest {
             throws IOException {
         banner("[4] CODE GENERATION - JINJA SIDE");
         cleanGeneratedPages(Paths.get(OUTPUT_DIR));
+        RouteMap routes = buildRouteMap(plan);
 
         for (RenderCall call : plan) {
             HtmlDocumentRuleNode ast = templateAsts.get(call.templateName);
             if (ast == null) {
                 continue;
             }
-            HtmlGenerator generator = new HtmlGenerator();
+            HtmlGenerator generator = new HtmlGenerator(routes);
             String html = generator.generate(ast, call.toScope());
 
             Path outFile = Paths.get(OUTPUT_DIR, outputNameFor(call));
@@ -262,15 +589,34 @@ public class MainTest {
     }
 
     /**
-     * Chooses the output file for one render call, matching the links RouteMap
-     * writes. A route with no URL parameter keeps the template's own name; a
-     * parameterised route gets one file per URL.
+     * Chooses the output file for one render call.
+     *
+     * A collection page carries no arguments and keeps the template's own name.
+     * Under PAGE_PER_URL the arguments are appended, so /product/1 lands in
+     * product_details_1.html without any file name being hard-coded.
      */
     private static String outputNameFor(RenderCall call) {
         if (call.arguments.isEmpty()) {
             return call.templateName;
         }
-        return RouteMap.detailsPage(call.arguments.values().iterator().next());
+        StringBuilder name = new StringBuilder(call.templateName.replaceFirst("\\.html?$", ""));
+        for (Object value : call.arguments.values()) {
+            name.append('_').append(value);
+        }
+        return name.append(".html").toString();
+    }
+
+    /** Fills a call's arguments into its route pattern: /product/&lt;int:id&gt; -> /product/1. */
+    private static String concreteRoute(RenderCall call) {
+        String pattern = call.routePattern;
+        if (pattern == null) {
+            return null;
+        }
+        for (Map.Entry<String, Object> argument : call.arguments.entrySet()) {
+            pattern = pattern.replaceAll("<[^>]*\\b" + argument.getKey() + ">",
+                    String.valueOf(argument.getValue()));
+        }
+        return pattern;
     }
 
     /** Deletes previously generated pages so a removed item leaves no orphan. */

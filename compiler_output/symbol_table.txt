@@ -88,7 +88,13 @@ Scope global:
 HTML symbols - product_details.html
 ---------------------------------------------
 Scope html document global:
-   | notification              | html_id    | 51    |                      |
+   | product-data              | html_id    | 26    |                      |
+   | detail-image              | html_id    | 41    |                      |
+   | detail-name               | html_id    | 44    |                      |
+   | detail-price              | html_id    | 45    |                      |
+   | detail-description        | html_id    | 47    |                      |
+   | delete-form               | html_id    | 51    |                      |
+   | notification              | html_id    | 65    |                      |
 
 ---------------------------------------------
 CSS symbols - product_details.html
@@ -99,5 +105,7 @@ Scope css global:
 ---------------------------------------------
 Jinja symbols - product_details.html
 ---------------------------------------------
+Scope for_loop 27:
+   | product                   | for_variable | 27    |                      |
 Scope global:
-   | product                   | global_variable | 0     |                      |
+   | products                  | global_variable | 0     |                      |

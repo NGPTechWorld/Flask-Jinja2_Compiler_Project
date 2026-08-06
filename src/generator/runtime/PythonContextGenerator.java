@@ -82,6 +82,9 @@ public class PythonContextGenerator {
         public final Map<String, Object> arguments;
         public final int line;
 
+        /** The @app.route pattern this page came from; null for a bare call. */
+        public String routePattern;
+
         RenderCall(String templateName, Map<String, Object> context,
                    Map<String, Object> arguments, int line) {
             this.templateName = templateName;
@@ -565,16 +568,57 @@ public class PythonContextGenerator {
     // 4) Routes: reading @app.route and unrolling its parameters
     // ============================================================
 
-    /**
-     * Produces one RenderCall per page the application can serve.
-     *
-     * {@code parameterValues} supplies the values a URL parameter can take, for
-     * example product_id -> [1, 2, 3]. They cannot be derived from the code, so
-     * the driver states them explicitly from the data.
-     */
+    /** How a route that carries URL parameters turns into generated files. */
+    public enum PageMode {
+        /** One file per reachable URL: /product/1 becomes product_1.html. */
+        PAGE_PER_URL,
+        /**
+         * One file for the whole route, carrying the entire collection. The
+         * page selects its record at run time from the query string, so the
+         * number of generated files does not grow with the data.
+         */
+        ONE_PAGE_WITH_COLLECTION
+    }
+
+    /** Every URL parameter name used by any @app.route in the program. */
+    public List<String> routeParameterNames(ProgramNode program) {
+        List<String> names = new ArrayList<>();
+        for (StatementNode statement : program.statements) {
+            if (!(statement instanceof FunctionDefNode function)) {
+                continue;
+            }
+            String pattern = routePatternOf(function);
+            if (pattern == null) {
+                continue;
+            }
+            for (String parameter : routeParameters(pattern)) {
+                if (!names.contains(parameter)) {
+                    names.add(parameter);
+                }
+            }
+        }
+        return names;
+    }
+
+    /** Produces one RenderCall per page, unrolling parameterised routes. */
     public List<RenderCall> generateRenderCalls(ProgramNode program,
                                                 Map<String, Object> globals,
                                                 Map<String, List<Object>> parameterValues) {
+        return generateRenderCalls(program, globals, parameterValues, Map.of(), PageMode.PAGE_PER_URL);
+    }
+
+    /**
+     * Produces the pages the application can serve.
+     *
+     * {@code parameterValues} supplies the values a URL parameter can take, and
+     * {@code parameterCollections} names the collection those values came from,
+     * which is what a collection page is handed instead of a single record.
+     */
+    public List<RenderCall> generateRenderCalls(ProgramNode program,
+                                                Map<String, Object> globals,
+                                                Map<String, List<Object>> parameterValues,
+                                                Map<String, String> parameterCollections,
+                                                PageMode mode) {
         List<RenderCall> calls = new ArrayList<>();
 
         for (StatementNode statement : program.statements) {
@@ -589,9 +633,20 @@ public class PythonContextGenerator {
             log("[GEN] route " + pattern + " -> " + function.nameFun.name
                     + (parameters.isEmpty() ? "" : " " + parameters));
 
+            if (!parameters.isEmpty() && mode == PageMode.ONE_PAGE_WITH_COLLECTION) {
+                RenderCall call = collectionPage(function, pattern, parameters.get(0),
+                        parameterValues, parameterCollections, globals);
+                if (call != null) {
+                    calls.add(call);
+                    log("[GEN]   " + call);
+                }
+                continue;
+            }
+
             for (Map<String, Object> arguments : argumentCombinations(parameters, parameterValues)) {
                 RenderCall call = callRoute(function, arguments, globals);
                 if (call != null) {
+                    call.routePattern = pattern;
                     calls.add(call);
                     log("[GEN]   " + call);
                 }
@@ -599,6 +654,42 @@ public class PythonContextGenerator {
         }
         log("[GEN] " + calls.size() + " page(s) to render");
         return calls;
+    }
+
+    /**
+     * Builds the single page that stands for a whole parameterised route.
+     *
+     * The route is executed once, only to learn which template it renders; the
+     * page is then handed the entire collection rather than one record, and the
+     * record is chosen in the browser from the query string.
+     */
+    private RenderCall collectionPage(FunctionDefNode function, String pattern, String parameter,
+                                      Map<String, List<Object>> parameterValues,
+                                      Map<String, String> parameterCollections,
+                                      Map<String, Object> globals) {
+        List<Object> values = parameterValues.get(parameter);
+        if (values == null || values.isEmpty()) {
+            log("[GEN][WARN] no values for URL parameter '" + parameter
+                    + "', route " + pattern + " produces no page");
+            return null;
+        }
+        RenderCall probe = callRoute(function, Map.of(parameter, values.get(0)), globals);
+        if (probe == null) {
+            return null;                        // a redirect, not a rendered page
+        }
+
+        Map<String, Object> context = new LinkedHashMap<>();
+        String collection = parameterCollections.get(parameter);
+        if (collection != null && globals.containsKey(collection)) {
+            context.put(collection, globals.get(collection));
+        } else {
+            log("[GEN][WARN] no collection is known for '" + parameter
+                    + "', the page is generated without data");
+        }
+
+        RenderCall call = new RenderCall(probe.templateName, context, Map.of(), probe.line);
+        call.routePattern = pattern;
+        return call;
     }
 
     /** Executes one route function with given arguments and returns its render call. */

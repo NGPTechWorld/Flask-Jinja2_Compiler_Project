@@ -1,33 +1,19 @@
-[GEN] building the module context from the Python AST
-[GEN] module context ready: [app, products, last_id]
 [GEN] route / -> index
 [GEN]   products.html (line 35) args={} ctx=[products]
 [GEN] route /add-product -> add_product
 [GEN]   add_product.html (line 58) args={} ctx=[]
 [GEN] route /product/<int:product_id> -> product_details [product_id]
-[GEN]   product_details.html (line 72) args={product_id=1} ctx=[product]
-[GEN]   product_details.html (line 72) args={product_id=2} ctx=[product]
-[GEN]   product_details.html (line 72) args={product_id=3} ctx=[product]
+[GEN]   product_details.html (line 72) args={} ctx=[products]
 [GEN] route /delete-product/<int:product_id> -> delete_product [product_id]
-[GEN] 5 page(s) to render
+[GEN] 3 page(s) to render
 [HTML] output\products.html
 [HTML]    line 18: route /add-product -> add_product.html
-[HTML]    line 39: route /product/1 -> product_1.html
-[HTML]    line 41: route /delete-product/1 -> #
-[HTML]    line 39: route /product/2 -> product_2.html
-[HTML]    line 41: route /delete-product/2 -> #
-[HTML]    line 39: route /product/3 -> product_3.html
-[HTML]    line 41: route /delete-product/3 -> #
+[HTML]    line 39: route /product/1 -> product_details.html?product_id=1
+[HTML]    line 39: route /product/2 -> product_details.html?product_id=2
+[HTML]    line 39: route /product/3 -> product_details.html?product_id=3
 [HTML]    line 28: expanded for-loop 3 time(s)
 [HTML] output\add_product.html
 [HTML]    line 18: route / -> products.html
-[HTML]    line 29: route /add-product -> #
-[HTML] output\product_1.html
+[HTML] output\product_details.html
 [HTML]    line 18: route / -> products.html
-[HTML]    line 38: route /delete-product/1 -> #
-[HTML] output\product_2.html
-[HTML]    line 18: route / -> products.html
-[HTML]    line 38: route /delete-product/2 -> #
-[HTML] output\product_3.html
-[HTML]    line 18: route / -> products.html
-[HTML]    line 38: route /delete-product/3 -> #
+[HTML]    line 27: expanded for-loop 3 time(s)
