@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Article</title>
+    <link rel="stylesheet" href="static/blog.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">My Blog</div>
+      <a href="/" class="nav-link">Back to articles</a>
+    </header>
+
+    <div class="container">
+      <div id="article-data" hidden>
+        {% for article in articles %}
+        <div class="article-record"
+             data-code="{{ article.code }}"
+             data-title="{{ article.title }}"
+             data-author="{{ article.author }}"
+             data-views="{{ article.views }}"
+             data-body="{{ article.body }}"></div>
+        {% endfor %}
+      </div>
+
+      <div class="article-full">
+        <h1 class="article-title" id="detail-title"></h1>
+        <p class="article-meta" id="detail-meta"></p>
+        <p class="article-body" id="detail-body"></p>
+      </div>
+    </div>
+
+    <script src="static/article.js"></script>
+  </body>
+</html>

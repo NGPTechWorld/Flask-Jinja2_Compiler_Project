@@ -8,9 +8,9 @@
 [GEN] 3 page(s) to render
 [HTML] output\products.html
 [HTML]    line 18: route /add-product -> add_product.html
-[HTML]    line 39: route /product/1 -> product_details.html?product_id=1
 [HTML]    line 39: route /product/2 -> product_details.html?product_id=2
 [HTML]    line 39: route /product/3 -> product_details.html?product_id=3
+[HTML]    line 39: route /product/4 -> product_details.html?product_id=4
 [HTML]    line 28: expanded for-loop 3 time(s)
 [HTML] output\add_product.html
 [HTML]    line 18: route / -> products.html

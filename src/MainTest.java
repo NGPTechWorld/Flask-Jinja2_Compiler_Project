@@ -41,8 +41,20 @@ import visitor.python_flask.ASTBuilderVisitor;
 public class MainTest {
 
     private static final String PYTHON_INPUT   = "src/testing/my_store/app.py";
-    private static final String TEMPLATES_DIR  = "src/testing/my_store/templates";
-    private static final String ASSETS_DIR     = "src/testing/my_store/static";
+    /**
+     * Flask keeps templates/ and static/ beside the application file, so both
+     * are derived from whichever app.py is being compiled rather than fixed to
+     * one project.
+     */
+    private static String templatesDir = "src/testing/my_store/templates";
+    private static String assetsDir    = "src/testing/my_store/static";
+
+    /** Points the compiler at the project folder that owns this app.py. */
+    private static void locateProject(String pythonInput) {
+        Path home = Paths.get(pythonInput).toAbsolutePath().getParent();
+        templatesDir = home.resolve("templates").toString();
+        assetsDir = home.resolve("static").toString();
+    }
     private static final String OUTPUT_DIR     = "output";
     private static final String REPORTS_DIR    = "compiler_output";
 
@@ -86,6 +98,7 @@ public class MainTest {
             }
         }
         serveMode = port > 0;
+        locateProject(pythonInput);
 
         try {
             build(pythonInput, "initial build");
@@ -171,7 +184,7 @@ public class MainTest {
 
             @Override
             public Path imageFolder() {
-                return Paths.get(ASSETS_DIR, "images");
+                return Paths.get(assetsDir, "images");
             }
 
             @Override
@@ -288,7 +301,7 @@ public class MainTest {
     private static List<Path> watchedDirectories(String pythonInput) {
         List<Path> directories = new ArrayList<>();
         directories.add(Paths.get(pythonInput).toAbsolutePath().getParent());
-        for (String folder : List.of(TEMPLATES_DIR, ASSETS_DIR)) {
+        for (String folder : List.of(templatesDir, assetsDir)) {
             Path path = Paths.get(folder).toAbsolutePath();
             if (Files.isDirectory(path)) {
                 directories.add(path);
@@ -458,7 +471,7 @@ public class MainTest {
         Map<String, HtmlDocumentRuleNode> asts = new LinkedHashMap<>();
         for (Map.Entry<String, Set<String>> entry : contextNames.entrySet()) {
             String templateName = entry.getKey();
-            Path path = Paths.get(TEMPLATES_DIR, templateName);
+            Path path = Paths.get(templatesDir, templateName);
             if (!Files.exists(path)) {
                 System.out.println("   MISSING template: " + path);
                 continue;
@@ -587,7 +600,7 @@ public class MainTest {
     private static void copyCompanionFiles(String pythonInput) throws IOException {
         banner("5- COMPANION FILES");
 
-        int assets = copyTree(Paths.get(ASSETS_DIR), Paths.get(OUTPUT_DIR, "static"));
+        int assets = copyTree(Paths.get(assetsDir), Paths.get(OUTPUT_DIR, "static"));
         System.out.println("   static/ : " + assets + " file(s)");
 
         Path appSource = Paths.get(pythonInput);
