@@ -47,31 +47,7 @@ import ast.python_flask.simple_statement.PassStatementNode;
 import ast.python_flask.simple_statement.ReturnStatementNode;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
 
-/**
- * Code-generation phase, Python side.
- *
- * Produces, for every page the application can serve, the data that page is
- * rendered with. It works in three layers:
- *
- *   1. an expression evaluator  - turns an expression node into a Java value
- *   2. a statement executor     - runs a route function body (if / for / return)
- *   3. a route enumerator       - reads @app.route and unrolls its URL parameters
- *
- * Layer 2 is what makes function-local variables work. A route such as
- *
- *     @app.route('/product/&lt;int:product_id&gt;')
- *     def product_details(product_id):
- *         product = None
- *         for p in products: ...
- *         return render_template('product_details.html', product=product)
- *
- * has no single answer: `product` depends on the URL. So the function is
- * executed once per possible product_id, and each execution yields one
- * {@link RenderCall} - that is, one generated page.
- *
- * The symbol table is deliberately unused: it stores types, and generation
- * needs values.
- */
+
 public class PythonContextGenerator {
 
     public static final class RenderCall {

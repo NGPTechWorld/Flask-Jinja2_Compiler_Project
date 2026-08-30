@@ -34,19 +34,6 @@ import ast.python_flask.simple_statement.ExpressionStatementNode;
 import ast.python_flask.simple_statement.ReturnStatementNode;
 import ast.python_flask.simple_statement.assignment_stat.AssignmentStatementNode;
 
-/**
- * The "Generator" data-link step (requirement #2).
- *
- * It walks the Python/Flask AST, finds every {@code render_template(...)} call
- * and records, per template, the context variables Flask hands to it, e.g.
- *
- *   render_template('products.html', products=products)
- *      -> "products.html" : { "products" }
- *
- * The resulting map is fed into the Jinja2 tree as its "backend data" so the
- * second AST is validated against the data the Python side actually exports,
- * instead of a hard-coded guess.
- */
 public class DataLinkExtractor {
 
     /** template file name -> set of context variable names exported to it. */

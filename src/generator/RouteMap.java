@@ -11,10 +11,7 @@ public class RouteMap {
     private final List<Rule> rules = new ArrayList<>();
     private boolean serverMode;
 
-    /**
-     * When the preview server is running, a form keeps posting to its route,
-     * because there is now something listening for it on the same origin.
-     */
+ 
     public void setServerMode(boolean on) {
         this.serverMode = on;
     }
@@ -49,10 +46,7 @@ public class RouteMap {
         return url;                              // an unknown route, left as-is
     }
 
-    /**
-     * A POST needs something listening. Without the preview server there is
-     * nothing, so the form is disabled; with it, the route is kept as written.
-     */
+
     public String rewriteSubmission(String url) {
         if (isExternal(url)) {
             return url;
@@ -68,10 +62,7 @@ public class RouteMap {
                 || !url.startsWith("/");
     }
 
-    /**
-     * Matches a URL against one rule, returning the parameter values it carries,
-     * or null when the rule does not apply.
-     */
+
     private List<String> match(Rule rule, String url) {
         String[] patternParts = rule.pattern().split("/");
         String[] urlParts = url.split("/");

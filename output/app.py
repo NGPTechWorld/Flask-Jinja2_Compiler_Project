@@ -28,7 +28,7 @@ products = [
     }
 ]
 
-last_id = 3
+last_id = 1
 
 @app.route('/')
 def index():

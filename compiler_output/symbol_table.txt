@@ -38,7 +38,7 @@ Scope global:
    | os                        | module     | 3     |                      |
    | app                       | variable   | 4     |                      |
    | products                  | variable   | 7     |                      |
-   | last_id                   | variable   | 54    | value = 4            |
+   | last_id                   | variable   | 54    | value = 2            |
    | index                     | function   | 33    |                      |
    | add_product               | function   | 38    |                      |
    | product_details           | function   | 61    |                      |

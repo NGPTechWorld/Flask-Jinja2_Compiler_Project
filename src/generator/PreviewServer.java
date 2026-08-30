@@ -14,17 +14,6 @@ import java.util.Map;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 
-/**
- * Serves the generated site and handles the forms inside it.
- *
- * The generated pages are static, so their forms have nowhere to post to. This
- * server closes that gap without a second framework: it hands out the files the
- * compiler produced, and when a form is submitted it changes the data and asks
- * the compiler to regenerate before redirecting back. What the browser shows is
- * always the compiler's own output.
- *
- * Only the JDK is used; com.sun.net.httpserver ships with it.
- */
 public class PreviewServer {
 
     /** What the driver must provide: how to change the data and rebuild. */
